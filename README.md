@@ -32,6 +32,3 @@ This repository and its content are provided **strictly for educational and rese
 If you are the author of any PoC included here and wish to request removal, modification, or additional credit, feel free to open an issue or contact me directly.
 
 ---
-
-## 📁 Repository Structure
-
