@@ -1,0 +1,1231 @@
+@charset "utf-8";
+/* CSS Document */
+.wcrb_order_ID {
+	background-color:#063e70;
+	padding:10px 15px;
+	margin-bottom:15px;
+	border-radius:5px;
+	color:#FFF;
+	font-size:14px;
+	font-weight:bold;
+}
+.wcrb_order_ID:after {
+	clear:both;
+	display:table;
+	content:'';
+	width:100%;
+}
+.wcrb_order_ID .wcrb_id,
+.wcrb_order_ID .wcrb_label {
+	float:left;
+	width:50%;
+	text-align:right;
+}
+.wc-product { 
+	background-color:#F8F0F1;
+	padding:5px;
+	margin-bottom:12px;
+}
+.wc-product img {
+	width:100%;
+	height:auto; 
+}
+.wc-product .wc-product-title {
+	font-size:18px;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+.post-type-rep_jobs #normal-sortables {
+	display:none;
+}																							
+.post-type-rep_jobs #post-body-content {
+	margin-bottom:0px;																					
+}
+#addPart {
+	margin-top:4px;
+}
+.orange-bg {
+	background-color:#fd6742 !important;
+	color:#FFF !important;
+}
+.blue-bg {
+	background-color:#063e70 !important;
+	color:#FFF !important;
+}
+.grey-bg {
+	background-color:#f7f7f7;
+	width:100%;
+}
+.close-button, .close-button.medium {
+	right: 0px;
+    top: 0px;
+    padding: 1px;
+    font-size: 1.5em;
+    background-color: #063e70;
+    border: 2px solid #FFF;
+    color: #FFF;
+}
+tr.wcrb_payment_cancelled {
+	opacity:0.5;
+}
+.color-orange, 
+.color-orange th,
+.color-orange td {
+	color:#fd6742 !important;
+}
+.color-blue,
+.color-blue th,
+.color-blue td {
+	color:#063e70 !important;
+}
+.wc_table th {
+	text-align:left;
+	padding:4px;
+	border:1px solid #f1f1f1;
+	background:#f1f1f1;
+}
+.wc_table td {
+	text-align:left;
+	padding:6px;
+	background:#fff;
+	border:1px solid #fff;
+}
+.wc_table tr {
+	position: relative;
+}
+.iti--inline-dropdown {
+	width:100%;
+}
+td.title img {
+	height:55px;
+	width:auto;
+}
+.editme {
+	display: inline-block; 
+	margin-right:15px; 
+	color: #000; 
+	text-decoration: none; 
+	background: #EEEEEE; 
+	font-weight: bold; 
+	padding: 0px 1px; 
+	border: 1px solid; 
+	font-size: 12px; 
+}
+.delme { 
+	display: inline-block; 
+	margin-right:15px; 
+	color: #000; 
+	text-decoration: none; 
+	background: #EEEEEE; 
+	font-weight: bold; 
+	padding: 0px 3px; 
+	border: 1px solid; 
+	font-size: 12px; 
+}
+.delmeextrafield,
+.delmewedit {
+	margin-right:4px;
+	padding: 0px 1px;
+}
+input.wc_special_input {
+	max-width: 100px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    height: 30px;
+    padding: 5px;
+    border-color: #f7f7f7;
+	background:#f7f7f7;
+	margin:auto;
+}
+.wc_extra_qty input.wc_special_input,
+.wc_service_qty input.wc_special_input,
+.wc_qty input.wc_special_input {
+	max-width:56px;
+}
+.wc_extra_name input.wc_special_input {
+	max-width:calc(100% - 35px);
+	display:inline-block;
+}
+.wc_product_price_total,
+.wc_extra_price_total,
+.wc_service_price_total,
+.wc_price_total {
+	font-weight:bold;
+}
+.wc_grand_total_wrap {
+	font-weight:bold;
+	text-align:right;
+}
+.wc_grandtotal {
+    font-weight: bold;
+    font-size: 22px;
+    color: #007cba;
+}
+.order_totals_calculations {
+	width:100%;
+	text-align:right;
+	background:#f7f7f7;
+	border:1px solid #ededed;
+	padding:16px;
+	border-radius:2px;
+}
+.order_totals_calculations tr td, .order_totals_calculations tr th {
+	border-bottom:1px solid #ededed;
+}
+.order_totals_calculations td {
+	font-size:16px;
+}
+.wc_order_status_wrap select {
+	margin-bottom:0px;
+}
+.true_pre_image {
+	display:block;
+	margin-bottom:7px;
+	margin-top:8px;
+}
+.invoice-box {
+	max-width: 800px;
+	margin: auto;
+	padding: 30px;
+	border: 1px solid #eee;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+	font-size: 12px;
+	line-height: 1.4;
+	color: #555;
+	background-color:#FFF;
+}
+.invoice-box table {
+	width: 100%;
+	line-height: inherit;
+	text-align: left;
+}
+.invoice-box table td {
+	padding: 5px;
+	vertical-align: top;
+}
+.invoice-box table tr td:nth-child(2) {
+	text-align: right;
+}
+.invoice-box table .special_head td:nth-child(2) {
+	text-align:left;
+}
+.invoice-box table tr.top table td {
+	padding-bottom: 5px;
+}
+.invoice-box table tr.top table td.title {
+	font-size: 45px;
+	line-height: 45px;
+	color: #333;
+}
+.invoice-box table tr.information table td {
+	padding-bottom: 15px;
+}
+.invoice-box table tr.heading td {
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+}
+.invoice-box table tr.heading.estimate td {
+	background: #000;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    padding-top: 7.5px;
+    padding-bottom: 7.5px;
+    text-align: center;
+    font-size: 18px;
+    color: #FFF;
+    letter-spacing: 3px;
+}
+.invoice-box table tr.details td {
+	padding-bottom: 20px;
+}
+.invoice-box table tr.item-row td{
+	border-bottom: 1px solid #eee;
+}
+.invoice-box table tr.total td:nth-child(2) {
+	border-top: 2px solid #eee;
+	font-weight: bold;
+}
+.invoice-box table tr.item-row .delme {
+	display:none;
+}
+.invoice-box table tr.item-row td:nth-child(2) {
+	text-align:left;
+}
+.invoice-box table tr.item-row td:last-child {
+	text-align:right;
+}
+.invoice-box table tr.item-row td.text-left:last-child {
+	text-align:left;
+}
+.invoice-box table tr.item-row td input {
+	background:transparent;
+	margin:0px;
+	width:auto;
+	padding:0px;
+	height:auto;
+	border:0px;
+	max-width:70px;
+	min-width:auto;
+}
+.tabs-content .form-table td fieldset label {
+	margin-right:0.5em !important;
+}
+.computer-repair .tabs-panel {
+	padding:30px;
+} 
+.the-brand-logo {
+	padding:15px;
+	background-color:#FFF;
+	margin-bottom:5px;
+	border:1px solid #e6e6e6;
+}
+.the-wc-rb-job-actions .two-equal-buttons {
+	margin-top:7px;
+	margin-bottom:7px;
+	padding:4px;
+	border-radius:4px;
+	background-color:#f7f7f7;
+}
+.two-equal-buttons:after {
+	clear:both;
+	display:table;
+	content: "";
+}
+.the-wc-rb-job-actions {
+	text-align: center;
+}
+.two-equal-buttons .button { 
+	width:calc(50% - 3px);
+}
+.wcrb_payment_table td span {
+	float:right;
+}
+.wcrb_the_payment_note textarea {
+	margin-bottom:0px;
+}
+.wcrb_the_payment_note,
+.wcrb_the_payment_date,
+.wcrb_the_payment_payment {
+	background-color: #f7f7f7;
+    border:1px solid #ededed;
+	padding: 15px;
+    margin: 15px 0px;
+    border-radius: 5px;
+}
+.wcrb_the_payment_date input,
+.wcrb_the_payment_payment input[type="number"] {
+	margin-bottom:0px;
+}
+#wc_rb_modal_takePayment input {
+	height:30px !important;
+}
+.computer-repair li.external-title a h2,
+.computer-repair li.tabs-title a h2 {
+	font-size:14px;
+	color:#FFF;
+	text-decoration: none;
+	margin-top:0px;
+	margin-bottom:0px;
+}
+.computer-repair li.external-title,
+.computer-repair li.tabs-title {
+	margin-bottom:0px;
+}
+.computer-repair li.external-title a,
+.computer-repair li.tabs-title a {
+	padding:0.875rem 1rem;
+	display:block;
+	text-decoration: none;
+}
+.thespacer hr {
+	border-top:0px;
+	border-bottom:1px solid rgba(247,247,247,0.3);
+	margin-top:15px;
+	margin-bottom:15px;
+}
+.computer-repair li.external-title > a:hover,
+.computer-repair .tabs-title > a:hover,
+.computer-repair .tabs-title > a:focus, 
+.computer-repair .tabs-title > a[aria-selected='true'] {
+	background-color:#fd6742;
+}
+.computer-repair .tabs {
+	border:0px;	
+}
+.thebluebg {
+	background-color:#063e70;
+}
+.thewhitebg {
+	background-color:#FFFFFF;
+}
+.wcrbJob_tax_inclusive_exclusive select,
+.wcrbJob_tax_inclusive_exclusive label {
+	margin-bottom:0px !important;
+	padding:0px;
+}
+.invoice-box table tr.heading .emptyhead {
+	background-color:transparent;
+}
+.wc-rb-grey-bg-box,
+.wc-rb-payment-methods {
+	margin-top:25px;
+	background-color:#f7f7f7;
+	border:1px solid #CCC;
+	padding:20px;
+}
+.the-device-wrapper,
+.wcRbJob_parts_wrap,
+.wcRbJob_Nativeparts_wrap,
+.wcRbJob_services_wrap,
+.wcRbJob_extras_wrap {
+	padding:20px;
+	background-color:#f7f7f7;
+	margin-top:15px;
+	margin-bottom:15px;
+	border-radius:20px;
+}
+.wcRbJob_parts_wrap h3,
+.wcRbJob_extras_wrap h3,
+.wcRbJob_services_wrap h3 {
+	margin-top:0px;
+}
+.wcRbJob_background_wrap {
+	padding:15px;
+	background-color:#f7f7f7;
+	border-radius:20px;
+}
+.the-device-wrapper th {
+	background-color:#FFF5EE;
+}
+.wcRbJob_parts_wrap th {
+	background-color:#FAF0E6;
+}
+.wcRbJob_Nativeparts_wrap th {
+	background-color:#FAEBD7;
+}
+.wcRbJob_services_wrap th {
+	background-color:#F5F5DC;
+}
+.wcRbJob_extras_wrap th {
+	background-color:#FFFAF0;
+}
+.wc_order_note_wrap,
+.wc_order_status_wrap {
+	background-color:#f7f7f7;
+	padding:5px;
+	margin:5px 0px;
+	border-radius: 4px;
+}
+.wc_order_note_wrap h3,
+.wc_order_status_wrap h3 {
+	font-size:16px;
+	margin-top:0px;
+	margin-bottom:0px;
+}
+.wc_order_note_wrap textarea,
+.wc_order_status_wrap select {
+	margin-bottom: 0px !important;
+    padding: 4px !important;
+    height: auto !important;
+}
+.invoice-box table tr.item-row:last-child > td {
+	border-bottom:0px;
+}
+.invoice_totals table {
+	border:1px solid #ededed;
+	max-width:250px;
+	text-align:right;
+	float:right;
+	margin-bottom:15px;
+}
+.invoice_totals:after {
+	clear:both;
+	display:table;
+	content:"";
+}
+.invoice-box:after {
+	clear:both;
+	display:table;
+	content:"";
+}
+.invoice-items, 
+.invoice_totals,
+.invoice_headers {
+	font-size:12px;
+	line-height:1.4;
+}
+.button.hidden-print {
+	margin-top:35px;
+	float:right;
+}
+p.label_box {
+	font-size:12px;
+}
+.specialTitle {font-size:35px;text-align:left;margin-top:0px;margin-left:15px;font-weight:bold;}
+@media only screen and (max-width: 600px) {
+	.invoice-box table tr.top table td {
+		width: 100%;
+		display: block;
+		text-align: center;
+	}
+	.invoice-box table tr.information table td {
+		width: 100%;
+		display: block;
+		text-align: center;
+	}
+}
+ul.order_notes {
+    padding: 2px 0 0;
+	margin-left:0px;
+}
+ul.order_notes li {
+    padding: 15px 10px;
+	position:relative;
+	margin-left:0px;
+}
+ul.order_notes li p.meta {
+    font-size:11px;
+}
+ul.order_notes li .note_content {
+    padding: 12px;
+    background: #f7f7f7;
+    position: relative;
+}
+ul.order_notes li .note_content p {
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+}
+ul.order_notes li .note_content::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-width: 10px 10px 0 0;
+    border-style: solid;
+    border-color: #f7f7f7 transparent;
+}
+.note .typelabel {
+	float: right;
+    text-transform: capitalize;
+    background-color: #2271b1;
+    color: #FFF;
+    padding: 3px 12px;
+    border-radius: 3px;
+	position:absolute;
+	top:-12px;
+	right:0px;
+}
+.note_private .typelabel{
+	background-color:#f6f7f7;
+	color:red;
+}
+.order_notes {
+	height:300px;
+	overflow-y:scroll;
+}
+.selectunselect {
+	font-size:16px;
+	margin-bottom:15px;
+}
+.wc-rb-report-title h2 {
+	font-size:1.40em;
+	margin-top:10px;
+	margin-bottom:10px;
+	text-align:center;
+}
+.wc-rb-report-period p span.statementPeriod {
+	float:right;
+	text-align:right;
+}
+.wc-rb-report-period p:after {
+	clear:both;
+	display:table;
+	width:100%;
+	content:'';
+}
+.select2.select2-container,
+.is-block {
+	display: block;
+}
+.wcrb_invoice_label {
+	margin: 0px;
+    font-size: 19px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+    letter-spacing: 1px;
+}
+.purchase_banner_wc {
+	text-align: center;
+    max-width: 400px;
+    margin: auto;
+    padding: 50px;
+    background: #063e70;
+    color: #FFF;
+    margin-top: 35px;
+}
+.purchase_banner_wc h2 {
+	color: #FFF;
+    line-height: 1.2;
+    font-size: 1.5rem;
+}
+.purchase_banner_wc .button {
+	font-size: 1.1rem;
+    padding: 6px 25px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.button.btn-secondary {
+	background-color:#fd6742;
+	color:#FFF;
+}
+.button.btn-secondary:hover {
+	background-color:#444444;
+	color:#FFF;
+}
+
+/*
+	*	RTL 
+*/
+.rtl {
+	direction: rtl;
+	font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+}
+.rtl table {
+	text-align: right;
+}
+.rtl table tr td:nth-child(2) {
+	text-align: left;
+}
+
+@media print {    
+	#screen-meta {
+		display:none !important;
+	}
+	#wpcontent {
+		padding:0px !important;
+		margin-left:0px !important;
+	}
+	.invoice-box.ticket-box {
+		width:100% !important;
+		max-width:100% !important;
+		/*margin: auto;*/
+		padding: 0px;
+		border: 0px !important;
+		box-shadow: 0px 0px 0px 0px !important;
+		background-color:transparent;
+		float:left;
+	}
+	#wpbody-content {
+		padding-bottom:0px;
+	}
+	body {
+		min-width:auto;
+		max-width:100%;
+		min-height:unset;
+		height:auto;
+	}
+	#wpwrap {
+		min-height:unset;
+	}
+	html.wp-toolbar {
+		padding-top:0px;
+	}
+	#wpfooter, #adminmenuwrap, #adminmenuwrap *, #adminmenuback, #adminmenuback *{
+		display: none !important;
+		width:0px;
+	}
+	.hidden-print,
+    .hidden-print * {
+        display: none !important;
+    }
+	.invoice-box table tr.heading.estimate td {
+		background: #000;
+		border-bottom: 1px solid #ddd;
+		font-weight: bold;
+		padding-top: 7.5px;
+		padding-bottom: 7.5px;
+		text-align: center;
+		font-size: 18px;
+		color: #FFF;
+		letter-spacing: 3px;
+	}
+}
+/* 
+	POS Invoice CSS
+	Used for Repair Order
+*/
+.invoice-box.ticket-box {
+	width:250px;
+}
+.invoice-box.ticket-box td,
+.invoice-box.ticket-box th,
+.invoice-box.ticket-box tr,
+.invoice-box.ticket-box table {
+    border-top: 1px solid #ededed;
+    border-collapse: collapse;
+}
+.invoice-box.ticket-box .centered {
+    text-align: center;
+    align-content: center;
+}
+.invoice-box.ticket-box .ticket {
+    width: 195px;
+    max-width: 195px;
+	margin:auto;
+}
+.invoice-box.ticket-box img {
+    max-width: inherit;
+    width: inherit;
+}
+.invoice-box.ticket-box .ticket.a5 {
+    width: 100%;
+    max-width: 100%;
+	margin:auto;
+}
+.invoice-box.ticket-box .ticket.a5 img {
+	max-width:170px;
+	width:170px;
+	margin:auto;
+	height:auto;
+	display:block;
+	text-align:center;
+}
+#current_date {
+	text-align:center;
+}
+.signature {
+	background-color:#ededed;
+}
+.pickup {
+	background-color:#ccc;
+}
+.pickup td,
+.signature td {
+	padding-top:15px !important;
+	padding-bottom:15px !important;
+}
+/* 
+	POS Invoice CSS
+	Used for Repair Order
+	Ends
+*/
+
+
+.grid-container {
+	max-width:1200px;
+	margin-left:0px;
+	padding-left:0px;
+}
+.wc_small_select {
+	max-width:125px !important;
+	margin-bottom:0px !important;
+}
+.select2-container {
+	margin-bottom:1rem !important;
+}
+.select2-container .select2-selection--single {
+	height:30px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+	line-height:30px !important;  
+}
+.column-id {
+	width:82px !important;
+	text-align:left !important;
+}
+.column-action {
+	width:150px !important;
+}
+.column-jobs {
+	width:82px !important;
+	text-align:right !important;
+}
+.select2-container {
+	max-width:100%;
+}
+#brand_typediv .tabs::before,
+#brand_typediv .tabs::after,
+#service_typediv .tabs::before, 
+#service_typediv .tabs::after {
+	display:none;
+}
+#brand_typediv .tabs-panel,
+#service_typediv .tabs-panel {
+	display:block;
+}
+
+/*** 
+	Reports CSS
+***/
+.wc-rb-reports-container .wc-rb-head h2 {
+	font-size:28px;
+	text-align:center;
+}
+.wc-rb-panel {
+	background-color: #FFF;
+    border: 1px solid #ededed;
+    border-radius: 15px;
+}
+.wc-rb-panel-heading {
+	background-color: #063e70;
+    color: #FFF;
+    padding: 15px 25px;
+    border-radius: 15px 20px 0px 0px;
+	font-size:18px;
+}
+.wc-rb-panel-body  {
+	padding:15px 25px;
+}
+.wc-rb-list-group-item {
+	padding:10px 0px;
+	border-bottom:1px solid #ededed;
+}
+.wc-rb-list-group-item a {
+	text-decoration: none;
+}
+.wc-rb-panel-body .wc-rb-list-group-item:last-child {
+	padding-bottom:0px;
+	border-bottom:0px;
+}
+.select-head {
+	font-size:24px;
+}
+.report-container .company_info {
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: auto;
+    border-bottom: 1px solid #ededed;
+    text-align: right;
+	display:flex;
+}
+.report-container .company_info img {
+    height: 55px;
+    width: auto;
+}
+.invoice-box .address-side h2,
+.invoice-box .address-side p,
+.report-container .company_info .address-side h2,
+.report-container .company_info .address-side p {
+	margin-top:0px;
+	margin-bottom:5px;
+}
+.company_logo_wrap {
+	text-align:left;
+}
+.company_logo_wrap,
+.address-side {
+	flex:1;
+	align-self: center;
+}
+.wc-rb-report-title h1 {
+	font-size:18px;
+	margin-bottom:10px;
+}
+.wc-rb-report-period p {
+	margin-top:10px;
+}
+.btn-fullwidth {
+	display:block;
+	clear:both;
+	float:none;
+	width:100%;
+}
+.no-padding-table {
+	margin-top:0px;
+}
+.no-padding-table tr td {
+	padding-top:0px;
+	padding-bottom:0px;
+}
+.no-padding-table tr td:first-child {
+	padding-left:0px; 
+}
+.mb-twenty {
+	margin-bottom:20px;
+}
+.column-wc_order_status select {
+	max-width:100%;
+}
+.medium-2.sidebarmenu {
+	max-width:200px;
+}
+.wcrb_dashboard_section {
+	background-color:#f7f7f7;
+	border:1px solid #ededed;
+	border-radius:10px;
+	margin-top:15px;
+	margin-bottom:15px;
+	padding:15px;
+}
+.wcrb_dashboard_section:after {
+	display:table;
+	clear:both;
+	width:100%;
+	content:'';
+}
+.wcrb_dashboard_section .wcrb_dan_item:first-child {
+	margin-left:0px;
+}
+.wcrb_dashboard_section .wcrb_dan_item:last-child {
+	margin-right:0px;
+}
+.wcrb_dashboard_section .wcrb_dan_item {
+	width:115px;
+	margin-left:6px;
+	margin-right:6px;
+	background-color:#FFF;
+	border-radius:10px;
+	text-align:center;
+	float:left;
+	margin-top:6px;
+	margin-bottom:6px;
+}
+.wcrb_dashboard_section .wcrb_dan_item img {
+	padding:20px;
+}
+.wcrb_dashboard_section .wcrb_dan_item h3 {
+	margin-bottom:0px;
+	margin-top:0px;
+	padding:6px 0px;
+	border-top:1px solid #ededed;
+	font-size:13px;
+	background-color:#fd6742;
+	color:#FFF;
+	border-radius:0px 0px 10px 10px;
+}
+.wcrb_dashboard_section .wcrb_dan_item a {
+	text-decoration:none;
+	display:block;
+}
+.wcrb_dashboard_section .wcrb_dan_item a:hover > h3 {
+	background-color:#063e70;
+}
+
+.wcrb_widget {
+    background: #fff;
+    border-radius: 0;
+    border: none;
+	margin-top:7px;
+	margin-bottom:7px;
+}
+.wcrb_widget a {
+	text-decoration: none;
+	display:block;
+}
+.wcrb_widget a:hover > .wcrb_widget-body {
+	background-color:#ededed;
+}
+.wcrb_has-shadow {
+    box-shadow: 0 1px 15px 1px rgb(52 40 104 / 8%);
+}
+.wcrb_widget-12 .wcrb_widget-body {
+    position: relative;
+    overflow: hidden;
+}
+.wcrb_widget-body {
+    padding: 1.4rem;
+}
+.wcrb_media {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+.wcrb_ml-5, .wcrb_mx-5 {
+    margin-left: 1.1rem!important;
+}
+.wcrb_mr-5, .wcrb_mx-5 {
+    margin-right: 1.1rem!important;
+}
+.wcrb_align-self-center {
+    -ms-flex-item-align: center!important;
+    align-self: center!important;
+}
+.wcrb_widget-12 img {
+    height: 4rem;
+	width:auto;
+}
+.wcrb_media-body {
+    -ms-flex: 1;
+    flex: 1;
+}
+.wcrb_widget-12 .wcrb_title {
+    color: #2c304d;
+    font-size: 1.2rem;
+	line-height:1.5;
+	font-weight:600;
+}
+.wcrb_widget-12 .wcrb_number {
+    font-size: 1rem;
+	line-height:1.5;
+}
+.have-addition {
+	display: block;
+	position: relative;
+}
+.have-addition select,
+.have-addition .select2-container {
+	max-width: calc(100% - 38px);
+	display:inline-block;
+}
+.have-addition .dashicons {
+	line-height: 30px;
+    font-size: 18px;
+    width: 18px;
+    height: 25px;
+}
+.have-addition .button.button-small {
+	border-radius: 0px;
+    margin-left: 2px;
+    font-size: 1rem;
+    line-height: 28px;
+	padding:0 5px;
+}
+select {
+	height: 39px !important;
+    margin: 0 0 7px !important;
+    padding: 5px !important;
+	line-height: 1.0 !important;
+	background-position: right -0rem center !important;
+}
+#poststuff input[type=date], 
+#poststuff input[type=datetime-local], 
+#poststuff input[type=datetime], 
+#poststuff input[type=email], 
+#poststuff input[type=month], 
+#poststuff input[type=number], 
+#poststuff input[type=password], 
+#poststuff input[type=search], 
+#poststuff input[type=tel], 
+#poststuff input[type=text], 
+#poststuff input[type=time], 
+#poststuff input[type=url], 
+#poststuff select,
+#poststuff input[type=week] {
+	max-height:30px;
+}
+.hidden {
+	display:none;
+}
+.pull-right {
+	float:right;
+}
+.accordion-item {
+    margin-bottom: 15px;
+	background-color:#F7F7F7;
+	border-radius:10px;
+}
+.is-active>.accordion-title {
+    background-color: #fd6742;
+}
+:last-child:not(.is-active)>.accordion-title, 
+.accordion-item:first-child>:first-child, 
+.accordion-title {
+    border-radius: 10px;
+}
+a.accordion-title:hover {
+	background-color: #fd6742;	
+}
+a.accordion-title {
+    border-radius: 10px;
+    background-color: #063e70;
+    color: #fff;
+    font-size: 1.2rem;
+	text-decoration:none;
+	padding:0.825rem 1rem;
+}
+.accordion-content {
+    border: 0;
+    background-color:#F7F7F7;
+    font-size: 0.9375rem;
+}
+th.id_head {
+	width:60px;
+}
+th.action_head {
+	width:110px;
+}
+th.price_head {
+	width:180px;
+}
+.button-right:after {
+	clear:both;
+	display:table;
+	content:'';
+	width:100%;
+}
+.tabs-panel pre {
+	padding:15px;
+	background-color:#F7F7F7;
+	border:1px solid #ededed;
+	font-weight:bold;
+}
+.documentation-section {
+	padding:15px;
+	border:1px solid #ededed;
+	border-radius:10px;
+	background-color:#F7F7F7;
+	margin-top:15px;
+	margin-bottom:15px;
+}
+.documentation-section h2 {
+	margin-top:0px;
+}
+.documentation-section pre {
+	background-color:#FFF;
+}
+.documentation-section p:last-child,
+.documentation-section pre:last-child {
+	margin-bottom:0px;
+}
+.jobAttachments {
+	background-color:#FFF;
+	border:1px solid #ededed;
+	padding:15px;
+	margin:15px 0px;
+	border-radius:10px;
+}
+.jobAttachments img {
+	width:40px;
+	height:auto;
+	margin:0px 15px;
+}
+.displayNone {
+	display:none;
+}
+
+/*Zain CSS*/
+.the-device-wrapper label#rep_devices_head {
+    margin-left: 15px;
+}
+.the-device-wrapper table.grey-bg.wc_table {
+    margin-top: 12px;
+}
+@media only screen and (max-width: 400px) {
+	
+	#wcrb_service_price_device .button.button-primary,
+	#wc_job_details_box .button.button-primary {
+		padding: 6px !important;
+		line-height: 1.2 !important;
+		height: auto !important;
+		min-height: auto !important;
+		margin: 0px 0px;
+	}
+}
+@media only screen and (max-width: 770px) {
+	
+	#wcrb_service_price_device .button.button-primary,
+	#wc_job_details_box .button.button-primary {
+		padding: 6px !important;
+		line-height: 1.2 !important;
+		height: auto !important;
+		min-height: auto !important;
+		margin: 0px 0px;
+	}
+}
+
+[data-star] {
+	font-style:normal;
+	display:inline-block;
+	position: relative;
+	unicode-bidi: bidi-override;
+	font-size:25px;
+}
+[data-star]::before { 
+	display:block;
+	content: '★★★★★';
+	color: #ddd;
+}
+[data-star]::after {
+	position: absolute;
+	top: 0;
+	content: '★★★★★';
+	width: 0;
+	color: orange;
+	overflow: hidden;
+	height: 100%;
+	display: flex;
+}
+
+[data-star^="0.1"]::after,[data-star^=".1"]::after{width:2%}
+[data-star^="0.2"]::after,[data-star^=".2"]::after{width:4%}
+[data-star^="0.3"]::after,[data-star^=".3"]::after{width:6%}
+[data-star^="0.4"]::after,[data-star^=".4"]::after{width:8%}
+[data-star^="0.5"]::after,[data-star^=".5"]::after{width:10%}
+[data-star^="0.6"]::after,[data-star^=".6"]::after{width:12%}
+[data-star^="0.7"]::after,[data-star^=".7"]::after{width:14%}
+[data-star^="0.8"]::after,[data-star^=".8"]::after{width:16%}
+[data-star^="0.9"]::after,[data-star^=".9"]::after{width:18%}
+[data-star^="1"]::after{width:20%}
+[data-star^="1.1"]::after{width:22%}
+[data-star^="1.2"]::after{width:24%}
+[data-star^="1.3"]::after{width:26%}
+[data-star^="1.4"]::after{width:28%}
+[data-star^="1.5"]::after{width:30%}
+[data-star^="1.6"]::after{width:32%}
+[data-star^="1.7"]::after{width:34%}
+[data-star^="1.8"]::after{width:36%}
+[data-star^="1.9"]::after{width:38%}
+[data-star^="2"]::after{width:40%}
+[data-star^="2.1"]::after{width:42%}
+[data-star^="2.2"]::after{width:44%}
+[data-star^="2.3"]::after{width:46%}
+[data-star^="2.4"]::after{width:48%}
+[data-star^="2.5"]::after{width:50%}
+[data-star^="2.6"]::after{width:52%}
+[data-star^="2.7"]::after{width:54%}
+[data-star^="2.8"]::after{width:56%}
+[data-star^="2.9"]::after{width:58%}
+[data-star^="3"]::after{width:60%}
+[data-star^="3.1"]::after{width:62%}
+[data-star^="3.2"]::after{width:64%}
+[data-star^="3.3"]::after{width:66%}
+[data-star^="3.4"]::after{width:68%}
+[data-star^="3.5"]::after{width:70%}
+[data-star^="3.6"]::after{width:72%}
+[data-star^="3.7"]::after{width:74%}
+[data-star^="3.8"]::after{width:76%}
+[data-star^="3.9"]::after{width:78%}
+[data-star^="4"]::after{width:80%}
+[data-star^="4.1"]::after{width:82%}
+[data-star^="4.2"]::after{width:84%}
+[data-star^="4.3"]::after{width:86%}
+[data-star^="4.4"]::after{width:88%}
+[data-star^="4.5"]::after{width:90%}
+[data-star^="4.6"]::after{width:92%}
+[data-star^="4.7"]::after{width:94%}
+[data-star^="4.8"]::after{width:96%}
+[data-star^="4.9"]::after{width:98%}
+[data-star^="5"]::after{width:100%}
+
+.wcrb-review-wrapper {
+	padding: 20px;
+    background-color: #f7f7f7;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+}
+.wcrb-review-head {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	margin-bottom:20px;
+}
+.head-column {
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
+}
+.review-date {
+	text-align:right;
+	font-weight:600;
+}

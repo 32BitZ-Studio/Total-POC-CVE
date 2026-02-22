@@ -1,0 +1,107 @@
+@charset "utf-8";
+/* CSS Document */
+
+.wc-product { 
+	background-color:#F8F0F1;
+}
+.form-message .callout.success {
+    background-color: #e1faea;
+    color: #0a0a0a;
+}
+.form-message .callout {
+    border: 1px solid rgba(10,10,10,.25);
+    background-color: #fff;
+    color: #0a0a0a;
+}
+.wc_order_status_form form input[type=text]:focus {
+	border:2px solid #0a0a0a !important;
+}
+.myaccount.sidebar .widget h2 {
+    border-bottom: 1px solid #f7efef;
+	background-color: #f2f2f2;
+}
+.myaccount.sidebar .widget ul li {
+	border-bottom: 1px solid #ededed;
+}
+ul.order_notes li .note_content {
+    background: #f7f7f7;
+}
+ul.order_notes li .note_content::after {
+    border-color: #f7f7f7 transparent;
+}
+.note .typelabel {
+    background-color: #2271b1;
+    color: #FFF;
+}
+.note_private .typelabel {
+	background-color:#f6f7f7;
+	color:red;
+}
+.wcCrShowHideHistory {
+    background-color:#FFF;
+}
+.wcCrJobHistoryHideShowBtn {
+    background-color: #2271b1;
+    color: #FFF;
+}
+.wcCrJobHistoryHideShowBtn:hover,
+.wcCrJobHistoryHideShowBtn:focus {
+     background-color:#fd6742;
+     color:#FFF;
+ }
+.invoice-box {
+	border: 1px solid #eee;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+	color: #555;
+	background-color:#FFF;
+}
+.invoice-box table tr.top table td.title {
+	color: #333;
+}
+.invoice-box table tr.heading td {
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+}
+.invoice-box table tr.item-row td{
+	border-bottom: 1px solid #eee;
+}
+.invoice-box table tr.total td:nth-child(2) {
+	border-top: 2px solid #eee;
+}
+.invoice_totals table {
+	border:1px solid #ededed;
+}
+.rp-hr-line {
+	border-top:1px solid #ededed;
+}
+
+/***
+ * My Booking Styles
+ **/
+.wc_rb_mb_section {
+	border:1px solid #ededed;
+}
+.wc_rb_mb_head {
+	background-color:#fd6742;
+}
+.wc_rb_mb_head h2 {
+	color:#FFF;
+}
+.wc_rb_mb_body {
+	background-color:#F7f7f7;
+}
+ul.manufacture_list li {
+	background-color:#FFF;
+}
+ul.manufacture_list li a.selected {
+	background-color:#fd6742;
+}
+.loader {
+	border: 8px solid #ededed; /* Light grey */
+	border-top: 8px solid #3498db; /* Blue */
+}
+.wc_rb_mb_body input[type=email],
+.wc_rb_mb_body textarea,
+.wc_rb_mb_body input[type=text] {
+	background-color:#FFF;
+}
