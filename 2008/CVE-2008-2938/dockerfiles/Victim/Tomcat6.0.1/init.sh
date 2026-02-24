@@ -1,0 +1,1 @@
+sh /usr/local/tomcat/bin/catalina.sh start && sleep 2 && tail -f /usr/local/tomcat/logs/catalina.out

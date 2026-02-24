@@ -1,0 +1,3 @@
+getuid
+run injectPrivileged
+quit

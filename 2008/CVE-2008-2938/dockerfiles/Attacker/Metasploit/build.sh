@@ -1,0 +1,1 @@
+docker run -i -t --net=host -v ./.msf4:/root/.msf4 -v ./msf:/tmp/data --name msf phocean/msf

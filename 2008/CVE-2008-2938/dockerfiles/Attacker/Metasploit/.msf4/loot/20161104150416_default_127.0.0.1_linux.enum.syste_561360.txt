@@ -1,0 +1,10 @@
+ [ ? ]  console-setup
+ [ ? ]  killprocs
+ [ ? ]  kmod
+ [ ? ]  networking
+ [ ? ]  ondemand
+ [ ? ]  rc.local
+ [ ? ]  sendsigs
+ [ ? ]  umountfs
+ [ ? ]  umountnfs.sh
+ [ ? ]  umountroot
