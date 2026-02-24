@@ -1,0 +1,496 @@
+# Translations template for keystone.
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the keystone project.
+# 
+# Translators:
+# Sung Jin Gang <potopro@gmail.com>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: Keystone\n"
+"Report-Msgid-Bugs-To: https://bugs.launchpad.net/keystone\n"
+"POT-Creation-Date: 2013-03-21 21:29+0000\n"
+"PO-Revision-Date: 2013-03-21 18:34+0000\n"
+"Last-Translator: openstackjenkins <jenkins@openstack.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+"Language: ko_KR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: keystone/clean.py:23
+#, python-format
+msgid "%s cannot be empty."
+msgstr ""
+
+#: keystone/clean.py:25
+#, python-format
+msgid "%(property_name)s cannot be less than %(min_length)s characters."
+msgstr ""
+
+#: keystone/clean.py:29
+#, python-format
+msgid ""
+"%(property_name)s should not be greater than %(max_length)s characters."
+msgstr ""
+
+#: keystone/clean.py:36
+#, python-format
+msgid "%(property_name)s is not a%(display_expected_type)s"
+msgstr ""
+
+#: keystone/test.py:112
+#, python-format
+msgid "Failed to checkout %s"
+msgstr ""
+
+#: keystone/auth/controllers.py:72
+#, python-format
+msgid "Project is disabled: %s"
+msgstr ""
+
+#: keystone/auth/controllers.py:78 keystone/auth/plugins/password.py:40
+#, python-format
+msgid "Domain is disabled: %s"
+msgstr ""
+
+#: keystone/auth/controllers.py:84 keystone/auth/plugins/password.py:46
+#, python-format
+msgid "User is disabled: %s"
+msgstr ""
+
+#: keystone/auth/controllers.py:265
+msgid "Scoping to both domain and project is not allowed"
+msgstr ""
+
+#: keystone/auth/controllers.py:268
+msgid "Scoping to both domain and trust is not allowed"
+msgstr ""
+
+#: keystone/auth/controllers.py:271
+msgid "Scoping to both project and trust is not allowed"
+msgstr ""
+
+#: keystone/auth/controllers.py:332
+#, python-format
+msgid "Unable to lookup user %s"
+msgstr ""
+
+#: keystone/auth/controllers.py:362
+msgid "User not found"
+msgstr ""
+
+#: keystone/auth/token_factory.py:78
+msgid "User have no access to project"
+msgstr ""
+
+#: keystone/auth/token_factory.py:93
+msgid "User have no access to domain"
+msgstr ""
+
+#: keystone/auth/token_factory.py:264 keystone/token/controllers.py:121
+msgid "Unable to sign token."
+msgstr ""
+
+#: keystone/auth/token_factory.py:267 keystone/token/controllers.py:124
+#, python-format
+msgid "Invalid value for token_format: %s.  Allowed values are PKI or UUID."
+msgstr ""
+
+#: keystone/catalog/core.py:38
+#, python-format
+msgid "Malformed endpoint %(url)s - unknown key %(keyerror)s"
+msgstr ""
+
+#: keystone/catalog/core.py:43
+#, python-format
+msgid ""
+"Malformed endpoint %(url)s - unknown key %(keyerror)s(are you missing "
+"brackets ?)"
+msgstr ""
+
+#: keystone/catalog/core.py:49
+#, python-format
+msgid ""
+"Malformed endpoint %s - incomplete format                   (are you missing"
+" a type notifier ?)"
+msgstr ""
+
+#: keystone/catalog/backends/templated.py:109
+#, python-format
+msgid "Unable to open template file %s"
+msgstr ""
+
+#: keystone/common/bufferedhttp.py:102
+#, python-format
+msgid ""
+"HTTP PERF: %(time).5f seconds to %(method)s %(host)s:%(port)s %(path)s)"
+msgstr ""
+
+#: keystone/common/cms.py:44
+#, python-format
+msgid "Verify error: %s"
+msgstr ""
+
+#: keystone/common/cms.py:135
+msgid ""
+"Signing error: Unable to load certificate - ensure you've configured PKI "
+"with 'keystone-manage pki_setup'"
+msgstr ""
+
+#: keystone/common/cms.py:139
+#, python-format
+msgid "Signing error: %s"
+msgstr ""
+
+#: keystone/common/config.py:93
+#, python-format
+msgid "Unable to locate specified logging config file: %s"
+msgstr ""
+
+#: keystone/common/config.py:111
+msgid "Invalid syslog facility"
+msgstr ""
+
+#: keystone/common/controller.py:19
+#, python-format
+msgid "RBAC: Authorizing %s(%s)"
+msgstr ""
+
+#: keystone/common/controller.py:27
+msgid "RBAC: Invalid token"
+msgstr ""
+
+#: keystone/common/controller.py:37 keystone/common/controller.py:58
+msgid "RBAC: Invalid user"
+msgstr ""
+
+#: keystone/common/controller.py:43
+msgid "RBAC: Proceeding without project"
+msgstr ""
+
+#: keystone/common/controller.py:63
+msgid "RBAC: Proceeding without tenant"
+msgstr ""
+
+#: keystone/common/controller.py:93 keystone/common/controller.py:145
+msgid "RBAC: Bypassing authorization"
+msgstr ""
+
+#: keystone/common/controller.py:102 keystone/common/controller.py:143
+msgid "RBAC: Authorization granted"
+msgstr ""
+
+#: keystone/common/controller.py:132
+#, python-format
+msgid "RBAC: Adding query filter params (%s)"
+msgstr ""
+
+#: keystone/common/controller.py:332
+msgid "Invalid token in normalize_domain_id"
+msgstr ""
+
+#: keystone/common/wsgi.py:77
+#, python-format
+msgid "Starting %(arg0)s on %(host)s:%(port)s"
+msgstr ""
+
+#: keystone/common/wsgi.py:137
+msgid "Server error"
+msgstr ""
+
+#: keystone/common/wsgi.py:216
+#, python-format
+msgid "arg_dict: %s"
+msgstr ""
+
+#: keystone/common/wsgi.py:238
+#, python-format
+msgid "Authorization failed. %s from %s"
+msgstr ""
+
+#: keystone/common/wsgi.py:469
+msgid "The resource could not be found."
+msgstr ""
+
+#: keystone/common/ldap/core.py:74
+#, python-format
+msgid "Invalid LDAP deref option: %s. Choose one of: "
+msgstr ""
+
+#: keystone/common/ldap/core.py:82
+#, python-format
+msgid "Invalid LDAP scope: %s. Choose one of: "
+msgstr ""
+
+#: keystone/common/ldap/core.py:226 keystone/identity/backends/kvs.py:588
+#: keystone/identity/backends/kvs.py:616
+#, python-format
+msgid "Duplicate name, %s."
+msgstr ""
+
+#: keystone/common/ldap/core.py:236 keystone/identity/backends/kvs.py:581
+#, python-format
+msgid "Duplicate ID, %s."
+msgstr ""
+
+#: keystone/common/ldap/core.py:241
+#, python-format
+msgid "LDAP %s create"
+msgstr ""
+
+#: keystone/common/ldap/core.py:313
+#, python-format
+msgid "LDAP %s update"
+msgstr ""
+
+#: keystone/common/ldap/core.py:344
+#, python-format
+msgid "LDAP %s delete"
+msgstr ""
+
+#: keystone/common/ldap/core.py:367
+#, python-format
+msgid "LDAP init: url=%s"
+msgstr ""
+
+#: keystone/common/ldap/core.py:374
+#, python-format
+msgid "LDAP bind: dn=%s"
+msgstr ""
+
+#: keystone/common/ldap/core.py:385
+#, python-format
+msgid "LDAP add: dn=%s, attrs=%s"
+msgstr ""
+
+#: keystone/common/ldap/core.py:390
+#, python-format
+msgid "LDAP search: dn=%s, scope=%s, query=%s, attrs=%s"
+msgstr ""
+
+#: keystone/common/ldap/core.py:441
+msgid ""
+"LDAP Server does not support paging. Disable paging in keystone.conf to "
+"avoid this message."
+msgstr ""
+
+#: keystone/common/ldap/core.py:458
+#, python-format
+msgid "LDAP modify: dn=%s, modlist=%s"
+msgstr ""
+
+#: keystone/common/ldap/core.py:463
+#, python-format
+msgid "LDAP delete: dn=%s"
+msgstr ""
+
+#: keystone/common/ldap/core.py:467
+#, python-format
+msgid "LDAP delete_ext: dn=%s, serverctrls=%s"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:146
+#, python-format
+msgid "FakeLdap initialize url=%s"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:156
+#, python-format
+msgid "FakeLdap bind dn=%s"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:163
+#, python-format
+msgid "FakeLdap bind fail: dn=%s not found"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:170
+#, python-format
+msgid "FakeLdap bind fail: password for dn=%s not found"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:175
+#, python-format
+msgid "FakeLdap bind fail: password for dn=%s does not match"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:190
+#, python-format
+msgid "FakeLdap add item: dn=%s, attrs=%s"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:192
+#, python-format
+msgid "FakeLdap add item failed: dn=%s is already in store."
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:206 keystone/common/ldap/fakeldap.py:220
+#, python-format
+msgid "FakeLdap delete item: dn=%s"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:210 keystone/common/ldap/fakeldap.py:224
+#, python-format
+msgid "FakeLdap delete item failed: dn=%s not found."
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:239
+#, python-format
+msgid "FakeLdap modify item: dn=%s attrs=%s"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:243
+#, python-format
+msgid "FakeLdap modify item failed: dn=%s not found."
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:260
+#, python-format
+msgid "FakeLdap modify item failed: item has no attribute \"%s\" to delete"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:271
+#, python-format
+msgid ""
+"FakeLdap modify item failed: item has no attribute \"%s\" with value \"%s\" "
+"to delete"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:276
+#, python-format
+msgid "FakeLdap modify item failed: unknown command %s"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:278
+#, python-format
+msgid "modify_s action %s not implemented"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:296
+#, python-format
+msgid "FakeLdap search at dn=%s scope=%s query=%s"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:302
+msgid "FakeLdap search fail: dn not found for SCOPE_BASE"
+msgstr ""
+
+#: keystone/common/ldap/fakeldap.py:316
+#, python-format
+msgid "Search scope %s not implemented."
+msgstr ""
+
+#: keystone/common/sql/core.py:206
+#, python-format
+msgid "Got mysql server has gone away: %s"
+msgstr ""
+
+#: keystone/common/sql/legacy.py:180
+#, python-format
+msgid "Cannot migrate EC2 credential: %s"
+msgstr ""
+
+#: keystone/common/sql/migration.py:47
+msgid "version should be an integer"
+msgstr ""
+
+#: keystone/common/sql/nova.py:62
+#, python-format
+msgid "Create tenant %s"
+msgstr ""
+
+#: keystone/common/sql/nova.py:79
+#, python-format
+msgid "Create user %s"
+msgstr ""
+
+#: keystone/common/sql/nova.py:88
+#, python-format
+msgid "Add user %s to tenant %s"
+msgstr ""
+
+#: keystone/common/sql/nova.py:96
+#, python-format
+msgid "Ignoring existing role %s"
+msgstr ""
+
+#: keystone/common/sql/nova.py:103
+#, python-format
+msgid "Create role %s"
+msgstr "Role %s 생성"
+
+#: keystone/common/sql/nova.py:113
+#, python-format
+msgid "Assign role %s to user %s on tenant %s"
+msgstr ""
+
+#: keystone/common/sql/nova.py:128
+#, python-format
+msgid "Creating ec2 cred for user %s and tenant %s"
+msgstr ""
+
+#: keystone/identity/backends/kvs.py:254 keystone/identity/backends/kvs.py:263
+msgid "User not found in group"
+msgstr ""
+
+#: keystone/identity/backends/sql.py:427
+#, python-format
+msgid "Cannot remove role that has not been granted, %s"
+msgstr ""
+
+#: keystone/identity/backends/ldap/core.py:654
+#, python-format
+msgid "Role %s not found"
+msgstr ""
+
+#: keystone/identity/backends/ldap/core.py:874
+#: keystone/identity/backends/ldap/core.py:984
+msgid "Changing Name not supported by LDAP"
+msgstr ""
+
+#: keystone/identity/backends/ldap/core.py:888
+#, python-format
+msgid "User %s is already a member of group %s"
+msgstr ""
+
+#: keystone/openstack/common/policy.py:394
+#, python-format
+msgid "Failed to understand rule %(rule)s"
+msgstr ""
+
+#: keystone/openstack/common/policy.py:404
+#, python-format
+msgid "No handler for matches of kind %s"
+msgstr ""
+
+#: keystone/openstack/common/policy.py:679
+#, python-format
+msgid "Failed to understand rule %(rule)r"
+msgstr ""
+
+#: keystone/policy/backends/rules.py:93
+#, python-format
+msgid "enforce %s: %s"
+msgstr ""
+
+#: keystone/token/controllers.py:470 keystone/token/controllers.py:473
+msgid "Token does not belong to specified tenant."
+msgstr ""
+
+#: keystone/token/controllers.py:480
+msgid "Non-default domain is not supported"
+msgstr ""
+
+#: keystone/token/controllers.py:488
+msgid "Domain scoped token is not supported"
+msgstr ""
+
+#: keystone/token/backends/memcache.py:83
+msgid "Unable to add token user list."
+msgstr ""
+
+#: keystone/token/backends/memcache.py:93
+msgid "Unable to add token to revocation list."
+msgstr ""
