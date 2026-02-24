@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  
+  NOTE:  this test assertion will not pass signature validation tests nor enable proof of possession
+         verifications to be made in relation to the certificates in the test keystores
+-->
+<saml:Assertion xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+    xmlns:exc14n="http://www.w3.org/2001/10/xml-exc-c14n#" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" AssertionID="uuid-c318f4ea-a9c4-4d3c-8f11-218d30028522"
+    Issuer="TEST-STS"
+    MajorVersion="1" MinorVersion="1">
+    <saml:Conditions NotBefore="2010-07-29T20:48:46.229Z">
+        <saml:AudienceRestrictionCondition>
+            <saml:Audience>test-service</saml:Audience>
+        </saml:AudienceRestrictionCondition>
+    </saml:Conditions>
+    <saml:Advice />
+    <saml:AuthenticationStatement AuthenticationInstant="2010-07-29T20:48:46.229Z"
+        AuthenticationMethod="urn:oasis:names:tc:SAML:1.0:am:X509-PKI">
+        <saml:Subject>
+            <saml:NameIdentifier>CN=test-user,OU=test,OU=CXF,O=Apache Software Foundation</saml:NameIdentifier>
+            <saml:SubjectConfirmation>
+                <saml:ConfirmationMethod>
+                    urn:oasis:names:tc:SAML:1.0:cm:bearer
+                </saml:ConfirmationMethod>
+                    <ds:KeyInfo>
+                        <ds:X509Data>
+                            <ds:X509Certificate>MII
+                                DmjCCAoKgAwIBAgIBAjANBgkqhkiG9w0BAQUFADBYMSYwJAYDVQQKEx1Qcm9ncmVzcyBTb2Z0d2FyZSBDb3Jwb3JhdGlvbjELMAkGA1UECxMCcHMxDTALBgNVBAsTBHRlc3QxEjAQBgN
+                                VBAMTCVRlc3QgQ0EgMTAeFw0wOTEyMTgwMTQ3NTBaFw0xOTEyMTYwMTQ2NDFaMFgxJjAkBgNVBAoTHVByb2dyZXNzIFNvZnR3YXJlIENvcnBvcmF0aW9uMQswCQYDVQQLEwJwczENMAs
+                                GA1UECxMEdGVzdDESMBAGA1UEAxMJdGVzdC11c2VyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxvK451fg0wMOFEr9Idhr88bOZUOvyTuemIy5ClWZryfomKsxwXxifb2
+                                h3Zj+NJmJtG2lXOiXHCVM/qO/o6uZvkhIBNA51MvxgadGvgjTpx8Y9O9Z4C5kWOXkEDCZA/JcjW6zMhSr5g8X2n1qmG457cf7P3OxSVRvVO9WN7okuhcxZOSAGbq/XYw6Bt3YNDOIe2e
+                                cgg8qbzkqnC92pQNM01QekEoIlrTyiQllPq5W5PX+7AxAUc8MjkoORdLIA9X1BnTIC8fNxwuS8OdJTerK56EiJ5FBqAst2DGQXSSkHURC6Tai/p0rm7sDDry2zmsRE2WSTcsCCAKpbAb
+                                wJwXhqQIDAQABo28wbTAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQeoRFv6WclHWP31CwGOU3CRhb80jALBgNVHQ8EBAMCBLAwEQYJYIZIAYb4QgEBBAQDAgWgMB4GCWCGSAGG+EIBDQQ
+                                RFg94Y2EgY2VydGlmaWNhdGUwDQYJKoZIhvcNAQEFBQADggEBAI5X4Q+xcyZK7XcU71Eaud2HnzLINhJg3owbGKnGrlpMKToH4ejI5jYgV8XQ69jcWF16Z6NPxg4NDud7s6CqNnlV5AA
+                                CtzEnDEe00ykitiHHvG7ErDh3X3iZf3Sv0Rpg/lnb8v5IbVSo8pfvJRSMcJ3src2aKUtHpPy8TGfUT/58QfLWv2DXgpv3ocyYQIVjS7f/NirdcR88utIV4f119UyTQIy4uTKbEJLKs7G
+                                A8UW4YjTw0G+FdZPxrr5nKmO9nnEBDDnfKqeorO3VUHXxk6eT5g0vU7SWSbdbEKAGlUz/ukUzWZS4vZMFRGKSM/+BMaoVqP13RHsL1Seofr9hPAI=
+                            </ds:X509Certificate>
+                        </ds:X509Data>
+                    </ds:KeyInfo>
+            </saml:SubjectConfirmation>
+        </saml:Subject>
+    </saml:AuthenticationStatement>
+</saml:Assertion>

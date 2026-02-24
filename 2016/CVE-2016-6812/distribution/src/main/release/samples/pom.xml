@@ -1,0 +1,296 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements. See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership. The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License. You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied. See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.apache.cxf.samples</groupId>
+    <artifactId>cxf-samples</artifactId>
+    <packaging>pom</packaging>
+    <version>4.1.4-SNAPSHOT</version>
+    <name>Apache CXF Samples</name>
+    <description>Apache CXF Samples</description>
+    <url>https://cxf.apache.org</url>
+    <properties>
+        <cxf.jdk.version>17</cxf.jdk.version>
+        <!-- don't deploy the samples, kind of pointless -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cxf.spring.boot.version>3.4.7</cxf.spring.boot.version>
+        <cxf.spring.cloud.eureka.version>4.2.2</cxf.spring.cloud.eureka.version>
+        <cxf.jetty12.version>12.0.23</cxf.jetty12.version>
+        <cxf.netty.version>4.1.123.Final</cxf.netty.version>
+        <cxf.httpcomponents.client.version>4.5.14</cxf.httpcomponents.client.version>
+        <cxf.swagger.ui.version>5.27.0</cxf.swagger.ui.version>
+        <cxf.tika.version>3.0.0</cxf.tika.version>
+        <cxf.tomcat.version>10.1.43</cxf.tomcat.version>
+        <cxf.jboss.weld.version>5.1.2.Final</cxf.jboss.weld.version>
+        <cxf.gson.version>2.13.1</cxf.gson.version>
+        <cxf.lucene.version>9.12.1</cxf.lucene.version>
+        <cxf.olingo.server.version>5.0.0</cxf.olingo.server.version>
+        <cxf.aspectj.version>1.9.24</cxf.aspectj.version>
+        <cxf.brave.version>6.3.0</cxf.brave.version>
+        <cxf.zipkin-reporter.version>3.5.1</cxf.zipkin-reporter.version>
+        <cxf.zest.version>2.1</cxf.zest.version>
+        <cxf.activemq.artemis.version>2.31.0</cxf.activemq.artemis.version>
+        <cxf.h2.version>2.3.232</cxf.h2.version>
+        <cxf.jboss.narayana.version>5.13.1.Final</cxf.jboss.narayana.version>
+        <cxf.narayana.spring.boot.version>2.6.7</cxf.narayana.spring.boot.version>
+        <cxf.camel.version>4.11.0</cxf.camel.version>
+        <cxf.openfeign.version>13.6</cxf.openfeign.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-features-logging</artifactId>
+        </dependency>
+    </dependencies>
+    <modules>
+        <module>aegis</module>
+        <module>aegis_standalone</module>
+        <module>callback</module>
+        <module>configuration_interceptor</module>
+        <module>corba/bank</module>
+        <module>corba/bank_ws_addressing</module>
+        <module>corba/hello_world</module>
+        <module>groovy_spring_support</module>
+        <module>in_jvm_transport</module>
+        <module>java_first_jaxws</module>
+        <module>java_first_jaxws_factory_bean</module>
+        <module>java_first_jms</module>
+        <module>java_first_pojo</module>
+        <module>java_first_spring_support</module>
+        <module>jax_rs/basic</module>
+        <module>jax_rs/basic_https</module>
+        <module>jax_rs/basic_oidc</module>
+        <module>jax_rs/big_query</module>
+        <module>jax_rs/content_negotiation</module>
+        <module>jax_rs/description_openapi_v3</module>
+        <module>jax_rs/description_openapi_v3_web</module>
+        <module>jax_rs/description_openapi_v3_spring</module>
+        <module>jax_rs/odata</module>
+        <module>jax_rs/search</module>
+        <module>jax_rs/spring_boot</module>
+        <module>jax_rs/spring_boot_scan/application</module>
+        <module>jax_rs/spring_boot_scan/client</module>
+        <module>jax_rs/spring_boot_scan/eureka-registry</module>
+        <module>jax_rs/spring_security</module>
+        <module>jax_rs/sse_cdi</module>
+        <module>jax_rs/sse_client</module>
+        <module>jax_rs/sse_spring</module>
+        <module>jax_rs/sse_tomcat</module>
+        <module>jax_rs/tracing_brave</module>
+        <module>jax_rs/tracing_opentracing</module>
+        <module>jax_rs/tracing_opentelemetry</module>
+        <module>jax_rs/tracing_opentelemetry_camel</module>
+        <module>jax_rs/tracing_micrometer</module>
+        <module>jax_rs/websocket</module>
+        <module>jax_rs/websocket_web</module>
+        <module>jax_server_aegis_client</module>
+        <module>jaxws_async</module>
+        <module>jaxws_dispatch_provider</module>
+        <module>jaxws_handlers</module>
+        <module>jaxws_spring_boot</module>
+        <module>jms_pubsub</module>
+        <module>jms_queue</module>
+        <module>jms_spec_demo</module>
+        <module>jms_spring_config</module>
+        <module>js_browser_client_java_first</module>
+        <module>js_browser_client_simple</module>
+        <module>js_client</module>
+        <module>js_provider</module>
+        <module>mtom</module>
+        <module>performance/base</module>
+        <module>performance/jaxrs</module>
+        <module>performance/soap_http_doc_lit</module>
+        <module>restful_dispatch</module>
+        <module>ruby_spring_support</module>
+        <module>soap_header</module>
+        <module>sts</module>
+        <module>throttling</module>
+        <module>ws_addressing</module>
+        <module>ws_discovery</module>
+        <module>ws_eventing</module>
+        <module>ws_notification</module>
+        <module>ws_policy</module>
+        <module>ws_rm</module>
+        <module>ws_security/sign_enc</module>
+        <module>ws_security/sign_enc_policy</module>
+        <module>ws_security/ut</module>
+        <module>ws_security/ut_policy</module>
+        <module>ws_transaction</module>
+        <module>wsdl_first</module>
+        <module>wsdl_first_dynamic_client</module>
+        <module>wsdl_first_https</module>
+        <module>wsdl_first_pure_xml</module>
+        <module>wsdl_first_rpclit</module>
+        <module>wsdl_first_soap12</module>
+        <module>wsdl_first_xml_wrapped</module>
+        <module>jax_rs/description_openapi_microprofile_spring</module>
+        <module>jaxws_graalvm</module>
+        <module>jaxws_graalvm_dynamic/client</module>
+        <module>jaxws_graalvm_dynamic/server</module>
+        <module>jax_rs/graalvm_basic</module>
+        <module>jax_rs/basic_http2_undertow</module>
+        <module>jax_rs/basic_http2_netty</module>
+        <module>jax_rs/basic_http2_jetty</module>
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+            <!--
+            Pull in the cxf-parents as import scope to re-use the dependencyManagement
+            sections of those poms.   Those sections define the versions of various third
+            party deps that CXF used to build with and test with and we would like
+            to make sure the same versions are used for the samples
+            -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-parent</artifactId>
+                <version>4.1.4-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf</artifactId>
+                <version>4.1.4-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.corba</groupId>
+                <artifactId>glassfish-corba-orb</artifactId>
+                <version>4.2.5</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.14.0</version>
+                    <configuration>
+                        <source>${cxf.jdk.version}</source>
+                        <target>${cxf.jdk.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.4.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.5.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>6.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>${cxf.jetty12.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.4.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.5.3</version>
+                </plugin>
+                <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.6.1</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <profiles>
+        <profile>
+            <id>snapshots</id>
+            <repositories>
+                <repository>
+                    <id>apache-snapshots</id>
+                    <name>Apache SNAPSHOT Repository</name>
+                    <url>https://repository.apache.org/content/groups/snapshots-group/</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>apache-snapshots</id>
+                    <name>Apache Maven Plugin Snapshots</name>
+                    <url>https://repository.apache.org/content/groups/snapshots-group/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+    <!--
+     we turn off the deploy in the properties above, but deploy plugin will
+     still barf without this section in the pom
+     -->
+    <distributionManagement>
+        <repository>
+            <id>apache.releases.https</id>
+            <name>Apache Release Distribution Repository</name>
+            <url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>apache.snapshots.https</id>
+            <name>Apache Development Snapshot Repository</name>
+            <url>https://repository.apache.org/content/repositories/snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
