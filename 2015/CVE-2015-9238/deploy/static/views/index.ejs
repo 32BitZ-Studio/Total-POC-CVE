@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>f1nd the d0g's name</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .flyer {
+            background-color: white;
+            border: 2px dashed #ff6b6b;
+            border-radius: 10px;
+            padding: 200px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .dog-image {
+            width: 200px;
+            height: 200px;
+            background-color: #ddd;
+            margin: 20px auto;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #666;
+            overflow: hidden;
+        }
+        .dog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        p {
+            color: #4a4a4a;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            ;
+        }
+        button {
+            background-color: #4ecdc4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45b7aa;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flyer">
+        <h1>Find the dog's name !!!</h1>
+        <div class="dog-image">
+            <img src="/static/images/dog.png" alt="dog-pic">
+        </div>
+        <p>If u find the dog's name, I'll give you the flag!!!</p>
+
+        <input type="text" id="inputText" placeholder="Enter text">
+        <button type="submit" onclick="sendRequest()">Submit</button>
+    </div>
+
+    <script>
+        function sendRequest() {
+            // 입력 값 가져오기
+            const inputValue = document.getElementById('inputText').value;
+
+            // 서버로 fetch POST 요청 보내기
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Server-Password': 'bb791309f692fea37de49b3f191ddcf55c112472'
+                },
+                body: JSON.stringify({
+                    username: "dog",
+                    password: inputValue // 입력한 값 전송
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                // 서버 응답 처리
+                console.log('State:', data);
+                alert('Request Successful!');
+            })
+            .catch((error) => {
+                // 에러 처리
+                console.error('Error:', error);
+                alert('Request Failed!');
+            });
+        }
+    </script>
+</body>
+
+</html>

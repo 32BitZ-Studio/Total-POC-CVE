@@ -1,0 +1,36 @@
+@(title: String, activeNavBar: String)(content: Html)
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="/stylesheets/main.css">
+        <link rel="stylesheet" media="screen" href="/stylesheets/jRating.jquery.css">
+        <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+        
+        <script type="text/javascript" src="/javascripts/navigation.js"></script>
+        <script type="text/javascript" src="/javascripts/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="/javascripts/jRating.jquery.js"></script>
+        <script type="text/javascript" src="/javascripts/home.js"></script>
+        <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(event) {
+        	activateNavbar("@activeNavBar");
+        });
+        </script>        
+    </head>
+    <body>
+    	 <header>
+	    <div class="nav">
+	      <ul>
+	        <li ><a id="nav-home" href="/home">Home</a></li>
+	        <li ><a id="nav-training" href="/workouts">Training</a></li>
+	        <li ><a id="nav-exercises" href="/exercises">Exercises</a></li>
+	        <li ><a id="nav-gyms" href="/gyms">Gyms</a></li>
+	        <li ><a id="nav-account" href="/account">Account</a></li>
+	        <li ><a id="nav-logout" href="/logout">Logout</a></li>
+	      </ul>
+	    </div>
+	  </header>
+        @content
+    </body>
+</html>

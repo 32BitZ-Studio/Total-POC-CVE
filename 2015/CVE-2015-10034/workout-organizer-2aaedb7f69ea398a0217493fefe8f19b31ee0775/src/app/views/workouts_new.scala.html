@@ -1,0 +1,42 @@
+@(exercises: List[Exercise], gyms: List[Gym])
+
+@main("Workout organizer Workout", "nav-training") {
+	<a href="/workouts">Back to workouts</a>
+	<form name="workout">
+		Gym:
+		<select name="gymId">
+			@for(g <- gyms) {
+				<option value="@g.getId()">@g.getName()</option>
+			}
+		</select><br>
+		Started at: <input type="datetime-local" name="startedAt" /><br>
+		Finished at: <input type="datetime-local" name="finishedAt" /><br>
+		Note: <textarea name="note" ></textarea><br>
+	
+		<table id="workoutEntries">
+			<tr>
+				<th>Exercise</th>
+				<th>Sets count</th>
+				<th>Reps per set</th>
+				<th>Weight</th>
+				<th>Add</th>
+			</tr>
+			<tr>
+				<td>
+					<select id="exerciseId">
+						@for(e <- exercises) {
+							<option value="@e.getId()">@e.getName()</option>
+						}
+					</select>
+				</td>
+				<td><input id="setsCount" type="number" /></td>
+				<td><input id="repsPerSet" type="number" /></td>
+				<td><input id="weight" type="number" /></td>
+				<td><a id="addEntry" href="#">Add entry</a>
+			</tr>
+		</table><br>
+		<input type="submit" value="Submit">
+	</form>
+	
+	<script type="text/javascript" src="/javascripts/workouts.js"></script>
+}

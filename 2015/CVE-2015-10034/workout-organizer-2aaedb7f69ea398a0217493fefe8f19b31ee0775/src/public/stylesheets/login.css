@@ -1,0 +1,95 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px 
+}
+
+p {
+	margin: 0 0 10px 0;
+}
+
+.wrapper {
+	width: 100%;
+	height: 100%;
+	background-color: rgb(56, 56, 56);
+	text-align: center;
+	padding-top: 10%;
+}
+
+.login-tab {
+	height: 45px;
+	margin-right: 5px;
+	
+	background: #039BFC;
+	color: white;
+	font-size: 15px;
+	font-weight: 600;
+	
+	border: none;
+	border-radius: 5px 5px 0 0;
+}
+
+.login-tab:focus {
+	outline: 0px;
+}
+
+.login-tab:hover {
+	cursor: pointer;
+}
+
+.active {
+	background: white;
+	color: #039BFC;
+}
+
+.container { 
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	width: 330px;
+}
+
+.content {			
+	background: white;
+	width: 100%;
+	height: 450px;
+	border-radius: 0 0 5px 5px;
+	padding: 10px;
+}
+
+.content label {
+	color: #039bfc;
+	position: relative;
+}
+
+.field {
+	-moz-box-sizing: content-box;
+	border: 1px solid #B2B2B2;
+	border-radius: 3px 3px 3px 3px;
+	box-shadow: 0 1px 4px 0 rgba(168, 168, 168, 0.6) inset;
+	margin-top: 4px;
+	padding: 10px 5px 10px 15px;
+	transition: all 0.2s linear 0s;
+	width: 288px;
+}
+
+.content input[type="submit"] {
+    background: none repeat scroll 0 0 #039bfc;
+    border: 1px solid #1C6C7A;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 6px 4px rgba(0, 0, 0, 0.07) inset, 0 0 0 3px #FEFEFE, 0 5px 3px 3px #D2D2D2;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: 'BebasNeueRegular','Arial Narrow',Arial,sans-serif;
+    font-size: 15px;
+    margin:0;
+    padding: 5px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s linear 0s;
+	float:right;    
+}
+
+.invisible {
+	display: none;
+}

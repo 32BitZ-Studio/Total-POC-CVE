@@ -1,0 +1,11 @@
+@(user: User, isYourFriend: Boolean)
+
+@main("Workout organizer User info", "") {
+	<div>
+		@user.getFirstName() @user.getLastName() <br>
+		Date of birth: @user.getDateOfBirth() <br>
+		@if(isYourFriend) {
+			You are friends!
+		}
+	</div>
+}

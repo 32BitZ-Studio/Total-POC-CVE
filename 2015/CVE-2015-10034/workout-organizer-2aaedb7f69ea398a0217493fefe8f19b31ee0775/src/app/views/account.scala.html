@@ -1,0 +1,24 @@
+@(user: User)
+
+@main("Workout organizer Account", "nav-account") {
+	<div>
+		<form name="changePassword">
+			 Old password: <input type="password" id="old" name="oldPassword"><br>
+			 New password: <input type="password" id="new" name="newPassword"><br>
+			 Repeat password: <input type="password" id="repeated" name="repeatedPassword"><br>
+			 <input type="submit" value="Change Password"><br>
+		</form>
+	</div>
+	<hr>
+	
+	<div>
+		<form name="changeUserInfo">
+				 Weight: <input type="text" id="weight" name="weight" value="@user.getWeight()"><br>
+				 Height: <input type="text" id="height" name="height" value="@user.getHeight()"><br>
+				 Date of birth: <input type="date" id="dateOfBirth" value="@user.getDateOfBirth()" name="dateOfBirth"><br>
+				 <input type="submit" value="Change"><br>
+		</form>
+	</div>
+	
+	<script type="text/javascript" src="javascripts/account_settings.js"></script>
+}

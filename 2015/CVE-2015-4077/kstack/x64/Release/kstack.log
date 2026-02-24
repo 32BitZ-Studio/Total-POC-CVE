@@ -1,0 +1,26 @@
+﻿  Assembling token_stealing.asm...
+  kstack.cpp
+C:\Users\admin\Desktop\kstack\kstack\ntos.h(34,1): warning C4005: '_Out_writes_to_opt_': macro redefinition
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\sal.h(353): message : see previous definition of '_Out_writes_to_opt_'
+C:\Users\admin\Desktop\kstack\kstack\ntos.h(1796,1): warning C4005: 'SEC_FILE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\um\winnt.h(14332): message : see previous definition of 'SEC_FILE'
+C:\Users\admin\Desktop\kstack\kstack\ntos.h(1797,1): warning C4005: 'SEC_IMAGE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\um\winnt.h(14333): message : see previous definition of 'SEC_IMAGE'
+C:\Users\admin\Desktop\kstack\kstack\ntos.h(1798,1): warning C4005: 'SEC_RESERVE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\um\winnt.h(14335): message : see previous definition of 'SEC_RESERVE'
+C:\Users\admin\Desktop\kstack\kstack\ntos.h(1799,1): warning C4005: 'SEC_COMMIT': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\um\winnt.h(14336): message : see previous definition of 'SEC_COMMIT'
+C:\Users\admin\Desktop\kstack\kstack\ntos.h(3755,1): warning C4005: 'FLS_MAXIMUM_AVAILABLE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\um\winnt.h(12498): message : see previous definition of 'FLS_MAXIMUM_AVAILABLE'
+C:\Users\admin\Desktop\kstack\kstack\ntos.h(4702,6): warning C4273: 'RtlRaiseException': inconsistent dll linkage
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\um\winnt.h(21258,1): message : see previous definition of 'RtlRaiseException'
+C:\Users\admin\Desktop\kstack\kstack\kstack.cpp(273,77): warning C4312: 'type cast': conversion from 'unsigned int' to 'LPVOID' of greater size
+C:\Users\admin\Desktop\kstack\kstack\kstack.cpp(399,9): warning C4477: 'printf' : format string '%p' requires an argument of type 'void *', but variadic argument 1 has type 'ULONGLONG'
+  stdafx.cpp
+  Generating code
+C:\Users\admin\Desktop\kstack\kstack\kstack.cpp(191): warning C4715: 'GetEprocessAddress': not all control paths return a value
+C:\Users\admin\Desktop\kstack\kstack\kstack.cpp(345): warning C4715: 'walkEprocess': not all control paths return a value
+  Finished generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 14 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  kstack.vcxproj -> C:\Users\admin\Desktop\kstack\x64\Release\kstack.exe

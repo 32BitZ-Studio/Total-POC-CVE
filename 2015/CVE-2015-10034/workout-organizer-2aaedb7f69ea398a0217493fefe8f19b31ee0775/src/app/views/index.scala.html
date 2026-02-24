@@ -1,0 +1,62 @@
+@(news: List[News], strangers: List[Stranger], requests: List[User])
+
+@main("Workout organizer HOME", "nav-home") {
+
+	<div id="right-pane">
+		<h4>Friendship recommendations</h4>
+		<ul class="strangers">
+		@for((s, index) <- strangers.zipWithIndex) {
+			<li>
+				@s.getFirstName() @s.getLastName()<br>
+				<button class="invite" data-id="@s.getId()">Add friend!</button>
+			</li>
+		}
+		</ul>
+		<h4>Friendship requests</h4>
+		<ul class="friendship-requests">
+		@for(r <- requests) {
+			<li>
+				<span class="user-name">@r.getFirstName() @r.getLastName()</span><br>
+				<button class="accept-invitation" data-id="@r.getId()">Accept</button>
+				<button class="decline-invitation" data-id="@r.getId()">Decline</button>
+			</li>
+		}
+		</ul>
+	</div>
+  
+	<div class="news-feed">
+		@for(n <- news) {
+			<div class="news">
+				<div class="news-header">
+					<a href="/users/@n.getFriendId()" class="news-link">
+						@n.getFirstName()
+						@n.getLastName()
+					</a>
+					was doing
+					@n.listMuscles()
+					at
+					<a href="/gyms/@n.getGymId()" class="news-link">
+						@n.getGymName()
+					</a>
+				</div>
+				<div class="news-date">
+					@n.getStartedAt()
+					-
+					@n.getFinishedAt()
+				</div>
+				<div class="news-note">
+					@n.getNote()
+				</div>
+				<div class="news-likes">
+					Likes: <span class="news-likes-count">@n.getLikesCount()</span>
+					@if(!n.isLiked()) {
+						<a class="news-like news-link" data-id="@n.getWorkoutId()">Like!</a>
+					} else {
+						<span>Liked!</span>
+					}
+				</div>
+			</div>
+		}
+	</div>
+
+}

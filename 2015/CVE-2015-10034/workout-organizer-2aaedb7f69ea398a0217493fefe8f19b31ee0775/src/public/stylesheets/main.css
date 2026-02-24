@@ -1,0 +1,168 @@
+html {
+	height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #ccc;
+
+  height: 100%;
+}
+
+.news-feed {
+  width: 100%;
+}
+
+.news-feed .news {
+  width: 480px;
+  margin: 20px auto;
+  background-color: white;
+  padding: 10px;
+  font-family: Helvetica;
+  font-size: 15px;
+  color: #4C4C4C;
+}
+
+.news-feed .news a.news-link {
+  color: #6BABEA;
+  text-decoration: none;
+}
+
+.news-feed .news a.news-link:hover {
+  cursor: pointer;
+}
+
+.news-feed .news .news-note {
+  margin: 10px 0px;
+}
+
+.news-feed .news .news-date {
+  color: #999;
+  font-size: 12px
+}
+
+.news-feed .news .news-likes {
+  color: #6E8699;
+  font-size: 14px;
+}
+
+#right-pane {
+  position: absolute;
+  right: 0px;
+	padding: 20px 0px;
+	border-left: 1px solid;
+	height: 100%;
+  width: 200px;
+	background-color: darkgrey;
+}
+
+.nav ul {
+  list-style: none;
+  background-color: #444;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.nav li {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2em;
+  line-height: 40px;
+  height: 40px;
+  border-bottom: 1px solid #888;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  transition: .3s background-color;
+}
+
+.nav a:hover {
+  background-color: #005f5f;
+}
+
+.nav a.active {
+  background-color: #fff;
+  color: #444;
+  cursor: default;
+}
+
+@media screen and (min-width: 600px) {
+  .nav li {
+    width: 120px;
+    border-bottom: none;
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.4em;
+  }
+
+  /* Option 1 - Display Inline */
+  .nav li {
+    display: inline-block;
+    margin-right: -4px;
+  }
+
+  /* Options 2 - Float
+  .nav li {
+    float: left;
+  }
+  .nav ul {
+    overflow: auto;
+    width: 600px;
+    margin: 0 auto;
+  }
+  .nav {
+    background-color: #444;
+  }
+  */
+}
+
+ul#muslce-groups li {
+   font-weight: bold;
+   margin: 0;
+   padding: 3px 10px 5px 20px;
+   border-bottom: 1px solid #ccc;
+   color: #666;
+}
+
+ul#muslce-groups li:hover {
+   color: #000;
+   background-color: #ddd;
+}
+
+ul#exercises-list li {
+	border: 1px solid;
+	border-color: grey;
+	margin: 50px;
+	display: block;
+	border-radius: 5px;
+}
+
+.exercises-container {
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ex-name {
+	padding:10px;
+	background-color: rgb(157, 180, 184);
+	border-bottom: 1px solid;
+	border-color: grey;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	font-size: 20px;
+	color: rgb(24, 39, 140);
+	text-shadow: 1px 1px 1px rgba(150, 150, 150, 1);
+	font-weight: 700;
+}
+
+.ex-content {
+	background-color: rgb(136, 156, 176);
+	padding: 10px;
+	font-size: 15px;
+	font-style: italic;
+	line-height: 24px;
+}

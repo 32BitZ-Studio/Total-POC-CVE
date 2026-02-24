@@ -1,0 +1,26 @@
+on: [push]
+name: J-TAS Action Demo
+
+jobs:
+  analysis:
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout this repo code
+        uses: actions/checkout@v3
+
+      - name: Run J-TAS
+        uses: andrenasx/J-TAS@main
+        with:
+          files: 'workout-organizer-2aaedb7f69ea398a0217493fefe8f19b31ee0775/src/app/controllers/AccountController.java workout-organizer-2aaedb7f69ea398a0217493fefe8f19b31ee0775/src/app/controllers/Application.java workout-organizer-2aaedb7f69ea398a0217493fefe8f19b31ee0775/src/app/controllers/UsersController.java workout-organizer-2aaedb7f69ea398a0217493fefe8f19b31ee0775/src/app/database/ExerciseDao.java workout-organizer-2aaedb7f69ea398a0217493fefe8f19b31ee0775/src/app/database/GymsDao.java workout-organizer-2aaedb7f69ea398a0217493fefe8f19b31ee0775/src/app/database/UsersDao.java workout-organizer-2aaedb7f69ea398a0217493fefe8f19b31ee0775/src/app/database/WorkoutDao.java'
+
+      - name: Upload J-TAS results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif
+          category: j-tas

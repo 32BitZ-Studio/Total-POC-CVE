@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Workout organizer</title>
+
+		<link rel="stylesheet"  type="text/css" href="stylesheets/login.css">
+		
+		<script type="text/javascript" src="javascripts/login.js"></script>
+
+	</head>
+
+		<div class="wrapper">
+			<div class="container">
+				<div class="tabs">
+					<button id="signup" class="login-tab">SIGNUP</button>
+					<button id="login" class="login-tab active">LOGIN</button>
+					<button id="forgot-pass" class="login-tab">FORGOT PASSWORD</button>
+				</div>
+				<div class="content">
+					<div id ="signup-container" class="invisible">
+						<form  action="/register" method="post" autocomplete="on">
+							<p>
+								<label for="firstname" > Your first name </label> <br>
+								<input class="field" name="firstname" required="required" type="text" placeholder="Edzio"/>
+							</p>
+							<p>
+								<label for="lastname" > Your last name </label> <br>
+								<input class="field" name="lastname" required="required" type="text" placeholder="Pietruchacz"/>
+							</p>
+							<p>
+								<label for="username" > Your login </label> <br>
+								<input class="field" name="username" required="required" type="text" placeholder="edzio"/>
+							</p>
+							<p>
+								<label for="email"> Your email </label> <br>
+								<input class="field" name="email" required="required" type="text" placeholder="edzio@email.com"/>
+							</p>
+							<p>
+								<label for="password"> Password </label> <br>
+								<input class="field" name="password" required="required" type="password" placeholder="password"/>
+							</p>
+							<p>
+								<label for="repeat-password"> Repeat password </label> <br>
+								<input class="field" name="repeat-password" required="required" type="password" placeholder="password"/>
+							</p>
+							
+							<input type="submit" value="Sign up">
+						</form>
+					</div>
+					
+					<div id="login-container">
+						<form  action="/signin" method ="post" autocomplete="on">
+							<p>
+								<label for="username" > Your login or email</label> <br>
+								<input class="field" name="username" required="required" type="text" placeholder="edzio or edzio@email.com"/>
+							</p>
+							<p>
+								<label for="password"> Password </label> <br>
+								<input class="field" name="password" required="required" type="password" placeholder="password"/>
+							</p>
+							
+							<input type="submit" value="Login">
+						</form>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

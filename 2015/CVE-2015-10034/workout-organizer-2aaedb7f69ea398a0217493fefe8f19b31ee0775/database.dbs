@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Workout organizer" id="Project9462283" template="Default" database="PostgreSQL" >
+	<schema name="workout_organizer" schemaname="workout_organizer" >
+		<table name="exercise_ratings" >
+			<column name="user_id" type="integer" jt="4" mandatory="y" />
+			<column name="exercise_id" type="integer" jt="4" mandatory="y" />
+			<column name="rating" type="integer" jt="4" mandatory="y" />
+			<index name="pk_exercises_ratings" unique="PRIMARY_KEY" >
+				<column name="user_id" />
+				<column name="exercise_id" />
+			</index>
+			<index name="idx_exercises_ratings" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<index name="idx_exercises_ratings_0" unique="NORMAL" >
+				<column name="exercise_id" />
+			</index>
+			<constraint name="rating_chk" >
+				<string>rating BETWEEN 1 AND 10</string>
+			</constraint>
+			<fk name="fk_exercises_ratings_users" to_schema="workout_organizer" to_table="users" delete_action="cascade" >
+				<fk_column name="user_id" pk="user_id" />
+			</fk>
+			<fk name="fk_exercises_ratings_exercises" to_schema="workout_organizer" to_table="exercises" delete_action="cascade" >
+				<fk_column name="exercise_id" pk="exercise_id" />
+			</fk>
+		</table>
+		<table name="exercises" >
+			<column name="exercise_id" type="serial" jt="4" mandatory="y" />
+			<column name="exercise_name" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="description" type="text" length="300" jt="12" />
+			<column name="movie_uri" type="varchar" length="200" jt="12" />
+			<index name="pk_exercises" unique="PRIMARY_KEY" >
+				<column name="exercise_id" />
+			</index>
+		</table>
+		<table name="friendships" >
+			<column name="first_user_id" type="integer" jt="4" mandatory="y" />
+			<column name="second_user_id" type="integer" jt="4" mandatory="y" />
+			<index name="unique_friendships_rel" unique="UNIQUE" >
+				<column name="first_user_id" />
+				<column name="second_user_id" />
+			</index>
+			<constraint name="proper_rel_check" >
+				<string>first_user_id &lt; second_user_id</string>
+			</constraint>
+			<fk name="fk_friendships_users" to_schema="workout_organizer" to_table="users" >
+				<fk_column name="first_user_id" pk="user_id" />
+			</fk>
+			<fk name="fk_friendships_users2" to_schema="workout_organizer" to_table="users" >
+				<fk_column name="second_user_id" pk="user_id" />
+			</fk>
+		</table>
+		<table name="gym_ratings" >
+			<column name="gym_id" type="integer" jt="4" mandatory="y" />
+			<column name="user_id" type="integer" jt="4" mandatory="y" />
+			<column name="rating" type="integer" jt="4" mandatory="y" />
+			<index name="idx_gym_ratings" unique="PRIMARY_KEY" >
+				<column name="gym_id" />
+				<column name="user_id" />
+			</index>
+			<constraint name="rating_chk" >
+				<string>rating BETWEEN 1 AND 10</string>
+			</constraint>
+			<fk name="fk_gym_ratings" to_schema="workout_organizer" to_table="gyms" delete_action="cascade" >
+				<fk_column name="gym_id" pk="gym_id" />
+			</fk>
+			<fk name="fk_gym_ratings_0" to_schema="workout_organizer" to_table="users" delete_action="cascade" >
+				<fk_column name="user_id" pk="user_id" />
+			</fk>
+		</table>
+		<table name="gyms" >
+			<column name="gym_id" type="serial" jt="4" mandatory="y" />
+			<column name="gym_name" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="address" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="latitude" type="real" jt="7" />
+			<column name="longitude" type="real" jt="7" />
+			<column name="url" type="varchar" length="300" jt="12" />
+			<index name="pk_gyms" unique="PRIMARY_KEY" >
+				<column name="gym_id" />
+			</index>
+		</table>
+		<table name="likes" >
+			<column name="user_id" type="integer" jt="4" mandatory="y" />
+			<column name="workout_id" type="integer" jt="4" mandatory="y" />
+			<index name="idx_likes" unique="UNIQUE" >
+				<column name="user_id" />
+				<column name="workout_id" />
+			</index>
+			<fk name="fk_likes_users" to_schema="workout_organizer" to_table="users" delete_action="cascade" >
+				<fk_column name="user_id" pk="user_id" />
+			</fk>
+			<fk name="fk_likes_workouts" to_schema="workout_organizer" to_table="workouts" delete_action="cascade" >
+				<fk_column name="workout_id" pk="workout_id" />
+			</fk>
+		</table>
+		<table name="muscle_groups" >
+			<column name="muscle_name" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="image" type="bytea" jt="-2" />
+			<index name="pk_muscle_groups" unique="PRIMARY_KEY" >
+				<column name="muscle_name" />
+			</index>
+		</table>
+		<table name="target_muscles" >
+			<column name="exercise_id" type="integer" jt="4" mandatory="y" />
+			<column name="muscle_name" type="varchar" length="100" jt="12" mandatory="y" />
+			<index name="idx_target_muscles" unique="NORMAL" >
+				<column name="muscle_name" />
+			</index>
+			<index name="idx_target_muscles_0" unique="NORMAL" >
+				<column name="exercise_id" />
+			</index>
+			<fk name="fk_target_muscles" to_schema="workout_organizer" to_table="muscle_groups" delete_action="cascade" >
+				<fk_column name="muscle_name" pk="muscle_name" />
+			</fk>
+			<fk name="fk_target_muscles_exercises" to_schema="workout_organizer" to_table="exercises" >
+				<fk_column name="exercise_id" pk="exercise_id" />
+			</fk>
+		</table>
+		<table name="users" >
+			<column name="user_id" type="serial" jt="4" mandatory="y" />
+			<column name="login" type="varchar" length="20" jt="12" mandatory="y" />
+			<column name="email" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="password_digest" type="char" length="40" jt="1" mandatory="y" />
+			<column name="first_name" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="last_name" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="height" type="integer" jt="4" />
+			<column name="weight" type="numeric" length="5" decimal="2" jt="2" />
+			<column name="date_of_birth" type="date" jt="91" />
+			<index name="pk_users" unique="PRIMARY_KEY" >
+				<column name="user_id" />
+			</index>
+			<index name="unique_login" unique="UNIQUE" >
+				<column name="login" />
+			</index>
+			<index name="unique_mail" unique="UNIQUE" >
+				<column name="email" />
+			</index>
+			<constraint name="height_chk" >
+				<string>height &gt; 0 AND height &lt; 300</string>
+			</constraint>
+			<constraint name="weight_ckh" >
+				<string>weight &gt; 0</string>
+			</constraint>
+		</table>
+		<table name="workout_entries" >
+			<column name="workout_id" type="integer" jt="4" mandatory="y" />
+			<column name="exercise_id" type="integer" jt="4" mandatory="y" />
+			<column name="set_count" type="integer" jt="4" mandatory="y" />
+			<column name="reps_per_set" type="integer" jt="4" />
+			<column name="weight" type="numeric" length="5" decimal="2" jt="2" mandatory="y" />
+			<index name="idx_workout_entry" unique="PRIMARY_KEY" >
+				<column name="workout_id" />
+				<column name="exercise_id" />
+			</index>
+			<index name="idx_workout_entry_0" unique="NORMAL" >
+				<column name="workout_id" />
+			</index>
+			<index name="idx_workout_entry_1" unique="NORMAL" >
+				<column name="exercise_id" />
+			</index>
+			<constraint name="non_negative_chk" >
+				<string>set_count &gt; 0 AND reps_per_set &gt; 0 AND weight &gt;= 0</string>
+			</constraint>
+			<fk name="fk_workout_entry_workouts" to_schema="workout_organizer" to_table="workouts" >
+				<fk_column name="workout_id" pk="workout_id" />
+			</fk>
+			<fk name="fk_workout_entry_exercises" to_schema="workout_organizer" to_table="exercises" >
+				<fk_column name="exercise_id" pk="exercise_id" />
+			</fk>
+		</table>
+		<table name="workouts" >
+			<column name="workout_id" type="serial" jt="4" mandatory="y" />
+			<column name="user_id" type="integer" jt="4" mandatory="y" />
+			<column name="gym_id" type="integer" jt="4" />
+			<column name="started_at" type="timestamp" jt="93" mandatory="y" >
+				<defo>current_timestamp</defo>
+			</column>
+			<column name="finished_at" type="timestamp" jt="93" mandatory="y" />
+			<column name="weight" type="numeric" length="5" decimal="2" jt="2" />
+			<column name="note" type="varchar" length="300" jt="12" />
+			<index name="pk_workouts" unique="PRIMARY_KEY" >
+				<column name="workout_id" />
+			</index>
+			<index name="idx_workouts" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<index name="idx_workouts_0" unique="NORMAL" >
+				<column name="gym_id" />
+			</index>
+			<constraint name="time_check" >
+				<string>started_at &lt; finished_at</string>
+			</constraint>
+			<constraint name="weight_chk" >
+				<string>weight &gt; 0</string>
+			</constraint>
+			<fk name="fk_workouts_users" to_schema="workout_organizer" to_table="users" >
+				<fk_column name="user_id" pk="user_id" />
+			</fk>
+			<fk name="fk_workouts_gyms" to_schema="workout_organizer" to_table="gyms" >
+				<fk_column name="gym_id" pk="gym_id" />
+			</fk>
+		</table>
+		<view name="detailed_news" >
+			<view_script><![CDATA[SELECT u.user_id as friend_id, u.first_name, u.last_name,
+  f.first_user_id, f.second_user_id,
+  g.gym_id, g.gym_name,
+  w.started_at, w.finished_at, w.note,
+  array_agg(DISTINCT tm.muscle_name ORDER BY tm.muscle_name) as muscles_names,
+  count(l) as likes_count
+FROM users u
+JOIN friendships f ON u.user_id IN (f.first_user_id, f.second_user_id)
+JOIN workouts w USING (user_id)
+LEFT JOIN gyms g USING (gym_id)
+LEFT JOIN workout_entries we USING (workout_id)
+LEFT JOIN exercises e USING (exercise_id)
+LEFT JOIN target_muscles tm USING (exercise_id)  
+LEFT JOIN likes l USING (workout_id)
+GROUP BY u.user_id, f.first_user_id, f.second_user_id, w.workout_id, g.gym_id
+ORDER BY w.finished_at DESC]]></view_script>
+		</view>
+		<view name="simple_news" >
+			<view_script><![CDATA[SELECT u.user_id AS friend_id, u.first_name, u.last_name,
+    f.first_user_id, f.second_user_id,
+    g.gym_id, g.gym_name,
+    w.started_at, w.finished_at, w.note,
+    count(l) as likes_count
+  FROM users u
+  JOIN friendships f ON u.user_id IN (f.first_user_id, f.second_user_id)
+  JOIN workouts w ON u.user_id = w.user_id
+  LEFT JOIN gyms g ON g.gym_id = w.gym_id
+  LEFT JOIN likes l ON l.workout_id = w.workout_id
+  GROUP BY u.user_id, f.first_user_id, f.second_user_id, g.gym_id, w.workout_id
+  ORDER BY w.finished_at DESC]]></view_script>
+		</view>
+		<trigger name="update_weight_trigger" id="Trigger8410053" isSystem="false" >
+			<string><![CDATA[CREATE TRIGGER update_weight_trigger
+    AFTER INSERT OR UPDATE ON workouts
+    FOR EACH ROW
+    WHEN (NEW.weight IS NOT NULL)
+    EXECUTE PROCEDURE update_weight();]]></string>
+		</trigger>
+		<function name="update_weight" id="Function7621999" isSystem="false" >
+			<string><![CDATA[CREATE OR REPLACE FUNCTION update_weight() RETURNS TRIGGER AS $$
+    DECLARE
+        newer_workouts_count int;
+    BEGIN
+        IF TG_OP = 'INSERT' THEN
+            UPDATE users SET weight = NEW.weight WHERE user_id = NEW.user_id;
+        ELSIF TG_OP = 'UPDATE'  THEN
+            newer_workouts_count = (SELECT COUNT(*) FROM workouts WHERE user_id = NEW.user_id AND started_at > NEW.started_at);
+            IF newer_workouts_count = 0 THEN
+                UPDATE users SET weight = NEW.weight WHERE user_id = NEW.user_id;
+            END IF;
+        END IF;
+
+        RETURN NEW;
+    END
+$$ LANGUAGE plpgsql;]]></string>
+		</function>
+	</schema>
+	<layout id="Layout9462286" name="Workout organizer" show_relation_columns="y" >
+		<entity schema="workout_organizer" name="likes" color="b2cdf7" x="420" y="165" />
+		<entity schema="workout_organizer" name="exercises" color="b2cdf7" x="525" y="570" />
+		<entity schema="workout_organizer" name="gyms" color="b2cdf7" x="570" y="45" />
+		<entity schema="workout_organizer" name="friendships" color="b2cdf7" x="45" y="285" />
+		<entity schema="workout_organizer" name="target_muscles" color="b2cdf7" x="795" y="585" />
+		<entity schema="workout_organizer" name="muscle_groups" color="b2cdf7" x="795" y="450" />
+		<entity schema="workout_organizer" name="users" color="b2cdf7" x="240" y="285" />
+		<entity schema="workout_organizer" name="exercise_ratings" color="b2cdf7" x="270" y="570" />
+		<entity schema="workout_organizer" name="gym_ratings" color="b2cdf7" x="240" y="45" />
+		<entity schema="workout_organizer" name="workout_entries" color="b2cdf7" x="795" y="285" />
+		<entity schema="workout_organizer" name="workouts" color="b2cdf7" x="570" y="285" />
+		<entity schema="workout_organizer" name="simple_news" color="b2cdf7" x="795" y="45" />
+		<entity schema="workout_organizer" name="detailed_news" color="b2cdf7" x="795" y="180" />
+	</layout>
+</project>

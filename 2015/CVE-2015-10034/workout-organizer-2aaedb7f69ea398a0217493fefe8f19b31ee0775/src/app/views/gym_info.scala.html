@@ -1,0 +1,20 @@
+@(g: Gym)
+
+@main("Workout organizer Gym info", "") {
+	<div class="gyms-container">
+		<ul id="gyms-list">
+				<li>
+					<div class="g-name">
+						@g.getName()
+						<div class="g-rating" data-average="@g.getRating()" data-id="@g.getId()">
+						</div>
+					</div>
+					<div class="g-content">
+						City: @g.getAddress().getCity() <br>
+						Street: @g.getAddress().getStreet() <br>
+						Rating: @g.getRating() (@g.getRatingsCount())  <br>
+					</div>
+				</li>
+		</ul>
+	</div>
+}
