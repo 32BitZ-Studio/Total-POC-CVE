@@ -1,0 +1,13 @@
+# Dual_EC_DRBG Backdoor PoC Requirements
+# For educational purposes only
+
+# Core dependency for NIST P-256 curve operations
+ecdsa>=0.18.0
+
+# Jupyter for running the notebook
+jupyter>=1.0.0
+ipython>=7.0.0
+
+# Optional: For additional analysis
+numpy>=1.20.0
+matplotlib>=3.3.0

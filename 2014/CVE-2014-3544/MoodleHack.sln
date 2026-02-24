@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoodleHack.API", "MoodleHack.API\MoodleHack.API.csproj", "{B743CAF6-D3F1-4739-B0E6-FD5C2C9BCA32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoodleHack.Domain", "MoodleHack.Domain\MoodleHack.Domain.csproj", "{AF2E6E74-4EE8-4884-9217-9A0E41AD6016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoodleHack.Infrastructure.Data", "MoodleHack.Infrastructure.Data\MoodleHack.Infrastructure.Data.csproj", "{E779EF78-D3B5-4A9F-82D3-87124FEEE123}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B743CAF6-D3F1-4739-B0E6-FD5C2C9BCA32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B743CAF6-D3F1-4739-B0E6-FD5C2C9BCA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B743CAF6-D3F1-4739-B0E6-FD5C2C9BCA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B743CAF6-D3F1-4739-B0E6-FD5C2C9BCA32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF2E6E74-4EE8-4884-9217-9A0E41AD6016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF2E6E74-4EE8-4884-9217-9A0E41AD6016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF2E6E74-4EE8-4884-9217-9A0E41AD6016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF2E6E74-4EE8-4884-9217-9A0E41AD6016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E779EF78-D3B5-4A9F-82D3-87124FEEE123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E779EF78-D3B5-4A9F-82D3-87124FEEE123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E779EF78-D3B5-4A9F-82D3-87124FEEE123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E779EF78-D3B5-4A9F-82D3-87124FEEE123}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

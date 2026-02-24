@@ -1,0 +1,21 @@
+dn: dc=keycloak,dc=org
+objectclass: dcObject
+objectclass: organization
+o: Keycloak
+dc: Keycloak
+
+dn: ou=People,dc=keycloak,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: People
+
+dn: ou=Roles,dc=keycloak,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: Roles
+
+dn: ou=Groups,dc=keycloak,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: Groups
+

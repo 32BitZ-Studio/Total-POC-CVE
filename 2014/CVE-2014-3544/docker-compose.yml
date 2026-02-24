@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+    api:
+      build: ./MoodleHack.API/Dockerfile
+      networks:
+        - backend
+      environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ConnectionStrings__POSTGRES=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-db;Integrated Security=true;
+    postgres:
+        image: postgres:13-alpine
+        environment:
+            - POSTGRES_PASSWORD=password
+        ports:
+            - 5432:5432
+        networks:
+            - backend
+
+networks:
+   backend:
+	external: true

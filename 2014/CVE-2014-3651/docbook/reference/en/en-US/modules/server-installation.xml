@@ -1,0 +1,677 @@
+<chapter id="server-installation">
+    <title>Installation and Configuration of Keycloak Server</title>
+
+    <para>
+        The Keycloak Server has two downloadable distributions.
+    </para>
+    <para>
+        <itemizedlist>
+
+            <listitem>
+                keycloak-appliance-dist-all-&project.version;.zip
+            </listitem>
+
+            <listitem>
+                keycloak-war-dist-all-&project.version;.zip
+            </listitem>
+
+        </itemizedlist>
+
+    </para>
+    <section id="Appliance_install">
+        <title>Appliance Install</title>
+        <para>
+            The
+            <literal>keycloak-appliance-dist-all-&project.version;.zip</literal>
+            is quite large, but contains a complete server (backed by Wildfly)
+            that runs out of the box. The only thing you'll have to enable and configure is SSL. Unzipping it, the
+            directory layout looks
+            something like this:
+        </para>
+
+        <para>
+<programlisting>
+keycloak-appliance-dist-all-&project.version;/
+    keycloak/
+        bin/
+            standalone.sh
+            standalone.bat
+            standalone/deployments/
+                auth-server.war/
+            standalone/configuration/
+                keycloak-server.json
+                themes/
+    adapters/
+        keycloak-as7-adapter-dist-&project.version;.zip
+        keycloak-eap6-adapter-dist-&project.version;.zip
+        keycloak-wildfly-adapter-dist-&project.version;.zip
+    examples/
+    docs/
+</programlisting>
+        </para>
+        <para>
+            The
+            <literal>standalone.sh</literal>
+            or
+            <literal>standalone.bat</literal>
+            script is used to start the server.
+            After executing that, log into the admin console at<ulink
+                url="http://localhost:8080/auth/admin/index.html">
+            http://localhost:8080/auth/admin/index.html</ulink>.
+            Username: <emphasis>admin</emphasis>
+            Password: <emphasis>admin</emphasis>. Keycloak will then prompt you to
+            enter in a new password.
+        </para>
+    </section>
+    <section id="WAR_distribution_installation">
+        <title>WAR Distribution Installation</title>
+        <para>
+            The
+            <literal>keycloak-war-dist-all-&project.version;.zip</literal>
+            contains
+            just the bits you need to install keycloak on your favorite web container. We currently only support
+            installing it on top of an existing JBoss AS 7.1.1, JBoss EAP 6.x, or Wildfly 8 distribution. We may in the
+            future provide directions on how to install it on another web container like Tomcat or Jetty. If anybody
+            in the community is interested in pulling this together, please contact us. Its mostly Maven pom work.
+        </para>
+        <para>
+            The directory structure of this distro looks like this:
+        </para>
+        <para>
+<programlisting>
+keycloak-war-dist-all-&project.version;/
+    deployments/
+        auth-server.war/
+        keycloak-ds.xml
+    configuration/
+        keycloak-server.json
+        themes/
+    adapters/
+        keycloak-as7-adapter-dist-&project.version;.zip
+        keycloak-eap6-adapter-dist-&project.version;.zip
+        keycloak-wildfly-adapter-dist-&project.version;.zip
+    examples/
+    docs/
+</programlisting>
+        </para>
+        <para>
+            After unzipping this file, copy everything in <literal>deployments</literal> directory into the
+            <literal>standalone/deployments</literal> of your JBoss or Wildfly distro. Also, copy everything in
+            <literal>configuration</literal> directory into the <literal>standalone/configuration</literal> directory.
+        </para>
+        <para>
+<programlisting>
+    $ cd keycloak-war-dist-all-&project.version;
+    $ cp -r deployments $JBOSS_HOME/standalone
+    $ cp -r configuration $JBOSS_HOME/standalone
+</programlisting>
+        </para>
+        <para>
+            After these steps you should also <link linkend='jboss-adapter-installation'>install the client adapter</link>
+            as this may contain modules the server needs (like Bouncycastle).  You will also need to install the adapter
+            to run the examples on the same server.
+        </para>
+        <para>
+            After booting up the JBoss or Wildfly distro, you can then make sure it is installed properly
+            by logging into the admin console at<ulink
+                url="http://localhost:8080/auth/admin/index.html">
+            http://localhost:8080/auth/admin/index.html</ulink>.
+            Username: <emphasis>admin</emphasis>
+            Password: <emphasis>admin</emphasis>. Keycloak will then prompt you to
+            enter in a new password.
+        </para>
+    </section>
+    <section>
+        <title>Configuring the Server</title>
+        <para>
+            Although the Keycloak Server is designed to run out of the box, there's some things you'll need
+            to configure before you go into production.  Specifically:
+            <itemizedlist>
+
+                <listitem>
+                    Configuring Keycloak to use a production database.
+                </listitem>
+
+                <listitem>
+                    Setting up SSL/HTTPS
+                </listitem>
+
+                <listitem>
+                    Enforcing HTTPS connections
+                </listitem>
+            </itemizedlist>
+        </para>
+        <section>
+            <title>Relational Database Configuration</title>
+            <para>
+                By default, Keycloak uses a relational database to store Keycloak data.  This datasource is the <literal>standalone/deployments/keycloak-ds.xml</literal>
+                file of your Keycloak Server installation if you used <xref linkend="WAR_distribution_installation" /> or in <literal>standalone/configuration/standalone.xml</literal>
+                if you used <xref linkend="Appliance_install" />. File <literal>keycloak-ds.xml</literal> is used in WAR
+                distribution, so that you have datasource available out of the box and you don't need to edit <literal>standalone.xml</literal> file.
+                However a good thing is to always delete the file  <literal>keycloak-ds.xml</literal> and move its configuration text
+                into the centrally managed <literal>standalone.xml</literal> file.
+                This will allow you to manage the database connection pool from the Wildfly/JBoss administration console.  Here's what
+                <literal>standalone/configuration/standalone.xml</literal> should look like after you've done this:
+            </para>
+            <para>
+<programlisting><![CDATA[
+<subsystem xmlns="urn:jboss:domain:datasources:2.0">
+   <datasources>
+      <datasource jndi-name="java:jboss/datasources/ExampleDS"
+                  pool-name="ExampleDS" enabled="true" use-java-context="true">
+         <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
+         <driver>h2</driver>
+         <security>
+            <user-name>sa</user-name>
+            <password>sa</password>
+         </security>
+      </datasource>
+      <datasource jndi-name="java:jboss/datasources/KeycloakDS"
+                  pool-name="KeycloakDS" enabled="true" use-java-context="true">
+         <connection-url>jdbc:h2:${jboss.server.data.dir}/keycloak;AUTO_SERVER=TRUE</connection-url>
+         <driver>h2</driver>
+         <security>
+            <user-name>sa</user-name>
+            <password>sa</password>
+        </security>
+      </datasource>
+      <drivers>
+         <driver name="h2" module="com.h2database.h2">
+            <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+         </driver>
+      </drivers>
+   </datasources>
+</subsystem>
+]]>
+</programlisting>
+            </para>
+            <para>
+                Besides moving the database config into the central <literal>standalone.xml</literal> configuration file
+                you might want to use a better relational database for Keycloak like PostgreSQL or MySQL.  You might also
+                want to tweak the configuration settings of the datasource.  Please see the <ulink url="https://docs.jboss.org/author/display/WFLY8/DataSource+configuration">Wildfly</ulink>,
+                <ulink url="https://docs.jboss.org/author/display/AS71/DataSource+configuration">JBoss AS7</ulink>,
+                or <ulink url="https://docs.jboss.org/author/display/AS71/DataSource+configuration">JBoss EAP 6.x</ulink> documentation on how to do this.
+            </para>
+            <para>
+                Keycloak also runs on a Hibernate/JPA backend which is configured in the
+                <literal>standalone/configuration/keycloak-server.json</literal>.
+                By default the setting is like this:
+                <programlisting><![CDATA[
+"connectionsJpa": {
+    "default": {
+        "dataSource": "java:jboss/datasources/KeycloakDS",
+        "databaseSchema": "update"
+    }
+},
+]]></programlisting>
+                Possible configuration options are:
+                <variablelist>
+                    <varlistentry>
+                        <term>dataSource</term>
+                        <listitem>
+                            <para>
+                                JNDI name of the dataSource
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                        <term>jta</term>
+                        <listitem>
+                            <para>
+                                boolean property to specify if datasource is JTA capable
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                        <term>driverDialect</term>
+                        <listitem>
+                            <para>
+                                Value of Hibernate dialect. In most cases you don't need to specify this property as dialect will be
+                                autodetected by Hibernate.
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                        <term>databaseSchema</term>
+                        <listitem>
+                            <para>
+                                Value of database schema (Hibernate property "hibernate.hbm2ddl.auto" ).
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                        <term>showSql</term>
+                        <listitem>
+                            <para>
+                                Specify whether Hibernate should show all SQL commands in the console (false by default)
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                        <term>formatSql</term>
+                        <listitem>
+                            <para>
+                                Specify whether Hibernate should format SQL commands (true by default)
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                        <term>unitName</term>
+                        <listitem>
+                            <para>
+                                Allow you to specify name of persistence unit if you want to provide your own persistence.xml file for JPA configuration.
+                                If this option is used, then all other configuration options are ignored as you are expected to configure
+                                all JPA/DB properties in your own persistence.xml file. Hence you can remove properties "dataSource" and "databaseSchema" in this case.
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                </variablelist>
+                For more info about Hibernate properties, see <ulink url="http://hibernate.org/orm/documentation/">Hibernate and JPA documentation</ulink> .
+            </para>
+            <section>
+                <title>Tested databases</title>
+                <para>
+                    Here is list of RDBMS databases and corresponding JDBC drivers, which were tested with Keycloak. Note that Hibernate dialect
+                    is usually set automatically according to your database, but in some cases, you must manually set the proper dialect,
+                    as the default dialect may not work correctly. You can setup dialect by adding property <literal>driverDialect</literal>
+                    to the <literal>keycloak-server.json</literal> into <literal>connectionsJpa</literal> section (see above).
+                    <table frame='all'><title>Tested databases</title>
+                        <tgroup cols='3' align='left' colsep='1' rowsep='1'>
+                            <thead>
+                                <row>
+                                    <entry>Database</entry>
+                                    <entry>JDBC driver</entry>
+                                    <entry>Hibernate Dialect</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry>H2 1.3.161</entry>
+                                    <entry>H2 1.3.161</entry>
+                                    <entry>auto</entry>
+                                </row>
+                                <row>
+                                    <entry>MySQL 5.5</entry>
+                                    <entry>MySQL Connector/J 5.1.25</entry>
+                                    <entry>auto</entry>
+                                </row>
+                                <row>
+                                    <entry>PostgreSQL 9.2</entry>
+                                    <entry>JDBC4 Postgresql Driver, Version 9.3-1100</entry>
+                                    <entry>auto</entry>
+                                </row>
+                                <row>
+                                    <entry>Oracle 11g R1</entry>
+                                    <entry>Oracle JDBC Driver v11.1.0.7</entry>
+                                    <entry>auto</entry>
+                                </row>
+                                <row>
+                                    <entry>Microsoft SQL Server 2012</entry>
+                                    <entry>Microsoft SQL Server JDBC Driver 4.0.2206.100</entry>
+                                    <entry>org.hibernate.dialect.SQLServer2008Dialect</entry>
+                                </row>
+                                <row>
+                                    <entry>Sybase ASE 15.7</entry>
+                                    <entry>JDBC(TM)/7.07 ESD #5 (Build 26792)/P/EBF20686</entry>
+                                    <entry>auto</entry>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table>
+                </para>
+            </section>
+        </section>
+        <section>
+            <title>MongoDB based model</title>
+            <para>
+                Keycloak provides <ulink url="http://www.mongodb.com">MongoDB</ulink> based model implementation, which means that your identity data will be saved
+                in MongoDB instead of traditional RDBMS. To configure Keycloak to use Mongo open <literal>standalone/configuration/keycloak-server.json</literal>
+                in your favourite editor, then change:
+
+<programlisting><![CDATA[
+"eventsStore": {
+    "provider": "jpa",
+    "jpa": {
+        "exclude-events": [ "REFRESH_TOKEN" ]
+    }
+},
+
+"realm": {
+    "provider": "jpa"
+},
+
+"user": {
+    "provider": "${keycloak.user.provider:jpa}"
+},
+]]></programlisting>
+
+                to:
+
+                <programlisting><![CDATA[
+"eventsStore": {
+    "provider": "mongo",
+    "mongo": {
+        "exclude-events": [ "REFRESH_TOKEN" ]
+    }
+},
+
+"realm": {
+    "provider": "mongo"
+},
+
+"user": {
+    "provider": "mongo"
+},
+]]></programlisting>
+
+                And at the end of the file add the snippet like this where you can configure details about your Mongo database:
+                <programlisting><![CDATA[
+"connectionsMongo": {
+    "default": {
+        "host": "127.0.0.1",
+        "port": "27017",
+        "db": "keycloak"
+    }
+}
+]]></programlisting>
+
+                All configuration options are optional. Default values for host and port are localhost and 27017. Default name of database
+                is <literal>keycloak</literal> . You can also specify properties <literal>user</literal> and <literal>password</literal>
+                if you want authenticate against your MongoDB. If user and password are not specified, Keycloak will connect
+                unauthenticated to your MongoDB.
+            </para>
+        </section>
+
+        <section>
+            <title>AS7/EAP6.x Logging</title>
+            <para>
+                Accessing the admin console will get these annoying log messages:
+            </para>
+<programlisting>
+    WARN  [org.jboss.resteasy.core.ResourceLocator] (http-/127.0.0.1:8080-3)
+                Field providers of subresource xxx will not be injected according to spec
+
+</programlisting>
+
+            <para>
+                These can be ignored by editing standalone.xml of your jboss installation:
+            </para>
+<programlisting>
+<![CDATA[
+    <logger category="org.jboss.resteasy.core.ResourceLocator">
+        <level name="ERROR"/>
+    </logger>
+]]>
+</programlisting>
+        </section>
+        <section id="ssl_modes">
+            <title>SSL/HTTPS Requirement/Modes</title>
+            <warning>
+                <para>
+                    Keycloak is not set up by default to handle SSL/HTTPS in either the
+                    war distribution or appliance.  It is highly recommended that you either enable SSL on the Keycloak server
+                    itself or on a reverse proxy in front of the Keycloak server.
+                </para>
+            </warning>
+            <para>
+                Keycloak can run out of the box without SSL so long as you stick to private IP addresses like
+                localhost, 127.0.0.1, 10.0.x.x, 192.168.x.x, and 172..16.x.x.  If you try to access Keycloak from a
+                non-IP adress you will get an error.
+            </para>
+            <para>
+                Keycloak has 3 SSL/HTTPS modes which you can set up in the admin console under the Settings->Login page
+                and the <literal>Require SSL</literal> select box.  Each adapter config should mirror this server-side
+                setting.  See adapter config section for more details.
+                <variablelist>
+                    <varlistentry>
+                        <term>external</term>
+                        <listitem>
+                            <para>
+                                Keycloak can run out of the box without SSL so long as you stick to private IP addresses like
+                                localhost, 127.0.0.1, 10.0.x.x, 192.168.x.x, and 172..16.x.x.  If you try to access Keycloak from a
+                                non-IP adress you will get an error.
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                        <term>none</term>
+                        <listitem>
+                            <para>
+                                Keycloak does not require SSL.
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                        <term>all</term>
+                        <listitem>
+                            <para>
+                                Keycloak requires SSL for all IP addresses.
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                </variablelist>
+            </para>
+        </section>
+        <section>
+            <title>SSL/HTTPS Setup</title>
+
+            <para>
+                First enable SSL on Keycloak or on a reverse proxy in front of Keycloak. Then configure the Keycloak Server to enforce HTTPS connections.
+            </para>
+
+            <section>
+                <title>Enable SSL on Keycloak</title>
+                <para>
+                    The following things need to be done
+                    <itemizedlist>
+
+                        <listitem>
+                            Generate a self signed or third-party signed certificate and import it into a Java keystore
+                            using <literal>keytool</literal>.
+                        </listitem>
+
+                        <listitem>
+                            Enable JBoss or Wildfly to use this certificate and turn on SSL/HTTPS.
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <section>
+                    <title>Creating the Certificate and Java Keystore</title>
+                    <para>
+                        In order to allow HTTPS connections, you need to obtain a self signed or third-party signed certificate
+                        and import it into a Java keystore before you can enable HTTPS in the web container you are deploying
+                        the Keycloak Server to.
+                    </para>
+                    <section>
+                        <title>Self Signed Certificate</title>
+                        <para>
+                            In development, you will probably not have a third party signed certificate available to test
+                            a Keycloak deployment so you'll need to generate a self-signed on.  Generate one is very easy
+                            to do with the <literal>keytool</literal> utility that comes with the Java jdk.
+                        </para>
+                        <para>
+    <programlisting>
+    $ keytool -genkey -alias localhost -keyalg RSA -keystore keycloak.jks -validity 10950
+        Enter keystore password: secret
+        Re-enter new password: secret
+        What is your first and last name?
+        [Unknown]:  localhost
+        What is the name of your organizational unit?
+        [Unknown]:  Keycloak
+        What is the name of your organization?
+        [Unknown]:  Red Hat
+        What is the name of your City or Locality?
+        [Unknown]:  Westford
+        What is the name of your State or Province?
+        [Unknown]:  MA
+        What is the two-letter country code for this unit?
+        [Unknown]:  US
+        Is CN=localhost, OU=Keycloak, O=Test, L=Westford, ST=MA, C=US correct?
+        [no]:  yes
+    </programlisting>
+                        </para>
+                        <para>
+                            You should answer the <literal>What is your first and last name?</literal> question with
+                            the DNS name of the machine you're installing the server on.  For testing purposes,
+                            <literal>localhost</literal> should be used.  After executing this command, the
+                            <literal>keycloak.jks</literal> file will be generated in the same directory as you executed
+                            the <literal>keytool</literal> command in.
+                        </para>
+                        <para>
+                            If you want a third-party signed certificate, but don't have one, you can obtain one for free
+                            at <ulink url="http://cacert.org">cacert.org</ulink>.  You'll have to do a little set up first
+                            before doing this though.
+                        </para>
+                        <para>
+                            The first thing to do is generate a Certificate Request:
+    <programlisting>
+    $ keytool -certreq -alias yourdomain -keystore keycloak.jks > keycloak.careq
+    </programlisting>
+                        </para>
+                        <para>
+                             Where <literal>yourdomain</literal> is a DNS name for which this certificate is generated for.
+                             Keytool generates the request:
+    <programlisting>
+    -----BEGIN NEW CERTIFICATE REQUEST-----
+    MIIC2jCCAcICAQAwZTELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAk1BMREwDwYDVQQHEwhXZXN0Zm9y
+    ZDEQMA4GA1UEChMHUmVkIEhhdDEQMA4GA1UECxMHUmVkIEhhdDESMBAGA1UEAxMJbG9jYWxob3N0
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr7kck2TaavlEOGbcpi9c0rncY4HhdzmY
+    Ax2nZfq1eZEaIPqI5aTxwQZzzLDK9qbeAd8Ji79HzSqnRDxNYaZu7mAYhFKHgixsolE3o5Yfzbw1
+    29Rvy+eUVe+WZxv5oo9wolVVpdSINIMEL2LaFhtX/c1dqiqYVpfnvFshZQaIg2nL8juzZcBjj4as
+    H98gIS7khql/dkZKsw9NLvyxgJvp7PaXurX29fNf3ihG+oFrL22oFyV54BWWxXCKU/GPn61EGZGw
+    Ft2qSIGLdctpMD1aJR2bcnlhEjZKDksjQZoQ5YMXaAGkcYkG6QkgrocDE2YXDbi7GIdf9MegVJ35
+    2DQMpwIDAQABoDAwLgYJKoZIhvcNAQkOMSEwHzAdBgNVHQ4EFgQUQwlZJBA+fjiDdiVzaO9vrE/i
+    n2swDQYJKoZIhvcNAQELBQADggEBAC5FRvMkhal3q86tHPBYWBuTtmcSjs4qUm6V6f63frhveWHf
+    PzRrI1xH272XUIeBk0gtzWo0nNZnf0mMCtUBbHhhDcG82xolikfqibZijoQZCiGiedVjHJFtniDQ
+    9bMDUOXEMQ7gHZg5q6mJfNG9MbMpQaUVEEFvfGEQQxbiFK7hRWU8S23/d80e8nExgQxdJWJ6vd0X
+    MzzFK6j4Dj55bJVuM7GFmfdNC52pNOD5vYe47Aqh8oajHX9XTycVtPXl45rrWAH33ftbrS8SrZ2S
+    vqIFQeuLL3BaHwpl3t7j2lMWcK1p80laAxEASib/fAwrRHpLHBXRcq6uALUOZl4Alt8=
+    -----END NEW CERTIFICATE REQUEST-----
+     </programlisting>
+                        </para>
+                        <para>
+                            Send this ca request to your CA.  The CA will issue you a signed certificate and send it to you.
+                            Before you import your new cert, you must obtain and import the root certificate of the CA.
+                            You can download the cert from CA (ie.: root.crt) and import as follows:
+    <programlisting>
+    $ keytool -import -keystore keycloak.jks -file root.crt -alias root
+    </programlisting>
+                        </para>
+                        <para>
+                            Last step is import your new CA generated certificate to your keystore:
+    <programlisting>
+    $ keytool -import -alias yourdomain -keystore keycloak.jks -file your-certificate.cer
+    </programlisting>
+                        </para>
+                    </section>
+                </section>
+                <section>
+                    <title>Installing the keystore to WildFly</title>
+                    <para>
+                        Now that you have a Java keystore with the appropriate certificates, you need to configure your
+                        Wildfly installation to use it.  First step is to move the keystore file to a directory
+                        you can reference in configuration.  I like to put it in <literal>standalone/configuration</literal>.
+                        Then you need to edit <literal>standalone/configuration/standalone.xml</literal> to enable SSL/HTTPS.
+                    </para>
+                    <para>
+                        To the <literal>security-realms</literal> element add:
+                        <programlisting><![CDATA[<security-realm name="UndertowRealm">
+        <server-identities>
+            <ssl>
+                <keystore path="keycloak.jks" relative-to="jboss.server.config.dir" keystore-password="secret" />
+            </ssl>
+        </server-identities>
+    </security-realm>]]></programlisting>
+                    </para>
+                    <para>
+                        Find the element <literal>&lt;server name="default-server"&gt;</literal> (it's a child element of <literal>&lt;subsystem xmlns="urn:jboss:domain:undertow:1.0"&gt;</literal>) and add:
+                        <programlisting><![CDATA[<https-listener name="https" socket-binding="https" security-realm="UndertowRealm"/>
+    ]]></programlisting>
+                    </para>
+                    <para>
+                        Check the <ulink url="https://docs.jboss.org/author/display/WFLY8/Undertow+(web)+subsystem+configuration">Wildfly Undertow</ulink> documentation for more information on fine tuning the socket connections.
+                    </para>
+                </section>
+                <section>
+                    <title>Installing the keystore to JBoss EAP6/AS7</title>
+                    <para>
+                        Now that you have a Java keystore with the appropriate certificates, you need to configure your
+                        JBoss EAP6/AS7 installation to use it.  First step is to move the keystore file to a directory
+                        you can reference in configuration.  I like to put it in <literal>standalone/configuration</literal>.
+                        Then you need to edit <literal>standalone/configuration/standalone.xml</literal> to enable SSL/HTTPS.
+                    </para>
+                    <para>
+<programlisting><![CDATA[<subsystem xmlns="urn:jboss:domain:web:1.1" default-virtual-server="default-host" native="false">
+   <connector name="http" protocol="HTTP/1.1" scheme="http" socket-binding="http"  redirect-port="443" />
+   <connector name="https" scheme="https" protocol="HTTP/1.1" socket-binding="https"
+              enable-lookups="false" secure="true">
+       <ssl name="localhost-ssl" password="secret" protocol="TLSv1"
+            key-alias="localhost" certificate-key-file="${jboss.server.config.dir}/keycloak.jks" />
+   </connector>
+        ...
+</subsystem>]]></programlisting>
+                    </para>
+                    <para>
+                        Check the <ulink url="https://docs.jboss.org/author/display/AS71/SSL+setup+guide">JBoss</ulink> documentation for more information on fine tuning the socket connections.
+                    </para>
+                </section>
+            </section>
+
+            <section>
+                <title>Enable SSL on a Reverse Proxy</title>
+                <para>
+                    Follow the documentation for your web server to enable SSL and configure reverse proxy for Keycloak.
+                    It is important that you make sure the web server sets the <literal>X-Forwarded-For</literal> and
+                    <literal>X-Forwarded-Proto</literal> headers on the requests made to Keycloak. Next you need to enable
+                    <literal>proxy-address-forwarding</literal> on the Keycloak http connector. Assuming that your reverse
+                    proxy doesn't use port 8443 for SSL you also need to configure what port http traffic is redirected to.
+                    This is done by editing <literal>standalone/configuration/standalone.xml</literal>.
+                </para>
+                First add <literal>proxy-address-forwarding</literal> and <literal>redirect-socket</literal> to the <literal>http-listener</literal>
+                element:
+                <para>
+<programlisting><![CDATA[<subsystem xmlns="urn:jboss:domain:undertow:1.1">
+    ...
+    <http-listener name="default" socket-binding="http" proxy-address-forwarding="true" redirect-socket="proxy-https"/>
+    ...
+</subsystem>
+]]></programlisting>
+                Then add a new <literal>socket-binding</literal> element to the <literal>socket-binding-group</literal> element:
+<programlisting><![CDATA[
+<socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
+    ...
+    <socket-binding name="proxy-https" port="443"/>
+    ...
+</socket-binding-group>
+]]></programlisting>
+                </para>
+                <para>
+                    Check the <ulink url="https://docs.jboss.org/author/display/WFLY8/Undertow+(web)+subsystem+configuration">WildFly</ulink> documentation for more information.
+                </para>
+            </section>
+
+            <section>
+                <title>Enforce HTTPS For Server Connections</title>
+                <para>
+                    Servlet containers can force browsers and other HTTP clients to use HTTPS.  You have to configure this in
+                    <literal>.../standalone/deployments/auth-server.war/WEB-INF/web.xml</literal>.  All you have to do is
+                    uncomment out the security constraint.
+                </para>
+                <para>
+ <programlisting><![CDATA[<web-app>
+ ...
+       <security-constraint>
+           <web-resource-collection>
+               <url-pattern>/*</url-pattern>
+           </web-resource-collection>
+           <user-data-constraint>
+               <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+           </user-data-constraint>
+       </security-constraint>
+</web-app>]]></programlisting>
+                </para>
+            </section>
+        </section>
+
+    </section>
+</chapter>

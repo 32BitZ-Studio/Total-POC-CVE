@@ -1,0 +1,124 @@
+<chapter id="Migration_from_older_versions">
+    <title>Migration from older versions</title>
+    <sect1>
+        <title>Migrating from 1.0 RC-1 to RC-2</title>
+        <itemizedlist>
+            <listitem>A lot of info level logging has been changed to debug. Also, a realm no longer has the jboss-logging audit listener by default.
+            If you want log output when users login, logout, change passwords, etc. enable the jboss-logging audit listener through the admin console.</listitem>
+         </itemizedlist>
+    </sect1>
+    <sect1>
+        <title>Migrating from 1.0 Beta 4 to RC-1</title>
+        <itemizedlist>
+            <listitem>
+                logout REST API has been refactored.  The GET request on the logout URI does not take a session_state
+                parameter anymore.  You must be logged in in order to log out the session.
+                You can also POST to the logout REST URI.  This action requires a valid refresh token to perform the logout.
+                The signature is the same as refresh token minus the grant type form parameter.  See documentation for details.
+            </listitem>
+         </itemizedlist>
+    </sect1>
+    <sect1>
+        <title>Migrating from 1.0 Beta 1 to Beta 4</title>
+        <itemizedlist>
+            <listitem>
+                LDAP/AD configuration is changed.  It is no longer under the "Settings" page.  It is now under
+                Users->Federation.  Add Provider will show you an "ldap" option.
+            </listitem>
+            <listitem>
+                Authentication SPI has been removed and rewritten.  The new SPI is UserFederationProvider and is
+                more flexible.
+            </listitem>
+            <listitem>
+                <literal>ssl-not-required</literal> property in adapter config has been removed. Replaced with
+                <literal>ssl-required</literal>, valid values are <literal>all</literal> (require SSL for all requests), <literal>external</literal>
+                (require SSL only for external request) and <literal>none</literal> (SSL not required).
+            </listitem>
+            <listitem>
+                DB Schema has changed again.
+            </listitem>
+            <listitem>
+                Created applications now have a full scope by default.  This means that you don't have to configure
+                the scope of an application if you don't want to.
+            </listitem>
+            <listitem>
+                Format of JSON file for importing realm data was changed. Now role mappings is available under the JSON record of particular
+                user.
+            </listitem>
+        </itemizedlist>
+    </sect1>
+    <sect1>
+        <title>Migrating from 1.0 Alpha 4 to Beta 1</title>
+        <itemizedlist>
+            <listitem>
+                DB Schema has changed.  We have added export of the database to Beta 1, but not the ability to import
+                the database from older versions. This will be supported in future releases.
+            </listitem>
+            <listitem>
+                For all clients except bearer-only applications, you must specify at least one redirect uri.  Keycloak
+                will not allow you to log in unless you have specified a valid redirect uri for that application.
+            </listitem>
+            <listitem>
+                Resource Owner Password Credentials flow is now disabled by default. It can be enabled by setting the toggle
+                for <literal>Direct Grant API</literal> <literal>ON</literal> under realm config in the admin console.
+            </listitem>
+            <listitem>
+                Configuration is now done through <literal>standalone/configuration/keycloak-server.json</literal>. This
+                should mainly affect those that use MongoDB.
+            </listitem>
+            <listitem>
+                JavaScript adapter has been refactored. See the <link linkend='javascript-adapter'>JavaScript adapter</link> section for more details.
+            </listitem>
+            <listitem>
+                The "Central Login Lifespan" setting no longer exists.  Please see the <link linkend='session-timeouts'>Session Timeout</link> section
+                for me details.
+            </listitem>
+        </itemizedlist>
+    </sect1>
+    <sect1>
+        <title>Migrating from 1.0 Alpha 2 to Alpha 3</title>
+        <itemizedlist>
+            <listitem>
+                SkeletonKeyToken, SkeletonKeyScope, SkeletonKeyPrincipal, and SkeletonKeySession have been renamed to:
+                AccessToken, AccessScope, KeycloakPrincipal, and KeycloakAuthenticatedSession respectively.
+            </listitem>
+            <listitem>
+                ServleOAuthClient.getBearerToken() method signature has changed.  It now returns an AccessTokenResponse
+                so that you can obtain a refresh token too.
+            </listitem>
+            <listitem>
+                Adapters now check the access token expiration with every request.  If the token is expired, they will
+                attempt to invoke a refresh on the auth server using a saved refresh token.
+            </listitem>
+            <listitem>
+                Subject in AccessToken has been changed to the User ID.
+            </listitem>
+        </itemizedlist>
+    </sect1>
+    <sect1>
+        <title>Migrating from 1.0 Alpha 1 to Alpha 2</title>
+        <itemizedlist>
+            <listitem>
+                DB Schema has changed.  We don't have any data migration utilities yet as of Alpha 2.
+            </listitem>
+            <listitem>
+                JBoss and Wildfly adapters are now installed via a JBoss/Wildfly subsystem.  Please review the adapter
+                installation documentation.  Edits to standalone.xml are now required.
+            </listitem>
+            <listitem>
+                There is a new credential type "secret".  Unlike other credential types, it is stored in plain text in
+                the database and can be viewed in the admin console.
+
+            </listitem>
+            <listitem>
+                There is no longer required Application or OAuth Client credentials.  These client types are now
+                hard coded to use the "secret" credential type.
+            </listitem>
+            <listitem>
+                Because of the "secret" credential change to Application and OAuth Client, you'll have to update
+                your keycloak.json configuration files and regenarate a secret within the Application or OAuth Client
+                credentials tab in the administration console.
+            </listitem>
+        </itemizedlist>
+    </sect1>
+</chapter>

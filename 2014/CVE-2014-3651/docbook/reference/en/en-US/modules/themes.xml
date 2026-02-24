@@ -1,0 +1,195 @@
+<chapter id="themes">
+    <title>Themes</title>
+
+    <para>
+        Keycloak provides theme support for login forms and account management. This allows customizing the look
+        and feel of end-user facing pages so they can be integrated with your brand and applications.
+    </para>
+
+    <section>
+        <title>Theme types</title>
+        <para>
+            There are several types of themes in Keycloak:
+            <itemizedlist>
+                <listitem>Account - Account management</listitem>
+                <listitem>Admin - Admin console</listitem>
+                <listitem>Common - Shared resources for themes</listitem>
+                <listitem>Email - Emails</listitem>
+                <listitem>Login - Login forms</listitem>
+                <listitem>Welcome - Welcome pages</listitem>
+            </itemizedlist>
+        </para>
+    </section>
+
+    <section>
+        <title>Configure theme</title>
+        <para>
+            All theme types, except welcome, is configured through <literal>Keycloak Admin Console</literal>. To change
+            the theme used for a realm open the open the <literal>Keycloak Admin Console</literal>, select your realm
+            from the drop-down box in the top left corner. Under <literal>Settings</literal> click on <literal>Theme</literal>.
+        </para>
+        <para>
+            To change the welcome theme you need to edit <literal>standalone/configuration/keycloak-server.json</literal>
+            and add <literal>welcomeTheme</literal> to the theme element, for example:
+<programlisting>
+"theme": {
+    ...
+    "welcomeTheme": "custom-theme"
+}
+</programlisting>
+        </para>
+    </section>
+
+    <section>
+        <title>Default themes</title>
+        <para>
+            Keycloak comes bundled with default themes in <literal>standalone/configuration/themes</literal>. It is
+            not recommended to edit these themes directly. Instead you should create a new theme to extend a default
+            theme. A good reference is to copy the keycloak themes as these extend the base theme to add styling.
+        </para>
+    </section>
+
+    <section>
+        <title>Creating a theme</title>
+        <para>
+            A theme consists of:
+            <itemizedlist>
+                <listitem><ulink url="http://freemarker.org">FreeMarker</ulink> templates</listitem>
+                <listitem>Stylesheets</listitem>
+                <listitem>Scripts</listitem>
+                <listitem>Images</listitem>
+                <listitem>Message bundles</listitem>
+                <listitem>Theme properties</listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            A theme can extend another theme. When extending a theme you can override individual files (templates, stylesheets, etc.).
+            The recommended way to create a theme is to extend the base theme. The base theme provides templates
+            and a default message bundle. It should be possible to achieve the customization required by styling these
+            templates.
+        </para>
+        <para>
+            To create a new theme, create a folder in <literal>.../standalone/configuration/themes/&lt;theme type&gt;</literal>.
+            The name of the folder is the name of the theme. Then create a file <literal>theme.properties</literal> inside the theme folder.
+            The contents of the file should be:
+        </para>
+        <programlisting>parent=base</programlisting>
+        <para>
+            You have now created your theme. Check that it works by configuring it for a realm. It should look the same
+            as the base theme as you've not added anything to it yet. The next sections will describe how to modify
+            the theme.</para>
+        <section>
+            <title>Stylesheets</title>
+            <para>
+                A theme can have one or more stylesheets, to add a stylesheet create a file inside <literal>resources/css</literal> (for example <literal>resources/css/styles.css</literal>)
+                inside your theme folder. Then registering it in <literal>theme.properties</literal> by adding:
+            </para>
+            <programlisting>styles=css/styles.css</programlisting>
+            <para>
+                The <literal>styles</literal> property supports a space separated list so you can add as many
+                as you want. For example:
+            </para>
+            <programlisting>styles=css/styles.css css/more-styles.css</programlisting>
+        </section>
+        <section>
+            <title>Scripts</title>
+            <para>
+                A theme can have one or more scripts, to add a script create a file inside <literal>resources/js</literal> (for example <literal>resources/js/script.js</literal>)
+                inside your theme folder. Then registering it in <literal>theme.properties</literal> by adding:
+            </para>
+            <programlisting>scripts=js/script.js</programlisting>
+            <para>
+                The <literal>scripts</literal> property supports a space separated list so you can add as many
+                as you want. For example:
+            </para>
+            <programlisting>scripts=js/script.js js/more-script.js</programlisting>
+        </section>
+        <section>
+            <title>Images</title>
+            <para>
+                To make images available to the theme add them to <literal>resources/img</literal>. They can then be used
+                through stylesheets. For example:
+            </para>
+            <programlisting>body {
+    background-image: url('../img/image.jpg');
+}</programlisting>
+            <para>
+                Or in templates, for example:
+            </para>
+            <programlisting>&lt;img src="${url.resourcesPath}/img/image.jpg"&gt;</programlisting>
+        </section>
+        <section>
+            <title>Messages</title>
+            <para>
+                Text in the templates are loaded from message bundles. Currently internationalization isn't supported,
+                but that will be added in a later release. A theme that extends another theme will inherit all messages
+                from the parents message bundle, but can override individual messages. For example to replace
+                <literal>Username</literal> on the login form with <literal>Your Username</literal> create the file
+                <literal>messages/messages.properties</literal> inside your theme folder and add the following content:
+            </para>
+            <programlisting>username=Your Username</programlisting>
+        </section>
+        <section>
+            <title>Modifying HTML</title>
+            <para>
+                Keycloak uses <ulink url="http://freemarker.org">Freemarker Templates</ulink> in order to generate HTML.
+                These templates are defined in <literal>.ftl</literal> files and can be overriden from the base theme.
+                Check out the Freemarker website on how to form a template file.
+            </para>
+        </section>
+    </section>
+
+    <section>
+        <title>SPIs</title>
+        <para>
+            For full control of login forms and account management Keycloak provides a number of SPIs.
+        </para>
+        <section>
+            <title>Theme SPI</title>
+            <para>
+                The Theme SPI allows creating different mechanisms to load themes for the default FreeMarker based
+                implementations of login forms and account management. To create a theme provider you will need to implement
+                <literal>org.keycloak.freemarker.ThemeProviderFactory</literal> and <literal>org.keycloak.freemarker.ThemeProvider</literal>.
+            </para>
+            <para>
+                Keycloak comes with two theme providers, one that loads themes from the classpath (used by default themes)
+                and another that loads themes from a folder (used by custom themes). Looking at these
+                would be a good place to start to create your own theme provider. You can find them inside
+                <literal>forms/common-themes</literal> on GitHub or the source download.
+            </para>
+        </section>
+        <section>
+            <title>Account SPI</title>
+            <para>
+                The Account SPI allows implementing the account management pages using whatever web framework or templating
+                engine you want. To create an Account provider implement <literal>org.keycloak.account.AccountProviderFactory</literal>
+                and <literal>org.keycloak.account.AccountProvider</literal>.
+            </para>
+            <para>
+                Once you have deployed your account provider to Keycloak you need to configure <literal>keycloak-server.json</literal>to specify which provider should be used:
+<programlisting>
+"account": {
+    "provider": "custom-provider"
+}
+</programlisting>
+            </para>
+        </section>
+        <section>
+            <title>Login SPI</title>
+            <para>
+                The Login SPI allows implementing the login forms using whatever web framework or templating
+                engine you want. To create a Login forms provider implement <literal>org.keycloak.login.LoginFormsProviderFactory</literal>
+                and <literal>org.keycloak.login.LoginFormsProvider</literal> in <literal>forms/login-api</literal>.
+            </para>
+            <para>
+                Once you have deployed your account provider to Keycloak you need to configure <literal>keycloak-server.json</literal>to specify which provider should be used:
+<programlisting>
+"login": {
+    "provider": "custom-provider"
+}
+</programlisting>
+            </para>
+        </section>
+    </section>
+
+</chapter>

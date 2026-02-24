@@ -1,0 +1,12 @@
+C:\Users\Fraser\source\repos\ZTE\ZTE\bin\Debug\ZTE.exe.config
+C:\Users\Fraser\source\repos\ZTE\ZTE\bin\Debug\ZTE.exe
+C:\Users\Fraser\source\repos\ZTE\ZTE\bin\Debug\ZTE.pdb
+C:\Users\Fraser\source\repos\ZTE\ZTE\bin\Debug\ZTE.xml
+C:\Users\Fraser\source\repos\ZTE\ZTE\obj\Debug\ZTE.vbproj.AssemblyReference.cache
+C:\Users\Fraser\source\repos\ZTE\ZTE\obj\Debug\ZTE.vbproj.SuggestedBindingRedirects.cache
+C:\Users\Fraser\source\repos\ZTE\ZTE\obj\Debug\ZTE.Resources.resources
+C:\Users\Fraser\source\repos\ZTE\ZTE\obj\Debug\ZTE.vbproj.GenerateResource.cache
+C:\Users\Fraser\source\repos\ZTE\ZTE\obj\Debug\ZTE.vbproj.CoreCompileInputs.cache
+C:\Users\Fraser\source\repos\ZTE\ZTE\obj\Debug\ZTE.exe
+C:\Users\Fraser\source\repos\ZTE\ZTE\obj\Debug\ZTE.xml
+C:\Users\Fraser\source\repos\ZTE\ZTE\obj\Debug\ZTE.pdb
