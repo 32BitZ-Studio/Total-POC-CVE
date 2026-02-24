@@ -1,0 +1,4 @@
+SKIP: check_unit_vg.sh (exit: 77)
+=================================
+
+*** valgrind tests skipped by default, use 'make check VG=1' to activate

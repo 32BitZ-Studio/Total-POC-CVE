@@ -1,0 +1,12 @@
+Valgrind.lo: llvm/lib/System/Valgrind.cpp /usr/include/stdc-predef.h \
+ llvm/include/llvm/System/Valgrind.h \
+ /usr/lib/gcc/i686-linux-gnu/5/include/stddef.h \
+ llvm/include/llvm/Config/config.h
+
+/usr/include/stdc-predef.h:
+
+llvm/include/llvm/System/Valgrind.h:
+
+/usr/lib/gcc/i686-linux-gnu/5/include/stddef.h:
+
+llvm/include/llvm/Config/config.h:

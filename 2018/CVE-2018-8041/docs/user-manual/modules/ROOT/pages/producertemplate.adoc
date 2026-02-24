@@ -1,0 +1,109 @@
+= ProducerTemplate
+
+The `ProducerTemplate` interface allows you to send message exchanges to
+endpoints in a variety of different ways to make it easy to work with
+Camel xref:endpoint.adoc[Endpoint] instances from Java code.
+
+It can be configured with a default endpoint if you just want to send
+lots of messages to the same endpoint; or you can specify an
+xref:endpoint.adoc[Endpoint] or uri as the first parameter.
+
+The `sendBody()` method allows you to send any object to an endpoint
+easily as shown:
+
+[source,java]
+----
+ProducerTemplate template = exchange.getContext().createProducerTemplate();
+
+// send to default endpoint
+template.sendBody("<hello>world!</hello>");
+
+// send to a specific queue
+template.sendBody("activemq:MyQueue", "<hello>world!</hello>");
+
+// send with a body and header
+template.sendBodyAndHeader("activemq:MyQueue",
+   "<hello>world!</hello>",
+   "CustomerRating", "Gold");
+----
+
+You can also supply an `Exchange` or a `Processor` to customize the exchange.
+
+== Send vs Request methods
+
+The `ProducerTemplate` supports xref:exchange-pattern.adoc[Message Exchange Patterns] (MEP)
+that are used to control the messaging style to use:
+
+* _send methods_ - xref:components:eips:event-message.adoc[Event Message] (InOnly)
+* _request methods_ - xref:components:eips:requestReply-eip.adoc[Request Reply] (InOut)
+
+In other words, all the methods on the `ProducerTemplate` that starts with `sendXXX` are for InOnly messaging,
+and all the methods starting with `requestXXX` are for InOut messaging.
+
+Lets see an example where we invoke an endpoint to get the response (InOut):
+
+[source,java]
+----
+Object response = template.requestBody("<hello/>");
+
+// you can type convert the response to what you want such as String
+String ret = template.requestBody("<hello/>", String.class);
+
+// or specify the endpoint uri in the method
+String ret = template.requestBody("cxf:bean:HelloWorldService", "<hello/>", String.class);
+----
+
+== Fluent interface
+
+The `FluentProducerTemplate` provides a fluent syntax over the regular `ProducerTemplate`.
+
+Here are some examples:
+
+=== Set headers and body
+
+This is the most common style with fluent builders to set headers, and message body as show:
+
+[source,java]
+----
+Integer result = FluentProducerTemplate.on(context)
+    .withHeader("key-1", "value-1")
+    .withHeader("key-2", "value-2")
+    .withBody("Hello")
+    .to("direct:inout")
+    .request(Integer.class);
+----
+
+=== Using a processor
+
+Here we use xref:processor.adoc[Processor] to prepare the message to be sent.
+
+[source,java]
+----
+Integer result = FluentProducerTemplate.on(context)
+    .withProcessor(exchange -> exchange.getIn().setBody("Hello World"))
+    .to("direct:exception")
+    .request(Integer.class);
+----
+
+=== Advanced with a template customizer
+
+This is rarely in use, but a `TemplateCustomizer` can be used for advanced use-cases
+to control various aspects of the `FluentProducerTemplate` such as configuring to use a custom thread pool:
+
+[source,java]
+----
+Object result = FluentProducerTemplate.on(context)
+    .withTemplateCustomizer(
+        template -> {
+            template.setExecutorService(myExecutor);
+            template.setMaximumCacheSize(10);
+        }
+    )
+    .withBody("the body")
+    .to("direct:start")
+    .request();
+----
+
+== See Also
+
+See xref:consumertemplate.adoc[ConsumerTemplate]

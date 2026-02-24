@@ -1,0 +1,15 @@
+package
+{
+   public class Class4
+   {
+       
+      
+      public var m_Class1:Class1;
+      
+      public function Class4()
+      {
+         this.m_Class1 = new Class1();
+         super();
+      }
+   }
+}

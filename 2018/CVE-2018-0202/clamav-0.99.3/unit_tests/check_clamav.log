@@ -1,0 +1,7 @@
+SKIP: check_clamav (exit: 77)
+=============================
+
+
+*** Unit tests disabled in this build
+*** Use ./configure --enable-check to enable them
+

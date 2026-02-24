@@ -1,0 +1,30 @@
+MCAsmInfoDarwin.lo: llvm/lib/MC/MCAsmInfoDarwin.cpp \
+ /usr/include/stdc-predef.h llvm/include/llvm/MC/MCAsmInfoDarwin.h \
+ llvm/include/llvm/MC/MCAsmInfo.h llvm/include/llvm/MC/MCDirectives.h \
+ /usr/include/c++/5/cassert /usr/include/assert.h /usr/include/features.h \
+ /usr/include/i386-linux-gnu/sys/cdefs.h \
+ /usr/include/i386-linux-gnu/bits/wordsize.h \
+ /usr/include/i386-linux-gnu/gnu/stubs.h \
+ /usr/include/i386-linux-gnu/gnu/stubs-32.h
+
+/usr/include/stdc-predef.h:
+
+llvm/include/llvm/MC/MCAsmInfoDarwin.h:
+
+llvm/include/llvm/MC/MCAsmInfo.h:
+
+llvm/include/llvm/MC/MCDirectives.h:
+
+/usr/include/c++/5/cassert:
+
+/usr/include/assert.h:
+
+/usr/include/features.h:
+
+/usr/include/i386-linux-gnu/sys/cdefs.h:
+
+/usr/include/i386-linux-gnu/bits/wordsize.h:
+
+/usr/include/i386-linux-gnu/gnu/stubs.h:
+
+/usr/include/i386-linux-gnu/gnu/stubs-32.h:

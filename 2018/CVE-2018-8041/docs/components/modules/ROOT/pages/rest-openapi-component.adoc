@@ -1,0 +1,1 @@
+../../../../../components/camel-rest-openapi/src/main/docs/rest-openapi-component.adoc

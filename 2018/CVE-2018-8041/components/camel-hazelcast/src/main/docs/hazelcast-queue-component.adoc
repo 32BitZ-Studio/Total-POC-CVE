@@ -1,0 +1,200 @@
+= Hazelcast Queue Component
+:doctitle: Hazelcast Queue
+:shortname: hazelcast-queue
+:artifactid: camel-hazelcast
+:description: Perform operations on Hazelcast distributed queue.
+:since: 2.7
+:supportlevel: Stable
+:tabs-sync-option:
+:component-header: Both producer and consumer are supported
+//Manually maintained attributes
+:group: Hazelcast
+:camel-spring-boot-name: hazelcast
+
+*Since Camel {since}*
+
+*{component-header}*
+
+The http://www.hazelcast.com/[Hazelcast] Queue component is one of Camel Hazelcast Components which allows you to access Hazelcast distributed queue.
+
+
+// component-configure options: START
+
+// component-configure options: END
+
+// component options: START
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+// component options: END
+
+// endpoint options: START
+
+// endpoint options: END
+
+
+
+== Queue producer – to(“hazelcast-queue:foo”)
+
+The queue producer provides 12 operations:
+
+* add
+* put
+* poll
+* peek
+* offer
+* removevalue
+* remainingCapacity
+* removeAll
+* removeIf
+* drainTo
+* take
+* retainAll
+
+// component headers: START
+include::partial$component-endpoint-headers.adoc[]
+// component headers: END
+
+=== Example for *add*:
+
+[source,java]
+------------------------------------------------------------------------------------
+from("direct:add")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.ADD))
+.toF("hazelcast-%sbar", HazelcastConstants.QUEUE_PREFIX);
+------------------------------------------------------------------------------------
+
+=== Example for *put*:
+
+[source,java]
+------------------------------------------------------------------------------------
+from("direct:put")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.PUT))
+.toF("hazelcast-%sbar", HazelcastConstants.QUEUE_PREFIX);
+------------------------------------------------------------------------------------
+
+=== Example for *poll*:
+
+[source,java]
+-------------------------------------------------------------------------------------
+from("direct:poll")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.POLL))
+.toF("hazelcast:%sbar", HazelcastConstants.QUEUE_PREFIX);
+-------------------------------------------------------------------------------------
+
+=== Example for *peek*:
+
+[source,java]
+-------------------------------------------------------------------------------------
+from("direct:peek")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.PEEK))
+.toF("hazelcast:%sbar", HazelcastConstants.QUEUE_PREFIX);
+-------------------------------------------------------------------------------------
+
+=== Example for *offer*:
+
+[source,java]
+--------------------------------------------------------------------------------------
+from("direct:offer")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.OFFER))
+.toF("hazelcast:%sbar", HazelcastConstants.QUEUE_PREFIX);
+--------------------------------------------------------------------------------------
+
+=== Example for *removevalue*:
+
+[source,java]
+--------------------------------------------------------------------------------------------
+from("direct:removevalue")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.REMOVE_VALUE))
+.toF("hazelcast-%sbar", HazelcastConstants.QUEUE_PREFIX);
+--------------------------------------------------------------------------------------------
+
+=== Example for *remaining capacity*:
+
+[source,java]
+--------------------------------------------------------------------------------------------
+from("direct:remaining-capacity").setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.REMAINING_CAPACITY)).to(
+String.format("hazelcast-%sbar", HazelcastConstants.QUEUE_PREFIX));
+--------------------------------------------------------------------------------------------
+
+=== Example for *remove all*:
+
+[source,java]
+--------------------------------------------------------------------------------------------
+from("direct:removeAll").setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.REMOVE_ALL)).to(
+String.format("hazelcast-%sbar", HazelcastConstants.QUEUE_PREFIX));
+--------------------------------------------------------------------------------------------
+
+=== Example for *remove if*:
+
+[source,java]
+--------------------------------------------------------------------------------------------
+from("direct:removeIf").setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.REMOVE_IF)).to(
+String.format("hazelcast-%sbar", HazelcastConstants.QUEUE_PREFIX));
+--------------------------------------------------------------------------------------------
+
+=== Example for *drain to*:
+
+[source,java]
+--------------------------------------------------------------------------------------------
+from("direct:drainTo").setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.DRAIN_TO)).to(
+String.format("hazelcast-%sbar", HazelcastConstants.QUEUE_PREFIX));
+--------------------------------------------------------------------------------------------
+
+=== Example for *take*:
+
+[source,java]
+--------------------------------------------------------------------------------------------
+from("direct:take").setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.TAKE)).to(
+String.format("hazelcast-%sbar", HazelcastConstants.QUEUE_PREFIX));
+--------------------------------------------------------------------------------------------
+
+=== Example for *retain all*:
+
+[source,java]
+--------------------------------------------------------------------------------------------
+from("direct:retainAll").setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.RETAIN_ALL)).to(
+String.format("hazelcast-%sbar", HazelcastConstants.QUEUE_PREFIX));
+--------------------------------------------------------------------------------------------
+
+== Queue consumer – from(“hazelcast-queue:foo”)
+
+The queue consumer provides two different modes:
+
+* Poll
+* Listen
+
+Sample for *Poll* mode
+
+[source,java]
+-------------------------------------------------------------------------------------------
+fromF("hazelcast-%sfoo?queueConsumerMode=Poll", HazelcastConstants.QUEUE_PREFIX)).to("mock:result");
+-------------------------------------------------------------------------------------------
+
+In this way, the consumer will poll the queue and return the head of the queue or null after a timeout.
+
+
+In Listen mode instead, the consumer will listen for events on queue.
+
+The queue consumer in Listen mode provides 2 operations:
+* add
+* remove
+
+Sample for *Listen* mode
+
+[source,java]
+-------------------------------------------------------------------------------------------
+fromF("hazelcast-%smm", HazelcastConstants.QUEUE_PREFIX)
+   .log("object...")
+   .choice()
+    .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED))
+            .log("...added")
+        .to("mock:added")
+    .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.REMOVED))
+        .log("...removed")
+        .to("mock:removed")
+    .otherwise()
+        .log("fail!");
+-------------------------------------------------------------------------------------------
+
+
+include::spring-boot:partial$starter.adoc[]

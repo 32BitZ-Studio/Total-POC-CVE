@@ -1,0 +1,78 @@
+= IEC 60870 Client Component
+:doctitle: IEC 60870 Client
+:shortname: iec60870-client
+:artifactid: camel-iec60870
+:description: IEC 60870 supervisory control and data acquisition (SCADA) client using NeoSCADA implementation.
+:since: 2.20
+:supportlevel: Stable
+:tabs-sync-option:
+:component-header: Both producer and consumer are supported
+//Manually maintained attributes
+:camel-spring-boot-name: iec60870
+
+*Since Camel {since}*
+
+*{component-header}*
+
+The IEC 60870-5-104 Client component provides access to IEC 60870 servers using the
+http://eclipse.org/eclipsescada[Eclipse NeoSCADA] implementation.
+
+Maven users will need to add the following dependency to their `pom.xml`
+for this component:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel</groupId>
+    <artifactId>camel-iec60870</artifactId>
+    <version>x.x.x</version>
+    <!-- use the same version as your Camel core version -->
+</dependency>
+----
+
+== URI format
+
+The URI syntax of the endpoint is:
+
+----
+iec60870-client:host:port/00-01-02-03-04
+----
+
+The information object address is encoded in the path in the syntax above.
+Please note that always the full, 5-octet address format is being used.
+Unused octets have to be filled with zero.
+
+A connection instance if identified by the host and port part of the URI, plus all parameters in the _"id"_ group.
+If a new connection id is encountered, the connection options will be evaluated and the connection instance
+is created with those options.
+
+[NOTE]
+If two URIs specify the same connection (host, port, ...) but different connection options, then it is
+undefined which of those connection options will be used. 
+
+The final connection options will be evaluated in the following order:
+
+* If present, the `connectionOptions` parameter will be used
+* Otherwise, the `defaultConnectionOptions` instance is copied and customized in the following steps
+* Apply `protocolOptions` if present
+* Apply `dataModuleOptions` if present
+* Apply all explicit connection parameters (e.g. `timeZone`)
+
+// component-configure options: START
+
+// component-configure options: END
+
+// component options: START
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+// component options: END
+
+// endpoint options: START
+
+// endpoint options: END
+
+// component headers: START
+include::partial$component-endpoint-headers.adoc[]
+// component headers: END
+
+include::spring-boot:partial$starter.adoc[]

@@ -1,0 +1,30 @@
+{
+  "duplicate_host": {
+    "_source": {
+      "enabled": true
+    },
+    "properties": {
+      "regularName": {
+        "type": "keyword"
+      },
+      "duplicateHostName": {
+        "type": "keyword"
+      },
+      "sortOrder": {
+        "type": "integer"
+      },
+      "createdBy": {
+        "type": "keyword"
+      },
+      "createdTime": {
+        "type": "long"
+      },
+      "updatedBy": {
+        "type": "keyword"
+      },
+      "updatedTime": {
+        "type": "long"
+      }
+    }
+  }
+}

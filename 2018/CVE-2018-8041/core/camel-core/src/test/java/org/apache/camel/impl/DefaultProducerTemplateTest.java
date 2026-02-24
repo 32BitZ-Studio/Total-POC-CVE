@@ -1,0 +1,341 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.camel.impl;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.camel.ContextTestSupport;
+import org.apache.camel.Endpoint;
+import org.apache.camel.Exchange;
+import org.apache.camel.ExchangePattern;
+import org.apache.camel.Processor;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.RuntimeCamelException;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.impl.engine.DefaultProducerTemplate;
+import org.junit.jupiter.api.Test;
+
+import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+/**
+ * Unit test for DefaultProducerTemplate
+ */
+public class DefaultProducerTemplateTest extends ContextTestSupport {
+
+    @Test
+    public void testIn() throws Exception {
+        MockEndpoint mock = getMockEndpoint("mock:result");
+        mock.expectedBodiesReceived("Bye World");
+
+        Object result = template.requestBody("direct:in", "Hello World");
+
+        assertMockEndpointsSatisfied();
+
+        assertEquals("Bye World", result);
+
+        assertSame(context, template.getCamelContext());
+    }
+
+    @Test
+    public void testInTwice() throws Exception {
+        MockEndpoint mock = getMockEndpoint("mock:result");
+        mock.expectedBodiesReceived("Bye World", "Bye World");
+
+        Object result = template.requestBody("direct:in", "Hello World");
+        Object result2 = template.requestBody("direct:in", "Hello World Again");
+
+        assertMockEndpointsSatisfied();
+
+        assertEquals("Bye World", result);
+        assertEquals("Bye World", result2);
+
+        assertSame(context, template.getCamelContext());
+    }
+
+    @Test
+    public void testInOut() throws Exception {
+        MockEndpoint mock = getMockEndpoint("mock:result");
+        mock.expectedBodiesReceived("Bye Bye World");
+
+        Object result = template.requestBody("direct:out", "Hello World");
+
+        assertMockEndpointsSatisfied();
+
+        assertEquals("Bye Bye World", result);
+    }
+
+    @Test
+    public void testExceptionUsingBody() throws Exception {
+        MockEndpoint mock = getMockEndpoint("mock:result");
+        mock.expectedMessageCount(0);
+
+        RuntimeCamelException e
+                = assertThrows(RuntimeCamelException.class, () -> template.sendBody("direct:exception", "Hello World"),
+                        "Should have thrown RuntimeCamelException");
+
+        assertIsInstanceOf(IllegalArgumentException.class, e.getCause());
+        assertEquals("Forced exception by unit test", e.getCause().getMessage());
+        assertMockEndpointsSatisfied();
+    }
+
+    @Test
+    public void testExceptionOnRequestBodyWithResponseType() throws Exception {
+        MockEndpoint mock = getMockEndpoint("mock:result");
+        mock.expectedMessageCount(0);
+
+        RuntimeCamelException e = assertThrows(RuntimeCamelException.class,
+                () -> template.requestBody("direct:exception", "Hello World", Integer.class),
+                "Should have thrown RuntimeCamelException");
+
+        assertIsInstanceOf(IllegalArgumentException.class, e.getCause());
+        assertEquals("Forced exception by unit test", e.getCause().getMessage());
+        assertMockEndpointsSatisfied();
+    }
+
+    @Test
+    public void testExceptionUsingProcessor() throws Exception {
+        MockEndpoint mock = getMockEndpoint("mock:result");
+        mock.expectedMessageCount(0);
+
+        Exchange out = template.send("direct:exception", new Processor() {
+            @Override
+            public void process(Exchange exchange) {
+                exchange.getIn().setBody("Hello World");
+            }
+        });
+
+        assertTrue(out.isFailed());
+        assertEquals("Forced exception by unit test", out.getException().getMessage());
+
+        assertMockEndpointsSatisfied();
+    }
+
+    @Test
+    public void testExceptionUsingExchange() throws Exception {
+        MockEndpoint mock = getMockEndpoint("mock:result");
+        mock.expectedMessageCount(0);
+
+        Exchange exchange = context.getEndpoint("direct:exception").createExchange();
+        exchange.getIn().setBody("Hello World");
+
+        Exchange out = template.send("direct:exception", exchange);
+        assertTrue(out.isFailed());
+        assertEquals("Forced exception by unit test", out.getException().getMessage());
+
+        assertMockEndpointsSatisfied();
+    }
+
+    @Test
+    public void testRequestExceptionUsingBody() throws Exception {
+        MockEndpoint mock = getMockEndpoint("mock:result");
+        mock.expectedMessageCount(0);
+
+        RuntimeCamelException e = assertThrows(RuntimeCamelException.class,
+                () -> template.requestBody("direct:exception", "Hello World"),
+                "Should have thrown RuntimeCamelException");
+
+        assertIsInstanceOf(IllegalArgumentException.class, e.getCause());
+        assertEquals("Forced exception by unit test", e.getCause().getMessage());
+        assertMockEndpointsSatisfied();
+    }
+
+    @Test
+    public void testRequestExceptionUsingProcessor() throws Exception {
+        MockEndpoint mock = getMockEndpoint("mock:result");
+        mock.expectedMessageCount(0);
+
+        Exchange out = template.request("direct:exception", new Processor() {
+            @Override
+            public void process(Exchange exchange) {
+                exchange.getIn().setBody("Hello World");
+            }
+        });
+
+        assertTrue(out.isFailed());
+        assertEquals("Forced exception by unit test", out.getException().getMessage());
+
+        assertMockEndpointsSatisfied();
+    }
+
+    @Test
+    public void testRequestExceptionUsingExchange() throws Exception {
+        MockEndpoint mock = getMockEndpoint("mock:result");
+        mock.expectedMessageCount(0);
+
+        Exchange exchange = context.getEndpoint("direct:exception").createExchange(ExchangePattern.InOut);
+        exchange.getIn().setBody("Hello World");
+
+        Exchange out = template.send("direct:exception", exchange);
+        assertTrue(out.isFailed());
+        assertEquals("Forced exception by unit test", out.getException().getMessage());
+
+        assertMockEndpointsSatisfied();
+    }
+
+    @Test
+    public void testRequestBody() {
+        // with endpoint as string uri
+        Integer out = template.requestBody("direct:inout", "Hello", Integer.class);
+        assertEquals(Integer.valueOf(123), (Object) out);
+
+        out = template.requestBodyAndHeader("direct:inout", "Hello", "foo", "bar", Integer.class);
+        assertEquals(Integer.valueOf(123), (Object) out);
+
+        Map<String, Object> headers = new HashMap<>();
+        out = template.requestBodyAndHeaders("direct:inout", "Hello", headers, Integer.class);
+        assertEquals(Integer.valueOf(123), (Object) out);
+
+        // with endpoint object
+        Endpoint endpoint = context.getEndpoint("direct:inout");
+        out = template.requestBody(endpoint, "Hello", Integer.class);
+        assertEquals(Integer.valueOf(123), (Object) out);
+
+        out = template.requestBodyAndHeader(endpoint, "Hello", "foo", "bar", Integer.class);
+        assertEquals(Integer.valueOf(123), (Object) out);
+
+        headers = new HashMap<>();
+        out = template.requestBodyAndHeaders(endpoint, "Hello", headers, Integer.class);
+        assertEquals(Integer.valueOf(123), (Object) out);
+    }
+
+    @Test
+    public void testRequestUsingDefaultEndpoint() {
+        ProducerTemplate producer = new DefaultProducerTemplate(context, context.getEndpoint("direct:out"));
+        producer.start();
+
+        Object out = producer.requestBody("Hello");
+        assertEquals("Bye Bye World", out);
+
+        out = producer.requestBodyAndHeader("Hello", "foo", 123);
+        assertEquals("Bye Bye World", out);
+
+        Map<String, Object> headers = new HashMap<>();
+        out = producer.requestBodyAndHeaders("Hello", headers);
+        assertEquals("Bye Bye World", out);
+
+        out = producer.requestBodyAndHeaders("Hello", null);
+        assertEquals("Bye Bye World", out);
+
+        producer.stop();
+    }
+
+    @Test
+    public void testSendUsingDefaultEndpoint() throws Exception {
+        ProducerTemplate producer = new DefaultProducerTemplate(context, context.getEndpoint("direct:in"));
+        producer.start();
+
+        getMockEndpoint("mock:result").expectedMessageCount(3);
+
+        producer.sendBody("Hello");
+        producer.sendBodyAndHeader("Hello", "foo", 123);
+        Map<String, Object> headers = new HashMap<>();
+        producer.sendBodyAndHeaders("Hello", headers);
+
+        assertMockEndpointsSatisfied();
+
+        producer.stop();
+    }
+
+    @Override
+    protected RouteBuilder createRouteBuilder() {
+        return new RouteBuilder() {
+            @Override
+            public void configure() {
+                // for faster unit test
+                errorHandler(noErrorHandler());
+
+                from("direct:in").process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) {
+                        exchange.getIn().setBody("Bye World");
+                    }
+                }).to("mock:result");
+
+                from("direct:out").process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) {
+                        exchange.getMessage().setBody("Bye Bye World");
+                    }
+                }).to("mock:result");
+
+                from("direct:exception").process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) {
+                        throw new IllegalArgumentException("Forced exception by unit test");
+                    }
+                }).to("mock:result");
+
+                from("direct:inout").transform(constant(123));
+            }
+        };
+    }
+
+    @Test
+    public void testCacheProducers() {
+        ProducerTemplate template = new DefaultProducerTemplate(context);
+        template.setMaximumCacheSize(500);
+        template.start();
+
+        assertEquals(0, template.getCurrentCacheSize(), "Size should be 0");
+
+        // test that we cache at most 500 producers to avoid it eating to much
+        // memory
+        for (int i = 0; i < 503; i++) {
+            Endpoint e = context.getEndpoint("seda:queue:" + i);
+            template.sendBody(e, "Hello");
+        }
+
+        // the eviction is async so force cleanup
+        template.cleanUp();
+        await().atMost(1, TimeUnit.SECONDS).until(() -> template.getCurrentCacheSize() == 500);
+        assertEquals(500, template.getCurrentCacheSize(), "Size should be 500");
+        template.stop();
+
+        // should be 0
+        assertEquals(0, template.getCurrentCacheSize(), "Size should be 0");
+    }
+
+    @Test
+    public void testCacheProducersFromContext() {
+        ProducerTemplate template = context.createProducerTemplate(500);
+
+        assertEquals(0, template.getCurrentCacheSize(), "Size should be 0");
+
+        // test that we cache at most 500 producers to avoid it eating to much
+        // memory
+        for (int i = 0; i < 503; i++) {
+            Endpoint e = context.getEndpoint("seda:queue:" + i);
+            template.sendBody(e, "Hello");
+        }
+
+        // the eviction is async so force cleanup
+        template.cleanUp();
+        await().atMost(1, TimeUnit.SECONDS).until(() -> template.getCurrentCacheSize() == 500);
+        assertEquals(500, template.getCurrentCacheSize(), "Size should be 500");
+        template.stop();
+
+        // should be 0
+        assertEquals(0, template.getCurrentCacheSize(), "Size should be 0");
+    }
+}

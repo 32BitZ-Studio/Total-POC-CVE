@@ -1,0 +1,106 @@
+= Git Component
+:doctitle: Git
+:shortname: git
+:artifactid: camel-git
+:description: Perform operations on git repositories.
+:since: 2.16
+:supportlevel: Stable
+:tabs-sync-option:
+:component-header: Both producer and consumer are supported
+//Manually maintained attributes
+:camel-spring-boot-name: git
+
+*Since Camel {since}*
+
+*{component-header}*
+
+The Git component allows you to work with a generic Git repository. 
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel</groupId>
+    <artifactId>camel-git</artifactId>
+    <version>x.x.x</version>
+    <!-- use the same version as your Camel core version -->
+</dependency>
+------------------------------------------------------------
+
+*URI Format*
+
+-----------------------------------
+git://localRepositoryPath[?options]
+-----------------------------------
+
+== URI Options
+
+The producer allows doing operations on a specific repository.
+The consumer allows consuming commits, tags, and branches in a specific
+repository.
+
+
+// component-configure options: START
+
+// component-configure options: END
+
+// component options: START
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+// component options: END
+
+// endpoint options: START
+
+// endpoint options: END
+
+// component headers: START
+include::partial$component-endpoint-headers.adoc[]
+// component headers: END
+
+== Examples
+
+=== Producer Example
+
+Below is an example route of a producer that adds a file test.java to a
+local repository, commits it with a specific message on the `main` branch and
+then pushes it to remote repository.
+
+[source,java]
+--------------------------------------------------------------------------------------------------------------------
+from("direct:start")
+    .setHeader(GitConstants.GIT_FILE_NAME, constant("test.java"))
+    .to("git:///tmp/testRepo?operation=add")
+    .setHeader(GitConstants.GIT_COMMIT_MESSAGE, constant("first commit"))
+    .to("git:///tmp/testRepo?operation=commit")
+    .to("git:///tmp/testRepo?operation=push&remotePath=https://foo.com/test/test.git&username=xxx&password=xxx")
+    .to("git:///tmp/testRepo?operation=createTag&tagName=myTag")
+    .to("git:///tmp/testRepo?operation=pushTag&tagName=myTag&remoteName=origin");
+--------------------------------------------------------------------------------------------------------------------
+
+=== Consumer Example
+
+Below is an example route of a consumer that consumes commit:
+
+[source,java]
+---------------------------------------
+from("git:///tmp/testRepo?type=commit")
+    .to(....)
+---------------------------------------
+
+=== Custom config file
+
+By default, camel-git will load ``.gitconfig`` file from user home folder.
+You can override this by providing your own ``.gitconfig`` file.
+
+[source,java]
+---------------------------------------
+from("git:///tmp/testRepo?type=commit&gitConfigFile=file:/tmp/configfile")
+    .to(....); // will load from os dirs
+
+from("git:///tmp/testRepo?type=commit&gitConfigFile=classpath:configfile")
+    .to(....); // will load from resources dir
+
+from("git:///tmp/testRepo?type=commit&gitConfigFile=http://somedomain.xyz/gitconfigfile")
+    .to(....); // will load from http. You could also use https
+---------------------------------------
+
+include::spring-boot:partial$starter.adoc[]

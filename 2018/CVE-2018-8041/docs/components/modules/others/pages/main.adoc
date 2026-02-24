@@ -1,0 +1,1 @@
+../../../../../core/camel-main/src/main/docs/main.adoc

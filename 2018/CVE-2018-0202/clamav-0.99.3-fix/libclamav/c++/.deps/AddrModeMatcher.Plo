@@ -1,0 +1,632 @@
+AddrModeMatcher.lo: llvm/lib/Transforms/Utils/AddrModeMatcher.cpp \
+ /usr/include/stdc-predef.h \
+ llvm/include/llvm/Transforms/Utils/AddrModeMatcher.h \
+ llvm/include/llvm/ADT/SmallVector.h \
+ llvm/include/llvm/Support/type_traits.h /usr/include/c++/5/utility \
+ /usr/include/i386-linux-gnu/c++/5/bits/c++config.h \
+ /usr/include/i386-linux-gnu/c++/5/bits/os_defines.h \
+ /usr/include/features.h /usr/include/i386-linux-gnu/sys/cdefs.h \
+ /usr/include/i386-linux-gnu/bits/wordsize.h \
+ /usr/include/i386-linux-gnu/gnu/stubs.h \
+ /usr/include/i386-linux-gnu/gnu/stubs-32.h \
+ /usr/include/i386-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/c++/5/bits/stl_relops.h /usr/include/c++/5/bits/stl_pair.h \
+ /usr/include/c++/5/bits/move.h /usr/include/c++/5/bits/concept_check.h \
+ /usr/include/c++/5/algorithm /usr/include/c++/5/bits/stl_algobase.h \
+ /usr/include/c++/5/bits/functexcept.h \
+ /usr/include/c++/5/bits/exception_defines.h \
+ /usr/include/c++/5/bits/cpp_type_traits.h \
+ /usr/include/c++/5/ext/type_traits.h \
+ /usr/include/c++/5/ext/numeric_traits.h \
+ /usr/include/c++/5/bits/stl_iterator_base_types.h \
+ /usr/include/c++/5/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/5/debug/debug.h /usr/include/c++/5/bits/stl_iterator.h \
+ /usr/include/c++/5/bits/ptr_traits.h \
+ /usr/include/c++/5/bits/predefined_ops.h \
+ /usr/include/c++/5/bits/stl_algo.h /usr/include/c++/5/cstdlib \
+ /usr/include/stdlib.h /usr/lib/gcc/i686-linux-gnu/5/include/stddef.h \
+ /usr/include/i386-linux-gnu/bits/waitflags.h \
+ /usr/include/i386-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/i386-linux-gnu/bits/endian.h \
+ /usr/include/i386-linux-gnu/bits/byteswap.h \
+ /usr/include/i386-linux-gnu/bits/types.h \
+ /usr/include/i386-linux-gnu/bits/typesizes.h \
+ /usr/include/i386-linux-gnu/bits/byteswap-16.h /usr/include/xlocale.h \
+ /usr/include/i386-linux-gnu/sys/types.h /usr/include/time.h \
+ /usr/include/i386-linux-gnu/sys/select.h \
+ /usr/include/i386-linux-gnu/bits/select.h \
+ /usr/include/i386-linux-gnu/bits/sigset.h \
+ /usr/include/i386-linux-gnu/bits/time.h \
+ /usr/include/i386-linux-gnu/bits/select2.h \
+ /usr/include/i386-linux-gnu/sys/sysmacros.h \
+ /usr/include/i386-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/i386-linux-gnu/bits/stdlib-bsearch.h \
+ /usr/include/i386-linux-gnu/bits/stdlib-float.h \
+ /usr/include/i386-linux-gnu/bits/stdlib.h \
+ /usr/include/c++/5/bits/algorithmfwd.h \
+ /usr/include/c++/5/bits/stl_heap.h /usr/include/c++/5/bits/stl_tempbuf.h \
+ /usr/include/c++/5/bits/stl_construct.h /usr/include/c++/5/new \
+ /usr/include/c++/5/exception \
+ /usr/include/c++/5/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/5/ext/alloc_traits.h \
+ /usr/include/c++/5/bits/allocator.h \
+ /usr/include/i386-linux-gnu/c++/5/bits/c++allocator.h \
+ /usr/include/c++/5/ext/new_allocator.h \
+ /usr/include/c++/5/bits/memoryfwd.h /usr/include/c++/5/cassert \
+ /usr/include/assert.h /usr/include/c++/5/cstddef \
+ /usr/include/c++/5/cstring /usr/include/string.h \
+ /usr/include/i386-linux-gnu/bits/string3.h /usr/include/c++/5/memory \
+ /usr/include/c++/5/bits/stl_uninitialized.h \
+ /usr/include/c++/5/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/5/backward/auto_ptr.h \
+ llvm/include/llvm/Target/TargetLowering.h \
+ llvm/include/llvm/CallingConv.h llvm/include/llvm/InlineAsm.h \
+ llvm/include/llvm/Value.h llvm/include/llvm/AbstractTypeUser.h \
+ llvm/include/llvm/Use.h llvm/include/llvm/Support/Casting.h \
+ llvm/include/llvm/ADT/PointerIntPair.h \
+ llvm/include/llvm/Support/PointerLikeTypeTraits.h \
+ llvm/include/llvm/System/DataTypes.h /usr/include/c++/5/cmath \
+ /usr/include/math.h /usr/include/i386-linux-gnu/bits/math-vector.h \
+ /usr/include/i386-linux-gnu/bits/libm-simd-decl-stubs.h \
+ /usr/include/i386-linux-gnu/bits/huge_val.h \
+ /usr/include/i386-linux-gnu/bits/huge_valf.h \
+ /usr/include/i386-linux-gnu/bits/huge_vall.h \
+ /usr/include/i386-linux-gnu/bits/inf.h \
+ /usr/include/i386-linux-gnu/bits/nan.h \
+ /usr/include/i386-linux-gnu/bits/mathdef.h \
+ /usr/include/i386-linux-gnu/bits/mathcalls.h \
+ /usr/include/i386-linux-gnu/bits/mathinline.h /usr/include/inttypes.h \
+ /usr/lib/gcc/i686-linux-gnu/5/include/stdint.h /usr/include/stdint.h \
+ /usr/include/i386-linux-gnu/bits/wchar.h /usr/include/c++/5/iterator \
+ /usr/include/c++/5/ostream /usr/include/c++/5/ios \
+ /usr/include/c++/5/iosfwd /usr/include/c++/5/bits/stringfwd.h \
+ /usr/include/c++/5/bits/postypes.h /usr/include/c++/5/cwchar \
+ /usr/include/wchar.h /usr/include/stdio.h \
+ /usr/lib/gcc/i686-linux-gnu/5/include/stdarg.h \
+ /usr/include/i386-linux-gnu/bits/wchar2.h \
+ /usr/include/c++/5/bits/char_traits.h \
+ /usr/include/c++/5/bits/localefwd.h \
+ /usr/include/i386-linux-gnu/c++/5/bits/c++locale.h \
+ /usr/include/c++/5/clocale /usr/include/locale.h \
+ /usr/include/i386-linux-gnu/bits/locale.h /usr/include/c++/5/cctype \
+ /usr/include/ctype.h /usr/include/c++/5/bits/ios_base.h \
+ /usr/include/c++/5/ext/atomicity.h \
+ /usr/include/i386-linux-gnu/c++/5/bits/gthr.h \
+ /usr/include/i386-linux-gnu/c++/5/bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h \
+ /usr/include/i386-linux-gnu/bits/sched.h \
+ /usr/include/i386-linux-gnu/bits/timex.h \
+ /usr/include/i386-linux-gnu/bits/setjmp.h \
+ /usr/include/i386-linux-gnu/c++/5/bits/atomic_word.h \
+ /usr/include/c++/5/bits/locale_classes.h /usr/include/c++/5/string \
+ /usr/include/c++/5/bits/ostream_insert.h \
+ /usr/include/c++/5/bits/cxxabi_forced.h \
+ /usr/include/c++/5/bits/stl_function.h \
+ /usr/include/c++/5/backward/binders.h \
+ /usr/include/c++/5/bits/range_access.h \
+ /usr/include/c++/5/bits/basic_string.h \
+ /usr/include/c++/5/bits/basic_string.tcc \
+ /usr/include/c++/5/bits/locale_classes.tcc /usr/include/c++/5/stdexcept \
+ /usr/include/c++/5/streambuf /usr/include/c++/5/bits/streambuf.tcc \
+ /usr/include/c++/5/bits/basic_ios.h \
+ /usr/include/c++/5/bits/locale_facets.h /usr/include/c++/5/cwctype \
+ /usr/include/wctype.h \
+ /usr/include/i386-linux-gnu/c++/5/bits/ctype_base.h \
+ /usr/include/c++/5/bits/streambuf_iterator.h \
+ /usr/include/i386-linux-gnu/c++/5/bits/ctype_inline.h \
+ /usr/include/c++/5/bits/locale_facets.tcc \
+ /usr/include/c++/5/bits/basic_ios.tcc \
+ /usr/include/c++/5/bits/ostream.tcc /usr/include/c++/5/istream \
+ /usr/include/c++/5/bits/istream.tcc \
+ /usr/include/c++/5/bits/stream_iterator.h \
+ llvm/include/llvm/ADT/StringRef.h /usr/include/c++/5/vector \
+ /usr/include/c++/5/bits/stl_vector.h \
+ /usr/include/c++/5/bits/stl_bvector.h /usr/include/c++/5/bits/vector.tcc \
+ llvm/include/llvm/Attributes.h llvm/include/llvm/Support/MathExtras.h \
+ llvm/include/llvm/CodeGen/SelectionDAGNodes.h \
+ llvm/include/llvm/Constants.h llvm/include/llvm/Constant.h \
+ llvm/include/llvm/User.h llvm/include/llvm/OperandTraits.h \
+ llvm/include/llvm/ADT/APInt.h /usr/include/c++/5/climits \
+ /usr/lib/gcc/i686-linux-gnu/5/include-fixed/limits.h \
+ /usr/lib/gcc/i686-linux-gnu/5/include-fixed/syslimits.h \
+ /usr/include/limits.h /usr/include/i386-linux-gnu/bits/posix1_lim.h \
+ /usr/include/i386-linux-gnu/bits/local_lim.h /usr/include/linux/limits.h \
+ /usr/include/i386-linux-gnu/bits/posix2_lim.h \
+ /usr/include/i386-linux-gnu/bits/xopen_lim.h \
+ /usr/include/i386-linux-gnu/bits/stdio_lim.h \
+ llvm/include/llvm/ADT/APFloat.h llvm/include/llvm/ADT/FoldingSet.h \
+ llvm/include/llvm/ADT/GraphTraits.h llvm/include/llvm/ADT/ilist_node.h \
+ llvm/include/llvm/ADT/STLExtras.h /usr/include/c++/5/functional \
+ llvm/include/llvm/CodeGen/ISDOpcodes.h \
+ llvm/include/llvm/CodeGen/ValueTypes.h \
+ llvm/include/llvm/CodeGen/MachineMemOperand.h \
+ llvm/include/llvm/Support/DebugLoc.h \
+ llvm/include/llvm/CodeGen/RuntimeLibcalls.h \
+ llvm/include/llvm/ADT/DenseMap.h llvm/include/llvm/ADT/DenseMapInfo.h \
+ llvm/include/llvm/ADT/SmallSet.h llvm/include/llvm/ADT/SmallPtrSet.h \
+ /usr/include/c++/5/set /usr/include/c++/5/bits/stl_tree.h \
+ /usr/include/c++/5/bits/stl_set.h /usr/include/c++/5/bits/stl_multiset.h \
+ llvm/include/llvm/Target/TargetCallingConv.h \
+ llvm/include/llvm/Target/TargetMachine.h \
+ llvm/include/llvm/Target/TargetInstrItineraries.h /usr/include/c++/5/map \
+ /usr/include/c++/5/bits/stl_map.h /usr/include/c++/5/bits/stl_multimap.h \
+ llvm/include/llvm/DerivedTypes.h llvm/include/llvm/Type.h \
+ llvm/include/llvm/GlobalValue.h llvm/include/llvm/Instruction.h \
+ llvm/include/llvm/Instruction.def llvm/include/llvm/Assembly/Writer.h \
+ llvm/include/llvm/Target/TargetData.h llvm/include/llvm/Pass.h \
+ llvm/include/llvm/PassSupport.h llvm/include/llvm/Pass.h \
+ llvm/include/llvm/PassRegistry.h llvm/include/llvm/ADT/StringMap.h \
+ llvm/include/llvm/Support/Allocator.h \
+ llvm/include/llvm/Support/AlignOf.h llvm/include/llvm/System/Mutex.h \
+ llvm/include/llvm/System/Threading.h \
+ llvm/include/llvm/PassAnalysisSupport.h \
+ llvm/include/llvm/Support/Debug.h \
+ llvm/include/llvm/Support/GetElementPtrTypeIterator.h \
+ llvm/include/llvm/Support/PatternMatch.h \
+ llvm/include/llvm/Instructions.h llvm/include/llvm/InstrTypes.h \
+ llvm/include/llvm/Operator.h llvm/include/llvm/ADT/Twine.h \
+ llvm/include/llvm/Support/raw_ostream.h
+
+/usr/include/stdc-predef.h:
+
+llvm/include/llvm/Transforms/Utils/AddrModeMatcher.h:
+
+llvm/include/llvm/ADT/SmallVector.h:
+
+llvm/include/llvm/Support/type_traits.h:
+
+/usr/include/c++/5/utility:
+
+/usr/include/i386-linux-gnu/c++/5/bits/c++config.h:
+
+/usr/include/i386-linux-gnu/c++/5/bits/os_defines.h:
+
+/usr/include/features.h:
+
+/usr/include/i386-linux-gnu/sys/cdefs.h:
+
+/usr/include/i386-linux-gnu/bits/wordsize.h:
+
+/usr/include/i386-linux-gnu/gnu/stubs.h:
+
+/usr/include/i386-linux-gnu/gnu/stubs-32.h:
+
+/usr/include/i386-linux-gnu/c++/5/bits/cpu_defines.h:
+
+/usr/include/c++/5/bits/stl_relops.h:
+
+/usr/include/c++/5/bits/stl_pair.h:
+
+/usr/include/c++/5/bits/move.h:
+
+/usr/include/c++/5/bits/concept_check.h:
+
+/usr/include/c++/5/algorithm:
+
+/usr/include/c++/5/bits/stl_algobase.h:
+
+/usr/include/c++/5/bits/functexcept.h:
+
+/usr/include/c++/5/bits/exception_defines.h:
+
+/usr/include/c++/5/bits/cpp_type_traits.h:
+
+/usr/include/c++/5/ext/type_traits.h:
+
+/usr/include/c++/5/ext/numeric_traits.h:
+
+/usr/include/c++/5/bits/stl_iterator_base_types.h:
+
+/usr/include/c++/5/bits/stl_iterator_base_funcs.h:
+
+/usr/include/c++/5/debug/debug.h:
+
+/usr/include/c++/5/bits/stl_iterator.h:
+
+/usr/include/c++/5/bits/ptr_traits.h:
+
+/usr/include/c++/5/bits/predefined_ops.h:
+
+/usr/include/c++/5/bits/stl_algo.h:
+
+/usr/include/c++/5/cstdlib:
+
+/usr/include/stdlib.h:
+
+/usr/lib/gcc/i686-linux-gnu/5/include/stddef.h:
+
+/usr/include/i386-linux-gnu/bits/waitflags.h:
+
+/usr/include/i386-linux-gnu/bits/waitstatus.h:
+
+/usr/include/endian.h:
+
+/usr/include/i386-linux-gnu/bits/endian.h:
+
+/usr/include/i386-linux-gnu/bits/byteswap.h:
+
+/usr/include/i386-linux-gnu/bits/types.h:
+
+/usr/include/i386-linux-gnu/bits/typesizes.h:
+
+/usr/include/i386-linux-gnu/bits/byteswap-16.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/i386-linux-gnu/sys/types.h:
+
+/usr/include/time.h:
+
+/usr/include/i386-linux-gnu/sys/select.h:
+
+/usr/include/i386-linux-gnu/bits/select.h:
+
+/usr/include/i386-linux-gnu/bits/sigset.h:
+
+/usr/include/i386-linux-gnu/bits/time.h:
+
+/usr/include/i386-linux-gnu/bits/select2.h:
+
+/usr/include/i386-linux-gnu/sys/sysmacros.h:
+
+/usr/include/i386-linux-gnu/bits/pthreadtypes.h:
+
+/usr/include/alloca.h:
+
+/usr/include/i386-linux-gnu/bits/stdlib-bsearch.h:
+
+/usr/include/i386-linux-gnu/bits/stdlib-float.h:
+
+/usr/include/i386-linux-gnu/bits/stdlib.h:
+
+/usr/include/c++/5/bits/algorithmfwd.h:
+
+/usr/include/c++/5/bits/stl_heap.h:
+
+/usr/include/c++/5/bits/stl_tempbuf.h:
+
+/usr/include/c++/5/bits/stl_construct.h:
+
+/usr/include/c++/5/new:
+
+/usr/include/c++/5/exception:
+
+/usr/include/c++/5/bits/atomic_lockfree_defines.h:
+
+/usr/include/c++/5/ext/alloc_traits.h:
+
+/usr/include/c++/5/bits/allocator.h:
+
+/usr/include/i386-linux-gnu/c++/5/bits/c++allocator.h:
+
+/usr/include/c++/5/ext/new_allocator.h:
+
+/usr/include/c++/5/bits/memoryfwd.h:
+
+/usr/include/c++/5/cassert:
+
+/usr/include/assert.h:
+
+/usr/include/c++/5/cstddef:
+
+/usr/include/c++/5/cstring:
+
+/usr/include/string.h:
+
+/usr/include/i386-linux-gnu/bits/string3.h:
+
+/usr/include/c++/5/memory:
+
+/usr/include/c++/5/bits/stl_uninitialized.h:
+
+/usr/include/c++/5/bits/stl_raw_storage_iter.h:
+
+/usr/include/c++/5/backward/auto_ptr.h:
+
+llvm/include/llvm/Target/TargetLowering.h:
+
+llvm/include/llvm/CallingConv.h:
+
+llvm/include/llvm/InlineAsm.h:
+
+llvm/include/llvm/Value.h:
+
+llvm/include/llvm/AbstractTypeUser.h:
+
+llvm/include/llvm/Use.h:
+
+llvm/include/llvm/Support/Casting.h:
+
+llvm/include/llvm/ADT/PointerIntPair.h:
+
+llvm/include/llvm/Support/PointerLikeTypeTraits.h:
+
+llvm/include/llvm/System/DataTypes.h:
+
+/usr/include/c++/5/cmath:
+
+/usr/include/math.h:
+
+/usr/include/i386-linux-gnu/bits/math-vector.h:
+
+/usr/include/i386-linux-gnu/bits/libm-simd-decl-stubs.h:
+
+/usr/include/i386-linux-gnu/bits/huge_val.h:
+
+/usr/include/i386-linux-gnu/bits/huge_valf.h:
+
+/usr/include/i386-linux-gnu/bits/huge_vall.h:
+
+/usr/include/i386-linux-gnu/bits/inf.h:
+
+/usr/include/i386-linux-gnu/bits/nan.h:
+
+/usr/include/i386-linux-gnu/bits/mathdef.h:
+
+/usr/include/i386-linux-gnu/bits/mathcalls.h:
+
+/usr/include/i386-linux-gnu/bits/mathinline.h:
+
+/usr/include/inttypes.h:
+
+/usr/lib/gcc/i686-linux-gnu/5/include/stdint.h:
+
+/usr/include/stdint.h:
+
+/usr/include/i386-linux-gnu/bits/wchar.h:
+
+/usr/include/c++/5/iterator:
+
+/usr/include/c++/5/ostream:
+
+/usr/include/c++/5/ios:
+
+/usr/include/c++/5/iosfwd:
+
+/usr/include/c++/5/bits/stringfwd.h:
+
+/usr/include/c++/5/bits/postypes.h:
+
+/usr/include/c++/5/cwchar:
+
+/usr/include/wchar.h:
+
+/usr/include/stdio.h:
+
+/usr/lib/gcc/i686-linux-gnu/5/include/stdarg.h:
+
+/usr/include/i386-linux-gnu/bits/wchar2.h:
+
+/usr/include/c++/5/bits/char_traits.h:
+
+/usr/include/c++/5/bits/localefwd.h:
+
+/usr/include/i386-linux-gnu/c++/5/bits/c++locale.h:
+
+/usr/include/c++/5/clocale:
+
+/usr/include/locale.h:
+
+/usr/include/i386-linux-gnu/bits/locale.h:
+
+/usr/include/c++/5/cctype:
+
+/usr/include/ctype.h:
+
+/usr/include/c++/5/bits/ios_base.h:
+
+/usr/include/c++/5/ext/atomicity.h:
+
+/usr/include/i386-linux-gnu/c++/5/bits/gthr.h:
+
+/usr/include/i386-linux-gnu/c++/5/bits/gthr-default.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sched.h:
+
+/usr/include/i386-linux-gnu/bits/sched.h:
+
+/usr/include/i386-linux-gnu/bits/timex.h:
+
+/usr/include/i386-linux-gnu/bits/setjmp.h:
+
+/usr/include/i386-linux-gnu/c++/5/bits/atomic_word.h:
+
+/usr/include/c++/5/bits/locale_classes.h:
+
+/usr/include/c++/5/string:
+
+/usr/include/c++/5/bits/ostream_insert.h:
+
+/usr/include/c++/5/bits/cxxabi_forced.h:
+
+/usr/include/c++/5/bits/stl_function.h:
+
+/usr/include/c++/5/backward/binders.h:
+
+/usr/include/c++/5/bits/range_access.h:
+
+/usr/include/c++/5/bits/basic_string.h:
+
+/usr/include/c++/5/bits/basic_string.tcc:
+
+/usr/include/c++/5/bits/locale_classes.tcc:
+
+/usr/include/c++/5/stdexcept:
+
+/usr/include/c++/5/streambuf:
+
+/usr/include/c++/5/bits/streambuf.tcc:
+
+/usr/include/c++/5/bits/basic_ios.h:
+
+/usr/include/c++/5/bits/locale_facets.h:
+
+/usr/include/c++/5/cwctype:
+
+/usr/include/wctype.h:
+
+/usr/include/i386-linux-gnu/c++/5/bits/ctype_base.h:
+
+/usr/include/c++/5/bits/streambuf_iterator.h:
+
+/usr/include/i386-linux-gnu/c++/5/bits/ctype_inline.h:
+
+/usr/include/c++/5/bits/locale_facets.tcc:
+
+/usr/include/c++/5/bits/basic_ios.tcc:
+
+/usr/include/c++/5/bits/ostream.tcc:
+
+/usr/include/c++/5/istream:
+
+/usr/include/c++/5/bits/istream.tcc:
+
+/usr/include/c++/5/bits/stream_iterator.h:
+
+llvm/include/llvm/ADT/StringRef.h:
+
+/usr/include/c++/5/vector:
+
+/usr/include/c++/5/bits/stl_vector.h:
+
+/usr/include/c++/5/bits/stl_bvector.h:
+
+/usr/include/c++/5/bits/vector.tcc:
+
+llvm/include/llvm/Attributes.h:
+
+llvm/include/llvm/Support/MathExtras.h:
+
+llvm/include/llvm/CodeGen/SelectionDAGNodes.h:
+
+llvm/include/llvm/Constants.h:
+
+llvm/include/llvm/Constant.h:
+
+llvm/include/llvm/User.h:
+
+llvm/include/llvm/OperandTraits.h:
+
+llvm/include/llvm/ADT/APInt.h:
+
+/usr/include/c++/5/climits:
+
+/usr/lib/gcc/i686-linux-gnu/5/include-fixed/limits.h:
+
+/usr/lib/gcc/i686-linux-gnu/5/include-fixed/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/i386-linux-gnu/bits/posix1_lim.h:
+
+/usr/include/i386-linux-gnu/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/i386-linux-gnu/bits/posix2_lim.h:
+
+/usr/include/i386-linux-gnu/bits/xopen_lim.h:
+
+/usr/include/i386-linux-gnu/bits/stdio_lim.h:
+
+llvm/include/llvm/ADT/APFloat.h:
+
+llvm/include/llvm/ADT/FoldingSet.h:
+
+llvm/include/llvm/ADT/GraphTraits.h:
+
+llvm/include/llvm/ADT/ilist_node.h:
+
+llvm/include/llvm/ADT/STLExtras.h:
+
+/usr/include/c++/5/functional:
+
+llvm/include/llvm/CodeGen/ISDOpcodes.h:
+
+llvm/include/llvm/CodeGen/ValueTypes.h:
+
+llvm/include/llvm/CodeGen/MachineMemOperand.h:
+
+llvm/include/llvm/Support/DebugLoc.h:
+
+llvm/include/llvm/CodeGen/RuntimeLibcalls.h:
+
+llvm/include/llvm/ADT/DenseMap.h:
+
+llvm/include/llvm/ADT/DenseMapInfo.h:
+
+llvm/include/llvm/ADT/SmallSet.h:
+
+llvm/include/llvm/ADT/SmallPtrSet.h:
+
+/usr/include/c++/5/set:
+
+/usr/include/c++/5/bits/stl_tree.h:
+
+/usr/include/c++/5/bits/stl_set.h:
+
+/usr/include/c++/5/bits/stl_multiset.h:
+
+llvm/include/llvm/Target/TargetCallingConv.h:
+
+llvm/include/llvm/Target/TargetMachine.h:
+
+llvm/include/llvm/Target/TargetInstrItineraries.h:
+
+/usr/include/c++/5/map:
+
+/usr/include/c++/5/bits/stl_map.h:
+
+/usr/include/c++/5/bits/stl_multimap.h:
+
+llvm/include/llvm/DerivedTypes.h:
+
+llvm/include/llvm/Type.h:
+
+llvm/include/llvm/GlobalValue.h:
+
+llvm/include/llvm/Instruction.h:
+
+llvm/include/llvm/Instruction.def:
+
+llvm/include/llvm/Assembly/Writer.h:
+
+llvm/include/llvm/Target/TargetData.h:
+
+llvm/include/llvm/Pass.h:
+
+llvm/include/llvm/PassSupport.h:
+
+llvm/include/llvm/Pass.h:
+
+llvm/include/llvm/PassRegistry.h:
+
+llvm/include/llvm/ADT/StringMap.h:
+
+llvm/include/llvm/Support/Allocator.h:
+
+llvm/include/llvm/Support/AlignOf.h:
+
+llvm/include/llvm/System/Mutex.h:
+
+llvm/include/llvm/System/Threading.h:
+
+llvm/include/llvm/PassAnalysisSupport.h:
+
+llvm/include/llvm/Support/Debug.h:
+
+llvm/include/llvm/Support/GetElementPtrTypeIterator.h:
+
+llvm/include/llvm/Support/PatternMatch.h:
+
+llvm/include/llvm/Instructions.h:
+
+llvm/include/llvm/InstrTypes.h:
+
+llvm/include/llvm/Operator.h:
+
+llvm/include/llvm/ADT/Twine.h:
+
+llvm/include/llvm/Support/raw_ostream.h:

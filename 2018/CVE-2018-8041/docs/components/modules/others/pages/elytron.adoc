@@ -1,0 +1,1 @@
+../../../../../components/camel-elytron/src/main/docs/elytron.adoc

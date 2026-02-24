@@ -1,0 +1,9 @@
+- route:
+    from:
+      uri: "timer:tick"
+      parameters:
+        period: "1000"
+      steps:
+        - setBody:
+            constant: "Hello World!"
+        - log: "${body}"

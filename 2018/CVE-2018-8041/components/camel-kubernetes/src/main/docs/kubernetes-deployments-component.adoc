@@ -1,0 +1,110 @@
+= Kubernetes Deployments Component
+:doctitle: Kubernetes Deployments
+:shortname: kubernetes-deployments
+:artifactid: camel-kubernetes
+:description: Perform operations on Kubernetes Deployments and get notified on Deployment changes.
+:since: 2.20
+:supportlevel: Stable
+:tabs-sync-option:
+:component-header: Both producer and consumer are supported
+//Manually maintained attributes
+:group: Kubernetes
+:camel-spring-boot-name: kubernetes
+
+*Since Camel {since}*
+
+*{component-header}*
+
+The Kubernetes Deployments component is one of xref:kubernetes-summary.adoc[Kubernetes Components] which
+provides a producer to execute Kubernetes Deployments operations and a consumer to consume events related to Deployments objects.
+
+// component-configure options: START
+
+// component-configure options: END
+
+// component options: START
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+// component options: END
+
+// endpoint options: START
+
+// endpoint options: END
+
+// component headers: START
+include::partial$component-endpoint-headers.adoc[]
+// component headers: END
+
+== Usage
+
+=== Supported producer operation
+
+- `listDeployments`
+- `listDeploymentsByLabels`
+- `getDeployment`
+- `createDeployment`
+- `updateDeployment`
+- `deleteDeployment`
+- `scaleDeployment`
+
+== Examples
+
+=== Kubernetes Deployments Producer Examples
+
+- `listDeployments`: this operation lists the deployments on a kubernetes cluster
+
+[source,java]
+--------------------------------------------------------------------------------
+from("direct:list").
+    toF("kubernetes-deployments:///?kubernetesClient=#kubernetesClient&operation=listDeployments").
+    to("mock:result");
+--------------------------------------------------------------------------------
+
+This operation returns a List of Deployment from your cluster
+
+- `listDeploymentsByLabels`:  this operation lists the deployments by labels on a kubernetes cluster
+
+[source,java]
+--------------------------------------------------------------------------------
+from("direct:listByLabels").process(new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                Map<String, String> labels = new HashMap<>();
+                labels.put("key1", "value1");
+                labels.put("key2", "value2");
+                exchange.getIn().setHeader(KubernetesConstants.KUBERNETES_DEPLOYMENTS_LABELS, labels);
+            }
+        });
+    toF("kubernetes-deployments:///?kubernetesClient=#kubernetesClient&operation=listDeploymentsByLabels").
+    to("mock:result");
+--------------------------------------------------------------------------------
+
+This operation returns a List of Deployments from your cluster, using a label selector (with key1 and key2, with value value1 and value2)
+
+=== Kubernetes Deployments Consumer Example
+
+[source,java]
+--------------------------------------------------------------------------------
+fromF("kubernetes-deployments://%s?oauthToken=%s", host, authToken)
+    .process(new KubernetesProcessor()).to("mock:result");
+
+    public class KubernetesProcessor implements Processor {
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            Message in = exchange.getIn();
+            Deployment dp = exchange.getIn().getBody(Deployment.class);
+            log.info("Got event with deployment name: " + dp.getMetadata().getName() + " and action " + in.getHeader(KubernetesConstants.KUBERNETES_EVENT_ACTION));
+        }
+    }
+--------------------------------------------------------------------------------
+
+This consumer returns a message per event received for all Deployments from all namespaces in the cluster.
+
+You can narrow the scope of the consumer using the following query parameter combinations:
+
+- `labelKey` + `labelValue` - Watch Deployments with the specified label in any namespace.
+- `namespace` - Watch all Deployments in the specified namespace.
+- `namespace` + `resourceName` - Watch the Deployment with the specified name in the given namespace.
+- `namespace` + `labelKey` + `labelValue` - Watch Deployments with the specified label in the given namespace.
+
+include::spring-boot:partial$starter.adoc[]

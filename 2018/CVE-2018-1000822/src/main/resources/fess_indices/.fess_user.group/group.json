@@ -1,0 +1,15 @@
+{
+  "group": {
+    "_source": {
+      "enabled": true
+    },
+    "properties": {
+      "name": {
+        "type": "keyword"
+      },
+      "gidNumber" : {
+        "type" : "long"
+      }
+    }
+  }
+}

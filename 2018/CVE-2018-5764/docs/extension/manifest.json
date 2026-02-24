@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "SyncShield",
+  "version": "1.3",
+  "description": "Detects unsafe rsync commands (CVE-2018-5764), supports local & remote scanning, command fixing, and exporting.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "128": "icon.png"
+  },
+  "permissions": ["storage", "clipboardWrite"],
+  "host_permissions": ["http://*/*", "https://*/*"]
+}

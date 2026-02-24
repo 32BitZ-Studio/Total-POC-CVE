@@ -1,0 +1,23 @@
+package
+{
+   import flash.utils.ByteArray;
+   import flash.utils.Endian;
+   
+   public class Class3
+   {
+       
+      
+      public var Var998:Object;
+      
+      public var m_Class1:Class1;
+      
+      public function Class3()
+      {
+         this.Var998 = new ByteArray();
+         this.m_Class1 = new Class1();
+         super();
+         this.Var998.length = 4096;
+         this.Var998.endian = Endian.LITTLE_ENDIAN;
+      }
+   }
+}

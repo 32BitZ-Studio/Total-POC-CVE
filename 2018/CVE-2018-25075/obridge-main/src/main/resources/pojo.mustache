@@ -1,0 +1,34 @@
+{{#packageName}}
+package {{packageName}};
+{{/packageName}}
+
+{{#imports}}
+import {{.}};
+{{/imports}}
+
+{{#comment}}
+/**
+{{& comment}}
+*/
+{{/comment}}
+@Generated("{{generatorName}}")
+public class {{className}} {
+
+{{#fields}}
+    private {{& fieldType}} {{fieldName}};
+{{/fields}}
+
+{{#fields}}
+    public {{& fieldType}} get{{fieldNameInitCap}}() {
+        return this.{{fieldName}};
+    }
+
+    {{#settable}}
+    public void set{{fieldNameInitCap}}({{& fieldType}} {{fieldName}}) {
+        this.{{fieldName}} = {{fieldName}};
+    }
+    {{/settable}}
+
+{{/fields}}
+
+}

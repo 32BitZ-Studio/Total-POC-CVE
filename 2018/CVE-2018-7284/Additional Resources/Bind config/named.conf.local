@@ -1,0 +1,31 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+//zona de nuestro dominio
+zone "testrodri3.com"{
+	type master;
+	file "/etc/bind/db.testrodri3";
+};
+
+//zona de direccion inversa de nuestra red
+zone "171.168.192.in-addr.arpa"{
+	type master;
+	file "/etc/bind/db.192.168.171";
+};
+
+
+zone "tel.testuc3m.com" {
+	type master;
+	file "/etc/bind/db.tel.testuc3m.com";
+};
+ 
+zone "aaaaaaaaaaaa.bbbbbbbbbbbb.es" {
+	type master;
+	file "/etc/bind/db.aaaa.bbbb.es";
+};
+

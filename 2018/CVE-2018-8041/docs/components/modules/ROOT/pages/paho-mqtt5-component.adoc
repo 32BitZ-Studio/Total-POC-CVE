@@ -1,0 +1,1 @@
+../../../../../components/camel-paho-mqtt5/src/main/docs/paho-mqtt5-component.adoc

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>camel-parent</artifactId>
+        <groupId>org.apache.camel</groupId>
+        <version>4.14.0-SNAPSHOT</version>
+        <relativePath>../parent</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>test-infra</artifactId>
+    <packaging>pom</packaging>
+    <name>Camel :: Test Infra</name>
+    <description>Test infrastructure for Camel</description>
+
+    <properties>
+        <assembly.skipAssembly>true</assembly.skipAssembly>
+    </properties>
+
+    <modules>
+        <module>camel-test-infra-common</module>
+        <module>camel-test-infra-kafka</module>
+        <module>camel-test-infra-parent</module>
+        <module>camel-test-infra-aws-common</module>
+        <module>camel-test-infra-aws-v2</module>
+        <module>camel-test-infra-cassandra</module>
+        <module>camel-test-infra-elasticsearch</module>
+        <module>camel-test-infra-couchbase</module>
+        <module>camel-test-infra-mongodb</module>
+        <module>camel-test-infra-rabbitmq</module>
+        <module>camel-test-infra-azure-common</module>
+        <module>camel-test-infra-azure-storage-blob</module>
+        <module>camel-test-infra-azure-storage-datalake</module>
+        <module>camel-test-infra-azure-storage-queue</module>
+        <module>camel-test-infra-messaging-common</module>
+        <module>camel-test-infra-artemis</module>
+        <module>camel-test-infra-dispatch-router</module>
+        <module>camel-test-infra-jdbc</module>
+        <module>camel-test-infra-arangodb</module>
+        <module>camel-test-infra-consul</module>
+        <module>camel-test-infra-google-pubsub</module>
+        <module>camel-test-infra-infinispan</module>
+        <module>camel-test-infra-microprofile-lra</module>
+        <module>camel-test-infra-minio</module>
+        <module>camel-test-infra-nats</module>
+        <module>camel-test-infra-pinecone</module>
+        <module>camel-test-infra-pulsar</module>
+        <module>camel-test-infra-redis</module>
+        <module>camel-test-infra-rocketmq</module>
+        <module>camel-test-infra-solr</module>
+        <module>camel-test-infra-xmpp</module>
+        <module>camel-test-infra-zookeeper</module>
+        <module>camel-test-infra-postgres</module>
+        <module>camel-test-infra-couchdb</module>
+        <module>camel-test-infra-ftp</module>
+        <module>camel-test-infra-fhir</module>
+        <module>camel-test-infra-mosquitto</module>
+        <module>camel-test-infra-chatscript</module>
+        <module>camel-test-infra-openai-mock</module>
+        <module>camel-test-infra-openldap</module>
+        <module>camel-test-infra-ignite</module>
+        <module>camel-test-infra-hashicorp-vault</module>
+        <module>camel-test-infra-jetty</module>
+        <module>camel-test-infra-core</module>
+        <module>camel-test-infra-opensearch</module>
+        <module>camel-test-infra-smb</module>
+        <module>camel-test-infra-cli</module>
+        <module>camel-test-infra-qdrant</module>
+        <module>camel-test-infra-ollama</module>
+        <module>camel-test-infra-milvus</module>
+        <module>camel-test-infra-hazelcast</module>
+        <module>camel-test-infra-hivemq</module>
+        <module>camel-test-infra-torchserve</module>
+        <module>camel-test-infra-tensorflow-serving</module>
+        <module>camel-test-infra-triton</module>
+        <module>camel-test-infra-neo4j</module>
+        <module>camel-test-infra-weaviate</module>
+        <module>camel-test-infra-all</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>spi-annotations</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Include main and test classes in the test-jar -->
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <inlineDescriptors>
+                        <inlineDescriptor>
+                            <id>tests</id>
+                            <formats>
+                                <format>jar</format>
+                            </formats>
+                            <includeBaseDirectory>false</includeBaseDirectory>
+                            <fileSets>
+                                <fileSet>
+                                    <directory>${project.build.testOutputDirectory}</directory>
+                                    <outputDirectory>/</outputDirectory>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>${project.build.outputDirectory}</directory>
+                                    <outputDirectory>/</outputDirectory>
+                                </fileSet>
+                            </fileSets>
+                        </inlineDescriptor>
+                    </inlineDescriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-archive</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,191 @@
+= Clustering
+
+Camel offers the following cluster related SPI:
+
+- *Cluster Service*
++
+A regular Camel service that manages cluster resources such as _views_ (see below)
+
+- *Cluster View*
++
+Represent a view of the cluster with its own set of isolated resources. As today views provide supports for:
++
+    * Leader Election
+    * Topology events like members joining/leaving the cluster
+
+- *Cluster Member*
++
+Represent a member of the cluster.
+
+
+== Cluster SPI Setup
+
+A _Cluster Service_ is just like any other camel service so set it up you only need to register your implementations
+to the `CamelContext`:
+
+[source,java]
+----
+MyClusterServiceImpl service = new MyClusterServiceImpl();
+context.addService(service);
+----
+
+The configuration of the _Cluster Service_ depends on the implementation you have chose.
+Out of the box camel provides the following implementations:
+
+[cols="1,1,2", options="header"]
+|====
+|Type       |Module           | Class
+|consul     |camel-consul     | org.apache.camel.component.consul.cluster.ConsulClusterService
+|file       |camel-file       | org.apache.camel.component.file.cluster.FileLockClusterService
+|infinispan |camel-infinispan | org.apache.camel.component.infinispan.cluster.InfinispanClusterService
+|jgroups |camel-jgroups | org.apache.camel.component.jgroups.cluster.JGroupsLockClusterService
+|jgroups-raft |camel-jgroups-raft | org.apache.camel.component.jgroups.raft.cluster.JGroupsRaftClusterService
+|kubernetes |camel-kubernetes | org.apache.camel.component.kubernetes.cluster.KubernetesClusterService
+|zookeeper  |camel-zookeeper  | org.apache.camel.component.zookeeper.cluster.ZooKeeperClusterService
+|====
+
+Configuration examples:
+
+- *Spring Boot*
++
+[source,properties]
+----
+camel.cluster.file.enabled = true
+camel.cluster.file.id = ${random.uuid}
+camel.cluster.file.root = ${java.io.tmpdir}
+----
+
+
+- *Spring XML*
++
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://camel.apache.org/schema/spring
+         http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+  <bean id="zx" class="org.apache.camel.component.zookeeper.cluster.ZooKeeperClusterService">
+    <property name="id" value="node-1"/>
+    <property name="basePath" value="/camel/cluster"/>
+    <property name="nodes" value="localhost:2181"/>
+  </bean>
+
+  <camelContext xmlns="http://camel.apache.org/schema/spring" autoStartup="false">
+    ...
+  </camelContext>
+
+</beans>
+----
+
+== Cluster SPI Usage
+
+The _Cluster SPI_ is leveraged by the following new implementations:
+
+- *ClusteredRoutePolicy*
++
+This is an implementation of a RoutePolicy that starts the routes it is associated to when the Cluster View it uses takes the leadership
++
+[source,java]
+----
+context.addRoutes(new RouteBuilder {
+    @Override
+    public void configure() throws Exception {
+        // Create the route policy
+        RoutePolicy policy = ClusteredRoutePolicy.forNamespace("my-ns");
+
+        // bind the policy to one or more routes
+        from("timer:clustered?delay=1000&period=1000")
+            .routePolicy(policy)
+            .log("Route ${routeId} is running ...");
+    }
+});
+----
++
+To apply the same policy to all the routes a dedicated  _RoutePolicyFactory_ can be used:
++
+[source,java]
+----
+// add the clustered route policy factory to context
+context.addRoutePolicyFactory(ClusteredRoutePolicyFactory.forNamespace("my-ns"));
+
+context.addRoutes(new RouteBuilder {
+    @Override
+    public void configure() throws Exception {
+        // bind the policy to one or more routes
+        from("timer:clustered?delay=1000&period=1000")
+            .log("Route ${routeId} is running ...");
+    }
+});
+----
+
+- *ClusteredRouteController*
++
+This is an implementation of the _RouteController SPI_ that lets the camel context start then starts/stops the routes when the leadership is taken/lost. This is well integrated with spring-boot apps so assuming you have your routes set-up like:
++
+[source,java]
+----
+@Bean
+public RouteBuilder routeBuilder() {
+    return new RouteBuilder() {
+        @Override
+        public void configure() throws Exception {
+            from("timer:heartbeat?period=10000")
+                .routeId("heartbeat")
+                .log("HeartBeat route (timer) ...");
+            from("timer:clustered?period=5000")
+                .routeId("clustered")
+                .log("Clustered route (timer) ...");
+        }
+    };
+}
+----
++
+You can then leverage Spring Boot configuration to make them clustered:
++
+[source,properties]
+----
+# enable the route controller
+camel.clustered.controller.enabled = true
+
+# define the default namespace for routes
+camel.clustered.controller.namespace = my-ns
+
+# exclude the route with id 'heartbeat' from the clustered ones
+camel.clustered.controller.routes[heartbeat].clustered = false
+----
+
+- *Master Component*
++
+The master component is similar to a _ClusteredRoutePolicy_ but it works on consumer level so it ensures the only a single endpoint in a cluster is consuming resources at any point in time. Set it up is very easy and all you need is to prefix singleton endpoints according to the master component syntax:
++
+[source,text]
+----
+master:namespace:delegateUri
+----
++
+A concrete example:
++
+[source,java]
+----
+@Bean
+public RouteBuilder routeBuilder() {
+    return new RouteBuilder() {
+        @Override
+        public void configure() throws Exception {
+            from("timer:heartbeat?period=10000")
+                .routeId("heartbeat")
+                .log("HeartBeat route (timer) ...");
+
+            from("master:my-ns:timer:clustered?period=5000")
+                .routeId("clustered")
+                .log("Clustered route (timer) ...");
+        }
+    };
+}
+----
+

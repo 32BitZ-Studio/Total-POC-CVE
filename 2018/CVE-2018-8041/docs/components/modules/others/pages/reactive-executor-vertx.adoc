@@ -1,0 +1,1 @@
+../../../../../components/camel-reactive-executor-vertx/src/main/docs/reactive-executor-vertx.adoc

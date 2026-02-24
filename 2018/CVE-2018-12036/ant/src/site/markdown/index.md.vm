@@ -1,0 +1,38 @@
+About
+====================
+OWASP dependency-check-ant is an Ant Task that uses dependency-check-core to detect publicly
+disclosed vulnerabilities associated with the project's dependencies. The task will
+generate a report listing the dependency, any identified Common Platform Enumeration (CPE)
+identifiers, and the associated Common Vulnerability and Exposure (CVE) entries.
+
+Installation
+====================
+1. Download dependency-check-ant from [bintray here](http://dl.bintray.com/jeremy-long/owasp/dependency-check-ant-${project.version}-release.zip).
+2. Unzip the archive
+3. Add the taskdef to your build.xml:
+
+    ```xml
+    <!-- Set the value to the installation directory's path -->
+    <property name="dependency-check.home" value="C:/tools/dependency-check-ant"/>
+    <path id="dependency-check.path">
+       <pathelement location="${dependency-check.home}/dependency-check-ant.jar"/>
+        <fileset dir="${dependency-check.home}/lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <taskdef resource="dependency-check-taskdefs.properties">
+       <classpath refid="dependency-check.path" />
+    </taskdef>
+    ```
+4. Use the defined taskdefs:
+    * [dependency-check](configuration.html) - the primary task used to check the project dependencies.
+    * [dependency-check-purge](config-purge.html) - deletes the local copy of the NVD; this should rarely be used (if ever).
+    * [dependency-check-update](config-update.html) - downloads and updates the local copy of the NVD.
+
+
+It is important to understand that the first time this task is executed it may
+take 10 minutes or more as it downloads and processes the data from the National
+Vulnerability Database (NVD) hosted by NIST: https://nvd.nist.gov
+
+After the first batch download, as long as the task is executed at least once every
+seven days the update will only take a few seconds.

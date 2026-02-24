@@ -1,0 +1,30 @@
+{
+  "role_type": {
+    "_source": {
+      "enabled": true
+    },
+    "properties": {
+      "name": {
+        "type": "keyword"
+      },
+      "value": {
+        "type": "keyword"
+      },
+      "sortOrder": {
+        "type": "integer"
+      },
+      "createdBy": {
+        "type": "keyword"
+      },
+      "createdTime": {
+        "type": "long"
+      },
+      "updatedBy": {
+        "type": "keyword"
+      },
+      "updatedTime": {
+        "type": "long"
+      }
+    }
+  }
+}

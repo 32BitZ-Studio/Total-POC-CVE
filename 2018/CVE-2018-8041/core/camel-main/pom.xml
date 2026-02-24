@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>core</artifactId>
+        <version>4.14.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>camel-main</artifactId>
+    <packaging>jar</packaging>
+    <name>Camel :: Main</name>
+    <description>Camel Main</description>
+
+    <properties>
+        <firstVersion>3.0</firstVersion>
+        <label>core</label>
+
+        <sourcecheckExcludes>
+            **/MySecondFooConfigurer.java,
+            **/MySecondBarConfigurer.java
+        </sourcecheckExcludes>
+        <sourcecheckExcludesComma>
+            ${sourcecheckExcludes},
+        </sourcecheckExcludesComma>
+        <camel.surefire.fork.vmargs>--add-opens java.base/java.util=ALL-UNNAMED</camel.surefire.fork.vmargs>
+    </properties>
+
+    <dependencies>
+
+        <!-- lets keep mandatory dependencies on top level so dependency tree is nicer -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-management-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core-languages</artifactId>
+        </dependency>
+
+        <!-- testing -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-bean</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-direct</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-health</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-log</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mock</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-seda</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito-version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- we need to generate additional configurer classes -->
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-package-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-configurer</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>generate-configurer</goal>
+                        </goals>
+                        <configuration>
+                            <classes>
+                                <!-- we want to have configurer for AwsVaultConfiguration in the package main to prevent a split packages issue -->
+                                <class>org.apache.camel.vault.AwsVaultConfiguration=org.apache.camel.main.AwsVaultConfiguration</class>
+                                <!-- we want to have configurer for AzureVaultConfiguration in the package main to prevent a split packages issue -->
+                                <class>org.apache.camel.vault.AzureVaultConfiguration=org.apache.camel.main.AzureVaultConfiguration</class>
+                                <!-- we want to have configurer for GcpVaultConfiguration in the package main to prevent a split packages issue -->
+                                <class>org.apache.camel.vault.GcpVaultConfiguration=org.apache.camel.main.GcpVaultConfiguration</class>
+                                <!-- we want to have configurer for HashicorpVaultConfiguration in the package main to prevent a split packages issue -->
+                                <class>org.apache.camel.vault.HashicorpVaultConfiguration=org.apache.camel.main.HashicorpVaultConfiguration</class>
+                                <!-- we want to have configurer for KubernetesVaultConfiguration in the package main to prevent a split packages issue -->
+                                <class>org.apache.camel.vault.KubernetesVaultConfiguration=org.apache.camel.main.KubernetesVaultConfiguration</class>
+                                <!-- we want to have configurer for KubernetesConfigMapVaultConfiguration in the package main to prevent a split packages issue -->
+                                <class>org.apache.camel.vault.KubernetesConfigMapVaultConfiguration=org.apache.camel.main.KubernetesConfigMapVaultConfiguration</class>
+                                <!-- we want to have configurer for IBMSecretsManagerVaultConfiguration in the package main to prevent a split packages issue -->
+                                <class>org.apache.camel.vault.IBMSecretsManagerVaultConfiguration=org.apache.camel.main.IBMSecretsManagerVaultConfiguration</class>
+                                <!-- we want to have configurer for SpringCloudConfigConfiguration in the package main to prevent a split packages issue -->
+                                <class>org.apache.camel.vault.SpringCloudConfigConfiguration=org.apache.camel.main.SpringCloudConfigConfiguration</class>
+                            </classes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-test-configurer</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>generate-test-configurer</goal>
+                        </goals>
+                        <!-- only do these test classes -->
+                        <configuration>
+                            <discoverClasses>false</discoverClasses>
+                            <classes>org.apache.camel.main.MySecondFoo,org.apache.camel.main.MySecondBar</classes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/generated/java</source>
+                            </sources>
+                            <resources>
+                                <resource>
+                                    <directory>src/generated/resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- Required by camel-spring-boot -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

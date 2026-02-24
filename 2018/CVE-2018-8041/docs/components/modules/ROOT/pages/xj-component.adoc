@@ -1,0 +1,1 @@
+../../../../../components/camel-xj/src/main/docs/xj-component.adoc

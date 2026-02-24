@@ -1,0 +1,78 @@
+= Stop EIP
+:doctitle: Stop
+:shortname: stop
+:description: Stops the processing of the current message
+:since: 
+:supportlevel: Stable
+:tabs-sync-option:
+
+How can I stop routing a message?
+
+image::eip/MessageExpirationIcon.gif[image]
+
+Use a special filter to mark the message to be stopped.
+
+== Options
+
+// eip options: START
+include::partial$eip-options.adoc[]
+// eip options: END
+
+== Exchange properties
+
+// eip exchangeProperties: START
+include::partial$eip-exchangeProperties.adoc[]
+// eip exchangeProperties: END
+
+== Using Stop
+
+We want to stop routing a message if the message body contains the word Bye.
+In the xref:choice-eip.adoc[Content-Based Router] below we use `stop` in such a case.
+
+[tabs]
+====
+Java::
++
+[source,java]
+----
+from("direct:start")
+    .choice()
+        .when(body().contains("Hello")).to("mock:hello")
+        .when(body().contains("Bye")).to("mock:bye").stop()
+        .otherwise().to("mock:other")
+    .end()
+.to("mock:result");
+----
+
+XML::
++
+[source,xml]
+----
+<route>
+  <from uri="direct:start"/>
+  <choice>
+    <when>
+      <simple>${body} contains 'Hello'</simple>
+      <to uri="mock:hello"/>
+    </when>
+    <when>
+      <simple>${body} contains 'Bye'</simple>
+      <stop/>
+    </when>
+    <otherwise>
+      <to uri="mock:other"/>
+    </otherwise>
+  </choice>
+</route>
+----
+====
+
+=== Calling stop from Java
+
+You can also mark an `Exchange` to stop being routed from Java with the following code:
+
+[source,java]
+----
+Exchange exchange = ...
+exchange.setRouteStop(true);
+----

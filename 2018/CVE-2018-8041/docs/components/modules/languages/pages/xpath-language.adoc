@@ -1,0 +1,1 @@
+../../../../../components/camel-xpath/src/main/docs/xpath-language.adoc

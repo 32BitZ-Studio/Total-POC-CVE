@@ -1,0 +1,1 @@
+../../../../../components/camel-aws/camel-aws2-eventbridge/src/main/docs/aws2-eventbridge-component.adoc

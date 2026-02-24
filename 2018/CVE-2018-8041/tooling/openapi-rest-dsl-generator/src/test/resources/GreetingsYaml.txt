@@ -1,0 +1,22 @@
+- rest:
+    path: "/camel/"
+    get:
+    - id: "greeting-api"
+      path: "/greetings/{name}"
+      produces: "*/*"
+      param:
+      - name: "name"
+      to: "direct:greeting-api"
+    post:
+    - id: "post-greeting-api"
+      path: "/greetings/{name}"
+      produces: "*/*"
+      param:
+      - name: "name"
+      to: "direct:post-greeting-api"
+    - id: "bye-api"
+      path: "/bye/{name}"
+      produces: "*/*"
+      param:
+      - name: "name"
+      to: "direct:bye-api"

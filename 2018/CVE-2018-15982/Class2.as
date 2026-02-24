@@ -1,0 +1,14 @@
+package
+{
+   public class Class2
+   {
+       
+      
+      public var Var997:Object = null;
+      
+      public function Class2()
+      {
+         super();
+      }
+   }
+}

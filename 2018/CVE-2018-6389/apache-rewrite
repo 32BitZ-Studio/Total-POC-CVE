@@ -1,0 +1,4 @@
+# add to your .htaccess or Apache config file
+RewriteEngine on
+RewriteCond %{HTTP_COOKIE} !wordpress_logged_in_
+RewriteRule /wp-admin/load-scripts.php - [F]

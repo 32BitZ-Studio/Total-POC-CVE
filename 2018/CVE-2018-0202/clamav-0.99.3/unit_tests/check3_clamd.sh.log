@@ -1,0 +1,7 @@
+PASS: check3_clamd.sh (exit: 0)
+===============================
+
+
+*** Unit tests disabled in this build
+*** Use ./configure --enable-check to enable them
+

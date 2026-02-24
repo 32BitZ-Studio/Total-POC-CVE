@@ -1,0 +1,1 @@
+../../../../../components/camel-threadpoolfactory-vertx/src/main/docs/threadpoolfactory-vertx.adoc

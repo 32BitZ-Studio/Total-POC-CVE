@@ -1,0 +1,108 @@
+= Kubernetes Nodes Component
+:doctitle: Kubernetes Nodes
+:shortname: kubernetes-nodes
+:artifactid: camel-kubernetes
+:description: Perform operations on Kubernetes Nodes and get notified on Node changes.
+:since: 2.17
+:supportlevel: Stable
+:tabs-sync-option:
+:component-header: Both producer and consumer are supported
+//Manually maintained attributes
+:group: Kubernetes
+:camel-spring-boot-name: kubernetes
+
+*Since Camel {since}*
+
+*{component-header}*
+
+The Kubernetes Nodes component is one of xref:kubernetes-summary.adoc[Kubernetes Components] which
+provides a producer to execute Kubernetes Node operations and a consumer to consume events related to Node objects.
+
+
+// component-configure options: START
+
+// component-configure options: END
+
+// component options: START
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+// component options: END
+
+// endpoint options: START
+
+// endpoint options: END
+// component headers: START
+include::partial$component-endpoint-headers.adoc[]
+// component headers: END
+
+== Usage
+
+=== Supported producer operation
+
+- `listNodes`
+- `listNodesByLabels`
+- `getNode`
+- `createNode`
+- `updateNode`
+- `deleteNode`
+
+== Examples
+
+=== Kubernetes Nodes Producer Examples
+
+- `listNodes`: this operation lists the nodes on a kubernetes cluster
+
+[source,java]
+--------------------------------------------------------------------------------
+from("direct:list").
+    toF("kubernetes-nodes:///?kubernetesClient=#kubernetesClient&operation=listNodes").
+    to("mock:result");
+--------------------------------------------------------------------------------
+
+This operation returns a List of Nodes from your cluster
+
+- `listNodesByLabels`: this operation lists the nodes by labels on a kubernetes cluster
+
+[source,java]
+--------------------------------------------------------------------------------
+from("direct:listByLabels").process(new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                Map<String, String> labels = new HashMap<>();
+                labels.put("key1", "value1");
+                labels.put("key2", "value2");
+                exchange.getIn().setHeader(KubernetesConstants.KUBERNETES_NODES_LABELS, labels);
+            }
+        });
+    toF("kubernetes-deployments:///?kubernetesClient=#kubernetesClient&operation=listNodesByLabels").
+    to("mock:result");
+--------------------------------------------------------------------------------
+
+This operation returns a list of nodes from your cluster, using a label selector (with key1 and key2, with value value1 and value2)
+
+=== Kubernetes Nodes Consumer Example
+
+[source,java]
+--------------------------------------------------------------------------------
+fromF("kubernetes-nodes://%s?oauthToken=%s", host, authToken)
+    .process(new KubernetesProcessor()).to("mock:result");
+
+    public class KubernetesProcessor implements Processor {
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            Message in = exchange.getIn();
+            Node node = exchange.getIn().getBody(Node.class);
+            log.info("Got event with node name: " + node.getMetadata().getName() + " and action " + in.getHeader(KubernetesConstants.KUBERNETES_EVENT_ACTION));
+        }
+    }
+--------------------------------------------------------------------------------
+
+This consumer returns a message per event received for all Nodes in the cluster.
+
+You can narrow the scope of the consumer using the following query parameter combinations:
+
+- `labelKey` + `labelValue` - Watch Nodes with the specified label.
+- `resourceName` - Watch the Nodes with the specified name.
+
+
+include::spring-boot:partial$starter.adoc[]

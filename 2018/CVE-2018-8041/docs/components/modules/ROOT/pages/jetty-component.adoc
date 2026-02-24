@@ -1,0 +1,1 @@
+../../../../../components/camel-jetty/src/main/docs/jetty-component.adoc

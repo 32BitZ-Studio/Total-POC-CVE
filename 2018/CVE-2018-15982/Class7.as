@@ -1,0 +1,14 @@
+package
+{
+   import mx.core.ByteArrayAsset;
+   
+   public class Class7 extends ByteArrayAsset
+   {
+       
+      
+      public function Class7()
+      {
+         super();
+      }
+   }
+}

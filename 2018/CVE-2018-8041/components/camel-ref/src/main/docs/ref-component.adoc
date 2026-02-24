@@ -1,0 +1,100 @@
+= Ref Component
+:doctitle: Ref
+:shortname: ref
+:artifactid: camel-ref
+:description: Route messages to an endpoint looked up dynamically by name in the Camel Registry.
+:since: 1.2
+:supportlevel: Stable
+:tabs-sync-option:
+:component-header: Both producer and consumer are supported
+:core:
+//Manually maintained attributes
+:camel-spring-boot-name: ref
+
+*Since Camel {since}*
+
+*{component-header}*
+
+The Ref component is used for lookup of existing endpoints bound in
+the Registry.
+
+== URI format
+
+----
+ref:someName[?options]
+----
+
+Where *someName* is the name of an endpoint in the
+Registry (usually, but not always, the Spring
+registry). If you are using the Spring registry, `someName` would be the
+bean ID of an endpoint in the Spring registry.
+
+// component-configure options: START
+
+// component-configure options: END
+
+// component options: START
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+// component options: END
+
+// endpoint options: START
+
+// endpoint options: END
+
+== Usage
+
+=== Runtime lookup
+
+This component can be used when you need dynamic discovery of endpoints
+in the Registry where you can compute the URI at
+runtime. Then you can look up the endpoint using the following code:
+
+[source,java]
+----
+// lookup the endpoint
+String myEndpointRef = "bigspenderOrder";
+Endpoint endpoint = context.getEndpoint("ref:" + myEndpointRef);
+
+Producer producer = endpoint.createProducer();
+Exchange exchange = producer.createExchange();
+exchange.getIn().setBody(payloadToSend);
+// send the exchange
+producer.process(exchange);
+----
+
+With Spring XML, you could have a list of endpoints defined in the
+Registry such as:
+
+[source,java]
+----
+<camelContext id="camel" xmlns="http://activemq.apache.org/camel/schema/spring">
+    <endpoint id="normalOrder" uri="activemq:order.slow"/>
+    <endpoint id="bigspenderOrder" uri="activemq:order.high"/>
+</camelContext>
+----
+
+== Example
+
+Bind endpoints to the Camel registry:
+[source,java]
+----
+context.getRegistry().bind("endpoint1", context.getEndpoint("direct:start"));
+context.getRegistry().bind("endpoint2", context.getEndpoint("log:end"));
+----
+
+Use the `ref` URI scheme to refer to endpoint's bond to the Camel registry:
+[source,java]
+----
+public class MyRefRoutes extends RouteBuilder {
+    @Override
+    public void configure() {
+        // direct:start -> log:end
+        from("ref:endpoint1")
+            .to("ref:endpoint2");
+    }
+}
+----
+
+
+include::spring-boot:partial$starter.adoc[]

@@ -1,0 +1,1 @@
+../../../../../components/camel-direct/src/main/docs/direct-component.adoc

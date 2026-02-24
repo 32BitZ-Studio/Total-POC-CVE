@@ -1,0 +1,88 @@
+= Sort EIP
+:doctitle: Sort
+:shortname: sort
+:description: Sorts the contents of the message
+:since: 
+:supportlevel: Stable
+:tabs-sync-option:
+
+How can you sort the content of the message?
+
+image::eip/MessageTranslator.gif[image]
+
+Use a special filter, a xref:message-translator.adoc[Message Translator], between other filters to sort the content of the message.
+
+== Options
+
+// eip options: START
+include::partial$eip-options.adoc[]
+// eip options: END
+
+== Exchange properties
+
+// eip exchangeProperties: START
+include::partial$eip-exchangeProperties.adoc[]
+// eip exchangeProperties: END
+
+
+== How sorting works
+
+Sort will by default sort the message body using a default `Comparator` that handles numeric values
+or uses the `String` representation.
+
+You can also configure a custom `Comparator` to control the sorting.
+
+An xref:manual::expression.adoc[Expression] can also be used, which performs the sorting, and returns the sorted message body.
+The value returned from the `Expression` must be convertible to `java.util.List` as this is required by the JDK sort operation.
+
+=== Using Sort EIP
+
+Imagine you consume text files and before processing each file, you want to be sure the content is sorted.
+
+In the route below, it will read the file content and tokenize by line breaks so each line can be sorted.
+
+[source,java]
+----
+from("file:inbox")
+    .sort(body().tokenize("\n"))
+    .to("bean:MyServiceBean.processLine");
+----
+
+You can pass in your own comparator as a second argument:
+
+[source,java]
+----
+from("file:inbox")
+    .sort(body().tokenize("\n"), new MyReverseComparator())
+    .to("bean:MyServiceBean.processLine");
+----
+
+In the route below, it will read the file content and tokenize by line breaks so each line can be sorted.
+In XML, you use the xref:components:languages:tokenize-language.adoc[Tokenize] language as shown:
+
+[source,xml]
+----
+<route>
+  <from uri="file:inbox"/>
+  <sort>
+    <tokenize>\n</tokenize>
+  </sort>
+  <to uri="bean:myServiceBean.processLine"/>
+</route>
+----
+
+And to use our own `Comparator` we do as follows:
+
+[source,xml]
+----
+<route>
+  <from uri="file:inbox"/>
+  <sort comparator="#class:com.mycompany.MyReverseComparator">
+    <simple>${body}</simple>
+  </sort>
+  <beanRef ref="MyServiceBean" method="processLine"/>
+</route>
+----
+
+Notice how we use `<simple>$\{body}</simple>` in the example above to tell Sort EIP that it should use the message body for sorting.
+This is needed when you use a custom `Comparator`.

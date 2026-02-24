@@ -1,0 +1,6 @@
+IncludeFile.lo: llvm/lib/System/IncludeFile.cpp \
+ /usr/include/stdc-predef.h llvm/include/llvm/System/IncludeFile.h
+
+/usr/include/stdc-predef.h:
+
+llvm/include/llvm/System/IncludeFile.h:

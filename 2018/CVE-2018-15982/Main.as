@@ -1,0 +1,662 @@
+package
+{
+   import com.adobe.tvsdk.mediacore.metadata.Metadata;
+   import flash.display.Sprite;
+   import flash.events.Event;
+   import flash.net.LocalConnection;
+   import flash.system.Capabilities;
+   import flash.utils.ByteArray;
+   import flash.utils.Endian;
+   
+   public class Main extends Sprite
+   {
+      
+      public static var Var1:Class = Class7;
+      
+      public static var Var2:Class = Class6;
+      
+      public static var Var3:ByteArray;
+      
+      public static var Var4:ByteArray;
+       
+      
+      public var Var5:String = "";
+      
+      public var Var6:Boolean = false;
+      
+      public var Var7:Boolean = false;
+      
+      public var Var8:Boolean = false;
+      
+      public var Var9:uint = 256;
+      
+      public var Var10:uint = 0;
+      
+      public var Var11:Class0 = null;
+      
+      public var Var12:uint = 0;
+      
+      public var Var13:uint = 0;
+      
+      public var Var14:Vector.<Class5>;
+      
+      public var Var15:Vector.<Class3>;
+      
+      public var Var16:Vector.<Class4>;
+      
+      public function Main()
+      {
+         this.Var14 = new Vector.<Class5>(512);
+         this.Var15 = new Vector.<Class3>(512);
+         this.Var16 = new Vector.<Class4>(512);
+         super();
+         if(stage)
+         {
+            this.Var17();
+         }
+         else
+         {
+            addEventListener(Event.ADDED_TO_STAGE,this.Var17);
+         }
+      }
+      
+      public static function Var18(... rest) : void
+      {
+      }
+      
+      private function Var19() : void
+      {
+         try
+         {
+            new LocalConnection().connect("A");
+            new LocalConnection().connect("A");
+            return;
+         }
+         catch(e:Error)
+         {
+            return;
+         }
+      }
+      
+      private function Var20(param1:uint) : uint
+      {
+         var _loc2_:uint = 0;
+         this.Var14[this.Var12].Var22 = param1 - 16;
+         _loc2_ = this.Var15[this.Var13].m_Class1.Var993;
+         this.Var14[this.Var12].Var22 = this.Var10;
+         return _loc2_;
+      }
+      
+      private function Var23(param1:uint, param2:uint) : void
+      {
+         this.Var14[this.Var12].Var22 = param1 - 16;
+         this.Var15[this.Var13].m_Class1.Var993 = param2;
+         this.Var14[this.Var12].Var22 = this.Var10;
+      }
+      
+      private function Var25(param1:uint) : uint
+      {
+         param1 = param1 & 4294901760;
+         while(this.Var20(param1) != 9460301)
+         {
+            param1 = param1 - 65536;
+         }
+         return param1;
+      }
+      
+      private function Var26(param1:uint, param2:uint, param3:uint, param4:uint) : uint
+      {
+         var _loc7_:uint = 0;
+         var _loc8_:uint = 0;
+         var _loc5_:uint = param4 + this.Var20(param4 + this.Var20(param4 + 60) + 128);
+         var _loc6_:int = -1;
+         while(true)
+         {
+            _loc7_ = this.Var20(_loc5_ + ++_loc6_ * 20 + 12);
+            if(!_loc7_)
+            {
+               break;
+            }
+            _loc8_ = param4 + _loc7_;
+            if(this.Var20(_loc8_) == param1 && this.Var20(_loc8_ + param3) == param2)
+            {
+               return this.Var25(this.Var20(param4 + this.Var20(_loc5_ + _loc6_ * 20 + 16)));
+            }
+         }
+         throw new Error();
+      }
+      
+      private function Var32(param1:uint, param2:uint, param3:uint, param4:uint) : uint
+      {
+         var _loc11_:uint = 0;
+         var _loc12_:uint = 0;
+         var _loc5_:uint = param4 + this.Var20(param4 + this.Var20(param4 + 60) + 120);
+         var _loc6_:uint = this.Var20(_loc5_ + 24);
+         var _loc7_:uint = param4 + this.Var20(_loc5_ + 28);
+         var _loc8_:uint = param4 + this.Var20(_loc5_ + 32);
+         var _loc9_:uint = param4 + this.Var20(_loc5_ + 36);
+         var _loc10_:uint = 0;
+         while(true)
+         {
+            _loc11_ = this.Var20(_loc8_ + _loc10_ * 4);
+            _loc12_ = param4 + _loc11_;
+            if(this.Var20(_loc12_) == param1 && this.Var20(_loc12_ + param3) == param2)
+            {
+               if((this.Var20(_loc12_ + param3 + 2) & 4294901760) != 2017787904)
+               {
+                  break;
+               }
+            }
+            _loc10_++;
+         }
+         return param4 + this.Var20(_loc7_ + (this.Var20(_loc9_ + _loc10_ * 2) & 65535) * 4);
+      }
+      
+      private function Var42(param1:Class0) : uint
+      {
+         var _loc2_:uint = 0;
+         this.Var14[this.Var12].Var22 = param1.Var98;
+         this.Var14[this.Var12].Var39 = param1.Var99 - 32;
+         _loc2_ = this.Var16[this.Var13].m_Class1.Var993;
+         this.Var14[this.Var12].Var22 = this.Var11.Var98;
+         this.Var14[this.Var12].Var39 = this.Var11.Var99;
+         return _loc2_;
+      }
+      
+      private function Var38(param1:Class0, param2:uint) : void
+      {
+         this.Var14[this.Var12].Var22 = param1.Var98;
+         this.Var14[this.Var12].Var39 = param1.Var99 - 32;
+         this.Var16[this.Var13].m_Class1.Var993 = param2;
+         this.Var14[this.Var12].Var22 = this.Var11.Var98;
+         this.Var14[this.Var12].Var39 = this.Var11.Var99;
+      }
+      
+      public function Var40(param1:Class0) : Class0
+      {
+         var _loc2_:Class0 = new Class0(param1.Var99 & 4294901760,param1.Var98);
+         while(this.Var42(_loc2_) != 9460301)
+         {
+            _loc2_ = _loc2_.offset(-4096);
+         }
+         return _loc2_;
+      }
+      
+      private function Var43(param1:uint, param2:uint, param3:uint, param4:Class0) : Class0
+      {
+         var _loc11_:Class0 = null;
+         var _loc12_:Class0 = null;
+         var _loc13_:Class0 = null;
+         var _loc5_:uint = 0;
+         var _loc6_:uint = this.Var42(param4.offset(60));
+         var _loc7_:Class0 = param4.offset(_loc6_);
+         var _loc8_:Class0 = _loc7_.offset(144);
+         var _loc9_:Class0 = new Class0(param4.Var99 + this.Var42(_loc8_),param4.Var98);
+         var _loc10_:uint = this.Var42(_loc8_.offset(4));
+         while(_loc5_ < _loc10_)
+         {
+            _loc11_ = _loc9_.offset(_loc5_ * 20);
+            _loc12_ = new Class0(this.Var42(_loc11_.offset(12)) + param4.Var99,param4.Var98);
+            _loc13_ = new Class0(this.Var42(_loc11_.offset(16)) + param4.Var99,param4.Var98);
+            if(this.Var42(_loc12_) == param1 && this.Var42(_loc12_.offset(param3)) == param2)
+            {
+               return this.Var40(new Class0(this.Var42(_loc13_),this.Var42(_loc13_.offset(4))));
+            }
+            _loc5_ = _loc5_ + 1;
+         }
+         throw new Error();
+      }
+      
+      private function Var51(param1:uint, param2:uint, param3:uint, param4:Class0) : Class0
+      {
+         var _loc14_:Class0 = null;
+         var _loc16_:uint = 0;
+         var _loc17_:Class0 = null;
+         var _loc5_:uint = this.Var42(param4.offset(60));
+         var _loc6_:Class0 = param4.offset(_loc5_);
+         var _loc7_:Class0 = _loc6_.offset(136);
+         var _loc8_:Class0 = new Class0(param4.Var99 + this.Var42(_loc7_),param4.Var98);
+         var _loc9_:uint = this.Var42(_loc7_.offset(4));
+         var _loc10_:uint = this.Var42(_loc8_.offset(24));
+         var _loc11_:Class0 = new Class0(this.Var42(_loc8_.offset(28)) + param4.Var99,param4.Var98);
+         var _loc12_:Class0 = new Class0(this.Var42(_loc8_.offset(32)) + param4.Var99,param4.Var98);
+         var _loc13_:Class0 = new Class0(this.Var42(_loc8_.offset(36)) + param4.Var99,param4.Var98);
+         var _loc15_:uint = 0;
+         while(_loc15_ < _loc10_)
+         {
+            _loc14_ = new Class0(param4.Var99 + this.Var42(_loc12_.offset(_loc15_ * 4)),param4.Var98);
+            if(this.Var42(_loc14_) == param1 && this.Var42(_loc14_.offset(param3)) == param2)
+            {
+               if((this.Var42(_loc14_.offset(param3 + 2)) & 4294901760) != 2017787904)
+               {
+                  _loc16_ = (this.Var42(_loc13_.offset(_loc15_ * 2)) & 65535) * 4;
+                  _loc17_ = new Class0(param4.Var99 + this.Var42(_loc11_.offset(_loc16_)),param4.Var98);
+                  return _loc17_;
+               }
+            }
+            _loc15_ = _loc15_ + 1;
+         }
+         throw new Error();
+      }
+      
+      private function Var56() : void
+      {
+         var _loc24_:uint = 0;
+         var _loc1_:uint = 0;
+         while(_loc1_ < this.Var9)
+         {
+            this.Var15[_loc1_] = new Class3();
+            _loc1_++;
+         }
+         _loc1_ = 0;
+         while(_loc1_ < this.Var9)
+         {
+            if(this.Var14[_loc1_].Var39 != 24 && this.Var14[_loc1_].Var39 > 524288)
+            {
+               this.Var12 = _loc1_;
+               this.Var10 = this.Var14[_loc1_].Var22;
+               this.Var6 = true;
+               break;
+            }
+            _loc1_++;
+         }
+         if(!this.Var6)
+         {
+            return;
+         }
+         this.Var14[this.Var12].Var22 = this.Var14[this.Var12].Var39 - 1;
+         _loc1_ = 0;
+         while(_loc1_ < this.Var9)
+         {
+            if(this.Var15[_loc1_].m_Class1.Var993 != 4294967295)
+            {
+               this.Var13 = _loc1_;
+               this.Var6 = false;
+               break;
+            }
+            _loc1_++;
+         }
+         if(this.Var6)
+         {
+            return;
+         }
+         this.Var14[this.Var12].Var22 = this.Var10;
+         var _loc2_:uint = this.Var20(this.Var14[this.Var12].Var39 - 1);
+         var _loc3_:uint = this.Var25(_loc2_);
+         var _loc4_:uint = 0;
+         if(Capabilities.isDebugger)
+         {
+            _loc4_ = this.Var26(1314014539,842222661,4,_loc3_);
+         }
+         else
+         {
+            _loc24_ = this.Var26(1096172609,842221904,4,_loc3_);
+            _loc4_ = this.Var26(1314014539,842222661,4,_loc24_);
+         }
+         var _loc5_:uint = this.Var32(1953655126,1952671092,10,_loc4_);
+         var _loc6_:uint = Main.Var3.length + 8 + 4096;
+         var _loc7_:Vector.<uint> = new Vector.<uint>(_loc6_);
+         var _loc8_:uint = 0;
+         if(Capabilities.isDebugger)
+         {
+            _loc8_ = 28;
+         }
+         else
+         {
+            _loc8_ = 24;
+         }
+         this.Var15[this.Var13].Var998 = _loc7_;
+         var _loc9_:uint = this.Var20(this.Var14[this.Var12].Var39 - 1 + _loc8_);
+         _loc9_ = _loc9_ + 4;
+         this.Var15[this.Var13].Var998 = Var18;
+         var _loc10_:uint = this.Var14[this.Var12].Var39 - 1;
+         var _loc11_:uint = 0;
+         var _loc12_:uint = 0;
+         var _loc13_:String = Capabilities.version;
+         var _loc14_:Array = _loc13_.split(",");
+         var _loc15_:Array = _loc14_[0].split(" ");
+         var _loc16_:Number = parseInt(_loc15_[1]);
+         if(_loc16_ >= 30)
+         {
+            if(Capabilities.isDebugger)
+            {
+               _loc12_ = 196;
+            }
+            else
+            {
+               _loc12_ = 184;
+            }
+         }
+         else if(Capabilities.isDebugger)
+         {
+            _loc12_ = 188;
+         }
+         else
+         {
+            _loc12_ = 176;
+         }
+         _loc11_ = this.Var20(this.Var20(this.Var20(this.Var20(_loc10_ + 8) + 20) + 4) + _loc12_);
+         var _loc17_:uint = this.Var20(_loc11_);
+         var _loc18_:uint = this.Var20(_loc10_ + 28);
+         var _loc19_:uint = this.Var20(_loc10_ + 32);
+         _loc1_ = 0;
+         while(_loc1_ < 256)
+         {
+            this.Var23(_loc9_ + 8 + _loc1_ * 4,this.Var20(_loc17_ - 128 + _loc1_ * 4));
+            _loc1_++;
+         }
+         this.Var23(_loc9_ + 8 + 128 + 28,_loc5_);
+         this.Var23(_loc11_,_loc9_ + 8 + 128);
+         this.Var23(_loc10_ + 28,_loc9_);
+         this.Var23(_loc10_ + 32,_loc7_.length * 4);
+         var _loc20_:Array = new Array(65);
+         Var18.call.apply(null,_loc20_);
+         var _loc21_:Array = null;
+         var _loc22_:Vector.<uint> = null;
+         _loc21_ = [];
+         Main.Var3.position = 0;
+         var _loc23_:uint = 0;
+         _loc23_ = 0;
+         while(_loc23_ < Main.Var3.length)
+         {
+            _loc21_.push(Main.Var3.readUnsignedInt());
+            _loc23_ = _loc23_ + 4;
+         }
+         _loc22_ = Vector.<uint>(_loc21_);
+         _loc1_ = 0;
+         while(_loc1_ < _loc22_.length)
+         {
+            _loc7_[500 + _loc1_] = _loc22_[_loc1_];
+            _loc1_++;
+         }
+         this.Var23(_loc9_ + 8 + 128 + 28,_loc9_ + 500 * 4);
+         this.Var23(_loc11_,_loc9_ + 8 + 128);
+         Var18.call.apply(null,null);
+         this.Var23(_loc10_ + 28,_loc18_);
+         this.Var23(_loc10_ + 32,_loc19_);
+         this.Var23(_loc11_,_loc17_);
+      }
+      
+      private function Var76() : void
+      {
+         var _loc4_:Class0 = null;
+         var _loc5_:Class0 = null;
+         var _loc6_:Class0 = null;
+         var _loc36_:uint = 0;
+         var _loc1_:Vector.<Class2> = new Vector.<Class2>(this.Var9);
+         var _loc2_:Object = Main.Var18;
+         var _loc3_:uint = 0;
+         while(_loc3_ < this.Var9)
+         {
+            _loc1_[_loc3_] = new Class2();
+            _loc1_[_loc3_].Var997 = _loc2_;
+            _loc3_++;
+         }
+         var _loc7_:Array = new Array(4);
+         var _loc8_:uint = Main.Var4.length + 4096;
+         var _loc9_:Vector.<uint> = new Vector.<uint>(_loc8_);
+         var _loc10_:uint = 0;
+         if(Capabilities.isDebugger)
+         {
+            _loc10_ = 28 * 2;
+         }
+         else
+         {
+            _loc10_ = 24 * 2;
+         }
+         _loc3_ = 0;
+         while(_loc3_ < this.Var9)
+         {
+            if(this.Var14[_loc3_].Var39 != 24 && this.Var14[_loc3_].Var39 > 524288)
+            {
+               _loc4_ = new Class0(this.Var14[_loc3_].Var39 - 1,this.Var14[_loc3_].Var22);
+               _loc36_ = 0;
+               while(_loc36_ < this.Var9)
+               {
+                  _loc1_[_loc36_].Var997 = _loc9_;
+                  _loc36_++;
+               }
+               _loc5_ = new Class0(this.Var14[_loc3_].Var39 - 1,this.Var14[_loc3_].Var22);
+               _loc36_ = 0;
+               while(_loc36_ < this.Var9)
+               {
+                  _loc1_[_loc36_].Var997 = _loc7_;
+                  _loc36_++;
+               }
+               _loc6_ = new Class0(this.Var14[_loc3_].Var39 - 1,this.Var14[_loc3_].Var22);
+               this.Var6 = true;
+               break;
+            }
+            _loc3_++;
+         }
+         if(!this.Var6)
+         {
+            return;
+         }
+         _loc1_.length = 0;
+         _loc1_ = null;
+         this.Var19();
+         _loc3_ = 0;
+         while(_loc3_ < this.Var9)
+         {
+            this.Var16[_loc3_] = new Class4();
+            _loc3_++;
+         }
+         _loc3_ = 0;
+         while(_loc3_ < this.Var9)
+         {
+            if(this.Var14[_loc3_].Var39 != 24 && this.Var14[_loc3_].Var39 % 2 == 0 && this.Var14[_loc3_].Var39 > 524288)
+            {
+               this.Var12 = _loc3_;
+               this.Var11 = new Class0(this.Var14[this.Var12].Var39,this.Var14[this.Var12].Var22);
+               this.Var6 = false;
+               break;
+            }
+            _loc3_++;
+         }
+         if(this.Var6)
+         {
+            return;
+         }
+         this.Var14[this.Var12].Var39 = this.Var14[this.Var12].Var39 - 32;
+         _loc3_ = 0;
+         while(_loc3_ < this.Var9)
+         {
+            if(this.Var16[_loc3_].m_Class1.Var993 != 4294967295)
+            {
+               this.Var13 = _loc3_;
+               this.Var6 = true;
+               break;
+            }
+            _loc3_++;
+         }
+         if(!this.Var6)
+         {
+            return;
+         }
+         this.Var14[this.Var12].Var39 = this.Var11.Var99;
+         var _loc11_:Class0 = new Class0(this.Var42(this.Var11),this.Var42(this.Var11.offset(4)));
+         var _loc12_:Class0 = this.Var40(_loc11_);
+         var _loc13_:Class0 = this.Var43(1397900630,1313818963,3,_loc12_);
+         var _loc14_:Class0 = this.Var43(1314014539,842222661,4,_loc13_);
+         var _loc15_:Class0 = this.Var51(1953655126,1952671092,10,_loc14_);
+         var _loc16_:int = 0;
+         var _loc17_:Array = null;
+         var _loc18_:Vector.<uint> = null;
+         var _loc19_:Class0 = new Class0(this.Var42(_loc5_.offset(_loc10_)),this.Var42(_loc5_.offset(_loc10_ + 4)));
+         _loc19_.Var99 = _loc19_.Var99 + 4;
+         var _loc20_:Class0 = new Class0(this.Var42(_loc4_.offset(16)),this.Var42(_loc4_.offset(20)));
+         var _loc21_:Class0 = new Class0(this.Var42(_loc20_.offset(40)),this.Var42(_loc20_.offset(44)));
+         var _loc22_:Class0 = new Class0(this.Var42(_loc21_.offset(8)),this.Var42(_loc21_.offset(12)));
+         var _loc23_:uint = 0;
+         var _loc24_:String = Capabilities.version;
+         var _loc25_:Array = _loc24_.split(",");
+         var _loc26_:Array = _loc25_[0].split(" ");
+         var _loc27_:Number = parseInt(_loc26_[1]);
+         if(_loc27_ >= 30)
+         {
+            if(Capabilities.isDebugger)
+            {
+               _loc23_ = 288;
+            }
+            else
+            {
+               _loc23_ = 272;
+            }
+         }
+         else if(Capabilities.isDebugger)
+         {
+            _loc23_ = 280;
+         }
+         else
+         {
+            _loc23_ = 264;
+         }
+         var _loc28_:Class0 = new Class0(this.Var42(_loc22_.offset(_loc23_)),this.Var42(_loc22_.offset(_loc23_ + 4)));
+         var _loc29_:Class0 = new Class0(this.Var42(_loc28_),this.Var42(_loc28_.offset(4)));
+         var _loc30_:int = -2;
+         while(_loc30_ < 320)
+         {
+            _loc9_[_loc30_ + 2] = this.Var42(_loc28_.offset(_loc30_ * 4));
+            _loc30_++;
+         }
+         _loc3_ = 322;
+         while(_loc3_ < 322 + 228 / 4)
+         {
+            _loc9_[_loc3_] = this.Var42(_loc29_.offset((_loc3_ - 322) * 4));
+            _loc3_++;
+         }
+         this.Var38(_loc19_.offset(1288 + 48),_loc15_.Var99);
+         this.Var38(_loc19_.offset(1288 + 52),_loc15_.Var98);
+         this.Var38(_loc19_.offset(8),_loc19_.offset(1288).Var99);
+         this.Var38(_loc19_.offset(12),_loc19_.offset(1288).Var98);
+         this.Var38(_loc22_.offset(_loc23_),_loc19_.offset(8).Var99);
+         this.Var38(_loc22_.offset(_loc23_ + 4),_loc19_.offset(8).Var98);
+         var _loc31_:Class0 = new Class0(this.Var42(_loc4_.offset(56)),this.Var42(_loc4_.offset(60)));
+         this.Var38(_loc4_.offset(56),new Class0(_loc9_.length * 4,0).Var99);
+         this.Var38(_loc4_.offset(60),new Class0(_loc9_.length * 4,0).Var98);
+         var _loc32_:Class0 = new Class0(this.Var42(_loc4_.offset(64)),this.Var42(_loc4_.offset(68)));
+         this.Var38(_loc4_.offset(64),new Class0(64,0).Var99);
+         this.Var38(_loc4_.offset(68),new Class0(64,0).Var98);
+         var _loc33_:Class0 = new Class0(this.Var42(_loc6_),this.Var42(_loc6_.offset(4)));
+         Var18.apply(null,_loc7_);
+         this.Var38(_loc6_,_loc33_.Var99);
+         this.Var38(_loc6_.offset(4),_loc33_.Var98);
+         this.Var38(_loc4_.offset(56),_loc31_.Var99);
+         this.Var38(_loc4_.offset(60),_loc31_.Var98);
+         this.Var38(_loc4_.offset(64),_loc32_.Var99);
+         this.Var38(_loc4_.offset(68),_loc32_.Var98);
+         this.Var38(_loc22_.offset(_loc23_),_loc28_.Var99);
+         this.Var38(_loc22_.offset(_loc23_ + 4),_loc28_.Var98);
+         _loc3_ = 0;
+         while(_loc3_ < 504)
+         {
+            _loc9_[_loc3_] = 0;
+            _loc3_++;
+         }
+         _loc3_ = 0;
+         while(_loc3_ < 228 / 4)
+         {
+            _loc9_[_loc3_] = this.Var42(_loc29_.offset(_loc3_ * 4));
+            _loc3_++;
+         }
+         var _loc34_:Array = null;
+         var _loc35_:Vector.<uint> = null;
+         _loc34_ = [];
+         Main.Var4.position = 0;
+         _loc16_ = 0;
+         while(_loc16_ < Main.Var4.length)
+         {
+            _loc34_.push(Main.Var4.readUnsignedInt());
+            _loc16_ = _loc16_ + 4;
+         }
+         _loc35_ = Vector.<uint>(_loc34_);
+         _loc3_ = 0;
+         while(_loc3_ < _loc35_.length)
+         {
+            _loc9_[500 + _loc3_] = _loc35_[_loc3_];
+            _loc3_++;
+         }
+         this.Var38(_loc19_.offset(48),_loc19_.offset(500 * 4).Var99);
+         this.Var38(_loc19_.offset(52),_loc19_.offset(500 * 4).Var98);
+         this.Var38(_loc28_,_loc19_.Var99);
+         this.Var38(_loc28_.offset(4),_loc19_.Var98);
+         Var18.apply(null,_loc7_);
+         this.Var38(_loc28_,_loc29_.Var99);
+         this.Var38(_loc28_.offset(4),_loc29_.Var98);
+      }
+      
+      private function Var17(param1:Event = null) : void
+      {
+         var _loc7_:uint = 0;
+         removeEventListener(Event.ADDED_TO_STAGE,this.Var17);
+         Var3 = new Var2() as ByteArray;
+         Var3.endian = Endian.LITTLE_ENDIAN;
+         Var4 = new Var1() as ByteArray;
+         Var4.endian = Endian.LITTLE_ENDIAN;
+         var _loc2_:Vector.<String> = new Vector.<String>(4096);
+         var _loc3_:uint = 0;
+         while(_loc3_ < 4096)
+         {
+            _loc2_[_loc3_] = _loc3_.toString();
+            _loc3_++;
+         }
+         _loc3_ = 0;
+         while(_loc3_ < 4096)
+         {
+            _loc2_[_loc3_] = null;
+            _loc3_ = _loc3_ + 2;
+         }
+         this.Var19();
+         var _loc4_:ByteArray = new ByteArray();
+         var _loc5_:Metadata = new Metadata();
+         var _loc6_:Vector.<String> = null;
+         _loc3_ = 0;
+         while(_loc3_ < this.Var9)
+         {
+            _loc5_.setObject(_loc3_.toString(),_loc4_);
+            _loc3_++;
+         }
+         this.Var19();
+         _loc6_ = _loc5_.keySet;
+         _loc3_ = 0;
+         while(_loc3_ < this.Var9)
+         {
+            this.Var14[_loc3_] = new Class5();
+            _loc3_++;
+         }
+         _loc3_ = 0;
+         while(_loc3_ < this.Var9)
+         {
+            if(_loc6_[_loc3_].length == 24)
+            {
+               _loc7_ = _loc6_[_loc3_].charCodeAt(4);
+               _loc7_ = _loc7_ | _loc6_[_loc3_].charCodeAt(5) << 8;
+               _loc7_ = _loc7_ | _loc6_[_loc3_].charCodeAt(6) << 16;
+               _loc7_ = _loc7_ | _loc6_[_loc3_].charCodeAt(7) << 24;
+               if(_loc7_ < 32768)
+               {
+                  this.Var7 = true;
+               }
+               else
+               {
+                  this.Var8 = true;
+               }
+               break;
+            }
+            _loc3_++;
+         }
+         _loc6_.length = 0;
+         _loc6_ = null;
+         this.Var19();
+         if(this.Var7)
+         {
+            this.Var76();
+         }
+         if(this.Var8)
+         {
+            this.Var56();
+         }
+      }
+   }
+}

@@ -1,0 +1,38 @@
+= How do I edit the website?
+
+There are two ways to edit the website:
+
+* Directly on the GitHub website
+* In local repositories
+
+NOTE: All contributions are licensed under the http://www.apache.org/licenses/LICENSE-2.0[Apache Software License version 2.0]
+
+== Directly on the GitHub website
+
+The website pages can be edited on the GitHub website. It's a very quick process and ideal for fixing typos or updating information.
+
+Steps to edit a file:
+
+. Go to the page you want to edit.
+. Look for a link called "Edit this Page" and click on it.
+. Edit the file.
+. Preview your changes.
+. Provide a title and description for your pull request.
+. Click on the "Propose file change" button.
+
+NOTE: Check the top of the file for a comment such as "Copied from ..." or "Generated content".
+Do not use this process for such content.
+Also, much of the documentation is generated from other sources, including the java code and various configuration files.
+For such documentation, you will need to locate the original source and propose a change to it.
+
+== In local repositories
+
+To edit files locally, it's important to understand how the website is generated and where the files are located. The configuration for the Antora and Hugo site generators is located in its https://github.com/apache/camel-website[own repository].
+The documentation is located in the main https://github.com/apache/camel[Apache Camel] repository and sub-project repositories, such as https://github.com/apache/camel-spring-boot[Camel Spring Boot] and https://github.com/apache/camel-quarkus[Camel Quarkus].
+
+See xref:ROOT:improving-the-documentation.adoc[] for instructions on how to work on the documentation.
+
+[NOTE]
+====
+It's a good idea to spend some time and learn how https://antora.org[Antora] and https://gohugo.io/[Hugo] work.
+====

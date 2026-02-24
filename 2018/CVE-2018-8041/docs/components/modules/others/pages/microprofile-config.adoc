@@ -1,0 +1,1 @@
+../../../../../components/camel-microprofile/camel-microprofile-config/src/main/docs/microprofile-config.adoc

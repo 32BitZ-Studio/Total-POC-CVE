@@ -1,0 +1,20 @@
+package
+{
+   public class Class1
+   {
+       
+      
+      public var Var993:uint = 4.294967295E9;
+      
+      public var Var994:uint = 4.294967295E9;
+      
+      public var Var995:uint = 4.294967295E9;
+      
+      public var Var996:uint = 4.294967295E9;
+      
+      public function Class1()
+      {
+         super();
+      }
+   }
+}

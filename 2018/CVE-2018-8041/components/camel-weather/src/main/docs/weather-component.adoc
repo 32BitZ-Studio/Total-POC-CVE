@@ -1,0 +1,112 @@
+= Weather Component
+:doctitle: Weather
+:shortname: weather
+:artifactid: camel-weather
+:description: Poll the weather information from Open Weather Map.
+:since: 2.12
+:supportlevel: Stable
+:tabs-sync-option:
+:component-header: Both producer and consumer are supported
+//Manually maintained attributes
+:camel-spring-boot-name: weather
+
+*Since Camel {since}*
+
+*{component-header}*
+
+The Weather component is used for polling weather information from
+http://openweathermap.org[Open Weather Map] - a site that provides free
+global weather and forecast information. The information is returned as
+a json String object.
+
+Camel will poll for updates to the current weather and forecasts once
+per hour by default. It can also be used to query the weather api based
+on the parameters defined on the endpoint which is used as producer.
+
+Maven users will need to add the following dependency to their `pom.xml`
+for this component:
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel</groupId>
+    <artifactId>camel-weather</artifactId>
+    <version>x.x.x</version>
+    <!-- use the same version as your Camel core version -->
+</dependency>
+------------------------------------------------------------
+
+== URI format
+
+---------------------------------
+weather://<unused name>[?options]
+---------------------------------
+
+
+
+// component-configure options: START
+
+// component-configure options: END
+
+// component options: START
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+// component options: END
+
+// endpoint options: START
+
+// endpoint options: END
+
+// component headers: START
+include::partial$component-endpoint-headers.adoc[]
+// component headers: END
+
+== Usage
+
+=== Exchange data format
+
+Camel will deliver the body as a json formatted `java.lang.String` (see
+the `mode` option above).
+
+== Examples
+
+In this sample we find the 7-day weather forecast for Madrid, Spain:
+
+[source,java]
+---------------------------------------------------------------------------------------------
+from("weather:foo?location=Madrid,Spain&period=7 days&appid=APIKEY&geolocationAccessKey=IPSTACK_ACCESS_KEY&geolocationRequestHostIP=LOCAL_IP").to("jms:queue:weather");
+---------------------------------------------------------------------------------------------
+
+To just find the current weather for your current location, you can use
+this:
+
+[source,java]
+---------------------------------------------------------
+from("weather:foo?appid=APIKEY&geolocationAccessKey=IPSTACK_ACCESS_KEY&geolocationRequestHostIP=LOCAL_IP").to("jms:queue:weather");
+---------------------------------------------------------
+
+And to find the weather using the producer, we do:
+
+[source,java]
+--------------------------------------------------------
+from("direct:start")
+  .to("weather:foo?location=Madrid,Spain&appid=APIKEY&geolocationAccessKey=IPSTACK_ACCESS_KEY&geolocationRequestHostIP=LOCAL_IP");
+--------------------------------------------------------
+
+And we can send in a message with a header to get the weather for any
+location as shown:
+
+[source,java]
+-------------------------------------------------------------------------------------------------------------------------------------
+String json = template.requestBodyAndHeader("direct:start", "", "CamelWeatherLocation", "Paris,France&appid=APIKEY", String.class);
+-------------------------------------------------------------------------------------------------------------------------------------
+
+And to get the weather at the current location, then:
+
+[source,java]
+--------------------------------------------------------------------------------------------------------------------------------
+String json = template.requestBodyAndHeader("direct:start", "", "CamelWeatherLocation", "current&appid=APIKEY", String.class);
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+include::spring-boot:partial$starter.adoc[]

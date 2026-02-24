@@ -1,0 +1,1 @@
+../../../../../components/camel-google/camel-google-storage/src/main/docs/google-storage-component.adoc

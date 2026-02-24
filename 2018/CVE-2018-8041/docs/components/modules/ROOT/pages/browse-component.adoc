@@ -1,0 +1,1 @@
+../../../../../components/camel-browse/src/main/docs/browse-component.adoc

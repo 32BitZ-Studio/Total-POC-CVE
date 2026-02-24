@@ -1,0 +1,124 @@
+= Apache Camel user manual
+
+Apache Camel™ is a versatile open-source integration framework based on
+known xref:components:eips:enterprise-integration-patterns.adoc[Enterprise Integration
+Patterns].
+
+Camel empowers you to define routing and mediation rules in a variety of
+domain-specific languages (xref:manual::dsl.adoc[DSL], such as Java, XML, Groovy, and YAML).
+This means you get smart completion of
+routing rules in your IDE, whether in a Java or XML editor.
+
+For a deeper and better understanding of Apache Camel, an xref:faq:what-is-camel.adoc[Introduction] is provided.
+
+
+== Summary
+
+* <<Overview>>
+* <<Documentation>>
+* <<Developers>>
+
+== Overview
+
+* xref:getting-started.adoc[Getting Started]
+* xref:book-getting-started.adoc[Longer Getting Started Guide]
+* xref:faq:index.adoc[FAQ]
+* https://github.com/apache/camel/blob/main/NOTICE.txt[Legal Notice]
+
+== Documentation
+
+* <<User Guide>>
+* link:/community/books/[Books]
+* xref:examples.adoc[Examples]
+* xref:architecture.adoc[Architecture]
+* xref:components:eips:enterprise-integration-patterns.adoc[Enterprise Integration Patterns]
+* xref:component-dsl.adoc[Component DSL]
+* xref:Endpoint-dsl.adoc[Endpoint DSL]
+* xref:dataformat-dsl.adoc[DataFormat DSL]
+* xref:language-dsl.adoc[Language DSL]
+* xref:dsl.adoc[DSL]
+* xref:components::index.adoc[Components]
+* xref:components:dataformats:index.adoc[Data Formats]
+* xref:languages.adoc[Languages]
+
+=== User Guide
+
+* xref:getting-started.adoc[Getting Started]
+* xref:book-getting-started.adoc[Longer Getting Started Guide]
+* xref:spring.adoc[Working with Camel and Spring]
+* xref:faq:how-do-i-configure-endpoints.adoc[How do I configure endpoints?]
+* xref:camelcontext-autoconfigure.adoc[Auto Configuration]
+* xref:bean-integration.adoc[Bean Integration]
+* xref:configuring-route-startup-ordering-and-autostartup.adoc[Configuring route startup ordering and autostartup]
+* xref:graceful-shutdown.adoc[Graceful Shutdown]
+* xref:error-handler.adoc[Error handler]
+* xref:using-propertyplaceholder.adoc[How to use Camel property placeholders]
+* xref:variables.adoc[How to use Variables]
+* xref:examples.adoc[Examples]
+* xref:testing.adoc[Testing]
+* xref:camel-maven-plugin.adoc[Camel Maven Plugin] for running Camel from a Maven goal
+* xref:camel-component-maven-plugin.adoc[Camel Component Maven Plugin] to generate all the necessary metadata and Java file for your custom component.
+* xref:camel-report-maven-plugin.adoc[Camel Maven Report Plugin] to validate your source code and report the code coverage of your camel routes
+* xref:camel-maven-archetypes.adoc[Camel Maven Archetypes]
+* xref:components::jmx-component.adoc[Camel JMX]
+* xref:rest-dsl.adoc[Working with REST and Rest DSL]
+** xref:rest-dsl-openapi.adoc[Rest DSL contract first with OpenAPI]
+* xref:writing-components.adoc[Writing Custom Camel Components]
+
+=== xref:architecture.adoc[Architecture]
+
+* xref:backlog-debugger.adoc[BacklogDebugger]
+* xref:backlog-tracer.adoc[BacklogTracer]
+* xref:batch-consumer.adoc[Batch Consumer]
+* xref:browsable-endpoint.adoc[BrowsableEndpoint]
+* xref:camelcontext.adoc[CamelContext]
+* xref:clustering.adoc[Clustering and loadbalancing]
+* xref:components::index.adoc[Component]
+* xref:data-format.adoc[Data Format]
+* xref:debugger.adoc[Debugger]
+* xref:delay-interceptor.adoc[Delayer]
+* xref:dsl.adoc[DSL]
+* xref:endpoint.adoc[Endpoint]
+* xref:endpoint-annotations.adoc[Endpoint Annotations]
+* xref:error-handler.adoc[Error Handler]
+* xref:exchange.adoc[Exchange]
+* xref:exchange-pattern.adoc[Exchange Pattern]
+* xref:exchange-pooling.adoc[Exchange Pooling]
+* xref:expression.adoc[Expression]
+* xref:event-notifier.adoc[Event Notifier]
+* xref:http-session-handling.adoc[HTTP-Session Handling]
+* xref:injector.adoc[Injector]
+* xref:components:eips:intercept.adoc[Intercept]
+* xref:languages.adoc[Languages]
+* xref:lifecycle.adoc[Lifecycle]
+* xref:oncompletion.adoc[OnCompletion]
+* xref:pluggable-class-resolvers.adoc[Pluggable Class Resolvers]
+* xref:predicate.adoc[Predicate]
+* xref:processor.adoc[Processor]
+* xref:registry.adoc[Registry]
+* xref:route-builder.adoc[RouteBuilder]
+* xref:lambda-route-builder.adoc[LambdaRouteBuilder]
+* xref:route-controller.adoc[RouteController]
+* xref:route-policy.adoc[RoutePolicy]
+* xref:route-configuration.adoc[RouteConfiguration]
+* xref:context-reload.adoc[ContextReload]
+* xref:route-reload.adoc[RouteReload]
+* xref:route-template.adoc[RouteTemplate]
+* xref:routes.adoc[Routes]
+* xref:stream-caching.adoc[Stream caching]
+* xref:threading-model.adoc[Threading Model]
+* xref:tracer.adoc[Tracer]
+* xref:type-converter.adoc[Type Converter]
+* xref:uris.adoc[URIs]
+* xref:uuidgenerator.adoc[UuidGenerator]
+
+=== xref:dsl.adoc[DSL]
+
+* xref:java-dsl.adoc[Java DSL]
+* xref:bean-integration.adoc[Java Annotation DSL]
+* xref:components::spring-summary.adoc[Spring XML DSL]
+* xref:rest-dsl.adoc[Rest DSL]
+
+== Developers
+
+* xref:building.adoc[Building Camel from Source]

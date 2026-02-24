@@ -1,0 +1,15 @@
+{
+  "web_config_to_role": {
+    "_source": {
+      "enabled": true
+    },
+    "properties": {
+      "webConfigId": {
+        "type": "keyword"
+      },
+      "roleTypeId": {
+        "type": "keyword"
+      }
+    }
+  }
+}

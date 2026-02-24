@@ -1,0 +1,1 @@
+../../../../../components/camel-saga/src/main/docs/saga-component.adoc

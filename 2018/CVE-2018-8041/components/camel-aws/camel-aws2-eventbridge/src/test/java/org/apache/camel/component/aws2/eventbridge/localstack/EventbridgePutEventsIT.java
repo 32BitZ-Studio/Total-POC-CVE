@@ -1,0 +1,91 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.camel.component.aws2.eventbridge.localstack;
+
+import org.apache.camel.CamelContext;
+import org.apache.camel.EndpointInject;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.aws2.eventbridge.EventbridgeComponent;
+import org.apache.camel.component.aws2.eventbridge.EventbridgeConstants;
+import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.test.infra.aws.common.services.AWSService;
+import org.apache.camel.test.infra.aws2.clients.AWSSDKClientUtils;
+import org.apache.camel.test.infra.aws2.services.AWSServiceFactory;
+import org.apache.camel.test.junit5.CamelTestSupport;
+import org.junit.Assert;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import software.amazon.awssdk.services.eventbridge.model.PutEventsResponse;
+
+@Disabled("Doesn't work with Localstack v4")
+public class EventbridgePutEventsIT extends CamelTestSupport {
+
+    @RegisterExtension
+    public static AWSService service = AWSServiceFactory.createEventBridgeService();
+
+    @EndpointInject
+    private ProducerTemplate template;
+
+    @EndpointInject("mock:result")
+    private MockEndpoint result;
+
+    @Override
+    protected CamelContext createCamelContext() throws Exception {
+        CamelContext context = super.createCamelContext();
+        EventbridgeComponent eventbridgeComponent = context.getComponent("aws2-eventbridge", EventbridgeComponent.class);
+        eventbridgeComponent.getConfiguration().setEventbridgeClient(AWSSDKClientUtils.newEventBridgeClient());
+        return context;
+    }
+
+    @Test
+    public void sendIn() throws Exception {
+        result.expectedMessageCount(1);
+
+        template.send("direct:evs-events", new Processor() {
+
+            @Override
+            public void process(Exchange exchange) {
+                exchange.getIn().setHeader(EventbridgeConstants.EVENT_RESOURCES_ARN,
+                        "arn:aws:sqs:eu-west-1:780410022472:camel-connector-test");
+                exchange.getIn().setHeader(EventbridgeConstants.EVENT_SOURCE, "com.pippo");
+                exchange.getIn().setHeader(EventbridgeConstants.EVENT_DETAIL_TYPE, "peppe");
+                exchange.getIn().setBody("Test Event");
+            }
+        });
+        MockEndpoint.assertIsSatisfied(context);
+        Assert.assertTrue(result.getExchanges().get(0).getMessage().getBody(PutEventsResponse.class).hasEntries());
+        Assert.assertEquals(1, result.getExchanges().get(0).getMessage().getBody(PutEventsResponse.class).entries().size());
+        Assert.assertNotNull(
+                result.getExchanges().get(0).getMessage().getBody(PutEventsResponse.class).entries().get(0).eventId());
+
+    }
+
+    @Override
+    protected RouteBuilder createRouteBuilder() {
+        return new RouteBuilder() {
+            @Override
+            public void configure() {
+                String event = "aws2-eventbridge://default?operation=putEvent";
+                from("direct:evs-events").to(event).log("${body}").to("mock:result");
+            }
+        };
+    }
+}

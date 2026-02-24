@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+  <bean id="runtimeExceptionProcessor" class="org.apache.camel.spring.processor.SpringThrottlerTest$RuntimeExceptionProcessor"/>
+  <bean id="incrementProcessor" class="org.apache.camel.spring.processor.SpringThrottlerTest$IncrementProcessor"/>
+  <bean id="decrementProcessor" class="org.apache.camel.spring.processor.SpringThrottlerTest$DecrementProcessor"/>
+
+  <camelContext xmlns="http://camel.apache.org/schema/spring">
+    <jmxAgent id="jmx" disabled="true"/>
+    <errorHandler type="DeadLetterChannel" id="myDLC" deadLetterUri="mock:error"/>
+    <onException>
+      <exception>org.apache.camel.processor.ThrottlerRejectedExecutionException</exception>
+      <handled>
+        <constant>true</constant>
+      </handled>
+      <to uri="mock:error"/>
+    </onException>
+
+    <route>
+      <from uri="direct:a"/>
+      <!-- throttle max of 2 concurrent messages -->
+      <throttle>
+        <constant>2</constant>
+      </throttle>
+      <process ref="incrementProcessor"/>
+      <delay>
+        <constant>100</constant>
+      </delay>
+      <process ref="decrementProcessor"/>
+      <to uri="log:result"/>
+      <to uri="mock:result"/>
+    </route>
+
+    <route>
+      <from uri="direct:expressionConstant"/>
+      <throttle>
+        <constant>2</constant>
+      </throttle>
+      <process ref="incrementProcessor"/>
+      <delay>
+        <constant>100</constant>
+      </delay>
+      <process ref="decrementProcessor"/>
+      <to uri="log:result"/>
+      <to uri="mock:result"/>
+    </route>
+
+    <!-- START SNIPPET: e2 -->
+    <route>
+      <from uri="direct:expressionHeader"/>
+      <throttle>
+        <!-- use a header to determine the max number of current messages -->
+        <header>throttleValue</header>
+      </throttle>
+      <process ref="incrementProcessor"/>
+      <delay>
+        <constant>100</constant>
+      </delay>
+      <process ref="decrementProcessor"/>
+      <to uri="log:result"/>
+      <to uri="mock:result"/>
+    </route>
+    <!-- END SNIPPET: e2 -->
+
+    <route>
+      <from uri="direct:start"/>
+      <!-- throttle max of 2 concurrent messages -->
+      <throttle rejectExecution="true">
+        <constant>2</constant>
+      </throttle>
+      <delay>
+        <constant>1000</constant>
+      </delay>
+      <to uri="log:result"/>
+      <to uri="mock:result"/>
+    </route>
+
+    <route>
+      <from uri="direct:fifo"/>
+      <!-- throttle max of 1 concurrent request -->
+      <throttle>
+        <constant>1</constant>
+      </throttle>
+      <delay>
+        <constant>100</constant>
+      </delay>
+      <to uri="mock:result"/>
+    </route>
+
+    <route errorHandlerRef="myDLC">
+      <from uri="direct:release"/>
+      <!-- throttle max of 1 concurrent request -->
+      <throttle>
+        <constant>1</constant>
+      </throttle>
+      <delay>
+        <constant>100</constant>
+      </delay>
+      <process ref="runtimeExceptionProcessor"/>
+      <to uri="mock:result"/>
+    </route>
+
+  </camelContext>
+
+</beans>

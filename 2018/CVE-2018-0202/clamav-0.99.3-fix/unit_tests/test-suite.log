@@ -1,0 +1,45 @@
+==============================================
+   ClamAV 0.99.3: unit_tests/test-suite.log   
+==============================================
+
+All 6 tests passed.  (7 tests were not run).  
+
+.. contents:: :depth: 2
+
+
+SKIP: check_clamav (exit: 77)
+=============================
+
+
+*** Unit tests disabled in this build
+*** Use ./configure --enable-check to enable them
+
+
+SKIP: check_unit_vg.sh (exit: 77)
+=================================
+
+*** valgrind tests skipped by default, use 'make check VG=1' to activate
+
+SKIP: check5_clamd_vg.sh (exit: 77)
+===================================
+
+*** valgrind tests skipped by default, use 'make check VG=1' to activate
+
+SKIP: check6_clamd_vg.sh (exit: 77)
+===================================
+
+*** valgrind tests skipped by default, use 'make check VG=1' to activate
+
+SKIP: check7_clamd_hg.sh (exit: 77)
+===================================
+
+
+SKIP: check8_clamd_hg.sh (exit: 77)
+===================================
+
+*** valgrind tests skipped by default, use 'make check VG=1' to activate
+
+SKIP: check9_clamscan_vg.sh (exit: 77)
+======================================
+
+*** valgrind tests skipped by default, use 'make check VG=1' to activate

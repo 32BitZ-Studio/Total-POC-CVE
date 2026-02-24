@@ -1,0 +1,36 @@
+{
+  "path_mapping": {
+    "_source": {
+      "enabled": true
+    },
+    "properties": {
+      "regex": {
+        "type": "keyword"
+      },
+      "replacement": {
+        "type": "keyword"
+      },
+      "processType": {
+        "type": "keyword"
+      },
+      "sortOrder": {
+        "type": "integer"
+      },
+      "userAgent": {
+        "type": "keyword"
+      },
+      "createdBy": {
+        "type": "keyword"
+      },
+      "createdTime": {
+        "type": "long"
+      },
+      "updatedBy": {
+        "type": "keyword"
+      },
+      "updatedTime": {
+        "type": "long"
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+../../../../../components/camel-minio/src/main/docs/minio-component.adoc

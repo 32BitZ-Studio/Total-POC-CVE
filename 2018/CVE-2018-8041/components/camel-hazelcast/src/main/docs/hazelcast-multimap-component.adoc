@@ -1,0 +1,216 @@
+= Hazelcast Multimap Component
+:doctitle: Hazelcast Multimap
+:shortname: hazelcast-multimap
+:artifactid: camel-hazelcast
+:description: Perform operations on Hazelcast distributed multimap.
+:since: 2.7
+:supportlevel: Stable
+:tabs-sync-option:
+:component-header: Both producer and consumer are supported
+//Manually maintained attributes
+:group: Hazelcast
+:camel-spring-boot-name: hazelcast
+
+*Since Camel {since}*
+
+*{component-header}*
+
+The http://www.hazelcast.com/[Hazelcast] Multimap component is one of Camel Hazelcast Components which allows you to access Hazelcast distributed multimap.
+
+
+== Options
+
+// component-configure options: START
+
+// component-configure options: END
+
+// component options: START
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+// component options: END
+
+// endpoint options: START
+
+// endpoint options: END
+
+
+== multimap cache producer - to("hazelcast-multimap:foo")
+
+A multimap is a cache where you can store n values to one key.
+
+The  multimap producer provides eight operations:
+
+* put
+* get
+* removevalue
+* delete
+* containsKey
+* containsValue
+* clear
+* valueCount
+
+// component headers: START
+include::partial$component-endpoint-headers.adoc[]
+// component headers: END
+
+=== Example for *put*:
+
+[tabs]
+====
+
+Java DSL::
++
+[source,java]
+------------------------------------------------------------------------------------
+from("direct:put")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.PUT))
+.to(String.format("hazelcast-%sbar", HazelcastConstants.MULTIMAP_PREFIX));
+------------------------------------------------------------------------------------
+
+Spring XML::
++
+[source,xml]
+-----------------------------------------------------------------------------------------------
+<route>
+    <from uri="direct:put" />
+    <log message="put.."/>
+    <setHeader name="hazelcast.operation.type">
+        <constant>put</constant>
+    </setHeader>
+    <to uri="hazelcast-multimap:foo" />
+</route>
+-----------------------------------------------------------------------------------------------
+
+====
+
+=== Example for *removevalue*:
+
+[tabs]
+====
+
+Java DSL::
++
+
+[source,java]
+--------------------------------------------------------------------------------------------
+from("direct:removevalue")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.REMOVE_VALUE))
+.toF("hazelcast-%sbar", HazelcastConstants.MULTIMAP_PREFIX);
+--------------------------------------------------------------------------------------------
+
+Spring XML::
++
+[source,xml]
+-----------------------------------------------------------------------------------------------
+<route>
+    <from uri="direct:removevalue" />
+    <log message="removevalue..."/>
+    <setHeader name="hazelcast.operation.type">
+        <constant>removevalue</constant>
+    </setHeader>
+    <to uri="hazelcast-multimap:foo" />
+</route>
+-----------------------------------------------------------------------------------------------
+
+====
+
+To remove a value you have to provide the value you want to remove
+inside the message body. If you have a multimap object
+`\{`key: "4711" values: { "my-foo", "my-bar"`}}` you have to put `my-foo`
+inside the message body to remove the `my-foo` value.
+
+=== Example for *get*:
+
+[tabs]
+====
+
+Java DSL::
++
+[source,java]
+------------------------------------------------------------------------------------
+from("direct:get")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.GET))
+.toF("hazelcast-%sbar", HazelcastConstants.MULTIMAP_PREFIX)
+.to("seda:out");
+------------------------------------------------------------------------------------
+
+Spring XML::
++
+[source,xml]
+-----------------------------------------------------------------------------------------------
+<route>
+    <from uri="direct:get" />
+    <log message="get.."/>
+    <setHeader name="hazelcast.operation.type">
+        <constant>get</constant>
+    </setHeader>
+    <to uri="hazelcast-multimap:foo" />
+    <to uri="seda:out" />
+</route>
+-----------------------------------------------------------------------------------------------
+
+====
+
+=== Example for *delete*:
+
+[tabs]
+====
+
+Java DSL::
++
+[source,java]
+---------------------------------------------------------------------------------------
+from("direct:delete")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.DELETE))
+.toF("hazelcast-%sbar", HazelcastConstants.MULTIMAP_PREFIX);
+---------------------------------------------------------------------------------------
+
+Spring XML::
++
+[source,xml]
+-----------------------------------------------------------------------------------------------
+<route>
+    <from uri="direct:delete" />
+    <log message="delete.."/>
+    <setHeader name="hazelcast.operation.type">
+        <constant>delete</constant>
+    </setHeader>
+    <to uri="hazelcast-multimap:foo" />
+</route>
+-----------------------------------------------------------------------------------------------
+
+====
+
+You can call them in your test class with:
+
+[source,java]
+------------------------------------------------------------------------------------------------------------------
+template.sendBodyAndHeader("direct:[put|get|removevalue|delete]", "my-foo", HazelcastConstants.OBJECT_ID, "4711");
+------------------------------------------------------------------------------------------------------------------
+
+== multimap cache consumer - from("hazelcast-multimap:foo")
+
+For the multimap cache this component provides the same listeners /
+variables as for the map cache consumer (except the update and eviction
+listener). The only difference is the *multimap* prefix inside the URI.
+Here is a sample:
+
+[source,java]
+--------------------------------------------------------------------------------------------------
+fromF("hazelcast-%sbar", HazelcastConstants.MULTIMAP_PREFIX)
+.log("object...")
+.choice()
+    .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED))
+        .log("...added")
+                .to("mock:added")
+        //.when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ENVICTED))
+        //        .log("...envicted")
+        //        .to("mock:envicted")
+        .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.REMOVED))
+                .log("...removed")
+                .to("mock:removed")
+        .otherwise()
+                .log("fail!");
+--------------------------------------------------------------------------------------------------
+
+include::spring-boot:partial$starter.adoc[]

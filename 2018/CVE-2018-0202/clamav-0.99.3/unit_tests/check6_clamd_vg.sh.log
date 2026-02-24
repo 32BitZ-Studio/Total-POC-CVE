@@ -1,0 +1,4 @@
+SKIP: check6_clamd_vg.sh (exit: 77)
+===================================
+
+*** valgrind tests skipped by default, use 'make check VG=1' to activate

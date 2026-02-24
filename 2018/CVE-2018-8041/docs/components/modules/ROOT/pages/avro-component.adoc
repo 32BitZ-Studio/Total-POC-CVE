@@ -1,0 +1,1 @@
+../../../../../components/camel-avro-rpc/camel-avro-rpc-component/src/main/docs/avro-component.adoc

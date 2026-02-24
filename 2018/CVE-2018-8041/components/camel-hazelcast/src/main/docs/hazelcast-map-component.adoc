@@ -1,0 +1,322 @@
+= Hazelcast Map Component
+:doctitle: Hazelcast Map
+:shortname: hazelcast-map
+:artifactid: camel-hazelcast
+:description: Perform operations on Hazelcast distributed map.
+:since: 2.7
+:supportlevel: Stable
+:tabs-sync-option:
+:component-header: Both producer and consumer are supported
+//Manually maintained attributes
+:group: Hazelcast
+:camel-spring-boot-name: hazelcast
+
+*Since Camel {since}*
+
+*{component-header}*
+
+The http://www.hazelcast.com/[Hazelcast] Map component is one of Camel Hazelcast Components which allows you to access a Hazelcast distributed map.
+
+
+== Options
+
+// component-configure options: START
+
+// component-configure options: END
+
+// component options: START
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+// component options: END
+
+// endpoint options: START
+
+// endpoint options: END
+
+
+== Map cache producer - to("hazelcast-map:foo")
+
+If you want to store a value in a map, you can use the map cache
+producer. 
+
+The map cache producer provides follow operations specified by *CamelHazelcastOperationType* header:
+
+* put
+* putIfAbsent
+* get
+* getAll
+* keySet
+* containsKey
+* containsValue
+* delete
+* update
+* query
+* clear
+* evict
+* evictAll
+
+// component headers: START
+include::partial$component-endpoint-headers.adoc[]
+// component headers: END
+
+You can call the samples with:
+
+[source,java]
+-------------------------------------------------------------------------------------------------------------------
+template.sendBodyAndHeader("direct:[put|get|update|delete|query|evict]", "my-foo", HazelcastConstants.OBJECT_ID, "4711");
+-------------------------------------------------------------------------------------------------------------------
+
+=== Example for *put*:
+
+[tabs]
+====
+
+Java DSL::
++
+[source,java]
+------------------------------------------------------------------------------------
+from("direct:put")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.PUT))
+.toF("hazelcast-%sfoo", HazelcastConstants.MAP_PREFIX);
+------------------------------------------------------------------------------------
+
+Spring XML::
++
+[source,xml]
+-----------------------------------------------------------------------------------------------
+<route>
+    <from uri="direct:put" />
+    <setHeader name="hazelcast.operation.type">
+        <constant>put</constant>
+    </setHeader>
+    <to uri="hazelcast-map:foo" />
+</route>
+-----------------------------------------------------------------------------------------------
+
+====
+
+Sample for *put* with eviction:
+
+[tabs]
+====
+
+Java DSL::
++
+
+[source,java]
+------------------------------------------------------------------------------------
+from("direct:put")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.PUT))
+.setHeader(HazelcastConstants.TTL_VALUE, constant(Long.valueOf(1)))
+.setHeader(HazelcastConstants.TTL_UNIT, constant(TimeUnit.MINUTES))
+.toF("hazelcast-%sfoo", HazelcastConstants.MAP_PREFIX);
+------------------------------------------------------------------------------------
+
+Spring XML::
++
+[source,xml]
+-----------------------------------------------------------------------------------------------
+<route>
+    <from uri="direct:put" />
+    <setHeader name="hazelcast.operation.type">
+        <constant>put</constant>
+    </setHeader>
+    <setHeader name="HazelcastConstants.TTL_VALUE">
+        <simple resultType="java.lang.Long">1</simple>
+    </setHeader>
+    <setHeader name="HazelcastConstants.TTL_UNIT">
+        <simple resultType="java.util.concurrent.TimeUnit">TimeUnit.MINUTES</simple>
+    </setHeader>
+    <to uri="hazelcast-map:foo" />
+</route>
+-----------------------------------------------------------------------------------------------
+
+====
+
+=== Example for *get*:
+
+[tabs]
+====
+
+Java DSL::
++
+[source,java]
+------------------------------------------------------------------------------------
+from("direct:get")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.GET))
+.toF("hazelcast-%sfoo", HazelcastConstants.MAP_PREFIX)
+.to("seda:out");
+------------------------------------------------------------------------------------
+
+Spring XML::
++
+[source,xml]
+-----------------------------------------------------------------------------------------------
+<route>
+    <from uri="direct:get" />
+    <setHeader name="hazelcast.operation.type">
+        <constant>get</constant>
+    </setHeader>
+    <to uri="hazelcast-map:foo" />
+    <to uri="seda:out" />
+</route>
+-----------------------------------------------------------------------------------------------
+
+====
+
+=== Example for *update*:
+
+[tabs]
+====
+
+Java DSL::
++
+[source,java]
+---------------------------------------------------------------------------------------
+from("direct:update")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.UPDATE))
+.toF("hazelcast-%sfoo", HazelcastConstants.MAP_PREFIX);
+---------------------------------------------------------------------------------------
+
+Spring XML::
++
+[source,xml]
+-----------------------------------------------------------------------------------------------
+<route>
+    <from uri="direct:update" />
+    <setHeader name="hazelcast.operation.type">
+        <constant>update</constant>
+    </setHeader>
+    <to uri="hazelcast-map:foo" />
+</route>
+-----------------------------------------------------------------------------------------------
+
+====
+
+=== Example for *delete*:
+
+[tabs]
+====
+
+Java DSL::
++
+
+[source,java]
+---------------------------------------------------------------------------------------
+from("direct:delete")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.DELETE))
+.toF("hazelcast-%sfoo", HazelcastConstants.MAP_PREFIX);
+---------------------------------------------------------------------------------------
+
+Spring XML::
++
+[source,xml]
+-----------------------------------------------------------------------------------------------
+<route>
+    <from uri="direct:delete" />
+    <setHeader name="hazelcast.operation.type">
+        <constant>delete</constant>
+    </setHeader>
+    <to uri="hazelcast-map:foo" />
+</route>
+-----------------------------------------------------------------------------------------------
+
+====
+
+=== Example for *query*
+
+[tabs]
+====
+
+Java DSL::
++
+[source,java]
+--------------------------------------------------------------------------------------
+from("direct:query")
+.setHeader(HazelcastConstants.OPERATION, constant(HazelcastOperation.QUERY))
+.toF("hazelcast-%sfoo", HazelcastConstants.MAP_PREFIX)
+.to("seda:out");
+--------------------------------------------------------------------------------------
+
+Spring XML::
++
+[source,xml]
+-----------------------------------------------------------------------------------------------
+<route>
+    <from uri="direct:query" />
+    <setHeader name="hazelcast.operation.type">
+        <constant>query</constant>
+    </setHeader>
+    <to uri="hazelcast-map:foo" />
+    <to uri="seda:out" />
+</route>
+-----------------------------------------------------------------------------------------------
+
+====
+
+For the query operation Hazelcast offers an SQL like syntax to query your
+distributed map.
+
+[source,java]
+-------------------------------------------------------------------------------
+String q1 = "bar > 1000";
+template.sendBodyAndHeader("direct:query", null, HazelcastConstants.QUERY, q1);
+-------------------------------------------------------------------------------
+
+
+== Map cache consumer - from("hazelcast-map:foo")
+
+Hazelcast provides event listeners on their data grid. If you want to be
+notified if a cache is manipulated, you can use the map consumer.
+There are four events: *put*, *update*, *delete* and *envict*. The event
+type will be stored in the "*hazelcast.listener.action*" header
+variable. The map consumer provides some additional information inside
+these variables:
+
+Header Variables inside the response message:
+
+[width="100%",cols="10%,10%,80%",options="header",]
+|=======================================================================
+|Name |Type |Description
+
+|`CamelHazelcastListenerTime` |`Long` |time of the event in millis
+
+|`CamelHazelcastListenerType` |`String` |the map consumer sets here "cachelistener"
+
+|`CamelHazelcastListenerAction` |`String` |type of event (*added*, *updated*, *envicted* and *removed*).
+
+|`CamelHazelcastObjectId` |`String` |the oid of the object
+
+|`CamelHazelcastCacheName` |`String` |the name of the cache (e.g., "foo")
+
+|`CamelHazelcastCacheType` |`String` |the type of the cache (e.g., map)
+|=======================================================================
+
+The object value will be stored within *put* and *update* actions inside
+the message body.
+
+Here's a sample:
+
+[source,java]
+--------------------------------------------------------------------------------------------
+fromF("hazelcast-%sfoo", HazelcastConstants.MAP_PREFIX)
+.log("object...")
+.choice()
+    .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED))
+         .log("...added")
+         .to("mock:added")
+    .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ENVICTED))
+         .log("...envicted")
+         .to("mock:envicted")
+    .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.UPDATED))
+         .log("...updated")
+         .to("mock:updated")
+    .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.REMOVED))
+         .log("...removed")
+         .to("mock:removed")
+    .otherwise()
+         .log("fail!");
+--------------------------------------------------------------------------------------------
+
+
+include::spring-boot:partial$starter.adoc[]

@@ -1,0 +1,1 @@
+../../../../../components/camel-cbor/src/main/docs/cbor-dataformat.adoc

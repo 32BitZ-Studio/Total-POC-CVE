@@ -1,0 +1,1 @@
+../../../../../components/camel-fhir/camel-fhir-component/src/main/docs/fhir-component.adoc

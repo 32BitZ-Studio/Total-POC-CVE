@@ -1,0 +1,8 @@
+= Injector
+
+The
+https://www.javadoc.io/doc/org.apache.camel/camel-api/current/org/apache/camel/spi/Injector.html[Injector]
+is a pluggable strategy to any IoC container such as
+Spring to be able to create and
+dependency-inject objects of a certain type.
+

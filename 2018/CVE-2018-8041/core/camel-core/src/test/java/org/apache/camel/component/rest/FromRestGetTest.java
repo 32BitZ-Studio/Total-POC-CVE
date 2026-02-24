@@ -1,0 +1,154 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.camel.component.rest;
+
+import org.apache.camel.ContextTestSupport;
+import org.apache.camel.Route;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.ToDefinition;
+import org.apache.camel.model.rest.CollectionFormat;
+import org.apache.camel.model.rest.RestDefinition;
+import org.apache.camel.model.rest.RestParamType;
+import org.apache.camel.spi.Registry;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+public class FromRestGetTest extends ContextTestSupport {
+
+    @Override
+    protected Registry createCamelRegistry() throws Exception {
+        Registry jndi = super.createCamelRegistry();
+        jndi.bind("dummy-rest", new DummyRestConsumerFactory());
+        return jndi;
+    }
+
+    protected int getExpectedNumberOfRoutes() {
+        // routes are inlined
+        return 3;
+    }
+
+    @Test
+    public void testFromRestModel() throws Exception {
+        assertEquals(getExpectedNumberOfRoutes(), context.getRoutes().size());
+
+        assertEquals(2, context.getRestDefinitions().size());
+        RestDefinition rest = context.getRestDefinitions().get(0);
+        assertNotNull(rest);
+        assertEquals("/say/hello", rest.getPath());
+        assertEquals(1, rest.getVerbs().size());
+        ToDefinition to = assertIsInstanceOf(ToDefinition.class, rest.getVerbs().get(0).getTo());
+        assertEquals("direct:hello", to.getUri());
+
+        rest = context.getRestDefinitions().get(1);
+        assertNotNull(rest);
+        assertEquals("/say/bye", rest.getPath());
+        assertEquals(2, rest.getVerbs().size());
+        assertEquals("application/json", rest.getVerbs().get(0).getConsumes());
+        assertEquals("{{mySpecialId}}", rest.getVerbs().get(0).getId());
+
+        assertEquals(2, rest.getVerbs().get(0).getParams().size());
+        assertEquals(RestParamType.header, rest.getVerbs().get(0).getParams().get(0).getType());
+        assertEquals(RestParamType.query, rest.getVerbs().get(0).getParams().get(1).getType());
+
+        assertEquals("header param description1", rest.getVerbs().get(0).getParams().get(0).getDescription());
+        assertEquals("header param description2", rest.getVerbs().get(0).getParams().get(1).getDescription());
+
+        assertEquals("integer", rest.getVerbs().get(0).getParams().get(0).getDataType());
+        assertEquals("string", rest.getVerbs().get(0).getParams().get(1).getDataType());
+        assertEquals("1", rest.getVerbs().get(0).getParams().get(0).getAllowableValues().get(0).getValue());
+        assertEquals("2", rest.getVerbs().get(0).getParams().get(0).getAllowableValues().get(1).getValue());
+        assertEquals("3", rest.getVerbs().get(0).getParams().get(0).getAllowableValues().get(2).getValue());
+        assertEquals("4", rest.getVerbs().get(0).getParams().get(0).getAllowableValues().get(3).getValue());
+        assertEquals("a", rest.getVerbs().get(0).getParams().get(1).getAllowableValues().get(0).getValue());
+        assertEquals("b", rest.getVerbs().get(0).getParams().get(1).getAllowableValues().get(1).getValue());
+        assertEquals("c", rest.getVerbs().get(0).getParams().get(1).getAllowableValues().get(2).getValue());
+        assertEquals("d", rest.getVerbs().get(0).getParams().get(1).getAllowableValues().get(3).getValue());
+        assertEquals("1", rest.getVerbs().get(0).getParams().get(0).getDefaultValue());
+        assertEquals("b", rest.getVerbs().get(0).getParams().get(1).getDefaultValue());
+
+        assertNull(rest.getVerbs().get(0).getParams().get(0).getCollectionFormat());
+        assertEquals(CollectionFormat.multi, rest.getVerbs().get(0).getParams().get(1).getCollectionFormat());
+
+        assertEquals("header_count", rest.getVerbs().get(0).getParams().get(0).getName());
+        assertEquals("header_letter", rest.getVerbs().get(0).getParams().get(1).getName());
+        assertEquals(Boolean.TRUE, rest.getVerbs().get(0).getParams().get(0).getRequired());
+        assertEquals(Boolean.FALSE, rest.getVerbs().get(0).getParams().get(1).getRequired());
+
+        assertEquals("300", rest.getVerbs().get(0).getResponseMsgs().get(0).getCode());
+        assertEquals("rate", rest.getVerbs().get(0).getResponseMsgs().get(0).getHeaders().get(0).getName());
+        assertEquals("Rate limit", rest.getVerbs().get(0).getResponseMsgs().get(0).getHeaders().get(0).getDescription());
+        assertEquals("integer", rest.getVerbs().get(0).getResponseMsgs().get(0).getHeaders().get(0).getDataType());
+        assertEquals("error", rest.getVerbs().get(0).getResponseMsgs().get(1).getCode());
+        assertEquals("test msg", rest.getVerbs().get(0).getResponseMsgs().get(0).getMessage());
+        assertEquals(Integer.class.getCanonicalName(), rest.getVerbs().get(0).getResponseMsgs().get(0).getResponseModel());
+
+        to = assertIsInstanceOf(ToDefinition.class, rest.getVerbs().get(0).getTo());
+        assertEquals("direct:bye", to.getUri());
+
+        // the rest becomes routes and the input is a seda endpoint created by
+        // the DummyRestConsumerFactory
+        getMockEndpoint("mock:update").expectedMessageCount(1);
+        template.sendBody("seda:post-say-bye", "I was here");
+        assertMockEndpointsSatisfied();
+
+        String out = template.requestBody("seda:get-say-hello", "Me", String.class);
+        assertEquals("Hello World", out);
+        String out2 = template.requestBody("seda:get-say-bye", "Me", String.class);
+        assertEquals("Bye World", out2);
+
+        // some tests that inherit this class does not use dynamic id
+        if (context.getPropertiesComponent().resolveProperty("mySpecialId").isPresent()) {
+            Route route = context.getRoute("scott");
+            Assertions.assertNotNull(route);
+        }
+    }
+
+    @Override
+    protected RouteBuilder createRouteBuilder() {
+        return new RouteBuilder() {
+            @Override
+            public void configure() {
+                context.getPropertiesComponent().addInitialProperty("mySpecialId", "scott");
+
+                restConfiguration().host("localhost");
+                rest("/say/hello").get().to("direct:hello");
+
+                rest("/say/bye").get()
+                        .id("{{mySpecialId}}")
+                        .consumes("application/json").param().type(RestParamType.header)
+                        .description("header param description1").dataType("integer")
+                        .allowableValues("1", "2", "3", "4").defaultValue("1").name("header_count").required(true).endParam()
+                        .param().type(RestParamType.query)
+                        .description("header param description2").dataType("string").allowableValues("a", "b", "c", "d")
+                        .defaultValue("b").collectionFormat(CollectionFormat.multi)
+                        .name("header_letter").required(false).endParam().responseMessage().code(300).message("test msg")
+                        .responseModel(Integer.class).header("rate")
+                        .description("Rate limit").dataType("integer").endHeader().endResponseMessage().responseMessage()
+                        .code("error").message("does not work").endResponseMessage()
+                        .to("direct:bye").post().to("mock:update");
+
+                from("direct:hello").transform().constant("Hello World");
+
+                from("direct:bye").transform().constant("Bye World");
+            }
+        };
+    }
+}

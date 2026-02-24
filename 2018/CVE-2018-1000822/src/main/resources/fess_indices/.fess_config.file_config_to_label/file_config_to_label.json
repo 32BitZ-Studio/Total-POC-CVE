@@ -1,0 +1,15 @@
+{
+  "file_config_to_label": {
+    "_source": {
+      "enabled": true
+    },
+    "properties": {
+      "fileConfigId": {
+        "type": "keyword"
+      },
+      "labelTypeId": {
+        "type": "keyword"
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+About
+====================
+OWASP dependency-check-cli is an command line tool that uses dependency-check-core to detect
+publicly disclosed vulnerabilities associated with the scanned project dependencies. The tool
+will generate a report listing the dependency, any identified Common Platform Enumeration (CPE)
+identifiers, and the associated Common Vulnerability and Exposure (CVE) entries.
+
+Installation & Usage
+====================
+Download the dependency-check command line tool [here](http://dl.bintray.com/jeremy-long/owasp/dependency-check-${project.version}-release.zip).
+Extract the zip file to a location on your computer and put the 'bin' directory into the
+path environment variable.
+
+#set( $H = '#' )
+
+$H$H$H Homebrew
+    $ brew install dependency-check
+
+This puts an executable `dependency-check` script in the `/bin` directory of
+your homebrew installation.
+
+To scan a folder on the system you can run:
+
+$H$H$H Windows
+    dependency-check.bat --project "My App Name" --scan "c:\java\application\lib"
+
+$H$H$H *nix
+    dependency-check.sh --project "My App Name" --scan "/java/application/lib"
+
+To view the command line arguments, see the <a href="arguments.html">arguments page</a>, or you can run:
+
+$H$H$H Windows
+    dependency-check.bat --help
+
+$H$H$H *nix
+    dependency-check.sh --help

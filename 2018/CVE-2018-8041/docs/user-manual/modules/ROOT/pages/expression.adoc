@@ -1,0 +1,39 @@
+= Expressions
+
+Expressions and xref:predicate.adoc[Predicates] can then be used to
+create the various xref:components:eips:enterprise-integration-patterns.adoc[Enterprise
+Integration Patterns] in the xref:dsl.adoc[DSL] like with the xref:components:eips:recipientList-eip.adoc[Recipient List] EIP.
+
+To support dynamic rules Camel supports pluggable
+https://www.javadoc.io/doc/org.apache.camel/camel-api/current/org/apache/camel/Expression.html[Expression]
+strategies using a variety of different xref:components:languages:index.adoc[Languages].
+
+== Expression API
+
+If you are outside the DSL and want to create your own
+expressions you can either implement the
+https://www.javadoc.io/doc/org.apache.camel/camel-api/current/org/apache/camel/Expression.html[Expression
+interface], reuse one of the other builders or try the
+https://www.javadoc.io/doc/org.apache.camel/camel-support/current/org/apache/camel/support/builder/ExpressionBuilder.html[ExpressionBuilder
+class].
+
+=== Expression
+
+The API for a Camel Expression is defined in the
+`org.apache.camel.Expression` interface as shown:
+
+[source,java]
+-------------------------------------------------------------------------------
+public interface Expression {
+
+    /**
+     * Returns the value of the expression on the given exchange
+     *
+     * @param exchange the message exchange on which to evaluate the expression
+     * @param type the expected type of the evaluation result
+     * @return the value of the expression
+     */
+    <T> T evaluate(Exchange exchange, Class<T> type);
+}
+-------------------------------------------------------------------------------
+

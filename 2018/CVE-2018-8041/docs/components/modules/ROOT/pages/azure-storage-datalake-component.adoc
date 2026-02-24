@@ -1,0 +1,1 @@
+../../../../../components/camel-azure/camel-azure-storage-datalake/src/main/docs/azure-storage-datalake-component.adoc

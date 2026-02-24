@@ -1,0 +1,247 @@
+Usage
+======================
+Dependency-check-maven is very simple to utilize and can be used as a stand-alone
+plug-in or as part of the site plug-in. The plug-in requires Maven 3.1 or higher.
+
+It is important to understand that the first time this task is executed it may
+take 20 minutes or more as it downloads and processes the data from the National
+Vulnerability Database (NVD) hosted by NIST: https://nvd.nist.gov
+
+After the first batch download, as long as the plug-in is executed at least once every
+seven days the update will only take a few seconds.
+
+### Default Phase
+The dependency-check plugin is, by default, tied to the `verify` or `site` phase
+depending on if it is configured as a build or reporting plugin. The examples
+below can be executed using `mvn verify` or in the reporting example `mvn site`.
+
+#set( $H = '#' )
+
+$H$H$H Example 1:
+Create the dependency-check-report.html in the target directory.
+
+```xml
+<project>
+    ...
+    <build>
+        ...
+        <plugins>
+            ...
+            <plugin>
+              <groupId>org.owasp</groupId>
+              <artifactId>dependency-check-maven</artifactId>
+              <version>${project.version}</version>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>check</goal>
+                      </goals>
+                  </execution>
+              </executions>
+            </plugin>
+            ...
+        </plugins>
+        ...
+    </build>
+    ...
+</project>
+```
+
+$H$H$H Example 2:
+Create an aggregated dependency-check report within the site.
+
+```xml
+<project>
+    ...
+    <reporting>
+        ...
+        <plugins>
+            ...
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${project.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            ...
+        </plugins>
+        ...
+    </reporting>
+    ...
+</project>
+```
+
+$H$H$H Example 3:
+Create the dependency-check-report.html and fail the build for CVSS greater than or equal to 8.
+
+```xml
+<project>
+    ...
+    <build>
+        ...
+        <plugins>
+            ...
+            <plugin>
+              <groupId>org.owasp</groupId>
+              <artifactId>dependency-check-maven</artifactId>
+              <version>${project.version}</version>
+              <configuration>
+                  <failBuildOnCVSS>8</failBuildOnCVSS>
+              </configuration>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>check</goal>
+                      </goals>
+                  </execution>
+              </executions>
+            </plugin>
+            ...
+        </plugins>
+        ...
+    </build>
+    ...
+</project>
+```
+
+$H$H$H Example 4:
+Create the dependency-check-report.html and skip artifacts not bundled in distribution (Provided and Runtime scope).
+
+```xml
+<project>
+    ...
+    <build>
+        ...
+        <plugins>
+            ...
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${project.version}</version>
+                <configuration>
+                    <skipProvidedScope>true</skipProvidedScope>
+                    <skipRuntimeScope>true</skipRuntimeScope>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            ...
+        </plugins>
+        ...
+    </build>
+    ...
+</project>
+```
+
+$H$H$H Example 5:
+Create the dependency-check-report.html and use internal mirroring of CVE contents.
+
+```xml
+<project>
+    ...
+    <build>
+        ...
+        <plugins>
+            ...
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${project.version}</version>
+                <configuration>
+                    <cveUrl12Modified>http://internal-mirror.mycorp.com/downloads/nist/nvdcve-Modified.xml.gz</cveUrl12Modified>
+                    <cveUrl20Modified>http://internal-mirror.mycorp.com/downloads/nist/nvdcve-2.0-Modified.xml.gz</cveUrl20Modified>
+                    <cveUrl12Base>http://internal-mirror.mycorp.com/downloads/nist/nvdcve-%d.xml</cveUrl12Base>
+                    <cveUrl20Base>http://internal-mirror.mycorp.com/downloads/nist/nvdcve-2.0-%d.xml</cveUrl20Base>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            ...
+        </plugins>
+        ...
+    </build>
+    ...
+</project>
+```
+
+$H$H$H Example 6:
+Update the local cache of the NVD data from NIST without analyzing the dependencies.
+
+```xml
+<project>
+    ...
+    <build>
+        ...
+        <plugins>
+            ...
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>update-only</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            ...
+        </plugins>
+        ...
+    </build>
+    ...
+</project>
+```
+
+$H$H$H Example 7:
+Suppress false positives using multiple suppression files (E.g. a company-wide suppression file and a local project file).
+
+```xml
+<project>
+    ...
+    <build>
+        ...
+        <plugins>
+            ...
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${project.version}</version>
+                <configuration>
+                    <suppressionFiles>
+                        <suppressionFile>http://example.org/suppression.xml</suppressionFile>
+                        <suppressionFile>project-suppression.xml</suppressionFile>
+                    </suppressionFiles>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            ...
+        </plugins>
+        ...
+    </build>
+    ...
+</project>
+```

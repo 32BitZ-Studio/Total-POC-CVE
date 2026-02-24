@@ -1,0 +1,8 @@
+libclamav_la-regex_pcre.lo: regex_pcre.c /usr/include/stdc-predef.h \
+ ../clamav-config.h ../platform.h
+
+/usr/include/stdc-predef.h:
+
+../clamav-config.h:
+
+../platform.h:

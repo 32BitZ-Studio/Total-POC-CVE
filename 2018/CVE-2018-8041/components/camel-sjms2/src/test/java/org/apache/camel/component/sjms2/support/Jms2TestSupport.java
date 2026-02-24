@@ -1,0 +1,118 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.camel.component.sjms2.support;
+
+import jakarta.jms.Connection;
+import jakarta.jms.ConnectionFactory;
+import jakarta.jms.JMSException;
+import jakarta.jms.MessageConsumer;
+import jakarta.jms.Session;
+
+import org.apache.activemq.artemis.api.jms.ActiveMQJMSClient;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Produce;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.sjms.jms.DefaultDestinationCreationStrategy;
+import org.apache.camel.component.sjms.jms.DestinationCreationStrategy;
+import org.apache.camel.component.sjms2.Sjms2Component;
+import org.apache.camel.component.sjms2.jms.Jms2ObjectFactory;
+import org.apache.camel.test.junit5.CamelTestSupport;
+import org.junit.jupiter.api.AfterEach;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * A support class that builds up and tears down an ActiveMQ Artemis instance to be used for unit testing.
+ */
+public abstract class Jms2TestSupport extends CamelTestSupport {
+
+    protected final Logger log = LoggerFactory.getLogger(getClass());
+
+    @Produce
+    protected ProducerTemplate template;
+    private Connection connection;
+    private Session session;
+    private DestinationCreationStrategy destinationCreationStrategy = new DefaultDestinationCreationStrategy();
+
+    @AfterEach
+    public void closeSessions() throws JMSException {
+        log.info("Closing JMS Session");
+        if (getSession() != null) {
+            getSession().close();
+            setSession(null);
+        }
+        log.info("Closing JMS Connection");
+        if (connection != null) {
+            connection.stop();
+            connection = null;
+        }
+    }
+
+    /*
+     * @see org.apache.camel.test.junit5.CamelTestSupport#createCamelContext()
+     * @return
+     * @throws Exception
+     */
+    @Override
+    protected CamelContext createCamelContext() throws Exception {
+        CamelContext camelContext = super.createCamelContext();
+        ConnectionFactory connectionFactory = getConnectionFactory();
+        connection = connectionFactory.createConnection();
+        connection.start();
+        session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Sjms2Component component = new Sjms2Component();
+        component.setConnectionFactory(connectionFactory);
+        camelContext.addComponent("sjms2", component);
+        return camelContext;
+    }
+
+    protected static ConnectionFactory getConnectionFactory(String serviceAddress) throws Exception {
+        final String protocol = System.getProperty("protocol", "CORE").toUpperCase();
+
+        //Currently AMQP and HORENTQ don't operate in exactly the same way on artemis as OPENWIRE
+        //and CORE so its not possible to write protocol agnostic tests but in the future releases
+        //of artemis we may be able test against them in an agnostic way.
+        switch (protocol) {
+            case "OPENWIRE":
+                return new ActiveMQConnectionFactory(serviceAddress);
+            default:
+                return ActiveMQJMSClient.createConnectionFactory(serviceAddress, "test");
+        }
+    }
+
+    protected abstract ConnectionFactory getConnectionFactory() throws Exception;
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public MessageConsumer createQueueConsumer(String destination) throws Exception {
+        return new Jms2ObjectFactory().createMessageConsumer(session,
+                destinationCreationStrategy.createDestination(session, destination, false), null, false, null, true, false);
+    }
+
+    public MessageConsumer createTopicConsumer(String destination, String messageSelector) throws Exception {
+        return new Jms2ObjectFactory().createMessageConsumer(session,
+                destinationCreationStrategy.createDestination(session, destination, true), messageSelector, true, null, true,
+                false);
+    }
+}

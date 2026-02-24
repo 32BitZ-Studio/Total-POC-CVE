@@ -1,0 +1,1 @@
+../../../../../components/camel-jslt/src/main/docs/jslt-component.adoc

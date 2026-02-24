@@ -1,0 +1,12 @@
+= Miscellaneous Components
+
+Number of Miscellaneous Components: indexCount:[] in indexUniqueCount:[format=artifactid] JAR artifacts (indexCount:[attributes=deprecated] deprecated)
+
+[{index-table-format}]
+|===
+| Component | Artifact | Support Level | Since | Description
+|===
+indexTable::[cellformats="$xref|artifactid|supportlevel|since|description"]
+
+
+

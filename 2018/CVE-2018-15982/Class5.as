@@ -1,0 +1,16 @@
+package
+{
+   public class Class5
+   {
+       
+      
+      public var Var39:uint = 24;
+      
+      public var Var22:uint = 2200;
+      
+      public function Class5()
+      {
+         super();
+      }
+   }
+}

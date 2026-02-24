@@ -1,0 +1,21 @@
+{
+  "crawling_info": {
+    "_source": {
+      "enabled": true
+    },
+    "properties": {
+      "sessionId": {
+        "type": "keyword"
+      },
+      "name": {
+        "type": "keyword"
+      },
+      "expiredTime": {
+        "type": "long"
+      },
+      "createdTime": {
+        "type": "long"
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+../../../../../components/camel-splunk-hec/src/main/docs/splunk-hec-component.adoc

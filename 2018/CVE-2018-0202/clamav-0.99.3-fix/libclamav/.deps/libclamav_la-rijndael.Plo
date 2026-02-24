@@ -1,0 +1,6 @@
+libclamav_la-rijndael.lo: rijndael.c /usr/include/stdc-predef.h \
+ rijndael.h
+
+/usr/include/stdc-predef.h:
+
+rijndael.h:

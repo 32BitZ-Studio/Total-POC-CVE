@@ -1,0 +1,39 @@
+{
+  "elevate_word": {
+    "_source": {
+      "enabled": true
+    },
+    "properties": {
+      "suggestWord": {
+        "type": "keyword"
+      },
+      "reading": {
+        "type": "keyword"
+      },
+      "targetRole": {
+        "type": "keyword"
+      },
+      "targetLabel": {
+        "type": "keyword"
+      },
+      "permissions": {
+        "type": "keyword"
+      },
+      "boost": {
+        "type": "float"
+      },
+      "createdBy": {
+        "type": "keyword"
+      },
+      "createdTime": {
+        "type": "long"
+      },
+      "updatedBy": {
+        "type": "keyword"
+      },
+      "updatedTime": {
+        "type": "long"
+      }
+    }
+  }
+}

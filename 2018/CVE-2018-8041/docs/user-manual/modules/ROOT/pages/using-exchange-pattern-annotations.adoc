@@ -1,0 +1,125 @@
+= Using Exchange Pattern Annotations
+
+Invoking InOut methods for ref:components:eips:requestReply-eip.adoc[request/reply] when working with xref:pojo-producing.adoc[POJO Producing] is typically synchronous. As such, the caller will block until the server returns a result.
+
+[NOTE]
+====
+InOut means that there is an In message for  the input and an Out for the output/result.
+====
+
+[NOTE]
+====
+Other books, posts and reference guides may use the terms In/Out and In/Only for the patterns. In this guide we use InOut and InOnly respectively, as these are the names used within Camel.
+====
+
+You can also implement support for xref:components:eips:event-message.adoc[Event Messages] with Apache Camel, using the InOnly xref:exchange-pattern.adoc[pattern]. These are often called "fire and forget" (i.e., like sending a JMS message but not waiting for any response).
+
+Since version 1.5 Camel supports annotations for specifying the message
+exchange pattern on Java methods, classes or interfaces.
+
+[[UsingExchangePatternAnnotations-SpecifyingInOnlymethods]]
+== Specifying InOnly methods
+
+Typically the InOut pattern is what most users want, but you can
+customize to use InOnly using an annotation. For instance:
+
+[source,syntaxhighlighter-pre]
+----
+public interface Foo {
+  Object someInOutMethod(String input);
+  String anotherInOutMethod(Cheese input);
+  
+  @InOnly
+  void someInOnlyMethod(Document input);
+}
+----
+
+The above code shows three methods on an interface:
+* the first two use the default InOut mechanism
+* the third one, `someInOnlyMethod` uses the InOnly annotation to specify it as being a one-way method call.
+
+[[UsingExchangePatternAnnotations-Classlevelannotations]]
+== Class level annotations
+
+You can also use class level annotations to default all methods in an
+interface to a pattern:
+
+[source,syntaxhighlighter-pre]
+----
+@InOnly
+public interface Foo {
+  void someInOnlyMethod(Document input);
+  void anotherInOnlyMethod(String input);
+}
+----
+
+Apache Camel will detect annotations on base classes or interfaces. For instance, suppose you created a client side proxy for the following code:
+
+[source,syntaxhighlighter-pre]
+----
+public class MyFoo implements Foo {
+  ...
+}
+----
+
+In this case, the methods inherited from Foo would be InOnly.
+
+[[UsingExchangePatternAnnotations-Overloadingaclasslevelannotation]]
+== Overloading a class level annotation
+
+
+You can overload a class level annotation on specific methods. Suppose you have a class or interface with many InOnly methods, but you want to annote just one or two methods as InOut. You can do it like this:
+
+[source,syntaxhighlighter-pre]
+----
+@InOnly
+public interface Foo {
+  void someInOnlyMethod(Document input);
+  void anotherInOnlyMethod(String input);
+  
+  @InOut
+  String someInOutMethod(String input); 
+}
+----
+
+In the above `Foo` interface the only the `someInOutMethod` will be InOut.
+
+[[UsingExchangePatternAnnotations-Usingyourownannotations]]
+== Using your own annotations
+
+You might want to create your own annotations to represent a group of
+different bits of metadata; such as combining synchrony, concurrency and
+transaction behaviour.
+
+In this case you can annotate your annotation with the `@Pattern` annotation to the default exchange pattern you wish to use.
+
+For example, lets say we want to create our own annotation called
+`@MyAsyncService`:
+
+[source,syntaxhighlighter-pre]
+----
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
+
+// lets add the message exchange pattern to it
+@Pattern(ExchangePattern.InOnly)
+
+// lets add some other annotations - maybe transaction behaviour?
+
+public @interface MyAsyncService {
+}
+----
+
+Now we can use this annotation, and Camel will figure out the correct
+exchange pattern.
+
+[source,syntaxhighlighter-pre]
+----
+public interface Foo {
+  void someInOnlyMethod(Document input);
+  void anotherInOnlyMethod(String input);
+  
+  @MyAsyncService
+  String someInOutMethod(String input); 
+}
+----

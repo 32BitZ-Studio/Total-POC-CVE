@@ -1,0 +1,169 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.camel.component.dataset;
+
+import org.apache.camel.ContextTestSupport;
+import org.apache.camel.Exchange;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.spi.Registry;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class DataSetConsumerTest extends ContextTestSupport {
+
+    protected final SimpleDataSet dataSet = new SimpleDataSet(5);
+
+    final String dataSetName = "foo";
+    final String dataSetUri = "dataset://" + dataSetName + "?initialDelay=0";
+    final String dataSetUriWithDataSetIndexSetToOff = dataSetUri + "&dataSetIndex=off";
+    final String dataSetUriWithDataSetIndexSetToLenient = dataSetUri + "&dataSetIndex=lenient";
+    final String dataSetUriWithDataSetIndexSetToStrict = dataSetUri + "&dataSetIndex=strict";
+    final String resultUri = "mock://result";
+
+    @Override
+    protected Registry createCamelRegistry() throws Exception {
+        Registry answer = super.createCamelRegistry();
+        answer.bind("foo", dataSet);
+        return answer;
+    }
+
+    /**
+     * Ensure the expected message count for a consumer-only endpoint defaults to zero
+     */
+    @Test
+    public void testConsumerOnlyEndpoint() throws Exception {
+
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() {
+                from(dataSetUri).to(resultUri);
+            }
+        });
+
+        assertEquals(-1, getMockEndpoint(dataSetUri).getExpectedCount(),
+                "expectedMessageCount should be unset(i.e. -1) for a consumer-only endpoint");
+
+        MockEndpoint result = getMockEndpoint(resultUri);
+        result.expectedMessageCount((int) dataSet.getSize());
+        result.assertMessagesAscending(header(Exchange.DATASET_INDEX));
+
+        context.start();
+
+        assertMockEndpointsSatisfied();
+    }
+
+    /**
+     * Ensure the expected message count for a consumer-producer endpoint defaults to the size of the dataset
+     */
+    @Test
+    public void testConsumerWithProducer() throws Exception {
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() {
+                from(dataSetUri).to(dataSetUri).to(resultUri);
+            }
+        });
+
+        assertEquals(dataSet.getSize(), getMockEndpoint(dataSetUri).getExpectedCount(),
+                "expectedMessageCount should be the same as the DataSet size for a consumer-producer endpoint");
+
+        MockEndpoint result = getMockEndpoint(resultUri);
+        result.expectedMessageCount((int) dataSet.getSize());
+        result.expectsAscending(header(Exchange.DATASET_INDEX).convertTo(Number.class));
+
+        context.start();
+
+        assertMockEndpointsSatisfied();
+    }
+
+    @Test
+    public void testWithDataSetIndexUriParameterUnset() throws Exception {
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() {
+                from(dataSetUri).to(resultUri);
+            }
+        });
+
+        MockEndpoint result = getMockEndpoint(resultUri);
+        result.expectedMessageCount((int) dataSet.getSize());
+        result.allMessages().header(Exchange.DATASET_INDEX).isNotNull();
+        result.expectsAscending(header(Exchange.DATASET_INDEX).convertTo(Number.class));
+
+        context.start();
+
+        assertMockEndpointsSatisfied();
+    }
+
+    @Test
+    public void testWithDataSetIndexUriParameterSetToOff() throws Exception {
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() {
+                from(dataSetUriWithDataSetIndexSetToOff).to(resultUri);
+            }
+        });
+
+        MockEndpoint result = getMockEndpoint(resultUri);
+        result.expectedMessageCount((int) dataSet.getSize());
+        result.allMessages().header(Exchange.DATASET_INDEX).isNull();
+
+        context.start();
+
+        assertMockEndpointsSatisfied();
+    }
+
+    @Test
+    public void testWithDataSetIndexUriParameterSetToLenient() throws Exception {
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() {
+                from(dataSetUriWithDataSetIndexSetToLenient).to(resultUri);
+            }
+        });
+
+        MockEndpoint result = getMockEndpoint(resultUri);
+        result.expectedMessageCount((int) dataSet.getSize());
+        result.allMessages().header(Exchange.DATASET_INDEX).isNotNull();
+        result.expectsAscending(header(Exchange.DATASET_INDEX).convertTo(Number.class));
+
+        context.start();
+
+        assertMockEndpointsSatisfied();
+    }
+
+    @Test
+    public void testWithDataSetIndexUriParameterSetToStrict() throws Exception {
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() {
+                from(dataSetUriWithDataSetIndexSetToStrict).to(resultUri);
+            }
+        });
+
+        MockEndpoint result = getMockEndpoint(resultUri);
+        result.expectedMessageCount((int) dataSet.getSize());
+        result.allMessages().header(Exchange.DATASET_INDEX).isNotNull();
+        result.expectsAscending(header(Exchange.DATASET_INDEX).convertTo(Number.class));
+
+        context.start();
+
+        assertMockEndpointsSatisfied();
+    }
+}

@@ -1,0 +1,1 @@
+../../../../../components/camel-oaipmh/src/main/docs/oaipmh-component.adoc

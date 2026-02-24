@@ -1,0 +1,103 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.camel.component.bean;
+
+import org.apache.camel.ContextTestSupport;
+import org.apache.camel.Handler;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.language.simple.Simple;
+import org.apache.camel.spi.Registry;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+public class ExpressionAnnotationToDisambiguateMethodsTest extends ContextTestSupport {
+    private static final Logger LOG = LoggerFactory.getLogger(ExpressionAnnotationToDisambiguateMethodsTest.class);
+    protected final MyBean myBean = new MyBean();
+    protected final MyOtherBean myOtherBean = new MyOtherBean();
+
+    @Test
+    public void testSendMessage() {
+        template.sendBodyAndHeader("direct:in", "<hello>world!</hello>", "foo", "bar");
+
+        assertEquals("bar", myBean.bar, "bean body: " + myBean);
+    }
+
+    @Test
+    public void testSendMessageHandler() {
+        template.sendBodyAndHeader("direct:other", "<hello>world!</hello>", "foo", "bar");
+
+        assertEquals("bar", myOtherBean.bar, "bean body: " + myOtherBean);
+    }
+
+    @Override
+    protected Registry createCamelRegistry() throws Exception {
+        Registry answer = super.createCamelRegistry();
+        answer.bind("myBean", myBean);
+        answer.bind("myOtherBean", myOtherBean);
+        return answer;
+    }
+
+    @Override
+    protected RouteBuilder createRouteBuilder() {
+        return new RouteBuilder() {
+            public void configure() {
+                from("direct:in").bean("myBean");
+
+                from("direct:other").bean("myOtherBean");
+            }
+        };
+    }
+
+    public static class MyBean {
+        public String bar;
+
+        public void bar(String body) {
+            fail("bar() called with: " + body);
+        }
+
+        public void foo(@Simple("${header.foo}") String bar) {
+            this.bar = bar;
+            LOG.info("foo() method called with: {}", bar);
+        }
+
+        public void wrongMethod(String body) {
+            fail("wrongMethod() called with: " + body);
+        }
+    }
+
+    public static class MyOtherBean {
+        public String bar;
+
+        public void bar(String body) {
+            fail("bar() called with: " + body);
+        }
+
+        @Handler
+        public void foo(@Simple("${header.foo}") String bar) {
+            this.bar = bar;
+            LOG.info("foo() method called with: {}", bar);
+        }
+
+        public void wrongMethod(String body) {
+            fail("wrongMethod() called with: " + body);
+        }
+    }
+}

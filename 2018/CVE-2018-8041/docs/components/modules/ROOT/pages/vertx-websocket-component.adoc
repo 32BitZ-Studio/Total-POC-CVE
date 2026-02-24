@@ -1,0 +1,1 @@
+../../../../../components/camel-vertx/camel-vertx-websocket/src/main/docs/vertx-websocket-component.adoc

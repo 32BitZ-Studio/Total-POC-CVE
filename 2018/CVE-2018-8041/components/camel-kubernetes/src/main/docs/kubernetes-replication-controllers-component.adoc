@@ -1,0 +1,112 @@
+= Kubernetes Replication Controller Component
+:doctitle: Kubernetes Replication Controller
+:shortname: kubernetes-replication-controllers
+:artifactid: camel-kubernetes
+:description: Perform operations on Kubernetes Replication Controllers and get notified on Replication Controllers changes.
+:since: 2.17
+:supportlevel: Stable
+:tabs-sync-option:
+:component-header: Both producer and consumer are supported
+//Manually maintained attributes
+:group: Kubernetes
+:camel-spring-boot-name: kubernetes
+
+*Since Camel {since}*
+
+*{component-header}*
+
+The Kubernetes Replication Controller component is one of xref:kubernetes-summary.adoc[Kubernetes Components] which
+provides a producer to execute Kubernetes Replication controller operations and a consumer to
+consume events related to Replication Controller (RC) objects.
+
+
+// component-configure options: START
+
+// component-configure options: END
+
+// component options: START
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+// component options: END
+
+// endpoint options: START
+
+// endpoint options: END
+// component headers: START
+include::partial$component-endpoint-headers.adoc[]
+// component headers: END
+
+== Usage
+
+=== Supported producer operation
+
+- `listReplicationControllers`
+- `listReplicationControllersByLabels`
+- `getReplicationController`
+- `createReplicationController`
+- `updateReplicationController`
+- `deleteReplicationController`
+- `scaleReplicationController`
+
+== Examples
+
+=== Kubernetes Replication Controllers Producer Examples
+
+- `listReplicationControllers`: this operation lists the RCs on a kubernetes cluster
+
+[source,java]
+--------------------------------------------------------------------------------
+from("direct:list").
+    toF("kubernetes-replication-controllers:///?kubernetesClient=#kubernetesClient&operation=listReplicationControllers").
+    to("mock:result");
+--------------------------------------------------------------------------------
+
+This operation returns a list of RCs from your cluster
+
+- `listReplicationControllersByLabels`: this operation lists the RCs by labels on a kubernetes cluster
+
+[source,java]
+--------------------------------------------------------------------------------
+from("direct:listByLabels").process(new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                Map<String, String> labels = new HashMap<>();
+                labels.put("key1", "value1");
+                labels.put("key2", "value2");
+                exchange.getIn().setHeader(KubernetesConstants.KUBERNETES_REPLICATION_CONTROLLERS_LABELS, labels);
+            }
+        });
+    toF("kubernetes-replication-controllers:///?kubernetesClient=#kubernetesClient&operation=listReplicationControllersByLabels").
+    to("mock:result");
+--------------------------------------------------------------------------------
+
+This operation returns a list of RCs from your cluster using a label selector (with key1 and key2, with value value1 and value2)
+
+=== Kubernetes Replication Controllers Consumer Example
+
+[source,java]
+--------------------------------------------------------------------------------
+fromF("kubernetes-replication-controllers://%s?oauthToken=%s", host, authToken)
+    .process(new KubernetesProcessor()).to("mock:result");
+
+    public class KubernetesProcessor implements Processor {
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            Message in = exchange.getIn();
+            ReplicationController rc = exchange.getIn().getBody(ReplicationController.class);
+            log.info("Got event with replication controller name: " + rc.getMetadata().getName() + " and action " + in.getHeader(KubernetesConstants.KUBERNETES_EVENT_ACTION));
+        }
+    }
+--------------------------------------------------------------------------------
+
+This consumer returns a message per event received for all ReplicationControllers from all namespaces in the cluster.
+
+You can narrow the scope of the consumer using the following query parameter combinations:
+
+- `labelKey` + `labelValue` - Watch Replication Controllers with the specified label in any namespace.
+- `namespace` - Watch all Replication Controllers in the specified namespace.
+- `namespace` + `resourceName` - Watch the Replication Controller with the specified name in the given namespace.
+- `namespace` + `labelKey` + `labelValue` - Watch Replication Controllers with the specified label in the given namespace.
+
+
+include::spring-boot:partial$starter.adoc[]

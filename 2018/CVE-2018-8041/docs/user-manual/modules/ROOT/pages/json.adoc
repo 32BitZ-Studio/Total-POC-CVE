@@ -1,0 +1,14 @@
+= JSON
+
+JSON is a xref:data-format.adoc[Data Format] to marshal and unmarshal
+Java objects to and from http://www.json.org/[JSON].
+
+For JSON to object marshalling, Camel provides integration with many
+popular JSON libraries such as:
+
+- Jackson
+- Google GSon
+- Johnzon
+
+How to use JSON with Camel then see the documentation (for the JSON data library of choice)
+in the list of xref:components:dataformats:index.adoc[Data Formats].

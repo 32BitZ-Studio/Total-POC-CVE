@@ -1,0 +1,6 @@
+Dwarf.lo: llvm/lib/Support/Dwarf.cpp /usr/include/stdc-predef.h \
+ llvm/include/llvm/Support/Dwarf.h
+
+/usr/include/stdc-predef.h:
+
+llvm/include/llvm/Support/Dwarf.h:

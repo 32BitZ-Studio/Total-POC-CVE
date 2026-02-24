@@ -1,0 +1,27 @@
+{
+  "thumbnail_queue": {
+    "_source": {
+      "enabled": true
+    },
+    "properties": {
+      "thumbnail_id": {
+        "type": "keyword"
+      },
+      "path": {
+        "type": "keyword"
+      },
+      "generator": {
+        "type": "keyword"
+      },
+      "target": {
+        "type": "keyword"
+      },
+      "createdTime": {
+        "type": "long"
+      },
+      "createdBy": {
+        "type": "keyword"
+      }
+    }
+  }
+}

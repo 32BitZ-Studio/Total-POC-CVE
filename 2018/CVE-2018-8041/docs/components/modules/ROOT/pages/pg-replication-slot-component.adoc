@@ -1,0 +1,1 @@
+../../../../../components/camel-pg-replication-slot/src/main/docs/pg-replication-slot-component.adoc

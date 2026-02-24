@@ -1,0 +1,15 @@
+{
+  "file_config_to_role": {
+    "_source": {
+      "enabled": true
+    },
+    "properties": {
+      "fileConfigId": {
+        "type": "keyword"
+      },
+      "roleTypeId": {
+        "type": "keyword"
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+= Kubernetes Pods Component
+:doctitle: Kubernetes Pods
+:shortname: kubernetes-pods
+:artifactid: camel-kubernetes
+:description: Perform operations on Kubernetes Pods and get notified on Pod changes.
+:since: 2.17
+:supportlevel: Stable
+:tabs-sync-option:
+:component-header: Both producer and consumer are supported
+//Manually maintained attributes
+:group: Kubernetes
+:camel-spring-boot-name: kubernetes
+
+*Since Camel {since}*
+
+*{component-header}*
+
+The Kubernetes Pods component is one of xref:kubernetes-summary.adoc[Kubernetes Components] which
+provides a producer to execute Kubernetes Pods operations and a consumer to consume events related to Pod Objects.
+
+
+// component-configure options: START
+
+// component-configure options: END
+
+// component options: START
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+// component options: END
+
+// endpoint options: START
+
+// endpoint options: END
+// component headers: START
+include::partial$component-endpoint-headers.adoc[]
+// component headers: END
+
+== Usage
+
+=== Supported producer operation
+
+- `listPods`
+- `listPodsByLabels`
+- `getPod`
+- `createPod`
+- `updatePod`
+- `deletePod`
+
+== Examples
+
+=== Kubernetes Pods Producer Examples
+
+- `listPods`: this operation lists the pods on a kubernetes cluster
+
+[source,java]
+--------------------------------------------------------------------------------
+from("direct:list").
+    toF("kubernetes-pods:///?kubernetesClient=#kubernetesClient&operation=listPods").
+    to("mock:result");
+--------------------------------------------------------------------------------
+
+This operation returns a list of pods from your cluster
+
+- `listPodsByLabels`: this operation lists the pods by labels on a kubernetes cluster
+
+[source,java]
+--------------------------------------------------------------------------------
+from("direct:listByLabels").process(new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                Map<String, String> labels = new HashMap<>();
+                labels.put("key1", "value1");
+                labels.put("key2", "value2");
+                exchange.getIn().setHeader(KubernetesConstants.KUBERNETES_PODS_LABELS, labels);
+            }
+        });
+    toF("kubernetes-pods:///?kubernetesClient=#kubernetesClient&operation=listPodsByLabels").
+    to("mock:result");
+--------------------------------------------------------------------------------
+
+This operation returns a list of pods from your cluster using a label selector (with key1 and key2, with value value1 and value2)
+
+=== Kubernetes Pods Consumer Example
+
+[source,java]
+--------------------------------------------------------------------------------
+fromF("kubernetes-pods://%s?oauthToken=%s", host, authToken)
+    .process(new KubernetesProcessor()).to("mock:result");
+    public class KubernetesProcessor implements Processor {
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            Message in = exchange.getIn();
+            Pod pod = exchange.getIn().getBody(Pod.class);
+            log.info("Got event with pod name: " + pod.getMetadata().getName() + " and action " + in.getHeader(KubernetesConstants.KUBERNETES_EVENT_ACTION));
+        }
+    }
+--------------------------------------------------------------------------------
+
+This consumer returns a message per event received for all Pods from all namespaces in the cluster.
+
+You can narrow the scope of the consumer using the following query parameter combinations:
+
+- `labelKey` + `labelValue` - Watch Pods with the specified label in any namespace.
+- `namespace` - Watch all Pods in the specified namespace.
+- `namespace` + `resourceName` - Watch the Pod with the specified name in the given namespace.
+- `namespace` + `labelKey` + `labelValue` - Watch Pods with the specified label in the given namespace.
+
+
+include::spring-boot:partial$starter.adoc[]

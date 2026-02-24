@@ -1,0 +1,1 @@
+../../../../../core/camel-base/src/main/docs/properties-component.adoc

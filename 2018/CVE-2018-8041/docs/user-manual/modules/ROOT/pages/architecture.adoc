@@ -1,0 +1,39 @@
+= Architecture
+
+The following diagram shows a high-level view of the main concepts that make up Camel's architecture.
+
+image::images/camel-architecture.png[image]
+
+At the center of the diagram you have the _heart_ of Apache Camel; the xref:camelcontext.adoc[CamelContext].
+The `CamelContext` is "Camel" ... the runtime Camel, that contains and holds everything together.
+
+xref:routes.adoc[Routes] are defined using one of Camel’s xref:dsl.adoc[DSLs].
+xref:processor.adoc[Processors] are used to transform and
+manipulate messages during routing as well as to implement all the
+xref:components:eips:enterprise-integration-patterns.adoc[EIP]s, which have
+corresponding names in the DSLs. xref:component.adoc[Components] are the extension points in Camel
+for adding connectivity to other systems. To expose these systems to the rest of Camel,
+components provide an xref:endpoint.adoc[endpoint] interface.
+
+== Routes 101
+
+You use Camel for integration, and a key concept in Camel is xref:routes.adoc[routes] which
+tells Camel how messages should be routed between systems.
+
+A route has exactly one input xref:endpoint.adoc[endpoint],
+and 0, 1 or more output xref:endpoint.adoc[endpoints].
+
+You use Camel xref:dsl.adoc[DSL] to _code_ the xref:routes.adoc[routes].
+For example the route below is coded in xref:java-dsl.adoc[Java DSL]:
+
+[source,java]
+----
+public class MyRoute extends RouteBuilder {
+
+    public void configure() throws Exception {
+        from("ftp:myserver/folder")
+            .to("activemq:queue:cheese");
+    }
+}
+----
+

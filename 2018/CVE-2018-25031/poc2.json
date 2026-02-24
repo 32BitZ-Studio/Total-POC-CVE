@@ -1,0 +1,9 @@
+{
+    "url": "https://raw.githubusercontent.com/afine-com/CVE-2018-25031/main/DOMXSS.yaml",
+    "urls": [
+        {
+            "url": "https://raw.githubusercontent.com/afine-com/CVE-2018-25031/main/DOMXSS.yaml",
+            "name": "afine"
+        }
+    ]
+}

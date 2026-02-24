@@ -1,0 +1,28 @@
+package
+{
+   public class Class0
+   {
+       
+      
+      public var Var98:uint;
+      
+      public var Var99:uint;
+      
+      public function Class0(param1:uint, param2:uint)
+      {
+         super();
+         this.Var99 = param1;
+         this.Var98 = param2;
+      }
+      
+      public function toString() : String
+      {
+         return "0x" + this.Var98.toString(16) + "`" + this.Var99.toString(16);
+      }
+      
+      public function offset(param1:int) : Class0
+      {
+         return new Class0(this.Var99 + param1,this.Var98);
+      }
+   }
+}
