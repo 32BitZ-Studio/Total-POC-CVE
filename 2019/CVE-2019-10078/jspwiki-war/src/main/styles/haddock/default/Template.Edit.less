@@ -1,0 +1,264 @@
+/*
+    JSPWiki - a JSP-based WikiWiki clone.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); fyou may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+*/
+/*
+Edit.jsp, EditContent.jsp, CommentContent.jsp, plain.jsp
+
+*/
+
+//should be part of normalise.less ; help also FF to set default to pre-wrap!
+textarea { white-space: pre-wrap; }
+
+//highlight  editor focus fields,  to catch attention to the cursor
+.editform, .dialog.find {
+
+    input[type="text"]:focus, textarea:focus {
+        background:@wiki-editor-focus;
+
+        //get rid of the default bootstrap highlight -- see forms.less and mixins/form-control-focus
+        //outline:0;
+        .box-shadow(none);
+        border: 1px solid @input-border;
+    }
+
+}
+
+
+.sticky {
+    //display:block;
+    + .sticky-spacer { .hide; }
+}
+
+.stickyOn {
+    top: 0;
+    z-index: 5;
+    position: fixed;
+    background: @dropdown-bg;
+    .opacity(.9);
+    .box-shadow(0 9px 12px -9px rgba(0,0,0,.175));
+
+    + .sticky-spacer { .show; }
+
+}
+
+.editor {
+    font-family: @font-family-monospace;
+    padding: .5em;
+	resize: none !important; // disable resizable textareas in Webkit
+    background: @wiki-editor-bg;
+    color:inherit;
+    font-size:90%;
+    border-radius:0;
+}
+
+//base styling similar to .page-content in Template.Content.less;
+.ajaxpreview {
+    //background: @wiki-preview-bg;
+    padding: .5em 0 .5em @grid-gutter-width/2; //cannot use margin here, as width=50%
+    overflow: auto;
+    //-ms-overflow-style: -ms-autohiding-scrollbar;
+    //border: 2px dashed transparent;  //make space for the .loading effect
+    border: 1px solid @input-border;
+    border-left: none;
+    //.transition(background 0.2s ease-in-out);
+
+    &.loading {
+        //background: @wiki-empty-preview-bg;
+    }
+
+    &.empty {
+        .lead;
+        margin: 0; //reset .lead margin setting
+        .center;
+        background: @wiki-empty-preview-bg;
+        padding-top:2em;
+    }
+}
+
+/*
+Layout of editor and preview area
+
+HORIZONTAL SIDE BY SIDE VIEW  (.previewcolumn)
+     div.snip
+         div.toolbar
+         div.edit-area.livepreview.previewcolumn
+             div
+                div.dialog.selection
+                div {position:absolue}  => textarea-mirror
+                textarea.editor.snipeable
+                textarea#editorarea.editor.hidden
+             div.ajaxpreview
+         div.resizer[data-resize]
+
+VERTICAL VIEW
+     div.snip
+         div.toolbar
+         div.edit-area.livepreview
+             div
+                div.dialog.selection
+                div {position:absolue}  => textarea-mirror
+                textarea.editor.snipeable
+                textarea#editorarea.editor.hidden
+         div.resizer[data-resize]
+         div.ajaxpreview
+
+*/
+//default: show the editor (and preview) areas at 100%
+.edit-area > div,
+.ajaxpreview { width:100%; }
+
+//when .previewcolumn (side by side) is on, set width of edit-area children to 50%
+.edit-area.livepreview.previewcolumn > div {
+    width:50%;
+    float:left;
+}
+
+//only show the .ajaxpreview area when the .livepreview is on
+.edit-area:not(.livepreview) .ajaxpreview,
+.edit-area:not(.livepreview) ~ .ajaxpreview {
+    .hide;
+}
+
+.edit-area ~ .ajaxpreview {
+    height:auto !important;
+    border-left:1px solid @input-border
+}
+
+.resizer {
+    //background-color: @wiki-resizer;
+	cursor:row-resize;
+	height:.5em;//4px;
+    line-height:.5em; //4px;
+    //margin:.25em 0;
+    //border-radius:2px;
+    z-index:3;
+    position:relative;
+
+    &.dragging {
+        //border:1px solid @input-border;
+        //.progress-striped .progress-bar;
+        //.progress.active .progress-bar;
+    }
+}
+
+.comment-page {
+    height: 30vh;
+    overflow-y: scroll;
+    border: 3px double @silver;
+    padding: @padding-base-vertical @padding-base-horizontal;
+
+}
+.comment-page + [data-resize] {
+	cursor:row-resize;
+    background-color: @white;
+    border-top: 3px double @silver;
+    border-radius:0;
+    //fit horizontal resizer to screen width (hack to offset paddings of parent)
+    margin:4px -@padding-base-horizontal 7px -@padding-base-horizontal;
+}
+
+//CHECK: move to dropdown.less ..
+//reset bootstrap/form.less style on labels inside dropdown menu-s
+.dropdown-menu {
+    label { font-weight: normal; }
+}
+
+/*
+Horizontal Dropdown Menu (based on bootstrap)
+FIXME: used a hack to fix the min-width of the default dropdown menu ; there must be a better way !
+*/
+ul.dropdown-menu.dropdown-menu-horizontal {
+
+	margin-right: -1000px;
+
+    .list-unstyled();
+
+    > li {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+    > li a { padding: @padding-base-vertical @padding-base-horizontal/2; }
+    > li:first-child { padding-left: @padding-base-horizontal; }
+    > li:last-child { padding-right: @padding-base-horizontal; }
+
+}
+
+.dropdown-size-4 {
+    width:18.2em;
+    > li {
+        display:inline-block;
+        float:left;
+        width:6em;
+        //border:1px solid red;
+        text-align:center;
+    }
+    > li:nth-child(3n+1) { clear:both;}
+}
+
+
+// icons only, or text labels ?
+// [data-cmd] { &:after { content: " " attr(data-cmd);  } }
+
+
+/* Section command button and dropdown */
+.section-selected > .btn { color:@red; }  //red section button (bookmark) when a section is selected
+
+.sections {
+    //.indent-0 { }
+    .text-indent-1 { text-indent:.5em; }
+    .text-indent-2 { text-indent:1em; }
+}
+
+/*
+General styles to support wysiwyg editors
+*/
+.editform.wysiwyg {
+
+    .ajaxpreview {
+        padding:1em;
+        font-family: @font-family-monospace;
+        white-space: pre-wrap;  //Lines are broken at newline characters, at <br>, and as necessary to fill line boxes.
+        border:1px solid @pre-border-color;
+        overflow-wrap:normal;
+    }
+
+}
+
+/*
+modal dialog
+*/
+.localstorage {
+
+	display:flex;
+	flex-direction:column;
+
+	.modal-footer {
+    	margin:0 0 @modal-inner-padding 0;
+    }
+	pre {
+		display:flex;
+		flex:1;
+		margin:0;
+		font-size:90%;
+		overflow:scroll;
+		white-space: pre-wrap;
+	}
+}

@@ -1,0 +1,66 @@
+/*
+ * Copyright 2013 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+include \
+    "ratpack-core",
+    "ratpack-manual",
+    "ratpack-site",
+    "ratpack-test",
+    "ratpack-test-internal",
+    "ratpack-groovy",
+    "ratpack-groovy-test",
+    "ratpack-guice",
+    "ratpack-session",
+    "ratpack-session-redis",
+    "ratpack-gradle",
+    "ratpack-handlebars",
+    "ratpack-reactor",
+    "ratpack-remote",
+    "ratpack-remote-test",
+    "ratpack-rx",
+    "ratpack-rx2",
+    "ratpack-dropwizard-metrics",
+    "ratpack-h2",
+    "ratpack-thymeleaf",
+    "ratpack-thymeleaf3",
+    "ratpack-lazybones",
+    "ratpack-hikari",
+    "ratpack-newrelic",
+    "ratpack-pac4j",
+    "ratpack-hystrix",
+    "ratpack-spring-boot",
+    "ratpack-spring-boot-starter",
+    "ratpack-benchmark",
+    "ratpack-retrofit2",
+    "ratpack-jdbc-tx",
+    "ratpack-consul",
+    "ratpack-base",
+    "ratpack-exec",
+    "ratpack-rocker",
+    "ratpack-gson"
+
+include "perf"
+
+rootProject.name = 'ratpack'
+
+def setBuildFile(project) {
+  project.buildFileName = "${project.name}.gradle"
+  project.children.each {
+    setBuildFile(it)
+  }
+}
+
+setBuildFile(rootProject)

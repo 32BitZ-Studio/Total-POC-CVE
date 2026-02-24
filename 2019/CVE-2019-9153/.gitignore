@@ -1,0 +1,13 @@
+!.gitkeep
+bower_components/
+build/
+dist/
+example/**/*.js
+node_modules/
+spec/reports/
+tmp/
+**/*.log
+**/*.swp
+**/*.tgz
+.DS_Store
+.vscode/

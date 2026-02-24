@@ -1,0 +1,312 @@
+/*
+ * Copyright 2013 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import ratpack.gradle.WriteTestConfig
+
+import static org.apache.commons.io.FileUtils.copyURLToFile
+import static org.apache.commons.lang3.SystemUtils.*
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.6.1'
+    classpath 'com.github.jengelman.gradle.plugins:shadow:5.1.0'
+    classpath 'com.bertramlabs.plugins:sass-asset-pipeline:2.6.1'
+    classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.2'
+    classpath "org.jruby:jruby-complete:9.1.17.0"
+  }
+}
+
+apply from: "$rootDir/gradle/javaModule.gradle"
+apply plugin: "io.ratpack.ratpack-java"
+apply plugin: "org.gradle.groovy"
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'asset-pipeline'
+
+repositories {
+  maven { url "https://oss.jfrog.org/repo" }
+}
+
+ext {
+  manualVersions = [
+    "0.9.0", "0.9.1", "0.9.2",
+    "0.9.3", "0.9.4", "0.9.5",
+    "0.9.6", "0.9.7", "0.9.8",
+    "0.9.9", "0.9.10", "0.9.11",
+    "0.9.12", "0.9.13", "0.9.14",
+    "0.9.15", "0.9.16", "0.9.17",
+    "0.9.18", "0.9.19", "1.0.0-rc-1",
+    "1.0.0-rc-2", "1.0.0-rc-3", "1.0.0",
+    "1.1.0", "1.1.1",
+    "1.2.0-RC-1", "1.2.0-rc-2", "1.2.0",
+    "1.3.0-rc-1", "1.3.0-rc-2", "1.3.0", "1.3.1", "1.3.2", "1.3.3",
+    "1.4.0-rc-1", "1.4.0-rc-2", "1.4.0-rc-3", "1.4.0", "1.4.1", "1.4.2", "1.4.3", "1.4.4", "1.4.5", "1.4.6",
+    "1.5.0-rc-1", "1.5.0-rc-2", "1.5.0-rc-3", "1.5.0", "1.5.1", "1.5.2", "1.5.3", "1.5.4",
+    "1.6.0-rc-1", "1.6.0-rc-2", "1.6.0-rc-3", "1.6.0-rc-4", "1.6.0", "1.6.1",
+    "1.7.0", "1.7.1", "1.7.2", "1.7.3"
+  ]
+
+  if (!isHeroku && !isCi) {
+    println "Only including latest manual in site due to this being a development build."
+    manualVersions = [manualVersions.last()]
+  }
+}
+
+configurations {
+  latestManual {
+    // Force resolve of latest snapshot
+    resolutionStrategy {
+      cacheChangingModulesFor 0, 'seconds'
+    }
+  }
+  newrelicAgent {}
+  browserTestCompile.extendsFrom testCompile
+  browserTestRuntime.extendsFrom testRuntime
+  providedRuntime
+  runtime.extendsFrom providedRuntime
+  manualVersions.each {
+    delegate."manual-$it"
+  }
+  runtime.exclude module: "slf4j-simple"
+}
+
+ext {
+  generatedTestResourcesDir = file("$buildDir/generated-test-resources")
+}
+
+sourceSets {
+  browserTest {
+    compileClasspath += (main.output + test.output)
+    runtimeClasspath += (main.output + test.output)
+  }
+}
+
+dependencies {
+  compile project(":ratpack-groovy")
+  compile project(":ratpack-dropwizard-metrics")
+  compile project(":ratpack-remote")
+  compile project(":ratpack-rx2")
+  compile project(":ratpack-newrelic")
+  compile "org.pegdown:pegdown:${commonVersions.pegdown}"
+
+  compile('com.bertramlabs.plugins:ratpack-asset-pipeline:2.6.1') {
+    exclude group: "org.slf4j", module: "slf4j-api"
+    exclude group: "io.ratpack", module: "ratpack-guice"
+    exclude group: "commons-logging", module: "commons-logging"
+    exclude group: "com.google.code.gson", module: "gson"
+    exclude group: "com.google.guava", module: "guava"
+    exclude group: "org.codehaus.groovy", module: "groovy-all"
+  }
+  compile('com.bertramlabs.plugins:sass-asset-pipeline:2.6.1') {
+    exclude group: "org.jruby", module: "jruby-complete"
+    exclude group: "commons-logging", module: "commons-logging"
+    exclude group: "com.google.code.gson", module: "gson"
+    exclude group: "com.google.guava", module: "guava"
+  }
+  providedRuntime "org.jruby:jruby-complete:1.7.18"
+
+  runtime "org.apache.logging.log4j:log4j-slf4j-impl:${commonVersions.log4j}", {
+    exclude group: "org.slf4j", module: "slf4j-api"
+  }
+  runtime "org.apache.logging.log4j:log4j-api:${commonVersions.log4j}"
+  runtime "org.apache.logging.log4j:log4j-core:${commonVersions.log4j}"
+  runtime 'com.lmax:disruptor:3.3.2'
+
+  testCompile project(":ratpack-groovy-test")
+  testCompile project(":ratpack-remote-test")
+  testCompile project(":ratpack-test-internal")
+  testCompile commonDependencies.spock
+  testCompile 'org.jsoup:jsoup:1.8.1'
+  latestManual isHeroku ? "io.ratpack:ratpack-manual:$version" : project(path: ":ratpack-manual", configuration: "zip")
+
+  browserTestCompile("org.gebish:geb-spock:2.1") {
+    exclude group: "org.codehaus.groovy", module: "groovy-all"
+    exclude group: "junit", module: "junit"
+  }
+  browserTestCompile "org.seleniumhq.selenium:selenium-chrome-driver:2.45.0", {
+    exclude module: 'guava'
+    exclude group: "cglib", module: "cglib-nodep"
+  }
+
+  manualVersions.each {
+    delegate."manual-$it" "io.ratpack:ratpack-manual:$it@zip"
+  }
+
+  newrelicAgent "com.newrelic.agent.java:newrelic-agent:${commonVersions.newrelic}"
+}
+
+mainClassName = 'ratpack.site.SiteMain'
+
+shadowJar {
+  dependencies {
+    exclude(dependency("com.bertramlabs.plugins:sass-asset-pipeline:.*"))
+    exclude(dependency("org.jruby:jruby-complete:.*"))
+  }
+  zip64 = true
+}
+
+task downloadChromeDriver {
+  def version = "2.10"
+  inputs.property("version", version)
+
+  def webdriverOs
+  if (IS_OS_MAC) {
+    webdriverOs = 'mac32'
+  } else if (IS_OS_LINUX) {
+    webdriverOs = 'linux64'
+  } else if (IS_OS_WINDOWS) {
+    webdriverOs = 'win32'
+  }
+
+  def output = new File(gradle.gradleUserHomeDir, "chromedriver-${version}.zip")
+  outputs.file output
+
+  onlyIf {
+    !output.exists()
+  }
+  doLast {
+    copyURLToFile(new URL("http://chromedriver.storage.googleapis.com/${version}/chromedriver_${webdriverOs}.zip"), output)
+  }
+}
+
+task unzipChromeDriver(type: Copy) {
+  dependsOn downloadChromeDriver
+  from(zipTree(downloadChromeDriver.outputs.files.singleFile))
+  into new File(buildDir, "webdriver/driver")
+}
+
+task configureWriteTestConfig {
+  dependsOn unzipChromeDriver
+  doLast {
+    if (!isSnapCi) {
+      writeTestConfig.testProperties.putAll(
+        "chromedriver.path": fileTree(unzipChromeDriver.outputs.files.singleFile).singleFile.absolutePath
+      )
+    }
+  }
+}
+
+task browserTest(type: Test) {
+//  dependsOn assetCompile
+  classpath = sourceSets.browserTest.runtimeClasspath
+  systemProperty "ratpack.development", "true"
+  shouldRunAfter test
+  testLogging {
+    showStandardStreams true
+  }
+}
+
+task writeTestConfig(type: WriteTestConfig) {
+  dependsOn configureWriteTestConfig
+  generatedTestResourcesDir = project.generatedTestResourcesDir
+
+  testProperties.putAll(
+    manualVersions: manualVersions.join(','),
+    currentVersion: version
+  )
+}
+
+sourceSets.test.resources.srcDir generatedTestResourcesDir
+
+processTestResources.dependsOn writeTestConfig
+
+processResources {
+  inputs.files configurations.latestManual
+  into "manual/" + version - "-SNAPSHOT", {
+    from { zipTree(configurations.latestManual.singleFile) }
+  }
+  def configureManualExtraction = { configuration, label ->
+    inputs.files configuration
+    into "manual/$label", {
+      from { zipTree(configuration.singleFile) }
+    }
+  }
+
+  manualVersions.each {
+    configureManualExtraction(configurations["manual-$it"], it)
+  }
+
+  from assetCompile, {
+    into "assets"
+  }
+}
+
+distributions.main.contents {
+  from "src/heroku"
+  into("newrelic") {
+    from({ configurations.newrelicAgent }) {
+      rename { "agent.jar" }
+    }
+    from "src/newrelic"
+  }
+}
+
+distTar {
+  compression = Compression.GZIP
+  version = null
+}
+
+idea {
+  module {
+    testSourceDirs += sourceSets.browserTest.allSource.srcDirs
+    scopes.TEST.plus += [configurations.browserTestCompile]
+  }
+}
+
+run {
+  if (it.getClass().name.startsWith("ratpack.gradle.continuous.RatpackContinuousRun")) {
+    flattenClassloaders = true
+  }
+}
+
+task deployToHeroku(type: SourceTask) {
+  source tasks.distTar
+
+  doLast {
+    def apiKey = project.ratpackHerokuApiKey
+    File tgz = inputs.files.singleFile
+
+    def heroku = new groovyx.net.http.RESTClient("https://api.heroku.com/apps/ratpack-site/")
+    heroku.headers['Authorization'] = "Bearer $apiKey"
+    heroku.headers['Accept'] = 'application/vnd.heroku+json; version=3'
+
+    def sourcesResponse = heroku.post(path: 'sources', requestContentType: 'application/json')
+    assert sourcesResponse.status == 201
+    def sourcesPutUrl = sourcesResponse.data.source_blob.put_url as String
+    def sourcesGetUrl = sourcesResponse.data.source_blob.get_url as String
+
+    def sourcesPutConnection = new URL(sourcesPutUrl).openConnection() as HttpURLConnection
+    sourcesPutConnection.requestMethod = "PUT"
+    sourcesPutConnection.fixedLengthStreamingMode = tgz.length()
+    sourcesPutConnection.doOutput = true
+    sourcesPutConnection.outputStream.withStream { output ->
+      tgz.newInputStream().withStream { input ->
+        output << input
+      }
+    }
+    assert sourcesPutConnection.responseCode == 200
+
+    def buildResponse = heroku.post(path: 'builds', requestContentType: 'application/json', body: [
+      source_blob: [
+        url    : sourcesGetUrl,
+        version: "git rev-parse HEAD".execute().text.trim()
+      ]
+    ])
+    def outputStreamUrl = buildResponse.data.output_stream_url as String
+    new URL(outputStreamUrl).eachLine { println it }
+  }
+}

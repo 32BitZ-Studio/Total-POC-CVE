@@ -1,0 +1,50 @@
+// Base Class Definition
+// -------------------------
+
+/*
+.@{fa-css-prefix} {
+  display: inline-block;
+  font-family: FontJspwiki;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  //adopted .fa-fw (fixed width) style
+  width: (18em / 14);
+  text-align: center;
+
+}
+*/
+
+.icon--all,
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'FontJspwiki';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1; //@line-height-base;
+
+    position:relative;
+    top:.1em;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	&:hover { text-decoration:none; }
+}
+.icon--text {
+    position:relative;
+    top:-0.7em;
+    font-family:@font-family-monospace;
+    font-size:65%;
+    color:@white;
+    padding:0 2px 1px;
+    margin-left:1px;
+    background-color:@link-color;
+    border-radius:@border-radius-small;
+}

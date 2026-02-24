@@ -1,0 +1,787 @@
+/*
+    JSPWiki - a JSP-based WikiWiki clone.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); fyou may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+*/
+
+
+/*
+Credit: Lea Verou
+Gets rid of the annoying outline for mouse users but preserves it for keyboard users,
+and is ignored by browsers that don’t support :focus-visible.
+*/
+*:focus:not(:focus-visible) { outline: none }
+
+
+//bootstrap
+p, .p {
+  margin: 0 0 (@line-height-computed / 2);
+}
+
+ul:last-child,
+ol:last-child {
+    margin:0;
+}
+
+/*
+Headings:
+    The headings h2, h3 and h4 get a {{clear:left}} so they can appear
+    side by side with floated-right commentboxes.
+
+    The {{.editsection}} and {{.hashlink}} define the styling of the
+    [[Edit] and # hash-hover link on each heading.
+
+DOM structure:
+(start code)
+    h2[id="section-..."] Header-Title
+        a.hashlink  #
+        a.editsection[href="...&section=0"] [Edit]
+(end)
+*/
+.hashlink { margin-left: 1em; }
+.editsection, .hashlink {
+
+    .btn; .btn-default; .btn-xs;
+    margin-right: .25em;
+    .transition(all .5s ease);
+    &:hover, &:focus {
+    	.opacity(1);
+    	border-color:transparent;
+    }
+    &:focus {
+    	outline:none;
+    	border-color: @link-color;
+    	box-shadow: 0 0 .25em @link-color;
+    }
+	user-select:none;
+}
+
+h2,h3,h4 {
+
+    .editsection, .hashlink { .opacity(0); }
+    &:hover {
+        .editsection, .hashlink { .opacity(.5); }
+    }
+
+}
+
+.sidebar .hashlink,
+.sidebar .editsection,
+.panel-title .hashlink {
+	.hidden;
+}
+
+.lead {
+    font-family:@wiki-logo-font-family;
+}
+
+
+//mimicing .quote in a dialog dropdown
+.dialog .lead-item {
+    .lead;
+    font-size:@font-size-base;
+}
+
+
+b, i {
+    color:inherit;
+}
+
+//used by Search.jsp, HighlightQuery, TableX.Filter, ...
+mark,
+.highlight {
+    background-color: @highlight !important;
+}
+
+
+//CHECKME
+br { clear: both; }
+
+
+//CHECKME
+.tree, .tree ul {
+    list-style: none;
+}
+.tree ul li {
+    position: relative;
+}
+/* Inspired by: VM UI Framework */
+/* horizontal connecting lines */
+.tree ul li::before {
+    background: @table-border-color;
+    content: '';
+    height: 1px;
+    left: -1.8em;
+    position: absolute;
+    top: .75em;
+    width: 1em;
+}
+/* vertical connecting lines */
+.tree ul li::after {
+    background: @table-border-color;
+    content: '';
+    height: 100%;
+    left: -1.8em;
+    position: absolute;
+    top: 0;
+    width: 1px;
+}
+/* closing vertical connecting corner */
+.tree ul li:last-child::after {
+    height: .8em;
+}
+
+//dl { .dl-horizontal; }
+dl dd { margin-left: @list-item-indent; }   //reset flat style of bootstrap/type
+
+//copied from bootstrap scaffolding
+.hr {
+  display: block;
+  margin-top:    @line-height-computed;
+  margin-bottom: @line-height-computed;
+  border: 0;
+  border-top: 1px solid @hr-border;
+}
+
+//Component: border (eg around columns grid)
+.border {
+    border: 1px solid @btn-default-border;
+}
+.rounded, .rounded > img {
+    border-radius: @border-radius-base;
+}
+[class^=label].rounded { border-radius: 10em;}
+
+.circle, .circle > img {
+    border-radius: 50%;
+}
+
+//Component: raised effect (shadow)  (eg around columns grid)
+.raised, .raised > img {
+    box-shadow: 0 8px 16px rgba(0,20,80,.04), 0 4px 16px rgba(0,0,0,.08);
+}
+
+.light  { filter: opacity(50%); }
+.dark   { filter: brightness(75%); }
+.blur   { filter: blur(3px); overflow:hidden;  }
+.invert { filter: invert(.8); }
+.sepia  { filter: sepia(1); }
+.blend  {mix-blend-mode: multiply;}
+.blend2 {mix-blend-mode: luminosity;}
+.grayscale    { filter: grayscale(1); }
+.saturate-2   { filter: saturate(2); }
+.saturate-8   { filter: saturate(8); }
+.hue-rotate-1 { filter: hue-rotate(90deg); }
+.hue-rotate-2 { filter: hue-rotate(180deg); }
+.hue-rotate-3 { filter: hue-rotate(270deg); }
+.brightness   {filter: brightness(3); }
+.contrast-2   { filter: contrast(2);}
+.contrast-10   { filter: contrast(10);}
+
+.fliph  {transform: scaleX(-1);}
+.flipv  {transform: scaleY(-1);}
+.fliphv {transform: scaleX(-1) scaleY(-1);}
+
+.kenburns {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background-size:cover;
+}
+.kenburns img { width:100%; }  //occupy all available space of the container
+
+.kenburns img,
+.bg.kenburns { animation: kenburns 120s infinite linear; }
+
+
+@keyframes kenburns {
+    0% {
+        transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+    50% {
+        transform: scale(1.4) rotate(1deg) translate(-15%, 0);
+    }
+    100% {
+        transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+}
+
+
+//Component: re-usable sizing blocks eg  .columns.size-60
+.size-90 { width: 90% !important; }
+.size-80 { width: 80% !important; }
+.size-70 { width: 70% !important; }
+.size-60 { width: 60% !important; }
+.size-50 { width: 50% !important; }
+.size-40 { width: 40% !important; }
+.size-30 { width: 30% !important; }
+.size-20 { width: 20% !important; }
+
+//make sure images obey the size of their container
+[class*=size-],
+.imageplugin td[class*=size-] { display:inline-block; }
+[class*=size-] > img { width:100% !important; }
+
+span.text-white, div.text-white, .bg.dark + .bg-overlay { color:@white; }
+span.text-black, div.text-black, .bg.light + .bg-overlay { color:@black; }
+
+.text-white.shadow {
+    text-shadow: 1px 1px 0 rgba(0,0,0,.25), 0 0 1em @white;
+}
+.text-black.shadow {
+    text-shadow: 1px 1px 0 rgba(255,255,255,.25), 0 0 1em @white;
+}
+
+//checkme - should be defined in bootstrap
+[class*=bg-]:not(.columns) {
+    padding: @padding-base-vertical  @padding-base-horizontal;
+    a, a:link, a:visited {  color:inherit; }
+}
+
+.bg-success { background-color: @state-success-bg; color:@state-success-text;}
+.bg-info    { background-color: @state-info-bg; color:@state-info-text;}
+.bg-warning { background-color: @state-warning-bg; color:@state-warning-text;}
+.bg-danger  { background-color: @state-danger-bg; color:@state-danger-text;}
+
+.text-aqua  { color: @aqua; }
+.text-blue  { color: @blue; }
+.text-navy  { color: @navy; }
+.text-teal  { color: @teal; }
+.text-green  { color: @green; }
+.text-olive  { color: @olive; }
+.text-lime   { color: @lime; }
+.text-yellow { color: @yellow; }
+.text-orange { color: @orange; }
+.text-red    { color: @red; }
+.text-fuchsia { color: @fuchsia; }
+.text-purple  { color: @purple; }
+.text-maroon  { color: @maroon; }
+.text-white   { color: @white; }
+.text-silver  { color: @silver; }
+.text-gray, .text-grey  { color: @gray; }
+.text-black   { color: @black; }
+
+.bg-aqua  { background-color: @aqua; color:hsla(197, 100%, 20%, 1.0);}
+.bg-blue  { background-color: @blue; color:hsla(208, 100%, 85%, 1.0);}
+.bg-navy  { background-color: @navy; color:hsla(210, 100%, 75%, 1.0);}
+.bg-teal  { background-color: @teal; }
+.bg-green  { background-color: @green; color:hsla(127, 63%, 15%, 1.0);}
+.bg-olive  { background-color: @olive; color:hsla(153, 43%, 15%, 1.0);}
+.bg-lime   { background-color: @lime; color:hsla(146, 100%, 20%, 1.0);}
+.bg-yellow { background-color: @yellow; color:hsla(52, 100%, 20%, 1.0);}
+.bg-orange { background-color: @orange; color:hsla(28, 100%, 20%, 1.0);}
+.bg-red    { background-color: @red; color:hsla(3, 100%, 25%, 1.0);}
+.bg-fuchsia { background-color: @fuchsia; color:hsla(314, 88%, 21%, 1.0);}
+.bg-purple  { background-color: @purple; color:hsla(292, 88%, 82%, 1.0);}
+.bg-maroon  { background-color: @maroon; color:hsla(331, 74%, 70%, 1.0);}
+.bg-white   { background-color: @white; color: @black; }
+.bg-silver  { background-color: @silver; color: @black; }
+.bg-gray, .bg-grey  { background-color: @gray; color:@white; }
+.bg-black   { background-color: @black; color:@white; }
+
+/*
+Background images in jspwiki
+
+Markup
+>    %%bg [some image link] /%
+becomes
+>    span.background(.fixed|.cover|.contain)(.top|.bottom|.left|.right)
+>    div.background-overlay
+>        <wrapping all siblings>
+*/
+.bg > img, .bg > img.inline, .bg > .imageplugin img { display:none; }
+
+.has-background {
+    position:relative;
+    overflow:hidden;
+
+    > .bg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        //background-size: auto auto;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-origin: border-box;
+        //background-image:  this is set by Wiki.Behaviour.js
+
+        &.cover { background-size:cover; }   //default
+        &.contain { background-size:contain; }
+        &.fixed  { background-attachment: fixed; }
+        &.clip-text { background-clip: text; -webkit-background-clip: text; }
+        &.top, &.bottom.flipv { background-position-y: top; }
+        &.bottom, &.top.flipv { background-position-y: bottom; }
+        &.left, &.right.fliph { background-position-x: left; }
+        &.right, &.left.fliph { background-position-x: right; }
+
+    }
+
+    //wrapper block, to content overlayed over the background
+    > .bg-overlay {
+        position:relative;
+        z-index:2;
+    }
+}
+
+
+/*
+PRE and xflow:
+    Pre-formatted text and code blocks.
+
+    pre - preformatted block
+    .pre - preformatted inline block
+    tt - teletype, monospace inline block
+
+    The ''.xflow'' class ensures a browser compatible overflow of wide content.
+    By default the page height depends on the content, the width should not
+    go beyond the width of the display. So, if needed, add a horizontal scroll bar.
+    Does have some IE specific hacks.
+
+    Applicable to preformatted blocks (pre, tt, code), and the main page content
+    elements such as #pagecontent, #findcontent, #info, #attach, ...
+
+*/
+
+pre {
+  //FFS: overwrite bootstrap default, which only sets the bottom margin of a PRE
+  //better is to set top & bottom margins, in case the previous dom elements is a text node
+  //  margin: (@line-height-computed / 2) 0;
+
+  //overwrite bootstrap defaults: use alpha/transparency to also support dark backgrounds.
+  //color: @pre-color;
+  background-color: @wiki-pre-bg;
+  border: 1px solid @wiki-pre-border-color;
+
+}
+.small pre {
+  font-size: (@font-size-base - 1) * 0.85; // 14px to 13px
+}
+
+//inline code: jspwiki uses <tt> ; styles copied from bootstrap/code.less
+tt {
+    padding: 2px 4px;
+    position: relative;
+    color: @code-color;
+    background-color: @code-bg;
+    white-space: pre-wrap; /*JSPWIKI-1165*/
+    border-radius: @border-radius-base;
+    font-family: @font-family-monospace;
+    font-size: 90%;
+}
+//used for inline {{{code snippets}}}
+span.inline-code {
+    font-family: @font-family-monospace;
+    font-size: 90%;
+    line-height: normal;
+    white-space: pre-wrap; /*JSPWIKI-1165*/
+}
+
+//list-unstyled : bootstrap
+.list-hover {
+    li:hover {
+        background-color:@dropdown-link-hover-bg;
+        a { text-decoration:none; }
+    }
+}
+.list-nostyle { list-style: none; }
+/*Credit: https://unfetteredthoughts.net/2017/09/26/voiceover-and-list-style-type-none/ */
+.list-nostyle > * >li:before { content: "\200B"; /* add zero-width space */ }
+.list-group.raised li { border:none; }
+
+
+//.list-group, .list-hover, .list-unstyled, .list-nostyle
+ul[class*=list-] > li > [class*="bg-"]:only-child {
+    margin: -10px -15px;  //undo the margin of the li(.list-item-group)
+    display:block;
+}
+
+.list-group-item:first-child > [class*="bg-"] {
+    border-top-left-radius: @list-group-border-radius;
+    border-top-right-radius: @list-group-border-radius;
+}
+.list-group-item:last-child > [class*="bg-"] {
+    border-bottom-left-radius: @list-group-border-radius;
+    border-bottom-right-radius: @list-group-border-radius;
+}
+
+
+
+.indent-1 { margin-left:   @list-item-indent !important; }
+.indent-2 { margin-left: 2*@list-item-indent !important; }
+.indent-3 { margin-left: 3*@list-item-indent !important; }
+
+/*
+Links:
+    The reusable {{.hover}} class provides generic support for
+    mouse-hover styling on any DOM element. (IE only supports :hover on <a>)
+
+>   a:link { ... }
+>   a:hover { ... }
+>   a:focus { ... }
+>   a:visited { ... }
+>   a:active { ... }
+
+>   a.wikipage
+>   a.external
+>   a.interwiki
+>   a.createpage
+*/
+
+
+//generic behavior -- why not part of bootstrap ??
+a:hover {
+    cursor:pointer;
+    //text-decoration: underline;
+    -webkit-text-decoration-skip: ink;
+}
+a:focus {
+	outline:none;
+	box-shadow: 0 0 .25em @link-color;
+}
+
+//mimic :hover, for old ie cases which may not yet support :hover
+.hover { background-color:@wiki-hover; }
+
+.createpage {
+    color: @wiki-link-createpage;
+    border-bottom: 1px dashed @wiki-link-createpage;
+    &:after {
+    	.icon--text();
+    	content:"?";
+    	background-color:@wiki-link-createpage;
+    }
+    &:hover {
+        color:darken(@wiki-link-createpage,10%);
+        text-decoration:none;
+    }
+}
+
+
+img.outlink { display:none; }
+a.external:after {
+    //.sup;
+    .small;
+    content: "\279a";
+    //content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=");
+    //content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAMAAADXEh96AAAAB3RJTUUH0wMUEC8DV5a0ngAAAAlwSFlzAAAK8AAACvABQqw0mAAAAwBQTFRFAAAAgAAAAIAAgIAAAACAgACAAICAwMDAwNzApsrw//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////vwoKCkgICA/wAAAP8A//8AAAD//wD/AP//////9ptMMgAAAAt0Uk5T/////////////wBKTwHyAAAAG0lEQVR42mPg4voJBAxcYJoBxgMSXGAKKA6lALPeEyZVnxeBAAAAAElFTkSuQmCC);
+}
+
+a.infolink,
+button + a.infolink {
+   .icon--all;
+   &:after {
+        margin-left:.1em;
+        content:@icon-paper-clip;
+    }
+    > img { display:none; }
+}
+
+/*
+Interwiki links
+*/
+.interwiki-reader,
+a.interwiki[href$="skin=reader"] {
+    &::after {
+        .icon--all;
+        .sup;
+        content:@icon-leanpub;
+        margin-left:.15em;
+        //color:@link-color;  //needed for More-Menu style
+    }
+    &:hover::after {
+        //text-decoraction:none;  //FIXME: doesnt work ...
+    }
+}
+.interwiki-raw,
+a.interwiki[href$="skin=raw"] {
+    &::after {
+        .icon--text();
+        content:"raw";
+        margin-left:.15em;
+    }
+    &:hover::after {
+        //text-decoraction:none;
+        background-color:@link-hover-color;
+    }
+}
+.interwiki-edit,
+a.interwiki[href*="Edit.jsp?page="] {
+    &::after {
+        .icon--text;
+        content:"edit";
+        margin-left:.15em;
+        //color:@link-color;
+        //.icon--all;
+        //.sup;
+        //content:@icon-pencil;
+    }
+    &:hover::after {
+        //text-decoraction:none;
+        background-color:@link-hover-color;
+    }
+}
+.interwiki-group,
+a.interwiki[href*="Group.jsp?group="] {
+    &::after {
+        .icon--text;
+        content:"group";
+        margin-left:.15em;
+        //color:@link-color;
+        //.icon--all;
+        //.sup;
+        //content:@icon-group;
+    }
+    &:hover::after {
+        //text-decoraction:none;
+        background-color:@link-hover-color;
+    }
+}
+a[href^="https://maps.google.com/maps?q="],
+a[href^="https://maps.apple.com/maps?q="],
+a[href^="https://www.bing.com/maps/default.aspx?rtp="] {
+    &::before {
+        margin-right:.15em;
+        color:@link-color;
+        .icon--all;
+        content:@icon-map-marker;
+    }
+    &:hover::before {
+        text-decoration:none;
+        //background-color:@link-hover-color;
+    }
+}
+a.interwiki[href^="rss.jsp"],
+.feed {
+	&:after {
+       .icon--all;
+        content:@icon-rss;
+	}
+    &:hover { text-decoration:none; }
+}
+
+a[href^="mailto:"]::after {
+    .icon--text;
+    content:"mail-to";
+    margin-left:.15em;
+}
+
+.dropdown-menu > li > a.feed { padding-left:0; }
+
+/*
+Footnotes
+*/
+.footnote, .footnoteref {
+    .small;
+    vertical-align:super;
+}
+.footnoteref { padding:0 .3em; }
+
+/*
+Images
+*/
+img {
+    &.inline { .img-responsive; /*max-width:100%;*/ }
+}
+
+
+/* broken images */
+.img-error {
+    &::before {
+        .icon--all;
+        content: @icon-picture;
+        padding-right:.5em;
+    }
+    > span { padding-left:.5em;}
+}
+
+//img.inline
+//img.outlink
+//img.attlink
+
+
+// Utility class to support un-scaled, scrollable images,
+.scrollable-img, .scrollable-image {
+
+    overflow:scroll;
+    img.inline { width:auto; max-width:none; }
+
+}
+
+
+
+/*
+Section: Reusable Styles
+    Various reusable css classes for small text, sub- and super-text,
+    strike-through formatting, centered text, quotes, ....
+
+    The standard error, warning and information boxes are defined here as well.
+*/
+
+//.sub { .small; vertical-align:sub; }
+//.sup { .small; vertical-align:super; }
+// Prevent impact on line-height See http://css-tricks.com/snippets/css/prevent-superscripts-and-subscripts-from-affecting-line-height/
+.sup, .sub {
+    .small;
+    //vertical-align: baseline; //standard.
+    position: relative;
+    top: -0.4em;
+}
+.sub { top: 0.4em; }
+
+.text-smallcaps, .caps {
+    font-variant: small-caps;
+    letter-spacing:0.1em;
+}
+
+.strike { text-decoration:line-through; }
+
+//see also bootstrap .text-center
+.center {
+    text-align:center;
+    table { text-align:left; }
+}
+.justify {
+    text-align:justify;
+}
+
+// %%dropcaps .. /%
+// CSS3:  div.dropcap:first-child:first-letter. See http://css-tricks.com/snippets/css/drop-caps/
+div.dropcaps {
+    .p;
+    > span.dropcaps {
+        float: left;
+        color: @dropcaps-color;
+        padding-right: @table-cell-padding;
+        font-family: @dropcaps-font-family;
+        font-size: @dropcaps-font-size;
+        font-weight: @dropcaps-font-weight;
+        line-height: 80%;
+        text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+    }
+}
+
+//%%quote .. /%
+//.quote is replaced by <blockquote>, to reuse bootstraps styling -- see Wiki.Behaviour.js
+blockquote {
+	border-left: @line-height-computed/2 solid @blockquote-border-color;
+
+    &:last-child { margin-bottom:0; }
+}
+
+//when showing the quote style in a dialog dropdown, use .quote-item -- see Wiki.Snips.js
+.dialog .quote-item {
+    border-left: 5px solid @blockquote-border-color;
+    padding-left: @line-height-computed;
+}
+
+.page-break {
+    display:block;
+    height:2px;
+    // background:url(page-break.jpg) 0 center repeat-x;
+    border-top:1px dashed @table-border-color;
+    margin:1em 0;
+
+    &:hover:after {
+        content: "page break";
+        text-align: center;
+        display: block;
+        color: @table-border-color;
+        .small;
+    }
+
+}
+
+
+.ltr { direction:ltr; }
+.rtl { direction:rtl; }
+
+//use bootstraps general .show, .hidden, .invisible
+//Classes used by the TASKS plugin  (.hide, .invisible)
+//ok in bootstrap
+
+//checkme: still used?
+.accesskey { text-decoration:underline; }
+
+.changenote {
+    max-width:240px;
+    .small;
+}
+.nowrap { white-space:nowrap; }
+
+[class^=tangle-] { background: @yellow; }
+
+//TODO: why not use .panel iso .alert as base for these communication boxes
+.default, .success, .information, .info,  .warning, .error, .danger {
+    .alert;
+    padding: ((@line-height-computed - 1) / 2);   //re-use same padding as a PRE block
+
+}
+//support inline information blocks
+span.default, span.success, span.information, span.info,  span.warning, span.error, span.danger {
+    display: inline;
+    padding: .05em .25em;
+}
+span.success, span.information, span.info,  span.warning, span.error, span.danger {
+    border:none;
+}
+
+.default {
+    .alert-variant(@wiki-pre-bg; @wiki-pre-border-color; @btn-default-color);
+
+}
+.success            { .alert-success; }
+.info, .information { .alert-info; }
+.warning            { .alert-warning; }
+.error, .danger     { .alert-danger; }
+
+//CHECKME: make sure to fill the table cell with the background color
+td .success, td .info, td .information, td .warning, td .error, td .danger  { margin:0; }
+//BETTER:  td > .alert { margin:0; }
+
+
+/*
+Style: CAPTCHA tables and images
+*/
+.asirraCaptcha img { width: @wiki-captcha-width; }
+.asirraCaptcha td {
+    background:@wiki-captcha-bg;
+    border:1px solid @table-border-color;
+    padding:1em;
+}
+
+
+//utility class
+.under-construction {
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:0 1em;
+    .progress;
+    .progress-bar-variant(@yellow);
+    .progress-striped .progress-bar;
+    .progress.active .progress-bar;
+
+    &:after {
+        content:"UNDER CONSTRUCTION";
+        letter-spacing:1ex;
+        font-weight:bold;
+    }
+}
+

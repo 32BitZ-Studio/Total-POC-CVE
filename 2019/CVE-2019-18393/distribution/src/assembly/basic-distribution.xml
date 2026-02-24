@@ -1,0 +1,124 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>base</id>
+    <formats>
+        <format>dir</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <moduleSets>
+
+        <moduleSet>
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <includes>
+                <include>${project.groupId}:starter</include>
+            </includes>
+            <binaries>
+                <includeDependencies>true</includeDependencies>
+                <outputDirectory>lib</outputDirectory>
+                <unpack>false</unpack>
+                <outputFileNameMapping>startup.jar</outputFileNameMapping>
+            </binaries>
+        </moduleSet>
+
+    </moduleSets>
+
+    <files>
+        <!-- Copy the admin console plugin.xml -->
+        <file>
+            <source>${project.basedir}/../xmppserver/plugin.xml</source>
+            <outputDirectory>plugins/admin</outputDirectory>
+        </file>
+        <!-- Copy the admin console web.xml -->
+        <file>
+            <source>${project.basedir}/../xmppserver/target/web.xml</source>
+            <outputDirectory>plugins/admin/webapp/WEB-INF</outputDirectory>
+        </file>
+    </files>
+
+    <fileSets>
+
+        <!-- Copy the admin console resources to the admin plugin folder -->
+        <fileSet>
+            <directory>${project.basedir}/../xmppserver/src/main/webapp</directory>
+            <excludes>
+                <exclude>**/*.jsp</exclude>
+                <exclude>**/*.jspf</exclude>
+                <exclude>**/*.jspf</exclude>
+            </excludes>
+            <outputDirectory>plugins/admin/webapp</outputDirectory>
+        </fileSet>
+
+        <!-- Copy the conf directory to conf -->
+        <fileSet>
+            <directory>${project.basedir}/src/conf</directory>
+            <outputDirectory>conf</outputDirectory>
+        </fileSet>
+
+        <!-- Copy the bin directory to ${openfireHome}/bin -->
+        <fileSet>
+            <directory>${project.basedir}/src/bin</directory>
+            <outputDirectory>bin</outputDirectory>
+            <fileMode>0755</fileMode>
+        </fileSet>
+
+        <!-- Copy log4j2.xml to lib -->
+        <fileSet>
+            <directory>${project.basedir}/src/resources</directory>
+            <includes>
+                <include>log4j2.xml</include>
+            </includes>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
+
+        <!-- Copy the spank directory to resources -->
+        <fileSet>
+            <directory>${project.basedir}/src/spank</directory>
+            <outputDirectory>resources/spank</outputDirectory>
+        </fileSet>
+
+        <!-- Copy the nativeAuth directory to resources -->
+        <fileSet>
+            <directory>${project.basedir}/src/nativeAuth</directory>
+            <outputDirectory>resources/nativeAuth</outputDirectory>
+        </fileSet>
+
+        <!-- Copy the database directory to resources -->
+        <fileSet>
+            <directory>${project.basedir}/src/database</directory>
+            <outputDirectory>resources/database</outputDirectory>
+        </fileSet>
+
+        <!-- Copy the security directory to resources -->
+        <fileSet>
+            <directory>${project.basedir}/src/security</directory>
+            <outputDirectory>resources/security</outputDirectory>
+        </fileSet>
+
+        <!-- Copy the documentation directory to documentation -->
+        <fileSet>
+            <directory>${project.basedir}/../documentation</directory>
+            <outputDirectory>documentation</outputDirectory>
+        </fileSet>
+
+        <!-- Copy the README, LICENCE, changelog to the root folder -->
+        <fileSet>
+            <directory>${project.basedir}/../xmppserver</directory>
+            <includes>
+                <include>*.html</include>
+            </includes>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
+
+        <!-- Copy the documentation/docs directory to dist -->
+        <fileSet>
+            <directory>${project.basedir}/../documentation/docs</directory>
+            <outputDirectory>documentation</outputDirectory>
+            <filtered>true</filtered>
+        </fileSet>
+
+    </fileSets>
+
+</assembly>

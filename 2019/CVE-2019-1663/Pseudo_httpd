@@ -1,0 +1,50 @@
+1. **Analyse de l'entrée** :
+   - Analyser les paramètres d'entrée : `Nom d'utilisateur`, `param_2`, `param_3` et `modeEncrypted`.
+   - Extraire le `mot de passe crypté` et le `nom d'utilisateur valide`.
+
+2. **Vérification du mot de passe** :
+   - Si `modeEncrypted` est 0 :
+     - Vérifier si le `mot de passe crypté` commence par "enc=".
+     - Si ce n'est pas le cas, supposer que c'est un mot de passe valide et le copier dans `validPassword`.
+     - Vérifier le mot de passe à l'aide de `OUT_PasswordVerif(param_2, Password)`.
+   - Si `modeEncrypted` est 1 :
+     - Supposer que le `mot de passe crypté` fourni est déjà au bon format.
+     - Vérifier le mot de passe à l'aide de `OUT_PasswordVerif(encryptedPassword, validPassword)`.
+
+3. **Validation du nom d'utilisateur** :
+   - Comparer les longueurs de `validUsername` et `Username`.
+   - Si les longueurs sont différentes, échec de la connexion.
+
+4. **Gestion de la session** :
+   - Vérifier si une session d'administrateur est déjà active.
+   - Si ce n'est pas le cas, définir les paramètres de session et générer une clé de session.
+   - Si une session admin est active, gérer la connexion en tant qu'invité ou d'autres scénarios.
+
+5. **Expiration de la session** :
+   - Comparer l'horodatage actuel avec le dernier horodatage d'authentification.
+   - Si la session a expiré, échec de la connexion.
+
+6. **Expiration de l'administrateur** :
+   - Vérifier si une valeur d'expiration d'administrateur est définie.
+   - Si c'est le cas, comparer les horodatages pour appliquer l'expiration de la session.
+
+7. **Connexion en tant qu'invité** :
+   - Définir les paramètres de session pour la connexion en tant qu'invité.
+
+8. **Connexion en tant qu'administrateur** :
+   - Définir une clé d'authentification temporaire pour un accès en lecture-écriture.
+   - Afficher un message pour fermer les autres sessions ou procéder avec prudence.
+
+9. **Logs et succès** :
+   - Logs la connexion réussie à la gestion web avec les détails de l'utilisateur.
+   - Renvoyer le status code approprié (1 pour succès).
+
+10. **Cas d'échec** :
+    - Gérer les cas où le nom d'utilisateur, le mot de passe ou d'autres conditions échouent.
+    - Logs les tentatives de connexion infructueuses.
+
+11. **Génération de la clé de session** :
+    - Générer une clé de session pour les connexions réussies.
+
+12. **Renvoyer le status code** :
+    - Renvoyer le status code en fonction du succès ou de l'échec de la connexion.

@@ -1,0 +1,87 @@
+/*
+ * Copyright 2013 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "com.gradle.publish:plugin-publish-plugin:0.9.7"
+  }
+}
+
+description = "Build time Ratpack support with the Gradle build tool - http://gradle.org"
+
+apply from: "$rootDir/gradle/javaModule.gradle"
+apply from: "$rootDir/gradle/versionFile.gradle"
+apply plugin: "maven"
+
+configurations.testCompile.dependencies.clear()
+
+sourceCompatibility = "1.6"
+targetCompatibility = "1.6"
+
+dependencies {
+  compile gradleApi()
+
+  testCompile gradleTestKit()
+  testCompile commonDependencies.guava
+  testCompile 'org.spockframework:spock-core:1.2-groovy-2.5', {
+    exclude module: "groovy-all", group: "org.codehaus.groovy"
+  }
+}
+
+test {
+  dependsOn install
+  dependsOn { apiModules*.install }
+  onlyIf { !System.getenv('CI_GROOVY_VERSION') }
+  allprojects {
+    if (it == project) {
+      return
+    }
+    mustRunAfter tasks.withType(VerificationTask)
+  }
+}
+
+apply plugin: "com.gradle.plugin-publish"
+
+pluginBundle {
+  website = 'http://www.ratpack.io/'
+  vcsUrl = 'https://github.com/ratpack/ratpack'
+  tags = ['application', 'web', 'http', 'ratpack']
+
+  plugins {
+    ratpackJavaPlugin {
+      id = 'io.ratpack.ratpack-java'
+      displayName = 'Ratpack Java Gradle Plugin'
+      description = 'This plugin provides build time integration for Java based Ratpack applications.'
+      tags = ['java', 'application', 'web', 'http', 'ratpack']
+    }
+
+    ratpackGroovyPlugin {
+      id = 'io.ratpack.ratpack-groovy'
+      displayName = 'Ratpack Groovy Gradle Plugin'
+      description = 'This plugin provides build time integration for Groovy based Ratpack applications.'
+      tags = ['groovy', 'application', 'web', 'http', 'ratpack']
+    }
+  }
+}
+
+test.doFirst {
+  maxParallelForks 1
+}

@@ -1,0 +1,175 @@
+/*
+    JSPWiki - a JSP-based WikiWiki clone.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); fyou may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+*/
+/*
+Style: WeblogPlugins
+    Styling of weblogs and weblogarchive plugins
+
+DOM structure:
+(start code)
+    div.weblog
+        div.weblogentry
+            div.weblogentryheading   time-stamp
+            div.weblogentrytitle     title
+            div.weblogentrybody
+            div.weblogentryfooter
+                By
+                a[href]  author
+                a[href]  Permalink
+                a[href]  comments-link
+(end)
+*/
+
+//Create new blog entry
+a[href*="NewBlogEntry.jsp"] { .btn; .btn-xs; .btn-success; }
+
+//Weblog entries
+.weblog {
+    clear:both;
+}
+.weblogentry {
+    margin:(@line-height-computed / 2) 0;
+}
+.weblogentryheading {
+    .small;
+    position:absolute;
+    padding-top: @line-height-computed*2;
+    color:@btn-link-disabled-color;
+}
+.weblogentrytitle {
+    .h1;
+    padding-bottom:(@line-height-computed );
+    margin-bottom:(@line-height-computed / 2);
+    border-bottom: 2px solid @pre-bg;
+
+    .hashlink {  .hidden;  }
+}
+.weblogentrybody {
+    .p;
+    clear:both;
+    max-height:33vh;
+    overflow:auto;
+}
+.weblogentryfooter {
+    .small;
+    padding:@padding-base-vertical @padding-base-horizontal;
+    margin-bottom:@line-height-computed ;
+    background-color:@pre-bg;
+    clear:both;
+
+    a {
+        .btn; .btn-xs;
+        vertical-align:inherit;
+        &[href*="_blogentry_"] { .btn-primary;  }
+        &[href*="_comments_"] { .btn-default;  }
+    }
+
+}
+
+//.weblogarchive {  }
+//.weblogarchive ul {  }
+.weblogarchive li {
+    margin-left:1em;
+    display:block;
+    list-style-type:none;
+}
+.archiveyear {
+    font-weight:bold;
+    text-decoration:none;
+    margin-left:0 !important;
+}
+//.archiveyear:after { content:" AD"; }
+
+/*
+DOM Structure of page with name <blog-name>_blogentry_<timestamp>-SEQ#
+
+div.weblogcommenstitle
+div.weblogcomments
+    ...
+    p.signature
+        a.outlink
+        , timestamp
+    hr
+    <repeat for each comment>
+
+*/
+.weblogcommentstitle {
+    .h4;
+    margin:(@line-height-computed) 0;
+    border-bottom:1px solid @hr-border;
+}
+.weblogcomments {
+    padding-left: 2em;
+    /*
+    Hide the incorrect section-edit links because the comments are actually stored
+    in another page with name "<blog-name>_comments_<timestamp>-SEQ#"
+    */
+    .editsection { .hide; }
+}
+.signature {
+    margin:(@line-height-computed/2) 0;
+    .weblogentryfooter;
+    &:before {
+        content:"—"; //&mdash;
+    }
+}
+
+
+/*
+DOM Structure of <Wiki:Calendar />
+
+table.calendar
+  tbody
+    tr
+        td  a[href=<prev-month>] <<
+        td.month[colspan=5]
+        td  a[href=<next-month>] >>
+    tr
+        td.weekdays  Mon,Tue ...  Sun
+    tr
+        td.othermonth
+        td.days
+        td.link a[herf=<...startDate=ddmmyy>]
+*/
+table.calendar {
+    width: 100%;
+    .small;
+    .panel;
+
+    td { text-align:center;  }
+
+    .month { .panel-title; font-family:@wiki-logo-font-family; }
+    //tr:first-child > td:first-child, tr:first-child > td:last-child {  } //next, previous months buttons
+    .weekdays {
+        font-family:@font-family-monospace;
+        border-bottom:1px solid @silver;
+        background-color:@white;
+    }
+    //td:nth-child(6){ border-left:1px dashed @silver; }   //divider for week and weekend days
+    td:nth-child(6):not(.weekdays),
+    td:nth-child(7):not(.weekdays) {
+        background: @pre-bg;
+    }
+
+    .othermonth { color:@gray-light; /*disabled*/ }
+    //.days { }
+    .link a { .badge; }
+}
+

@@ -1,0 +1,4 @@
+*.rb linguist-vendored
+*.gemspec linguist-vendored
+*.js linguist-vendored
+*.css linguist-vendored

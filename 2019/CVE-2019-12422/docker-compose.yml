@@ -1,0 +1,36 @@
+version: '3.9'
+
+networks:
+  ruoyi_network:
+
+services:
+  ry-mysql:
+    image: mysql:5.7
+    container_name: ry-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ry
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - ruoyi_network
+
+  ruoyi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ruoyi
+    depends_on:
+      - ry-mysql
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - ruoyi_network
+
+volumes:
+  mysql_data:
+    driver: local

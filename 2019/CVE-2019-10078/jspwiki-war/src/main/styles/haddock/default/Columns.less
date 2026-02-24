@@ -1,0 +1,104 @@
+/*
+    JSPWiki - a JSP-based WikiWiki clone.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); fyou may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+*/
+/*
+Style: Columns
+
+Wiki-markup:
+>    %%columns ... /%
+
+DOM structure:
+
+*/
+.columns {
+    margin: 0;
+    & + :not(.columns) { margin-top: (@line-height-computed / 2); }
+
+    display: flex;
+    //.clearfix;
+    //  *width:100%; //ie6,ie7 hack
+
+    .col {
+        float:left;
+        padding: @padding-base-vertical  @padding-base-horizontal;
+    }
+
+    //.col has a calculated width;  make sure img obeys the size of its container
+    .col img {
+        max-width:100%;
+    }
+
+    .col > .columns .col,
+    .col > [class*="bg-"] {
+        padding: @padding-base-vertical  @padding-base-horizontal;
+        min-height: 100%;
+        box-sizing: content-box;
+    }
+
+    .col > [class*="bg-"],
+    .col > .default,
+    .col > .collapsebox,
+    .col > .info, .col > .information,
+    .col > .success,
+    .col > .warning,
+    .col > .danger, .col > .error {
+        margin: -@padding-base-vertical -@padding-base-horizontal ;
+        min-height: 100%;
+    }
+
+    .col > pre:first-child:last-child {
+        margin: -@padding-base-vertical -@padding-base-horizontal ;
+    }
+    &.border > .col > pre:first-child:last-child {
+    	border: none;
+    }
+
+    .col > pre:only-child {
+    	margin:-@padding-base-vertical 0;
+    }
+
+    &.border > .col:not(:last-child){ border-right:1px solid @btn-default-border; }
+    &.border + &.border { border-top:none; }
+
+    &.hover:not([class*="bg-"]) { background-color:inherit; }
+    &.hover .col:hover { background-color: @dropdown-link-hover-bg; }
+
+    &.vertical-align .col {
+      justify-content: center;
+      display:flex;
+      flex-direction:column;
+    }
+
+}
+
+
+.columns.sm > div:nth-child(1),
+.columns.ms > div:nth-child(2) { width: @wiki-commentbox-ratio !important; }
+.columns.sm > div:nth-child(2),
+.columns.ms > div:nth-child(1) { width:(100% - @wiki-commentbox-ratio) !important; }
+
+.columns.sms > div { width: 25% !important; }
+.columns.sms > div:nth-child(2) { width: 50% !important; }
+
+
+//ie6 and lower hack
+//  * html .columns {  width:100%; }
+//ie7 hack
+//  *:first-child+html .columns { width:100%; }

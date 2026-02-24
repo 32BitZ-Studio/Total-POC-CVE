@@ -1,0 +1,109 @@
+/*
+    JSPWiki - a JSP-based WikiWiki clone.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); fyou may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+*/
+/*
+Section: Modal
+
+    Simplified modal dialog, based on bootstrap styling
+
+DOM Structure:
+(start code)
+body[.show-modal]
+    div.modal[.active]
+        ... body ...
+        div.modal-footer
+            button.btn.btn-default Close
+            button.btn.btn-primary OK
+    div.backdrop
+(end)
+*/
+
+.modal {
+  position: fixed;
+  //position: absolute;
+  max-width: unit(@wiki-modal-max-width, vw);
+  max-height: unit(@wiki-modal-max-height, vh);
+  top: unit( (100 - @wiki-modal-max-height)/2,vh);
+  left: 50%; margin-right:-50%;
+  transform: translate(-50%);
+  overflow: auto;
+
+  padding: @modal-inner-padding;
+
+  background-color: @modal-content-bg;
+  border: 1px solid @modal-content-border-color;
+  border-radius: @border-radius-large;
+  .box-shadow(0 0 20vh rgba(0,0,0,.5));
+  outline: none; // Remove focus outline from opened modal
+}
+
+
+// Modal background DOM element, inserted as last element of the body
+.backdrop {
+    position: fixed;
+    top: 0;left: 0;right: 0;bottom: 0;
+    background-color: @modal-backdrop-bg;
+    pointer-events:none;
+}
+
+.modal, .backdrop {
+    z-index: -1; //hidden by default
+    .opacity(0);
+    .transition(all .6s);
+}
+
+.show-modal {
+
+    .backdrop {
+        .opacity(0.3);
+        z-index: (@zindex-modal-background - 1); //bring above main content, but below the modal dialog
+    }
+    .modal.active {
+        .opacity(1);
+        z-index: @zindex-modal-background;
+	}
+}
+
+
+// Footer (for actions)
+.modal-footer {
+    margin-top: @modal-inner-padding;
+    text-align: center; // right align buttons
+    position:relative;
+    bottom:0;
+
+    // Properly space out buttons
+    .btn + .btn {
+        margin-left: 5px;
+        margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+    }
+}
+
+// Scale up the modal
+@media screen and (min-width: @screen-sm-min) {
+
+  .modal {
+    //width: 600px;
+    //top: 50%; left: 50%;
+	//margin: -300px;
+    //margin: 30px auto;
+  }
+
+}

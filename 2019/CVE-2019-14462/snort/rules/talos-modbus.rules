@@ -1,0 +1,539 @@
+# Talos-style Modbus TCP Security Rules
+# Comprehensive ICS/SCADA protection using native Snort keywords
+#
+# For defensive security research demonstration.
+# Designed to compete with Digital Bond Quickdraw rules.
+#
+# Features:
+#   - Native modbus_func, modbus_unit, modbus_data keywords
+#   - CVE-2019-14462, CVE-2022-0367, CVE-2022-20685 detection
+#   - Full attack lifecycle coverage (Recon → Exploit → DoS → Anti-forensics)
+#   - Bidirectional monitoring (client↔server)
+#
+# SID Range: 3000001-3000199
+
+# =============================================================================
+# CVE DETECTION - Critical Vulnerabilities
+# =============================================================================
+
+# CVE-2019-14462: MBAP Length Mismatch (Heap Buffer Overflow)
+# libmodbus <= 3.1.2 trusts MBAP length field without validation
+# Attack: Declare small length, send large payload
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus MBAP Length Mismatch (CVE-2019-14462)"; \
+    flow:to_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    byte_jump:2,4; \
+    isdataat:0,relative; \
+    classtype:attempted-admin; \
+    reference:cve,2019-14462; \
+    priority:1; \
+    sid:3000001; \
+    rev:1; \
+)
+
+# CVE-2022-0367: Heap Buffer Underflow in Write-Read Registers
+# libmodbus start_address feature has bounds check bug
+# Attack: Send FC 0x17 with write_address < start_registers
+# Packet structure: MBAP[7] + FC[1] + ReadAddr[2] + ReadQty[2] + WriteAddr[2]
+# WriteAddr at offset 12-13, check if < 100 (typical start_registers)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus CVE-2022-0367 Heap Underflow Attempt"; \
+    flow:to_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    modbus_func:23; \
+    byte_test:2,<,100,12,big; \
+    classtype:attempted-admin; \
+    reference:cve,2022-0367; \
+    reference:url,github.com/stephane/libmodbus/issues/614; \
+    priority:1; \
+    sid:3000002; \
+    rev:1; \
+)
+
+# CVE-2022-20685: Snort Modbus Preprocessor Integer Overflow
+# Write File Record (FC 0x15) triggers vulnerable code path
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Write File Record (CVE-2022-20685 vector)"; \
+    flow:to_server,established; \
+    modbus_func:21; \
+    classtype:attempted-admin; \
+    reference:cve,2022-20685; \
+    priority:1; \
+    sid:3000003; \
+    rev:1; \
+)
+
+# CVE-2019-14462 variant: Suspicious large payload
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Suspicious Large Payload"; \
+    flow:to_server,established; \
+    dsize:>260; \
+    content:"|00 00|"; offset:2; depth:2; \
+    classtype:attempted-admin; \
+    priority:1; \
+    sid:3000004; \
+    rev:1; \
+)
+
+# =============================================================================
+# DENIAL OF SERVICE - Function Codes That Disrupt Operations
+# =============================================================================
+
+# Force Listen Only Mode (FC 08, Sub 0x0004)
+# Impact: Device stops responding to ALL messages except FC 08
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Force Listen Only Mode"; \
+    flow:to_server,established; \
+    modbus_func:diagnostics; \
+    modbus_data; \
+    content:"|00 04|"; depth:2; \
+    classtype:attempted-dos; \
+    priority:1; \
+    sid:3000010; \
+    rev:1; \
+)
+
+# Restart Communications (FC 08, Sub 0x0001)
+# Impact: Resets communication port, disrupts connections
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Restart Communications"; \
+    flow:to_server,established; \
+    modbus_func:diagnostics; \
+    modbus_data; \
+    content:"|00 01|"; depth:2; \
+    classtype:attempted-dos; \
+    priority:1; \
+    sid:3000011; \
+    rev:1; \
+)
+
+# Clear Counters (FC 08, Sub 0x000A)
+# Impact: Clears diagnostic data, anti-forensics
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Clear Counters (Anti-Forensics)"; \
+    flow:to_server,established; \
+    modbus_func:diagnostics; \
+    modbus_data; \
+    content:"|00 0A|"; depth:2; \
+    classtype:misc-attack; \
+    priority:2; \
+    sid:3000012; \
+    rev:1; \
+)
+
+# Clear Overrun Counter (FC 08, Sub 0x0014)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Clear Overrun Counter"; \
+    flow:to_server,established; \
+    modbus_func:diagnostics; \
+    modbus_data; \
+    content:"|00 14|"; depth:2; \
+    classtype:misc-attack; \
+    priority:3; \
+    sid:3000013; \
+    rev:1; \
+)
+
+# Request flood detection
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Request Flood"; \
+    flow:to_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    threshold:type both, track by_src, count 100, seconds 10; \
+    classtype:attempted-dos; \
+    priority:2; \
+    sid:3000014; \
+    rev:1; \
+)
+
+# =============================================================================
+# RECONNAISSANCE - Information Gathering
+# =============================================================================
+
+# Read Device Identification (FC 0x2B / 43)
+# Impact: Reveals vendor, product, firmware version
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Read Device Identification"; \
+    flow:to_server,established; \
+    modbus_func:43; \
+    classtype:attempted-recon; \
+    priority:3; \
+    sid:3000020; \
+    rev:1; \
+)
+
+# Report Server ID (FC 0x11 / 17)
+# Impact: Reveals server status and run indicator
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Report Server ID"; \
+    flow:to_server,established; \
+    modbus_func:17; \
+    classtype:attempted-recon; \
+    priority:3; \
+    sid:3000021; \
+    rev:1; \
+)
+
+# Get Comm Event Counter (FC 0x0B / 11)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Get Comm Event Counter"; \
+    flow:to_server,established; \
+    modbus_func:11; \
+    classtype:attempted-recon; \
+    priority:3; \
+    sid:3000022; \
+    rev:1; \
+)
+
+# Get Comm Event Log (FC 0x0C / 12)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Get Comm Event Log"; \
+    flow:to_server,established; \
+    modbus_func:12; \
+    classtype:attempted-recon; \
+    priority:3; \
+    sid:3000023; \
+    rev:1; \
+)
+
+# =============================================================================
+# WRITE OPERATIONS - Potentially Dangerous Commands
+# =============================================================================
+
+# Write Single Coil (FC 0x05)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Write Single Coil"; \
+    flow:to_server,established; \
+    modbus_func:write_single_coil; \
+    classtype:protocol-command-decode; \
+    priority:2; \
+    sid:3000030; \
+    rev:1; \
+)
+
+# Write Single Register (FC 0x06)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Write Single Register"; \
+    flow:to_server,established; \
+    modbus_func:write_single_register; \
+    classtype:protocol-command-decode; \
+    priority:2; \
+    sid:3000031; \
+    rev:1; \
+)
+
+# Write Multiple Coils (FC 0x0F / 15) - Bulk operation
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Write Multiple Coils"; \
+    flow:to_server,established; \
+    modbus_func:write_multiple_coils; \
+    classtype:protocol-command-decode; \
+    priority:1; \
+    sid:3000032; \
+    rev:1; \
+)
+
+# Write Multiple Registers (FC 0x10 / 16) - Bulk operation
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Write Multiple Registers"; \
+    flow:to_server,established; \
+    modbus_func:write_multiple_registers; \
+    classtype:protocol-command-decode; \
+    priority:1; \
+    sid:3000033; \
+    rev:1; \
+)
+
+# Mask Write Register (FC 0x16 / 22)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Mask Write Register"; \
+    flow:to_server,established; \
+    modbus_func:22; \
+    classtype:protocol-command-decode; \
+    priority:2; \
+    sid:3000034; \
+    rev:1; \
+)
+
+# Write and Read Registers (FC 0x17 / 23)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Write and Read Registers"; \
+    flow:to_server,established; \
+    modbus_func:23; \
+    classtype:protocol-command-decode; \
+    priority:2; \
+    sid:3000035; \
+    rev:1; \
+)
+
+# Write File Record (FC 0x15 / 21)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Write File Record"; \
+    flow:to_server,established; \
+    modbus_func:21; \
+    classtype:protocol-command-decode; \
+    priority:1; \
+    sid:3000036; \
+    rev:1; \
+)
+
+# =============================================================================
+# PROTOCOL VIOLATIONS
+# =============================================================================
+
+# Invalid Protocol Identifier (must be 0x0000)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Invalid Protocol Identifier"; \
+    flow:to_server,established; \
+    content:!"|00 00|"; offset:2; depth:2; \
+    classtype:non-standard-protocol; \
+    priority:1; \
+    sid:3000040; \
+    rev:1; \
+)
+
+# Illegal packet size (>260 bytes standard max)
+alert tcp any any <> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Oversized Packet"; \
+    flow:established; \
+    dsize:>300; \
+    classtype:non-standard-protocol; \
+    priority:1; \
+    sid:3000041; \
+    rev:1; \
+)
+
+# Broadcast Unit ID (0xFF) - affects all devices
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Broadcast Unit ID"; \
+    flow:to_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    content:"|FF|"; offset:6; depth:1; \
+    classtype:policy-violation; \
+    priority:2; \
+    sid:3000042; \
+    rev:1; \
+)
+
+# Zero Unit ID (reserved)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Reserved Unit ID Zero"; \
+    flow:to_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    content:"|00|"; offset:6; depth:1; \
+    classtype:policy-violation; \
+    priority:3; \
+    sid:3000043; \
+    rev:1; \
+)
+
+# Illegal Function Code 0x00
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Illegal Function Code 0x00"; \
+    flow:to_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    content:"|00|"; offset:7; depth:1; \
+    classtype:non-standard-protocol; \
+    priority:2; \
+    sid:3000044; \
+    rev:1; \
+)
+
+# =============================================================================
+# EXCEPTION RESPONSE MONITORING (Server → Client)
+# =============================================================================
+
+# Exception response detected (function code | 0x80)
+alert tcp $MODBUS_SERVER $MODBUS_PORTS -> any any ( \
+    msg:"TALOS-SCADA Modbus Exception Response"; \
+    flow:from_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    byte_test:1,&,0x80,7; \
+    classtype:protocol-command-decode; \
+    priority:3; \
+    sid:3000050; \
+    rev:1; \
+)
+
+# Slave Device Busy (Exception 0x06) - DoS indicator
+alert tcp $MODBUS_SERVER $MODBUS_PORTS -> any any ( \
+    msg:"TALOS-SCADA Modbus Slave Device Busy (DoS indicator)"; \
+    flow:from_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    byte_test:1,&,0x80,7; \
+    content:"|06|"; offset:8; depth:1; \
+    threshold:type threshold, track by_src, count 3, seconds 60; \
+    classtype:successful-dos; \
+    priority:2; \
+    sid:3000051; \
+    rev:1; \
+)
+
+# Acknowledge (Exception 0x05) - Long operation indicator
+alert tcp $MODBUS_SERVER $MODBUS_PORTS -> any any ( \
+    msg:"TALOS-SCADA Modbus Acknowledge Exception"; \
+    flow:from_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    byte_test:1,&,0x80,7; \
+    content:"|05|"; offset:8; depth:1; \
+    threshold:type threshold, track by_src, count 3, seconds 60; \
+    classtype:successful-dos; \
+    priority:2; \
+    sid:3000052; \
+    rev:1; \
+)
+
+# Illegal Data Address (Exception 0x02) - Scanning indicator
+alert tcp $MODBUS_SERVER $MODBUS_PORTS -> any any ( \
+    msg:"TALOS-SCADA Modbus Illegal Data Address (Scan indicator)"; \
+    flow:from_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    byte_test:1,&,0x80,7; \
+    content:"|02|"; offset:8; depth:1; \
+    threshold:type threshold, track by_src, count 5, seconds 60; \
+    classtype:attempted-recon; \
+    priority:2; \
+    sid:3000053; \
+    rev:1; \
+)
+
+# Illegal Function (Exception 0x01) - Function scan indicator
+alert tcp $MODBUS_SERVER $MODBUS_PORTS -> any any ( \
+    msg:"TALOS-SCADA Modbus Illegal Function (Scan indicator)"; \
+    flow:from_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    byte_test:1,&,0x80,7; \
+    content:"|01|"; offset:8; depth:1; \
+    threshold:type threshold, track by_src, count 3, seconds 60; \
+    classtype:attempted-recon; \
+    priority:2; \
+    sid:3000054; \
+    rev:1; \
+)
+
+# Gateway Path Unavailable (Exception 0x0A)
+alert tcp $MODBUS_SERVER $MODBUS_PORTS -> any any ( \
+    msg:"TALOS-SCADA Modbus Gateway Path Unavailable"; \
+    flow:from_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    byte_test:1,&,0x80,7; \
+    content:"|0A|"; offset:8; depth:1; \
+    classtype:network-scan; \
+    priority:2; \
+    sid:3000055; \
+    rev:1; \
+)
+
+# Gateway Target Failed (Exception 0x0B)
+alert tcp $MODBUS_SERVER $MODBUS_PORTS -> any any ( \
+    msg:"TALOS-SCADA Modbus Gateway Target Failed"; \
+    flow:from_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    byte_test:1,&,0x80,7; \
+    content:"|0B|"; offset:8; depth:1; \
+    classtype:network-scan; \
+    priority:2; \
+    sid:3000056; \
+    rev:1; \
+)
+
+# =============================================================================
+# READ OPERATIONS - For Baseline/Monitoring
+# =============================================================================
+
+# Read Coils (FC 0x01)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Read Coils"; \
+    flow:to_server,established; \
+    modbus_func:read_coils; \
+    classtype:protocol-command-decode; \
+    priority:3; \
+    sid:3000060; \
+    rev:1; \
+)
+
+# Read Discrete Inputs (FC 0x02)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Read Discrete Inputs"; \
+    flow:to_server,established; \
+    modbus_func:read_discrete_inputs; \
+    classtype:protocol-command-decode; \
+    priority:3; \
+    sid:3000061; \
+    rev:1; \
+)
+
+# Read Holding Registers (FC 0x03)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Read Holding Registers"; \
+    flow:to_server,established; \
+    modbus_func:read_holding_registers; \
+    classtype:protocol-command-decode; \
+    priority:3; \
+    sid:3000062; \
+    rev:1; \
+)
+
+# Read Input Registers (FC 0x04)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Read Input Registers"; \
+    flow:to_server,established; \
+    modbus_func:read_input_registers; \
+    classtype:protocol-command-decode; \
+    priority:3; \
+    sid:3000063; \
+    rev:1; \
+)
+
+# Read File Record (FC 0x14 / 20)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Read File Record"; \
+    flow:to_server,established; \
+    modbus_func:20; \
+    classtype:protocol-command-decode; \
+    priority:3; \
+    sid:3000064; \
+    rev:1; \
+)
+
+# Read FIFO Queue (FC 0x18 / 24)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Read FIFO Queue"; \
+    flow:to_server,established; \
+    modbus_func:24; \
+    classtype:protocol-command-decode; \
+    priority:3; \
+    sid:3000065; \
+    rev:1; \
+)
+
+# =============================================================================
+# VENDOR-SPECIFIC VULNERABILITIES
+# =============================================================================
+
+# Schneider Electric ModbusDrv buffer overflow pattern
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Schneider ModbusDrv Potential Overflow"; \
+    flow:to_server,established; \
+    dsize:>253; \
+    modbus_func:write_multiple_registers; \
+    classtype:attempted-admin; \
+    reference:cve,2018-7822; \
+    priority:1; \
+    sid:3000070; \
+    rev:1; \
+)
+
+# Large coil write (potential overflow)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"TALOS-SCADA Modbus Large Coil Write"; \
+    flow:to_server,established; \
+    dsize:>200; \
+    modbus_func:write_multiple_coils; \
+    classtype:attempted-admin; \
+    priority:2; \
+    sid:3000071; \
+    rev:1; \
+)
+

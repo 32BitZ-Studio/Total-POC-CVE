@@ -1,0 +1,150 @@
+
+int FUN_0002bf64(char *param_1,char *param_2,char *param_3,int param_4)
+
+{
+  bool bVar1;
+  int iVar2;
+  FILE *pFVar3;
+  size_t sVar4;
+  size_t sVar5;
+  char *pcVar6;
+  int iVar7;
+  long lVar8;
+  char *__nptr;
+  char acStack450 [100];
+  char acStack350 [100];
+  char acStack250 [100];
+  char acStack150 [100];
+  undefined2 local_32;
+  undefined2 local_30;
+  undefined2 local_2e;
+  undefined2 local_2c;
+  undefined2 local_2a;
+  
+  memset(acStack150,0,100);
+  memset(acStack250,0,100);
+  memset(acStack350,0,100);
+  local_32 = 0;
+  local_30 = 0;
+  local_2e = 0;
+  local_2c = 0;
+  local_2a = 0;
+  memset(acStack450,0,100);
+  sscanf(param_3,"%[^,],%[^,],%[^\n]",&local_32,acStack250,acStack150);
+  if (param_4 == 0) {
+    iVar2 = strncmp(acStack250,"enc=",4);
+    if (iVar2 != 0) {
+      strcpy(acStack350,acStack250);
+      strcpy(acStack450,param_2);
+      goto LAB_0002c264;
+    }
+    FUN_00029c64(param_2,acStack450);
+    sscanf(acStack250,"enc=%s",acStack350);
+    if (debug != 0) goto LAB_0002c07c;
+LAB_0002c278:
+    sVar4 = strlen(acStack150);
+    sVar5 = strlen(param_1);
+    if (sVar4 != sVar5) goto LAB_0002c294;
+  }
+  else {
+    iVar2 = strncmp(acStack250,"enc=",4);
+    if (iVar2 == 0) {
+      sscanf(acStack250,"enc=%s",acStack350);
+    }
+    else {
+      FUN_00029c64(acStack250,acStack350);
+    }
+    strcpy(acStack450,param_2);
+LAB_0002c264:
+    if (debug == 0) goto LAB_0002c278;
+LAB_0002c07c:
+    pFVar3 = fopen("/dev/console","w");
+    if (pFVar3 == (FILE *)0x0) goto LAB_0002c278;
+    fprintf(pFVar3,"%s(): \n =========>valid user: nv_user=%s, gui_user=%s, gui_pwd=%s, nv_pwd=%s\n"
+            ,"valid_user",acStack150,param_1,acStack450,acStack350);
+    fclose(pFVar3);
+    sVar4 = strlen(acStack150);
+    sVar5 = strlen(param_1);
+    if (sVar4 != sVar5) goto LAB_0002c294;
+  }
+  sVar4 = strlen(acStack350);
+  sVar5 = strlen(acStack450);
+  if ((((sVar4 != sVar5) || (iVar2 = strcmp(acStack150,param_1), iVar2 != 0)) ||
+      (iVar2 = strcmp(acStack350,acStack450), iVar2 != 0)) ||
+     ((iVar2 = nvram_match("en_guest",&DAT_00089a4c), iVar2 != 0 &&
+      (iVar2 = nvram_match("http_power","r"), iVar2 != 0)))) {
+LAB_0002c294:
+    iVar2 = FUN_0002648c(param_1);
+    if (iVar2 != 0) {
+      syslog(6,"Web management login failed, user=%s\n",param_1);
+      iVar2 = 0;
+    }
+    return iVar2;
+  }
+  iVar2 = FUN_0002b4fc();
+  pcVar6 = (char *)nvram_get("auth_time");
+  if (pcVar6 == (char *)0x0) {
+    pcVar6 = "";
+  }
+  iVar7 = nvram_match("http_power",&DAT_00081240);
+  if (iVar7 == 0) {
+LAB_0002c17c:
+    lVar8 = atol(pcVar6);
+    if ((iVar2 < lVar8) || (iVar7 <= iVar2 - lVar8)) {
+      syslog(6,"Administrator session timeout.");
+      bVar1 = true;
+      goto LAB_0002c1ac;
+    }
+  }
+  else {
+    __nptr = (char *)nvram_get("admin_timeout");
+    if (__nptr == (char *)0x0) {
+      __nptr = "";
+    }
+    iVar7 = atoi(__nptr);
+    if (iVar7 != 99) {
+      iVar7 = iVar7 * 0x3c;
+      goto LAB_0002c17c;
+    }
+  }
+  bVar1 = false;
+LAB_0002c1ac:
+  iVar2 = nvram_match("auth_st",&DAT_000899d8);
+  if (((iVar2 == 0) || (iVar2 = nvram_match("http_power",&DAT_00081240), iVar2 == 0)) || (bVar1)) {
+    nvram_set("http_power",&local_32);
+    pcVar6 = (char *)nvram_get("session_key");
+    if (pcVar6 == (char *)0x0) {
+      pcVar6 = "";
+    }
+    iVar2 = 1;
+    FUN_0001f8fc(pcVar6,&DAT_000816f4);
+  }
+  else {
+    iVar2 = strcmp((char *)&local_32,"rw");
+    if (iVar2 == 0) {
+      pcVar6 = (char *)nvram_get("session_key");
+      if (pcVar6 == (char *)0x0) {
+        pcVar6 = "";
+      }
+      nvram_set("tmp_auth_key",pcVar6);
+      pFVar3 = fopen("/dev/console","w");
+      if (pFVar3 != (FILE *)0x0) {
+        fwrite("If you want to close the other session, please click on \'Continue\' button. Click \ 'Cancel\' to Logout.\n"
+               ,1,0x65,pFVar3);
+        fclose(pFVar3);
+      }
+      iVar2 = 3;
+    }
+    else {
+      pFVar3 = fopen("/dev/console","w");
+      if (pFVar3 != (FILE *)0x0) {
+        fwrite("Administrator already logged in. You cannot login using Guest account.\n",1,0x47,
+               pFVar3);
+        fclose(pFVar3);
+      }
+      iVar2 = 2;
+    }
+  }
+  syslog(6,"Web management login success, user=%s\n",param_1);
+  return iVar2;
+}

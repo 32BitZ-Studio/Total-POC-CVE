@@ -1,0 +1,149 @@
+int OUT_MainLogin(char *Username,char *param_2,char *param_3,int modeEncrypted)
+
+{
+  bool varBool;
+  int statuscode;
+  FILE *FilePoint;
+  size_t var_len1;
+  size_t var_len2;
+  char *pcVar6;
+  int iVar7;
+  long lVar8;
+  char *__nptr;
+  char Password [100];
+  char validPassword [100];
+  char encryptedPassword [100];
+  char validUsername [100];
+  undefined2 local_32;
+  undefined2 local_30;
+  undefined2 local_2e;
+  undefined2 local_2c;
+  undefined2 local_2a;
+  
+  memset(validUsername,0,100);
+  memset(encryptedPassword,0,100);
+  memset(validPassword,0,100);
+  local_32 = 0;
+  local_30 = 0;
+  local_2e = 0;
+  local_2c = 0;
+  local_2a = 0;
+  memset(Password,0,100);
+  sscanf(param_3,"%[^,],%[^,],%[^\n]",&local_32,encryptedPassword,validUsername);
+  if (modeEncrypted == 0) {
+    statuscode = strncmp(encryptedPassword,"enc=",4);
+    if (statuscode != 0) {
+      strcpy(validPassword,encryptedPassword);
+      strcpy(Password,param_2);
+      goto Debug_Verification();
+    }
+    OUT_PasswordVerif(param_2,Password);
+    sscanf(encryptedPassword,"enc=%s",validPassword);
+    if (debug != 0) goto File_Logging();
+LAB_0002c278:
+    var_len1 = strlen(validUsername);
+    var_len2 = strlen(Username);
+    if (var_len1 != var_len2) goto Fail_login();
+  }
+  else {
+    statuscode = strncmp(encryptedPassword,"enc=",4);
+    if (statuscode == 0) {
+      sscanf(encryptedPassword,"enc=%s",validPassword);
+    }
+    else {
+      OUT_PasswordVerif(encryptedPassword,validPassword);
+    }
+    strcpy(Password,param_2);
+Debug_Verification():
+    if (debug == 0) goto LAB_0002c278;
+File_Logging():
+    FilePoint = fopen("/dev/console","w");
+    if (FilePoint == (FILE *)0x0) goto LAB_0002c278;
+    fprintf(FilePoint,"%s(): \n =========>valid user: nv_user=%s, gui_user=%s, gui_pwd=%s, nv_pwd=%s\n"
+            ,"valid_user",validUsername,Username,Password,validPassword);
+    fclose(FilePoint);
+    var_len1 = strlen(validUsername);
+    var_len2 = strlen(Username);
+    if (var_len1 != var_len2) goto Fail_login();
+  }
+  var_len1 = strlen(validPassword);
+  var_len2 = strlen(Password);
+  if ((((var_len1 != var_len2) || (statuscode = strcmp(validUsername,Username), statuscode != 0)) ||
+      (statuscode = strcmp(validPassword,Password), statuscode != 0)) ||
+     ((statuscode = nvram_match("en_guest",&DAT_00089a4c), statuscode != 0 &&
+      (statuscode = nvram_match("http_power","r"), statuscode != 0)))) {
+Fail_login():
+    statuscode = FUN_0002648c(Username);
+    if (statuscode != 0) {
+      syslog(6,"Web management login failed, user=%s\n",Username);
+      statuscode = 0;
+    }
+    return statuscode;
+  }
+  statuscode = FUN_0002b4fc();
+  pcVar6 = (char *)nvram_get("auth_time");
+  if (pcVar6 == (char *)0x0) {
+    pcVar6 = "";
+  }
+  iVar7 = nvram_match("http_power",&DAT_00081240);
+  if (iVar7 == 0) {
+LAB_0002c17c:
+    lVar8 = atol(pcVar6);
+    if ((statuscode < lVar8) || (iVar7 <= statuscode - lVar8)) {
+      syslog(6,"Administrator session timeout.");
+      varBool = true;
+      goto Login();
+    }
+  }
+  else {
+    __nptr = (char *)nvram_get("admin_timeout");
+    if (__nptr == (char *)0x0) {
+      __nptr = "";
+    }
+    iVar7 = atoi(__nptr);
+    if (iVar7 != 99) {
+      iVar7 = iVar7 * 0x3c;
+      goto LAB_0002c17c;
+    }
+  }
+  varBool = false;
+Login():
+  statuscode = nvram_match("auth_st",&DAT_000899d8);
+  if (((statuscode == 0) || (statuscode = nvram_match("http_power",&DAT_00081240), statuscode == 0)) || (varBool)) {
+    nvram_set("http_power",&local_32);
+    pcVar6 = (char *)nvram_get("session_key");
+    if (pcVar6 == (char *)0x0) {
+      pcVar6 = "";
+    }
+    statuscode = 1;
+    FUN_0001f8fc(pcVar6,&DAT_000816f4);
+  }
+  else {
+    statuscode = strcmp((char *)&local_32,"rw");
+    if (statuscode == 0) {
+      pcVar6 = (char *)nvram_get("session_key");
+      if (pcVar6 == (char *)0x0) {
+        pcVar6 = "";
+      }
+      nvram_set("tmp_auth_key",pcVar6);
+      FilePoint = fopen("/dev/console","w");
+      if (FilePoint != (FILE *)0x0) {
+        fwrite("If you want to close the other session, please click on \'Continue\' button. Click \ 'Cancel\' to Logout.\n"
+               ,1,0x65,FilePoint);
+        fclose(FilePoint);
+      }
+      statuscode = 3;
+    }
+    else {
+      FilePoint = fopen("/dev/console","w");
+      if (FilePoint != (FILE *)0x0) {
+        fwrite("Administrator already logged in. You cannot login using Guest account.\n",1,0x47,
+               FilePoint);
+        fclose(FilePoint);
+      }
+      statuscode = 2;
+    }
+  }
+  syslog(6,"Web management login success, user=%s\n",Username);
+  return statuscode;
+}

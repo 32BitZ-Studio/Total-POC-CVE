@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+  <title>@title@ - <%= chapter.title %> - @ratpack-version@</title>
+  @head@
+</head>
+
+<body>
+
+  <header id="page-header">
+    <div class="ratpack-logo small">
+      <h1><a href="http://www.ratpack.io">Ratpack</a></h1>
+    </div>
+  </header>
+
+  <p style="text-align: center">This manual is a work in progress and is currently incomplete.<br/>If you'd like to help improve it, and we hope you do, please see <a href="https://github.com/ratpack/ratpack/blob/master/ratpack-manual/README.md#the-ratpack-manual">the README</a>.</p>
+
+  <nav class="pagination">
+    <ul>
+      <% if (prev) { %><li class="prev"><a href="<%= prev.filename %>" rel="prev"><%= prev.title %></a></li><% } %>
+      <li class="index"><a href="index.html" rel="index">Index</a></li>
+      <% if (next) { %><li class="next"><a href="<%= next.filename %>" rel="next"><%= next.title %></a></li><% } %>
+    </ul>
+  </nav>
+
+  <nav class="toc page-toc">
+    <%= chapter.toc %>
+  </nav>
+
+  <article class="manual">
+    <section class="chapter">
+      <%= chapter.content %>
+    </section>
+  </article>
+
+  <nav class="pagination">
+    <ul>
+      <% if (prev) { %><li class="prev"><a href="<%= prev.filename %>" rel="prev"><%= prev.title %></a></li><% } %>
+      <li class="index"><a href="index.html" rel="index">Index</a></li>
+      <% if (next) { %><li class="next"><a href="<%= next.filename %>" rel="next"><%= next.title %></a></li><% } %>
+    </ul>
+  </nav>
+
+  <footer id="page-footer"><div class="content">@footer@</div></footer>
+</body>
+</html>

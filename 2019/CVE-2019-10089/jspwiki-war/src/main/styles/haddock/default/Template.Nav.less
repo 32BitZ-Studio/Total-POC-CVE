@@ -1,0 +1,91 @@
+/*
+    JSPWiki - a JSP-based WikiWiki clone.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); fyou may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+*/
+/*
+Section: Page Navigation
+	Uses bootstrap styling with navigation pills, and a dropdown-menu.
+
+DOM Structure:
+(start code)
+div.row
+	ul.nav.nav-pills.pull-left
+		li.menu
+			a Menu
+		li.trail
+			a ...
+				span.caret
+			ul.dropdown-menu.pull-right
+
+	ul.nav.nav-pills.pull-right
+    	li
+    		a Attach
+    	li
+    		a Info
+    	li[.disabled]
+    		a Edit
+    	li
+    		a More
+    			span.caret
+    		ul.dropdown-menu.pull-right
+    			...
+
+(end)
+*/
+
+.header > .navigation {
+
+    background: rgba(255,255,255,.1);
+    padding:0;
+    //padding: 0 @padding-base-horizontal 0 0;
+    .clearfix;
+
+    /* hover menu items with transparent effect  - undo some of the bootstrap color settings */
+    .nav .open > a,
+    .nav > li > a:hover,
+    .nav > li > a:hover:focus {
+        background-color: rgba(255,255,255,.2);
+    }
+    .nav > li > a:focus {
+    	background-color: transparent;
+    }
+    .nav > li.disabled > a {
+        color:@silver;
+    }
+    .nav > li > a {
+    	border-radius:0;
+		> *:first-child { display:none; }
+    }
+	.nav-pills > li > a > .badge { margin:0; }
+	.nav > li > a > .badge {
+		background:rgba(255,255,255,.7);
+		color:@gray;
+		position:relative;
+		top:-.7em;
+		font-size:50%;
+	}
+    .nav > li.disabled > a > .badge {
+		background:rgba(255,255,255,.5);
+		color:@gray;
+    }
+    .nav .btn-xs .badge { background-color: @badge-bg; }  /*reset to bootstrap default for small btns also */
+
+    .nav > li > a.slimbox-link:after { color:white; font-size:70%; top:-.7em; }
+
+}

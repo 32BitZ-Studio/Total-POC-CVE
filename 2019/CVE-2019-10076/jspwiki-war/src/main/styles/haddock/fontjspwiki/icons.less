@@ -1,0 +1,435 @@
+/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+   readers do not read off random characters that represent icons */
+
+/* JSPWiki: font subset */
+/*
+.@{fa-css-prefix}-search:before { content: @fa-var-search; }
+.@{fa-css-prefix}-user:before { content: @fa-var-user; }
+.@{fa-css-prefix}-home:before { content: @fa-var-home; }
+.@{fa-css-prefix}-repeat:before { content: @fa-var-repeat; }
+.@{fa-css-prefix}-refresh:before { content: @fa-var-refresh; }
+.@{fa-css-prefix}-bookmark:before { content: @fa-var-bookmark; }
+
+.@{fa-css-prefix}-font:before { content: @fa-var-font; }
+.@{fa-css-prefix}-bold:before { content: @fa-var-bold; }
+.@{fa-css-prefix}-italic:before { content: @fa-var-italic; }
+.@{fa-css-prefix}-tint:before { content: @fa-var-tint; }
+.@{fa-css-prefix}-plus:before { content: @fa-var-plus; }
+.@{fa-css-prefix}-sign-out:before { content: @fa-var-sign-out; }
+.@{fa-css-prefix}-external-link:before { content: @fa-var-external-link; }
+.@{fa-css-prefix}-sign-in:before { content: @fa-var-sign-in; }
+.@{fa-css-prefix}-rss:before { content: @fa-var-rss; }
+.@{fa-css-prefix}-wrench:before { content: @fa-var-wrench; }
+.@{fa-css-prefix}-filter:before { content: @fa-var-filter; }
+.@{fa-css-prefix}-link:before { content: @fa-var-link; }
+.@{fa-css-prefix}-paperclip:before { content: @fa-var-paperclip; }
+.@{fa-css-prefix}-undo:before { content: @fa-var-undo; }
+.@{fa-css-prefix}-euro:before,
+.@{fa-css-prefix}-eur:before { content: @fa-var-eur; }
+
+//jspwiki specific naming
+.@{fa-css-prefix}-picture:before { content: @fa-var-picture-o; }
+.@{fa-css-prefix}-slimbox:before { content: @fa-var-play-circle-o; }
+
+//ffs
+.@{fa-css-prefix}-bookmark-o:before { content: @fa-var-bookmark-o; }
+.@{fa-css-prefix}-users:before { content: @fa-var-users; }
+.@{fa-css-prefix}-table:before { content: @fa-var-table; }
+.@{fa-css-prefix}-columns:before { content: @fa-var-columns; }
+.@{fa-css-prefix}-cutlery:before { content: @fa-var-cutlery; }
+
+.@{fa-css-prefix}-file:before { content: @fa-var-file; }
+*/
+
+@import "FontJspwiki/variables.less";
+
+
+.icon-view-menu:before { content:"\21D0"; }
+.icon-help-menu:before { content:@icon-lightbulb-o;  }
+
+// Note:  use span.icon  to grab higher specificity on this selector, to overule some .icon-all settings
+// FFS: replace by real icon?
+span.icon-info-menu {
+    font-family:@font-family-monospace;
+    &:before { content:"i"; }
+}
+
+
+.icon-none:before {
+    content: "\a0";
+}
+.icon-home {
+  &:before {
+    content: @icon-home;
+  }
+}
+.icon-search {
+  &:before {
+    content: @icon-search;
+  }
+}
+.icon-user {
+  &:before {
+    content: @icon-user;
+  }
+}
+.icon-group {
+  &:before {
+    content: @icon-group;
+  }
+}
+.icon-users {
+  &:before {
+    content: @icon-users;
+  }
+}
+.icon-bookmark {
+  &:before {
+    content: @icon-bookmark;
+  }
+}
+.icon-refresh {
+  &:before {
+    content: @icon-refresh;
+  }
+}
+.icon-repeat {
+  &:before {
+    content: @icon-repeat;
+  }
+}
+.icon-undo {
+  &:before {
+    content: @icon-undo;
+  }
+}
+.icon-picture {
+  &:before {
+    content: @icon-picture;
+  }
+}
+.icon-tint {
+  &:before {
+    content: @icon-tint;
+  }
+}
+.icon-plus {
+  &:before {
+    content: @icon-plus;
+  }
+}
+.icon-external-link {
+  &:before {
+    content: @icon-external-link;
+  }
+}
+.icon-signout {
+  &:before {
+    content: @icon-signout;
+  }
+}
+.icon-signin {
+  &:before {
+    content: @icon-signin;
+  }
+}
+.icon-rss {
+  &:before {
+    content: @icon-rss;
+  }
+}
+.icon-wrench {
+  &:before {
+    content: @icon-wrench;
+  }
+}
+.icon-filter {
+  &:before {
+    content: @icon-filter;
+  }
+}
+.icon-link {
+  &:before {
+    content: @icon-link;
+  }
+}
+.icon-paper-clip {
+  &:before {
+    content: @icon-paper-clip;
+  }
+}
+.icon-euro {
+  &:before {
+    content: @icon-euro;
+  }
+}
+.icon-slimbox,
+.icon-expand {
+  &:before {
+    content: @icon-expand;
+  }
+}
+.icon-columns {
+  &:before {
+    content: @icon-columns;
+  }
+}
+.icon-leanpub {
+  &:before {
+    content: @icon-leanpub;
+  }
+}
+.icon-acl,
+.icon-unlock-alt {
+  &:before {
+    content: @icon-unlock-alt;
+  }
+}
+.icon-file--o,
+.icon-file-o {
+  &:before {
+    content: @icon-file-o;
+  }
+}
+.icon-file-txt-o,
+.icon-file-htm-o,
+.icon-file-html-o,
+.icon-file-xml-o,
+.icon-file-csv-o,
+.icon-file-log-o,
+.icon-file-text-o {
+  &:before {
+    content: @icon-file-text-o;
+  }
+}
+
+
+.icon-pdf,
+.icon-file-pdf-o {
+  &:before {
+    content: @icon-file-pdf-o;
+  }
+}
+.icon-doc,
+.icon-file-doc-o,
+.icon-file-docx-o,
+.icon-file-word-o {
+  &:before {
+    content: @icon-file-word-o;
+  }
+}
+.icon-xls,
+.icon-file-xls-o,
+.icon-file-xlsx-o,
+.icon-file-excel-o {
+  &:before {
+    content: @icon-file-excel-o;
+  }
+}
+.icon-ppt,
+.icon-file-ppt-o,
+.icon-file-pps-o,
+.icon-file-pptx-o,
+.icon-file-powerpoint-o {
+  &:before {
+    content: @icon-file-powerpoint-o;
+  }
+}
+.icon-file-jar-o,
+.icon-file-tar-o,
+.icon-file-archive-o {
+  &:before {
+    content: @icon-file-archive-o;
+  }
+}
+.icon-file-zip-o {
+  &:before {
+    content: @icon-file-zip-o;
+  }
+}
+.icon-file-png-o,
+.icon-file-bmp-o,
+.icon-file-gif-o,
+.icon-file-jpg-o,
+.icon-file-jpeg-o,
+.icon-file-tiff-o,
+.icon-file-image-o {
+  &:before {
+    content: @icon-file-image-o;
+  }
+}
+.icon-file-photo-o {
+  &:before {
+    content: @icon-file-photo-o;
+  }
+}
+.icon-file-picture-o {
+  &:before {
+    content: @icon-file-picture-o;
+  }
+}
+.icon-file-mp3-o,
+.icon-file-wav-o,
+.icon-file-aif-o,
+.icon-file-wma-o,
+.icon-file-audio-o {
+  &:before {
+    content: @icon-file-audio-o;
+  }
+}
+.icon-file-sound-o {
+  &:before {
+    content: @icon-file-sound-o;
+  }
+}
+.icon-file-mp4-o,
+.icon-file-mpg-o,
+.icon-file-mov-o,
+.icon-file-avi-o,
+.icon-file-swf-o,
+.icon-file-wmv-o,
+.icon-file-movie-o {
+  &:before {
+    content: @icon-file-movie-o;
+  }
+}
+.icon-file-video-o {
+  &:before {
+    content: @icon-file-video-o;
+  }
+}
+.icon-puzzle-piece {
+  &:before {
+    content: @icon-puzzle-piece;
+  }
+}
+.icon-pencil {
+  &:before {
+    content: @icon-pencil;
+  }
+}
+.icon-ellipsis,
+.icon-ellipsis-v {
+  &:before {
+    content: @icon-ellipsis-v;
+  }
+}
+.icon-heart {
+  &:before {
+    content: @icon-heart;
+  }
+}
+
+.icon-star {
+  &:before {
+    content: @icon-star;
+  }
+}
+.icon-star-o {
+  &:before {
+    content: @icon-star-o;
+  }
+}
+.icon-trash-o {
+  &:before {
+    content: @icon-trash-o;
+  }
+}
+.icon-align-left {
+  &:before {
+    content: @icon-align-left;
+  }
+}
+.icon-align-center {
+  &:before {
+    content: @icon-align-center;
+  }
+}
+.icon-align-right {
+  &:before {
+    content: @icon-align-right;
+  }
+}
+.icon-align-justify {
+  &:before {
+    content: @icon-align-justify;
+  }
+}
+.icon-dedent {
+  &:before {
+    content: @icon-dedent;
+  }
+}
+.icon-indent {
+  &:before {
+    content: @icon-indent;
+  }
+}
+.icon-list-ul {
+  &:before {
+    content: @icon-list-ul;
+  }
+}
+.icon-list-ol {
+  &:before {
+    content: @icon-list-ol;
+  }
+}
+.icon-tag {
+  &:before {
+    content: @icon-tag;
+  }
+}
+.icon-location,
+.icon-map-marker {
+  &:before {
+    content: @icon-map-marker;
+  }
+}
+.icon-warning,
+.icon-bullhorn {
+  &:before {
+    content: @icon-bullhorn;
+  }
+}
+.icon-flash,
+.icon-bolt {
+  &:before {
+    content: @icon-bolt;
+  }
+}
+.icon-info,
+.icon-lightbulb-o {
+  &:before {
+    content: @icon-lightbulb-o;
+  }
+}
+.icon-smile,
+.icon-smile-o {
+  &:before {
+    content: @icon-smile-o;
+  }
+}
+.icon-frown,
+.icon-frown-o {
+  &:before {
+    content: @icon-frown-o;
+  }
+}
+.icon-meh,
+.icon-meh-o {
+  &:before {
+    content: @icon-meh-o;
+  }
+}
+.icon-error,
+.icon-bomb {
+  &:before {
+    content: @icon-bomb;
+  }
+}
+.icon-pie-chart {
+  &:before {
+    content: @icon-pie-chart;
+  }
+}

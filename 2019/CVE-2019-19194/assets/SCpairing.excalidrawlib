@@ -1,0 +1,49 @@
+{
+  "type": "excalidrawlib",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "libraryItems": [
+    {
+      "status": "unpublished",
+      "elements": [
+        {
+          "type": "text",
+          "version": 209,
+          "versionNonce": 1779406561,
+          "isDeleted": false,
+          "id": "HJqrBdtpdFTxCx0El_SOY",
+          "fillStyle": "solid",
+          "strokeWidth": 1,
+          "strokeStyle": "solid",
+          "roughness": 0,
+          "opacity": 100,
+          "angle": 0,
+          "x": 59.19444444444443,
+          "y": 333.25,
+          "strokeColor": "#000000",
+          "backgroundColor": "transparent",
+          "width": 249.51971435546875,
+          "height": 25,
+          "seed": 1945019503,
+          "groupIds": [],
+          "roundness": null,
+          "boundElements": [],
+          "updated": 1683188367828,
+          "link": null,
+          "locked": false,
+          "fontSize": 20,
+          "fontFamily": 1,
+          "text": "Pairing Feature Exchange",
+          "textAlign": "left",
+          "verticalAlign": "top",
+          "containerId": null,
+          "originalText": "Pairing Feature Exchange",
+          "lineHeight": 1.25,
+          "baseline": 18
+        }
+      ],
+      "id": "iJy8UWFnxHQ8zfxWBKBxk",
+      "created": 1683189374777
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+/*
+ * Copyright 2013 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = "Ratpack integration for the Groovy programmming language - http://groovy-lang.org"
+
+apply from: "$rootDir/gradle/groovyModule.gradle"
+
+ext.apiLinks = [
+    "http://docs.groovy-lang.org/${commonVersions.groovy}/html/api/",
+    "http://google.github.io/guava/releases/${commonVersions.guava}/api/docs"
+]
+
+dependencies {
+  compile project(":ratpack-core")
+  compile project(":ratpack-guice")
+  testCompile project(":ratpack-test")
+}
+
+processResources {
+  inputs.property("groovyVersion", commonVersions.groovy)
+  def minimumGroovyVersionFile = file("src/main/resources/ratpack/minimum-groovy-version.txt")
+  outputs.file minimumGroovyVersionFile
+
+  doFirst {
+    minimumGroovyVersionFile.parentFile.mkdirs()
+    minimumGroovyVersionFile.text = commonVersions.groovy
+  }
+}

@@ -1,0 +1,341 @@
+/*
+    JSPWiki - a JSP-based WikiWiki clone.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); fyou may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+*/
+/*
+Section: Top level HTML structure
+
+DOM Structure:
+(start code)
+	div[.container|.container-fluid][.fav-left|.fav-right|.fav-hidden]
+		div.titlebox.alert
+		div.header
+		div.row							=>Template.Navs.less
+			ul.nav.nav-pills.pull-left
+			ul.nav.nav-pills.pull-right
+		div.content[.active]			=>Template.Content.less
+			div.page
+	        	div.page-content
+    	    	div.page-footer
+			div.sidebar					=>Template.Sidebar.less
+		div.footer
+(end)
+*/
+
+/*
+Section: Title box
+    The title box is an optional alert box at the top of the page, to put
+    web-site messages, alerts, new-flashes etc.
+    It contains the content of the [TitleBox] JSPWiki page.
+    Keep the styling minimal, so the TitleBox page itself can add any style it wants.
+*/
+//.titlebox { }
+
+
+/*
+Section: Header & Footer
+    See Header.jsp, SearchBox.jsp, UserBox.jsp, Footer.jsp
+
+DOM structure:
+(start code)
+    div.header
+      div.titlebox
+      div.topline
+        div.pagename
+        div.pull-left
+            a.logo.href jspωiki  //link to the home page of this wiki
+
+        div.userbox
+            div.btn
+                span.icon-user
+                span.caret
+
+            ul.dropdown-menu[data-hover-parent="userbox"]
+                li
+      		        label.username.anonymous|asserted|authenticated
+      		    li
+                    a.btn.btn-link.login|logout  Log-in
+                    a.btn.btn-link.prefs  Prefs
+
+  		form#searchform.searchbox.pull-right.form-inline
+      		input#query.form-control[type="text"][placeholder="To search, type ahead"]
+
+		    ul.dropdown-menu.pull-right[data-hover-parent="searchbox"]
+		        li.dropdown-header
+                    button#searchSubmit.btn[type="submit"] For full search, hit enter...
+		        li.findpages ...create & clone buttons
+		        li.findpages ...other search results
+		        li.divider
+		        li.recents ...
+		        li.recents.clear ...
+
+    ...
+
+    div.footer
+        div.application-logo
+        div.copyright
+    	div.wikiversion JSPWiki version-number
+			a.feed
+(end)
+*/
+
+// Set the container width, and override it for fixed navbars in media queries
+.container {
+  .container-fixed();
+
+  @media (min-width: @screen-sm) {
+    width: @container-sm;
+  }
+  @media (min-width: @screen-md) {
+    width: @container-md;
+  }
+  @media (min-width: @screen-lg-min) {
+    width: @container-lg;
+  }
+}
+
+.titlebox {
+	color:@black;
+	.bg-warning;
+}
+
+.header, .footer {
+    .clearfix;
+	position: relative;
+    color: @wiki-header-color;
+    a { color:inherit; }
+
+    background-color:@wiki-header-bg;
+    //#gradient .radial(@wiki-header-bg; darken(@wiki-header-bg,20%));
+
+    //background-image:url(images/background.jpg);  //todo: read it from a cookie or so
+    background-size:cover; //or contain;
+    //background-position:50% 0;
+    //background-repeat:no-repeat;
+    background-attachment:fixed; //default=scroll
+
+	> *:not(.titlebox) {
+	    padding: @padding-base-horizontal/4 0 @padding-base-horizontal/4 @padding-base-horizontal;
+	}
+    .btn [class^="icon-"]:before { font-size: 1.3em; }
+}
+
+/* For hover-dropdowns, make sure there is no space between the button and the menu */
+.dropdown-menu[data-hover-parent] { margin-top: 0; }
+
+a.logo {
+    display: block;
+    font-family: @wiki-logo-font-family;
+    font-weight: 200;
+    letter-spacing: .3em;
+    text-decoration: none;
+    padding: 0.15em 0.1em .25em .45em;
+    border: 1px solid @white;
+    //border-radius: .5em;
+    color: inherit;
+    background-image: @wiki-logo-image;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    b {
+        font-size: 150%;   //@font-size-base
+        font-weight: inherit;
+        line-height: 50%;
+        letter-spacing: .08em;
+    }
+    b:before { content:"\A"; white-space:pre ;}  //carriage return hack
+
+}
+
+/*
+Fixed .header with hide (on scrolldown)  and show (on scrollup) effects.
+*/
+.fixed-header > .header {
+    position: fixed;
+    top:0;
+    z-index:5;
+    width:100%;
+    //will-change: transform;
+    .transition( transform 0.1s ease-in-out);
+    .translate( 0; 0 ); //transform: translateY(0);
+
+    //when scrolling-down,  hide the fixed header
+    &.scrolling-down {
+        .translate(0;-100%); //transform: translateY(-100%); /*hide the header*/
+    }
+}
+
+.fixed-header.container > .header {
+
+    //compensate for the 2x15px padding on the .container (bootstrap)
+    @media (min-width: @screen-sm) {
+      //width: unit(unit(@container-sm)-30,px);
+      width: @container-sm - 30px;
+    }
+    @media (min-width: @screen-md) {
+      //width: unit(unit(@container-md)-30,px);
+      width: @container-md - 30px;
+    }
+    @media (min-width: @screen-lg-min) {
+      width: unit(unit(@container-lg)-30,px);
+      width: @container-lg - 30px;
+    }
+}
+
+.header .pagename {
+    .text-overflow();
+}
+
+.pagename {
+    font-family: @wiki-logo-font-family;
+    font-size: 3em;
+    text-align: center;
+    a { text-decoration:none; }
+
+    line-height: 1.2;
+    padding: 0 .5em;
+}
+.reader .pagename {
+    font-size: 3.2em;
+    margin-bottom:.5em;
+    padding-bottom:.2em;
+    border-bottom:2px solid @link-color;
+}
+
+
+.footer {
+    background: @wiki-footer-bg;
+    padding: @padding-base-horizontal;
+	text-align: center;
+}
+
+
+/*
+Section: Sticky Footer
+This add-on will ensure to stick the footer to the bottom of the window
+even when there’s not enough content to fill the page.
+
+.can-flex :  present when the browser supports flexbox
+
+Credits: https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+*/
+
+body.can-flex {
+    //hack for IE-bug :  see https://github.com/philipwalton/flexbugs#3-min-height-on-a-flex-container-wont-apply-to-its-flex-items
+    display: flex;
+    min-height: 100vh;
+    flex-flow: column;
+
+    & > .container-fluid,
+    & > .container {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+
+        min-height: 100vh;
+
+        -webkit-flex-flow: column;
+        -moz-flex-flow: column;
+        -ms-flex-flow: column;
+        flex-flow: column;
+    }
+    & .content {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+    }
+}
+
+.wiki-version { .small; }
+
+.reader .copyright {
+    margin: 2em 0;
+    clear:both;
+}
+
+
+// CHECKME
+// *** ConflictContent.jsp ***
+// #conflict
+// #conflictother
+// #conflictown
+
+
+
+
+/*  admin beans */
+/*
+div.formcontainer
+  div.block
+    label
+    input
+    div.description
+*/
+div.admin {
+    .formcontainer {
+        .default;
+        .block { margin-bottom:.5em; }
+        label { }
+        input[type=submit] {
+            .btn;
+            .btn-primary;
+        }
+        input[type=text] {
+            .form-control;
+        }
+        table {
+            .table;
+            .table-bordered;
+            .table-striped;
+            .table-condensed;
+            .wikitable;
+            width:auto; //.table-fit;
+        }
+        .description { .help-block; }
+
+    }
+
+}
+
+    .admin-user-form {
+    	display: -ms-flex;
+	    display: -webkit-flex;
+    	display: flex;
+
+        > div#useredit {
+	        width:80%;
+        }
+        > div#userlist {
+        	margin-right: (@padding-base-horizontal*4);
+        	width:20%;
+
+            .list-group-item.new-user{
+                color: @btn-primary-color;
+                background: @btn-primary-bg;
+                border: @btn-primary-border;
+            }
+        }
+
+    }
+
+

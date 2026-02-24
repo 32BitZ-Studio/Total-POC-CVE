@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+<title>Openfire: Building the Source</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div id="pageContainer">
+
+<a name="top"></a>
+
+    <div id="pageHeader">
+        <div id="logo"></div>
+        <h1>Building the Source</h1>
+    </div>
+    <div class="navigation">
+        <a href="index.html">&laquo; Back to documentation index</a>
+    </div>
+    
+    <div id="pageBody">
+
+
+<p>This document provides detailed information for developers that wish to
+compile and make changes to the Openfire source code.</p>
+
+<p>For additional developer resources, please visit:
+<a href="http://www.igniterealtime.org">
+http://www.igniterealtime.org</a>. The Openfire build process is based on Apache Maven. Visit the
+<a href="https://maven.apache.org/">Maven website</a>
+for more information.
+
+<p>
+This documentation is divided into three sections:
+<ol>
+ <li> <a href="#source">Source</a> -- get te Openfire source code.
+    <li> <a href="#setup">Setup</a> -- how to setup your environment for Openfire development.
+    <li> <a href="#phases">Build Phases</a> -- tasks that can be performed using the build program.
+
+</ol>
+
+<p><a name="source"><b><font color="#0066cc">1.</font> Get the Openfire Source</b></a><p>
+
+You can get the Openfire source code by downloading a source distribution or
+by checking out the source code from CVS. Instructions for both options can
+be found on the <a href="http://www.igniterealtime.org/downloads/source.jsp">source page</a>. 
+
+<p><a name="setup"><b><font color="#0066cc">2.</font> Setup Your Environment</b></a><p>
+
+Getting your machine ready for development requires a few steps. Wherever
+possible, instructions are provided for both Unix/Linux and Windows users.
+<p>
+
+<b><a name="javaSetup">Configure Java for Openfire</a></b>
+<ul>
+    Java 8 (JDK 1.8) must be installed and setup on your machine. To test the installation,
+    open a shell in a Unix or a MS-DOS prompt in Windows. Check your version of
+    Java with "java -version" -- it must version 1.8 or greater.
+    If Java isn't installed, download a copy from the
+    <a href="http://www.oracle.com/technetwork/java/javase/overview/index.html">Java website</a>.
+    <p>
+    <font color="red">Important!</font> -- the Openfire build tool needs to know
+    where Java is installed on your system. You must configure the "JAVA_HOME"
+    environment variable to point to the correct directory. Instructions on
+    how to set this variable for various platforms are as follows:
+    <p>
+    <ul>
+        <li> Unix/Linux
+            <ol>
+
+                <li>Edit the ".profile" file in your home directory (or
+                    corresponding file for your shell).
+                <li>Set the JAVA_HOME environment variable by adding the
+                    following line to the file:
+                    <p><span class="code">
+                    export JAVA_HOME=/usr/local/jdk1.8
+                    </span>
+                    <p>
+                    The value "/usr/local/jdk1.8" should be replaced with your actual
+                    Java directory. Be sure there are no spaces after the end of
+                    the directory name. Do not add an extra slash after the directory name.
+                <li>Save changes to the file and then "source" it:
+                    <p><span class="code">
+                    source .profile
+                    </span>
+                    <p>
+
+                    The JAVA_HOME variable should now be configured correctly.
+            </ol>
+        <p>
+        <li> WindowsNT/2000/XP
+            <ol>
+                <li>Navigate to your desktop and right click on "My Computer";
+                    choose properties.
+                <li>Select the "Advanced" tab and click on the
+                    "Environment Variables" button.
+                <li>Click the "New..." button in the System variables section.
+                    Enter the variable name "JAVA_HOME" and set the variable
+                    value to the full path of your Java installation. For example,
+                    "c:\jdk1.8". Be sure to not add an extra slash to the end
+                    of the directory name.
+                <li>Click "OK" in all of the menus to accept the changes.
+                <li>Close any open command prompt windows. The next time you
+                    open a command prompt, the "JAVA_HOME" variable will be set
+                    correctly.
+            </ol>
+        <p>
+
+        <li> Windows95/98
+            <ol>
+                <li>Open your autoexec.bat file (often at "c:\autoexec.bat") using Notepad.
+                <li>Add a line to the end of the file that resembles the following:
+                    <p><span class="code">
+                    set JAVA_HOME=c:\jdk1.8
+                    </span>
+                    <p>
+                    The value "c:\jdk1.8" should be replaced with your actual
+                    Java directory. Be sure there are no spaces between
+                    the "=" sign or after the end of the directory name. Do
+                    not add an extra slash after the directory name.
+                <li>Save changes to autoexec.bat and restart your computer.
+            </ol>
+
+    </ul>
+</ul>
+
+<p><b><a name="maven">Install the Maven Build Tool</a></b><p>
+
+The Openfire build process uses Maven, so that tool must be installed
+and configured on your computer. First download Maven from: 
+<a href="https://maven.apache.org/">https://maven.apache.org</a>. Next, follow
+the <a href="https://maven.apache.org/users/index.html">usage instructions</a>.
+
+<p><b><a name="checkout">Test the Build </a></b><p>
+<ul>
+Navigate into the root direcotry of this distribution named via the command-line.<p>
+
+<p>
+Now, invoke the build tool to compile the Openfire source code: <span class="code">mvn compile</span>
+
+If the build tool is invoked correctly and Openfire compiles, you've correctly
+configured your copy of the Openfire source distribution.
+
+</ul>
+
+<p><b>Finished!</b><p>
+<ul>
+If you've gotten this far, you've finished setting up the Openfire source
+distribution.
+</ul>
+
+<br><br>
+
+<p><b><a name="phases"><font color="#0066cc">3.</font> Build Phases</a></b><p>
+
+    Openfire conforms to the standard Maven build process. For a full list of the
+    commands please review the Apache Maven documentation. For more complete help
+    on several commands, read the documentation below.
+
+    <br><br>
+
+    To execute a build pahse, type <code>mvn "phase"</code> where "phase" is
+    one of the keywords listed below:
+
+    <ul>
+        <li><a href="#clean">clean</a>
+        <li><a href="#compile">compile</a>
+        <li><a href="#test">test</a>
+        <li><a href="#package">package</a>
+    </ul>
+
+    <br><br>
+
+    Note that you can combine several phases, for example: <code>mvn clean package</code>.
+    When a phase is given, Maven will execute every phase in the sequence up to and
+    including the one defined. For example, when the 'package' phase is executed, the 
+    'compile' and 'test' phases are also executed (but the 'clean' phase is not, unless
+    specified explicitly). Please refer to the Maven documentation for more details.
+
+<p>
+
+
+<!--CLEAN-->
+<p><b><a name="clean">clean</a></b>
+<ul>
+<i>Syntax:</i><p>
+
+<span class="code"> mvn clean <br></span>
+
+<p><i>Description:</i></p>
+
+Cleans all artifacts of the build process.<p>
+
+<p>[<a href="#phases">return to task list</a>]
+</ul>
+
+
+<!--COMPILE-->
+<p><b><a name="compile">compile</a></b>
+<ul>
+<i>Syntax:</i><p>
+
+<span class="code"> mvn compile <br></span>
+
+<p><i>Description:</i></p>
+
+Builds Openfire components (including plugins) into the <tt>target</tt> directory of each module.
+
+<p>[<a href="#phases">return to task list</a>]
+</ul>
+
+<!--TEST-->
+<p><b><a name="test">test</a></b>
+
+<ul>
+<i>Syntax:</i><p>
+
+<span class="code"> mvn test <br></span>
+
+<p><i>Description:</i></p>
+
+Builds Openfire components, and runs all unit tests.
+
+<p>[<a href="#phases">return to task list</a>]
+
+</ul>
+
+<!--TEST-->
+<p><b><a name="package">package</a></b>
+
+<ul>
+<i>Syntax:</i><p>
+
+<span class="code"> mvn package <br></span>
+
+<p><i>Description:</i></p>
+
+Builds Openfire components, runs all unit tests, and creates a distributable package 
+in the <tt>distribution</tt> module. You can then launch
+Openfire using the scripts in <tt>distribution/target/distribution-base/bin</tt>.
+
+<p>[<a href="#phases">return to task list</a>]
+
+</ul>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>

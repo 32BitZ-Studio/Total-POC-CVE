@@ -1,0 +1,89 @@
+/*
+    JSPWiki - a JSP-based WikiWiki clone.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); fyou may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+*/
+/*
+Section: UserBox
+    See UserBox.jsp
+
+DOM structure:
+(start code)
+span.cage.pull-right.user-<loginstatus>
+
+  div.btn
+    span.icon-user
+    span.caret
+
+  ul.dropdown-menu.pull-right[data-hover-parent=".cage"]
+
+    li
+      span.icon-user
+      label.username  User greeting
+    li.divider
+    li.dropdown-header
+      div.btn-group-vertical.btn-block
+        a.login  Login | Logout
+        a.pref  User Preferences
+
+(end)
+*/
+
+.userbox {
+
+    //re-apply default <a.btn> style inside a dropdown-menu
+    .btn-primary {
+        .btn-primary;
+    }
+
+}
+
+.user-authenticated li .icon-user { .text-success; }
+.user-asserted li .icon-user { .text-warning; }
+.user-anonymous li .icon-user { .text-danger; }
+
+
+/*
+Section: Login
+    LoginContent.jsp
+*/
+
+.context-login {
+  //hide the navigation TABs and only show the tab panels
+  .page-content > ul.nav { display:none; }
+}
+
+.login-form {
+    background: @wiki-login-bg;
+    max-width: @wiki-login-width;
+    padding: 2em;
+    margin: 0 auto;
+    border-radius: .5em;
+
+    hr { border-color:@gray; }
+
+    .login-header {
+        text-align:center;
+        .lead;
+    }
+
+    .login-ref {
+        text-align:right;
+    }
+
+}

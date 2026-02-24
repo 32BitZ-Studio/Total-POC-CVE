@@ -1,0 +1,101 @@
+body {
+  font-family: Arial;
+  padding: 2em;
+  background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 1.5em;
+  font-size: 3em;
+  text-align: center;
+  background: white;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+  float: left;
+  width: 75%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  padding-left: 2em;
+}
+
+
+.featured-image{
+  margin:0 0 1.5em;
+}
+
+.featured-image img{
+  padding: 1em;
+  width:75%;
+}
+
+/* Add a card effect for articles */
+.card {
+  background-color: white;
+  padding: 2em;
+  margin-top: 2em;
+}
+
+.searchButton {
+  width: 1.3em;
+  height: 1.3em;
+  border: 0.1em solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 80%;
+  border: .3em solid #00B4CC;
+  /* border-right: none; */
+  padding: .5em;
+  height: 2em;
+  border-radius: .5 0 0 .5em;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #00B4CC;
+}
+
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+.footer {
+  padding: 2em;
+  text-align: center;
+  background: #ddd;
+  margin-top: 2em;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 80em) {
+  .leftcolumn, .rightcolumn {
+    width: 100%;
+    padding: 0;
+  }
+}

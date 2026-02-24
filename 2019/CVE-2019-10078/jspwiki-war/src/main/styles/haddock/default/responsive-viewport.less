@@ -1,0 +1,385 @@
+/*
+    JSPWiki - a JSP-based WikiWiki clone.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); fyou may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+*/
+/*
+Section: Responsive styles for small viewports or screens
+	@screen-xs-min : 600px
+	Typical layout changes needed for phones, small tablets.
+
+
+	TODO::
+		!Sidebar should automatically close after navigating ... !!
+	        default sidebar view for userpref & login : should be HIDE !
+
+	    FFS: responsive tables :  should scroll left-right on small screens
+
+*/
+
+
+/*
+very small screen-sizes,  phones in portrait mode
+*/
+@media only screen and (max-width: @wiki-xsmall-viewport) {
+
+	// Columns.less
+	.columns {
+		display:block;
+		.col {
+			min-width:100%;
+			float:none;
+			padding:0;
+		}
+		&.border {
+			> .col { padding: @padding-base-vertical  @padding-base-horizontal; }
+			> .col:not(:last-child) { border-right:none; border-bottom: 1px solid @btn-default-border; }
+		}
+
+	}
+
+
+	// CommentBox.less
+	.commentbox { width:100%; }
+
+}
+
+/*
+Medium size screens,  tablets,  phones in landscape mode
+*/
+@media only screen and (max-width: @wiki-small-viewport) {
+
+	//reusable class below
+	.input-xs {
+		.input-sm;
+		padding: @padding-xs-vertical @padding-xs-horizontal;
+		height:auto;
+	}
+	//make all buttons small
+	.btn { .btn-xs; }
+
+	// bootstrap  nav.less
+	.nav > li > a { padding: @nav-sm-link-padding; }
+
+	// bootstrap  panel.less
+	.panel-heading,
+	.panel-body { padding: @nav-sm-link-padding; }
+
+
+	// type.less
+	// grid.less
+	// tables.less
+	//	Use .table-responsive as wrapper around large wide tables
+	//  Modified from bootstrap/tables.less
+	.table-responsive {
+		overflow-x: auto;
+		min-height: 0.01%; // Workaround for IE9 bug (see https://github.com/twbs/bootstrap/issues/14837)
+
+	    width: 100%;
+	    margin-bottom: (@line-height-computed * 0.75);
+    	overflow-y: hidden;
+    	-ms-overflow-style: -ms-autohiding-scrollbar;
+    	border: 0; //overrule default bootstrap :  1px solid @table-border-color;
+
+	    // Tighten up spacing
+	    table, .wikitable {
+    		margin-bottom: 0;
+
+    		// Ensure the content doesn't wrap
+		    > thead,
+    		> tbody,
+    		> tfoot {
+        		> tr {
+        			> th,
+        			> td {
+            			white-space: nowrap;
+        			}
+        		}
+    		}
+    	}
+
+    	// Special overrides for the bordered tables
+    	.table-bordered {
+    		border: 0;
+
+    		// Nuke the appropriate borders so that the parent can handle them
+    		> thead,
+    		> tbody,
+    		> tfoot {
+        		> tr {
+        			> th:first-child,
+        			> td:first-child {
+            			border-left: 0;
+        			}
+	        		> th:last-child,
+    	    		> td:last-child {
+            			border-right: 0;
+        			}
+        		}
+    		}
+
+    		// Only nuke the last row's bottom-border in `tbody` and `tfoot` since
+    		// chances are there will be only one `tr` in a `thead` and that would
+    		// remove the border altogether.
+    		> tbody,
+    		> tfoot {
+        		> tr:last-child {
+        			> th,
+        			> td {
+            			border-bottom: 0;
+        			}
+        		}
+    		}
+    	}
+	}
+
+
+	// TableX.Sort.less
+	// TableX.Filter.less
+	// forms.less
+	.form-control {
+		width:auto;
+		display:inline;
+		//padding: @padding-xs-vertical @padding-xs-horizontal;
+
+	}
+	.form-group select {
+		padding-top: @padding-xs-vertical;
+		padding-bottom:@padding-xs-vertical;
+
+	    background-position:
+			( @padding-small-horizontal + @wikiTriangleSize/2 ) @padding-small-vertical*1,
+			( @padding-small-horizontal - @wikiTriangleSize*3/2 ) @padding-small-vertical*1;
+
+	}
+	label.form-switch {
+		padding-top: @padding-small-vertical;
+		padding-bottom:@padding-small-vertical;
+	}
+	// modals.less
+
+	// pagination.less
+	.pagination {
+	    margin: @line-height-computed 0;
+    	padding: @padding-base-vertical/2 @padding-base-horizontal/2;
+
+    	a,  .cursor {
+        	padding:0.2em;
+	        border:1px solid transparent;
+
+	        > span[class] {
+	        		position:relative;
+	        		display:inline-block;
+	        		width:1ex;
+	        		top:0.4em;
+	        		white-space:nowrap;
+	        		font-family:@font-family-monospace;
+	        		overflow:hidden;
+	        		text-align:center;
+	        		visibility:hidden;
+	        		&:before {
+	        			visibility:visible;
+	        		}
+	        }
+	        .first:before { content:"\ab"; } //<<
+	        .prev:before { content:"\3c"; } //<
+	        .next:before { content:"\3e"; } //>
+	        .last:before { content:"\bb"; } //>>
+	        .all:before  { content:"\2200"; } //all
+
+    	}
+	}
+
+	// Tips.less
+	// Magnify.less
+
+	// Viewer.less
+	.viewport {
+		max-width: @wiki-small-viewport-width;
+		height: 100vh;
+		overflow:hidden;
+	}
+	// Viewer.Slimbox.less
+	// Viewer.Carousel.less
+
+	// Template.View.less
+
+	// Make container 100% fluid
+	.container { padding:0; }
+
+	.header, .footer {
+	    .btn [class^="icon-"]:before { font-size: 1em;  }
+	}
+
+	.header > *:not(.titlebox), .footer > *:not(.titlebox) { padding:0;  }
+
+	.header .caret { display: none; }
+
+	.reader .pagename { font-size:1.5em; line-height:1.5;}
+	.pagename {
+		font-size: 1.5em;
+		line-height: 1.5;
+	}
+
+	a.logo {
+		text-indent:-99em;
+		margin-top:.7em;
+		width:2.5em;
+		height:1.5em;
+		border:none;
+		b:before {content:""};
+	}
+
+	// Template.UserBox.less
+
+	.userbox ul.dropdown-menu {
+			max-width:@wiki-small-viewport-dialog-width;
+			li:first-child a { white-space:normal; }
+	}
+	.userbox > .btn { padding: 6px  5px 6px 10px;}
+
+	// Template.SearchBox.less
+	.searchbox ul.dropdown-menu { max-width: @wiki-small-viewport-dialog-width; }
+	//.searchbox .btn .icon-search { padding: 5px 10px; }
+
+	.searchbox > .btn { padding: 6px 10px 6px 10px;}  //keep original top/bottom padding 6px
+	.searchbox > .btn > .icon-search { padding: 0;}
+
+
+
+	// Template.Nav.less
+	// Only show the menu icons
+	.header > .navigation .nav > li > a {
+		padding: 5px 10px;
+		> *:first-child { display:initial; }
+		> *:nth-child(even) { display:none; }
+	}
+	#attach .badge {
+		background:transparent;
+		color:white;
+		padding:3px 0;
+		min-width:auto;
+	}
+
+	.header > .navigation .nav > li > a {
+
+		& > *:first-child { display:inline-block; }
+		&:hover > *:first-child { animation: wiggle 1s ease-in-out infinite; }
+
+	}
+	@keyframes wiggle {
+    	0% { transform:rotate(10deg); }
+	    50% { transform:rotate(-10deg); }
+    	100% { transform:rotate(10deg); }
+	}
+
+	// Template.Content.less
+	/* hide sidebar on extra small devices, and give it a fixed width
+	   the sidebar will overlay the main page which remains fit to 100% of the screen-size
+	*/
+	.content {
+		.sidebar, &:after {
+				width: @wiki-small-viewport-dialog-width;
+				margin-left:-100%;
+		}
+	}
+	.sidebar { position:absolute; }
+
+	//show sidebar
+	.content.active {
+    	.page { width:100%; }  //keep full width
+    	.sidebar, &:after { margin-left:0; }
+	}
+	.fav-right {
+		.content {
+	    	.sidebar, &:after { margin-right:-100%; }
+    	}
+    	.sidebar { right:0; }  //positon = absolution
+		.content.active {
+    	    .sidebar, &:after { margin-right:0; }
+	    }
+	}
+
+	.page-content input { .input-xs; }
+	.page-content .btn { .btn-xs; }
+
+
+	// Template.Attach.less
+	// Template.Diff.less
+	// Template.Search.less
+	// Template.Workflow.less
+
+	// Template.Edit.less
+	.snipe {
+
+		.btn { .btn-xs; }
+
+		ul.dropdown-menu {
+			max-width:@wiki-small-viewport-dialog-width;
+		}
+
+		//hack :: unclear why this is not already inline ?
+		> .form-group  > .form-group { display:inline-block; margin-bottom:0; }
+
+		//remove less used button to make toolbar fit on narrow screens
+		.editor-tools [data-cmd=undo],
+		.editor-tools [data-cmd=redo] { display:none; }
+	}
+	input#changenote { max-width: @wiki-small-viewport-dialog-width; }
+
+
+	.slmbx,
+	.dialog.find {
+		max-width:@wiki-small-viewport-dialog-width;
+		.btn { .btn-xs; }
+		input.form-control { .input-xs; }
+	}
+
+
+	// Dialog.less
+	// Template.Preview.less
+
+    // ImagePlugin.less
+    // IndexPlugin.less
+    // TOCPlugin.less
+    // WeblogPlugin.less
+    // RecentChangesPlugin.less
+
+    // CommentBox.less
+    // GraphBar.less
+    // Tabs.less
+    // Accordion.less
+    // Columns.less
+    // Collapsible.less
+    .bullet {
+    	margin: @nav-sm-link-padding;
+	    &.xpand {
+    		margin: @nav-sm-link-padding-swap;
+	    }
+    }
+
+    // Category.less
+
+    // Flip.less
+    // Invisibles.less
+
+    // prettify.less
+
+
+} /* end of @media */
+

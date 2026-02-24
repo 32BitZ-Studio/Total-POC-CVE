@@ -1,0 +1,5 @@
+/src/ratpack/manual/*
+src/ratpack/assets
+/src/ratpack/*.class
+*.class
+*.log

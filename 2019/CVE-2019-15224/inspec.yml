@@ -1,0 +1,12 @@
+name: cve_2019_15224
+title: Malicious Gem Check for CVE-2019-15224
+maintainer: Chef Software
+copyright: Chef Software
+copyright_email: humans@chef.io
+license: Apache-2.0
+summary: A set of controls to check for the presence of CVE-2019-15224.
+version: 0.1.0
+supports:
+  - os-family: linux
+  - os-family: bsd
+  - os-family: windows

@@ -1,0 +1,89 @@
+/*
+ * Copyright 2013 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = "The core HTTP and composition mechanisms of Ratpack"
+
+apply from: "$rootDir/gradle/javaModule.gradle"
+apply from: "$rootDir/gradle/versionFile.gradle"
+
+ext.apiLinks = [
+    "http://netty.io/4.1/api/",
+    "http://www.slf4j.org/apidocs/",
+    "http://docs.oracle.com/javase/8/docs/api/",
+    "http://google.github.io/guava/releases/${commonVersions.guava}/api/docs",
+    "http://www.reactive-streams.org/reactive-streams-${commonVersions.reactiveStreams - '.final'}-javadoc/",
+    "https://fasterxml.github.io/jackson-databind/javadoc/2.9/",
+    "https://fasterxml.github.io/jackson-modules-java8/javadoc/datatypes/2.9/",
+    "https://fasterxml.github.io/jackson-modules-java8/javadoc/datetime/2.9/",
+    "https://fasterxml.github.io/jackson-datatypes-collections/javadoc/guava/2.9/"
+]
+
+dependencies {
+  compile project(":ratpack-exec")
+  compile "io.netty:netty-codec-http:$commonVersions.netty"
+  compile "io.netty:netty-handler:$commonVersions.netty"
+  compile 'com.sun.activation:javax.activation:1.2.0'
+
+  compile "com.github.ben-manes.caffeine:caffeine:${commonVersions.caffeine}"
+
+  compile 'org.javassist:javassist:3.22.0-GA'
+
+  compile commonDependencies.jackson
+  compile("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${commonVersions.jackson}") {
+    exclude group: "org.yaml", module: "snakeyaml"
+  }
+  compile("com.fasterxml.jackson.datatype:jackson-datatype-guava:${commonVersions.jackson}") {
+    exclude group: "com.google.guava", module: "guava"
+    exclude group: "org.yaml", module: "snakeyaml"
+  }
+  compile commonDependencies.snakeyaml
+  compile "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${commonVersions.jackson}"
+  compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${commonVersions.jackson}"
+
+  testCompile 'org.apache.commons:commons-lang3:3.3.2'
+
+  testCompile 'com.opencsv:opencsv:3.3'
+  testCompile('com.github.tomakehurst:wiremock:1.56') {
+    exclude group: "org.slf4j", module: "slf4j-api"
+    exclude group: "com.fasterxml.jackson.core", module: "jackson-annotations"
+    exclude group: "com.fasterxml.jackson.core", module: "jackson-core"
+    exclude group: "com.fasterxml.jackson.core", module: "jackson-databind"
+    exclude group: "com.google.guava", module: "guava"
+  }
+}
+
+test {
+  maxParallelForks = 3
+}
+
+// Reactive Streams TCK uses TestNG, and Gradle can't run TestNG and JUnit in the same run.
+task streamTckTest(type: Test) {
+  tasks.check.dependsOn it
+
+  useTestNG()
+  scanForTestClasses = false
+  include "**/stream/tck/*"
+
+  classpath = sourceSets.test.runtimeClasspath
+
+  binResultsDir = file("$buildDir/$name-results/binary")
+  reports {
+    html.destination = file("$buildDir/reports/$name")
+    junitXml.destination = binResultsDir.parentFile
+  }
+
+  maxParallelForks = 4
+}

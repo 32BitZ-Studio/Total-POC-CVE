@@ -1,0 +1,127 @@
+# Talos-style PROTOCOL-SCADA Rules (Examples)
+# These demonstrate the modbus_func, modbus_unit, and modbus_data rule options
+# For full Talos PROTOCOL-SCADA coverage, subscribe at https://snort.org/products
+#
+# Reference: https://github.com/Cisco-Talos/snort-faq/blob/master/docs/README.modbus
+
+# =============================================================================
+# Modbus Function Code Monitoring (using modbus_func keyword)
+# =============================================================================
+
+# Write Coils - Bulk coil modification (dangerous operation)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"PROTOCOL-SCADA Modbus Write Multiple Coils request"; \
+    flow:to_server,established; \
+    modbus_func:write_multiple_coils; \
+    classtype:protocol-command-decode; \
+    sid:2000001; \
+    rev:1; \
+)
+
+# Write Registers - Bulk register modification (dangerous operation)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"PROTOCOL-SCADA Modbus Write Multiple Registers request"; \
+    flow:to_server,established; \
+    modbus_func:write_multiple_registers; \
+    classtype:protocol-command-decode; \
+    sid:2000002; \
+    rev:1; \
+)
+
+# Diagnostics function - Can be used for DoS attacks
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"PROTOCOL-SCADA Modbus Diagnostics request"; \
+    flow:to_server,established; \
+    modbus_func:diagnostics; \
+    classtype:attempted-dos; \
+    sid:2000003; \
+    rev:1; \
+)
+
+# Read Device Identification - Reconnaissance
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"PROTOCOL-SCADA Modbus Read Device Identification"; \
+    flow:to_server,established; \
+    modbus_func:43; \
+    classtype:attempted-recon; \
+    sid:2000004; \
+    rev:1; \
+)
+
+# =============================================================================
+# Protocol Violations (using modbus_data for payload inspection)
+# =============================================================================
+
+# Invalid protocol identifier (not 0x0000)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"PROTOCOL-SCADA Modbus invalid protocol identifier"; \
+    flow:to_server,established; \
+    content:!"|00 00|"; offset:2; depth:2; \
+    classtype:non-standard-protocol; \
+    sid:2000010; \
+    rev:1; \
+)
+
+# =============================================================================
+# Unit ID Restrictions (using modbus_unit keyword)
+# Uncomment and modify for your environment
+# =============================================================================
+
+# Alert on commands to specific critical unit
+# alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+#     msg:"PROTOCOL-SCADA Modbus command to critical Unit 1"; \
+#     flow:to_server,established; \
+#     modbus_unit:1; \
+#     classtype:policy-violation; \
+#     sid:2000020; \
+#     rev:1; \
+# )
+
+# =============================================================================
+# Vendor-Specific Vulnerability Detection
+# Based on publicly disclosed SCADA CVEs
+# =============================================================================
+
+# Schneider Electric Modbus buffer overflow pattern
+# Reference: CVE-2018-7822 and similar
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"PROTOCOL-SCADA Schneider Electric ModbusDrv potential overflow"; \
+    flow:to_server,established; \
+    dsize:>253; \
+    modbus_func:16; \
+    classtype:attempted-admin; \
+    reference:cve,2018-7822; \
+    sid:2000030; \
+    rev:1; \
+)
+
+# =============================================================================
+# Denial of Service Detection
+# =============================================================================
+
+# Rapid-fire Modbus requests (potential flood attack)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"PROTOCOL-SCADA Modbus request flood detected"; \
+    flow:to_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    threshold:type both, track by_src, count 100, seconds 10; \
+    classtype:attempted-dos; \
+    sid:2000040; \
+    rev:1; \
+)
+
+# =============================================================================
+# Broadcast/Wildcard Detection
+# =============================================================================
+
+# Broadcast unit ID (0xFF) - affects all devices
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"PROTOCOL-SCADA Modbus broadcast unit ID detected"; \
+    flow:to_server,established; \
+    content:"|00 00|"; offset:2; depth:2; \
+    content:"|FF|"; offset:6; depth:1; \
+    classtype:policy-violation; \
+    sid:2000050; \
+    rev:1; \
+)
+

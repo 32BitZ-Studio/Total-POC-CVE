@@ -1,0 +1,34 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+  <title>@title@ - Table of Contents - @ratpack-version@</title>
+  @head@
+</head>
+
+<body>
+
+  <header id="page-header">
+    <div class="ratpack-logo">
+      <h1><a href="http://www.ratpack.io">Ratpack</a></h1>
+      <p>@tagline@</p>
+    </div>
+  </header>
+
+  <p style="text-align: center">This manual is a work in progress and is currently incomplete.<br/>If you'd like to help improve it, and we hope you do, please see <a href="https://github.com/ratpack/ratpack/blob/master/ratpack-manual/README.md#the-ratpack-manual">the README</a>.</p>
+
+  <nav class="toc all-toc multi-page-toc">
+    <header class="manual-links">
+      <div class="content">
+        <h2>Version: @ratpack-version@</h2>
+        <a href="index.html" class="active">Multi Page</a>
+        <a href="all.html">Single Page</a>
+        <a href="api/index.html" class="active">API Reference</a>
+      </div>
+    </header>
+    <%= toc %>
+  </nav>
+
+  <footer id="page-footer"><div class="content">@footer@</div></footer>
+</body>
+</html>

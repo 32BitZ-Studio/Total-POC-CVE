@@ -1,0 +1,58 @@
+# Local Rules - Custom detections for ICS security research
+#
+# For defensive security research demonstration.
+
+# ============================================================
+# CVE-2019-14462 Specific Detection
+# Detect the DEADBEEF overflow pattern
+# ============================================================
+
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"CVE-2019-14462 Attack Pattern Detected (DEADBEEF)"; \
+    flow:to_server,established; \
+    content:"|DE AD BE EF|"; \
+    classtype:attempted-admin; \
+    priority:1; \
+    sid:2000001; \
+    rev:1; \
+)
+
+# Detect large Modbus payloads (potential overflow attempt)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"MODBUS Oversized Payload - Possible Buffer Overflow"; \
+    flow:to_server,established; \
+    dsize:>300; \
+    classtype:attempted-admin; \
+    priority:1; \
+    sid:2000002; \
+    rev:1; \
+)
+
+# ============================================================
+# FrostyGoop Attack Pattern Detection
+# ============================================================
+
+# Rapid register write sequence (possible attack automation)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"MODBUS Rapid Write Commands - Possible Automated Attack"; \
+    flow:to_server,established; \
+    modbus_func:6; \
+    threshold:type both, track by_src, count 10, seconds 5; \
+    classtype:attempted-admin; \
+    priority:1; \
+    sid:2000010; \
+    rev:1; \
+)
+
+# Setpoint manipulation (write to register 2 = temperature setpoint)
+alert tcp any any -> $MODBUS_SERVER $MODBUS_PORTS ( \
+    msg:"MODBUS Temperature Setpoint Write - Monitor"; \
+    flow:to_server,established; \
+    modbus_func:6; \
+    modbus_data; \
+    content:"|00 02|"; offset:0; depth:2; \
+    classtype:protocol-command-decode; \
+    priority:2; \
+    sid:2000011; \
+    rev:1; \
+)
