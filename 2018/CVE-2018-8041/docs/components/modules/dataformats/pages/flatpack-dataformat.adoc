@@ -1,1 +1,0 @@
-../../../../../components/camel-flatpack/src/main/docs/flatpack-dataformat.adoc

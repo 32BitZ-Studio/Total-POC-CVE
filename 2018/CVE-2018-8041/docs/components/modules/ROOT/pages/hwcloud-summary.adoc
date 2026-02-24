@@ -1,1 +1,0 @@
-../../../../../components/camel-huawei/src/main/docs/hwcloud-summary.adoc

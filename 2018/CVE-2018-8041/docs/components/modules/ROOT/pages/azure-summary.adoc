@@ -1,1 +1,0 @@
-../../../../../components/camel-azure/src/main/docs/azure-summary.adoc

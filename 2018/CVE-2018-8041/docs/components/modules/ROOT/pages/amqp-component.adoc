@@ -1,1 +1,0 @@
-../../../../../components/camel-amqp/src/main/docs/amqp-component.adoc

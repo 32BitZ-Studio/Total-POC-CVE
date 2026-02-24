@@ -1,1 +1,0 @@
-../../../../../components/camel-kafka/src/main/docs/kafka-component.adoc

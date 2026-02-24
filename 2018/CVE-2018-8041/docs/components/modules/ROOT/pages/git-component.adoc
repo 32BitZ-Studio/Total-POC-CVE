@@ -1,1 +1,0 @@
-../../../../../components/camel-git/src/main/docs/git-component.adoc

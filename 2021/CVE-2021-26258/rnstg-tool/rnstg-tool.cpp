@@ -1,0 +1,515 @@
+#include <Windows.h>
+#include <stdio.h>
+
+VOID LoadXml(
+    IN LPCWSTR FileName,
+    OUT PVOID* ppOutData,
+    OUT PULONG OutSize)
+{
+    *ppOutData = nullptr;
+    *OutSize = 0;
+    PVOID Buffer = nullptr;
+
+    HANDLE hConfig = CreateFileW(FileName, GENERIC_READ, 7, 0, OPEN_EXISTING, 0, 0);
+    if (hConfig == INVALID_HANDLE_VALUE)
+    {
+        return;
+    }
+
+    LARGE_INTEGER Size;
+    BOOL r = GetFileSizeEx(hConfig, &Size);
+    if (r == FALSE)
+    {
+        printf("GetFileSizeEx failed: %d\n", GetLastError());
+        goto Exit;
+    }
+
+    if (Size.HighPart != 0)
+    {
+        printf("4GB XML? Seriously? No way.\n");
+        goto Exit;
+
+    }
+
+    Buffer = HeapAlloc(GetProcessHeap(), 0, Size.LowPart);
+    if (Buffer == nullptr)
+    {
+        printf("HeapAlloc failed.\n");
+        goto Exit;
+    }
+
+    DWORD BytesRead;
+    r = ReadFile(hConfig, Buffer, Size.LowPart, &BytesRead, nullptr);
+    if (r == FALSE)
+    {
+        HeapFree(GetProcessHeap(), 0, Buffer);
+        Buffer = nullptr;
+    }
+
+Exit:
+    CloseHandle(hConfig);
+    if (Buffer != nullptr)
+    {
+        *OutSize = Size.LowPart;
+        *ppOutData = Buffer;
+    }
+}
+
+VOID HashToString(
+    IN HCRYPTHASH hOrigHash,
+    OUT PWCHAR *ppHashString)
+{
+    HCRYPTHASH hHash;
+    BYTE*      pbHash;
+    DWORD      dwHashLen;
+    DWORD      dwHashLenSize = sizeof(DWORD);
+    wchar_t*   HashString = NULL;
+
+    *ppHashString = nullptr;
+    BOOL r = CryptDuplicateHash(
+        hOrigHash,
+        NULL,
+        0,
+        &hHash);
+    if (r == FALSE)
+    {
+        printf("CryptDuplicateHash failed: %d\n", GetLastError());
+        return;
+    }
+
+    r = CryptGetHashParam(
+        hHash,
+        HP_HASHSIZE,
+        (BYTE*)&dwHashLen,
+        &dwHashLenSize,
+        0);
+    if (r == FALSE)
+    {
+        printf("CryptGetHashParam failed: %d\n", GetLastError());
+        goto Exit;
+    }
+
+    pbHash = (PBYTE)HeapAlloc(GetProcessHeap(), 0, dwHashLen);
+    if (pbHash == nullptr)
+    {
+        printf("HeapAlloc failed\n");
+        goto Exit;
+    }
+
+    r = CryptGetHashParam(
+        hHash,
+        HP_HASHVAL,
+        pbHash,
+        &dwHashLen,
+        0);
+    if (r == FALSE)
+    {
+        printf("CryptGetHashParam failed: %d\n", GetLastError());
+    }
+    else
+    {
+        if (dwHashLen != 0x10)
+        {
+            printf("dwHashLen != 0x10. WAT?\n");
+        }
+        else
+        {
+            DWORD len = dwHashLen * 2 + 1; //2 chars for every hexadigit + trailing zero
+            HashString = (PWCHAR)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, len * sizeof(HashString[0]));
+            if (HashString == NULL)
+            {
+                printf("HeapAlloc failed\n");
+            }
+            else
+            {
+                swprintf_s(HashString, len, L"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+                    pbHash[0], pbHash[1], pbHash[2], pbHash[3],
+                    pbHash[4], pbHash[5], pbHash[6], pbHash[7],
+                    pbHash[8], pbHash[9], pbHash[10], pbHash[11],
+                    pbHash[12], pbHash[13], pbHash[14], pbHash[15]
+                );
+                *ppHashString = HashString;
+            }
+        }
+        // Print the hash value.
+        //printf("The hash is:  ");
+        //for (i = 0; i < dwHashLen; i++)
+        //{
+        //	printf("%02x ", pbHash[i]);
+        //}
+        //printf("\n");
+    }
+
+    HeapFree(GetProcessHeap(), 0, pbHash);
+
+ Exit:
+    r = CryptDestroyHash(hHash);
+    if (r == FALSE)
+    {
+        printf("CryptDestroyHash failed: %d\n", GetLastError());
+    }
+}
+
+VOID GetDataMD5(
+    IN PVOID Data,
+    IN ULONG Length,
+    OUT PWCHAR* MD5String)
+{
+    PBYTE p = reinterpret_cast<PBYTE>(Data);
+    HCRYPTPROV hCryptProv = NULL;
+    HCRYPTHASH hOriginalHash = NULL;
+
+    *MD5String = nullptr;
+    BOOL r = CryptAcquireContext(
+        &hCryptProv,
+        NULL,
+        NULL,
+        PROV_RSA_FULL,
+        0);
+    if (r == FALSE)
+    {
+        printf("CryptAcquireContext failed: %d\n", GetLastError());
+        return;
+    }
+
+    r = CryptCreateHash(
+        hCryptProv,
+        CALG_MD5,
+        0,
+        0,
+        &hOriginalHash);
+    if (r == FALSE)
+    {
+        printf("CryptCreateHash failed: %d\n", GetLastError());
+        goto Exit;
+    }
+
+    r = CryptHashData(
+        hOriginalHash,
+        p,
+        Length,
+        0);
+    if (r == FALSE)
+    {
+        printf("CryptHashData failed: %d\n", GetLastError());
+        goto Exit;
+    }
+
+    HashToString(hOriginalHash, MD5String);
+
+Exit:
+    if (hOriginalHash != NULL)
+    {
+        CryptDestroyHash(hOriginalHash);
+    }
+
+    if (hCryptProv)
+    {
+        CryptReleaseContext(hCryptProv, 0);
+    }
+}
+
+VOID XorBuffer(
+    IN OUT PVOID Buffer,
+    IN ULONG Length)
+{
+    PUCHAR p = reinterpret_cast<PUCHAR>(Buffer);
+    ULONG Key = Length;
+    UCHAR k;
+    ULONG i;
+
+    for (i = 0; i < Length; i++)
+    {
+        Key *= 0x10003;
+        Key++;
+        k = (UCHAR)(Key >> 0x10);
+        p[i] ^= k;
+    }
+
+}
+
+VOID CreateStg(
+    IN LPCWSTR XmlPath,
+    IN LPCWSTR StgPath)
+{
+    HRESULT hr;
+    IStorage* pStorage = nullptr;
+    IStream* pStream = nullptr;
+    IPropertySetStorage* pPropSetStg = nullptr;
+    IPropertyStorage* pPropStg = nullptr;
+    PWCHAR MD5String = nullptr;
+
+    ULONG SizeOfXml;
+    PVOID XmlData;
+    LoadXml(XmlPath, &XmlData, &SizeOfXml);
+    if (XmlData == nullptr)
+    {
+        printf("LoadXml failed\n");
+        return;
+    }
+
+    hr = StgCreateStorageEx(StgPath,
+        STGM_CREATE | STGM_READWRITE | STGM_SHARE_EXCLUSIVE,
+        STGFMT_STORAGE,
+        0, nullptr, nullptr,
+        IID_IStorage,
+        reinterpret_cast<void**>(&pStorage));
+    if (FAILED(hr))
+    {
+        printf("StgOpenStorageEx failed: %x\n", hr);
+        goto Exit;
+    }
+
+    hr = pStorage->CreateStream(
+        L"rn.xml",
+        STGM_SHARE_EXCLUSIVE | STGM_READWRITE,
+        0,
+        0,
+        &pStream
+    );
+    if (FAILED(hr))
+    {
+        printf("pStorage->CreateStream failed: %x\n", hr);
+        goto Exit;
+    }
+
+    XorBuffer(XmlData, SizeOfXml);
+
+    ULONG cbWritten;
+    hr = pStream->Write(XmlData, SizeOfXml, &cbWritten);
+    if (FAILED(hr))
+    {
+        printf("pStream->Write failed: %x\n", hr);
+        goto Exit;
+    }
+
+    hr = StgCreatePropSetStg(pStorage, 0, &pPropSetStg);
+    if (FAILED(hr))
+    {
+        printf("StgCreatePropSetStg failed: %x\n", hr);
+        goto Exit;
+    }
+
+    hr = pPropSetStg->Create(FMTID_UserDefinedProperties, NULL, PROPSETFLAG_DEFAULT, STGM_CREATE | STGM_READWRITE | STGM_SHARE_EXCLUSIVE, &pPropStg);
+    if (FAILED(hr))
+    {
+        printf("pPropSetStg->Create failed: %x\n", hr);
+        goto Exit;
+    }
+    {
+        PROPSPEC propSpec;
+        PROPVARIANT propVariant;
+
+        GetDataMD5(XmlData, SizeOfXml, &MD5String);
+        if (MD5String == nullptr)
+        {
+            printf("GetDataMD5 failed\n");
+            goto Exit;
+        }
+
+        propVariant.vt = VT_BSTR;
+        propVariant.bstrVal = SysAllocString(MD5String);
+        WCHAR propName[] = { 'M', 'D', '5', 'C', 'h', 'e', 'c', 'k', 's', 'u', 'm', 0 };
+        propSpec.ulKind = PRSPEC_LPWSTR;
+        propSpec.lpwstr = propName;// L"MD5Checksum";
+        hr = pPropStg->WriteMultiple(1, &propSpec, &propVariant, PID_FIRST_USABLE);
+        SysFreeString(propVariant.bstrVal);
+        HeapFree(GetProcessHeap(), 0, MD5String);
+
+        if (FAILED(hr))
+        {
+            printf("pPropStg->WriteMultiple failed: %x\n", hr);
+        }
+        else
+        {
+            printf("Storage file created\n");
+        }
+    }
+
+Exit:
+    if (XmlData != nullptr)
+    {
+        HeapFree(GetProcessHeap(), 0, XmlData);
+    }
+    if (pPropSetStg)
+    {
+        pPropSetStg->Release();
+    }
+    if (pPropStg)
+    {
+        hr = pPropStg->Commit(0);
+        pPropStg->Release();
+    }
+    if (pStream)
+    {
+        hr = pStream->Commit(0);
+        pStream->Release();
+    }
+    if (pStorage)
+    {
+        hr = pStorage->Commit(0);
+        pStorage->Release();
+    }
+}
+
+VOID UnpackStg(
+    IN LPCWCHAR StgPath,
+    OUT PWCHAR* ppStgBuffer,
+    OUT PULONG pStgBufferLength
+    )
+{
+    HRESULT hr;
+    IStorage* pStorage = nullptr;
+    IStream* pStream = nullptr;
+    PVOID StgData = nullptr;
+
+    *ppStgBuffer = nullptr;
+
+    hr = StgOpenStorageEx(StgPath,
+        STGM_READ | STGM_SHARE_DENY_WRITE,
+        STGFMT_ANY,
+        0, NULL, NULL,
+        IID_IStorage,
+        reinterpret_cast<void**>(&pStorage));
+    if (FAILED(hr))
+    {
+        printf("StgOpenStorageEx failed: %x\n", hr);
+        return;
+    }
+
+    hr = pStorage->OpenStream(
+        L"rn.xml",
+        0,
+        STGM_SHARE_EXCLUSIVE,
+        0,
+        &pStream
+    );
+    if (FAILED(hr))
+    {
+        printf("pStorage->OpenStream failed: %x\n", hr);
+        goto Exit;
+    }
+
+    STATSTG stat;
+    ULONG cbRead;
+    hr = pStream->Stat(&stat, STATFLAG_NONAME);
+    if (FAILED(hr))
+    {
+        printf("pStream->Stat failed: %x\n", hr);
+        goto Exit;
+    }
+
+    StgData = HeapAlloc(GetProcessHeap(), 0, stat.cbSize.LowPart);
+    if (StgData == nullptr)
+    {
+        printf("HeapAlloc failed\n");
+        goto Exit;
+    }
+
+    hr = pStream->Read(StgData, stat.cbSize.LowPart, &cbRead);
+    if (FAILED(hr))
+    {
+        printf("pStream->Read failed: %x\n", hr);
+        goto Exit;
+    }
+
+    XorBuffer(StgData, cbRead);
+    *ppStgBuffer = reinterpret_cast<PWCHAR>(StgData);
+    *pStgBufferLength = cbRead;
+
+Exit:
+    if (pStream != nullptr)
+    {
+        pStream->Release();
+    }
+    if (pStorage)
+    {
+        pStorage->Release();
+    }
+}
+
+VOID UnpackStgFile(
+    IN LPCWSTR StgPath,
+    IN LPCWSTR XmlPath)
+{
+    PWCHAR StgBuffer;
+    ULONG StgBufferLength;
+    UnpackStg(StgPath, &StgBuffer, &StgBufferLength);
+
+    if (StgBuffer == nullptr)
+    {
+        printf("UnpackStg failed\n");
+        return;
+    }
+
+    HANDLE hStg = CreateFileW(
+        XmlPath,
+        GENERIC_WRITE,
+        FILE_SHARE_READ,
+        nullptr,
+        OPEN_ALWAYS,
+        0,
+        nullptr);
+    if (hStg == INVALID_HANDLE_VALUE)
+    {
+        printf("CreateFileW failed: %d\n", GetLastError());
+    }
+    else
+    {
+        DWORD BytesWritten;
+        BOOL r = WriteFile(hStg, StgBuffer, StgBufferLength, &BytesWritten, nullptr);
+        if (r == FALSE)
+        {
+            printf("WriteFile failed: %d\n", GetLastError());
+        }
+        else
+        {
+            printf("Storage file unpacked\n");
+        }
+
+        CloseHandle(hStg);
+        HeapFree(GetProcessHeap(), 0, StgBuffer);
+    }
+}
+
+VOID Help()
+{
+    printf(
+        "Usage:\n"
+        "\trnsrg-tool { pack path-to-xml path-to-stg | unpack path-to-stg path-to-xml }\n"
+        "Do not confuse path to .xml with path to .stg! The PoC overwrites file without checking actual content.\n");
+}
+
+int wmain(int argc, wchar_t** argv)
+{
+    if (argc < 4)
+    {
+        Help();
+        return -1;
+    }
+
+    HRESULT hr = CoInitialize(nullptr);
+    if (FAILED(hr))
+    {
+        printf("CoInitialize failed: %x\n", hr);
+        return -1;
+    }
+
+    if (lstrcmpW(argv[1], L"pack") == 0)
+    {
+        CreateStg(argv[2], argv[3]);
+    }
+    else if (lstrcmpW(argv[1], L"unpack") == 0)
+    {
+        UnpackStgFile(argv[2], argv[3]);
+    }
+    else
+    {
+        printf("Missing command\n");
+        Help();
+    }
+
+    CoUninitialize();
+
+    return 0;
+}

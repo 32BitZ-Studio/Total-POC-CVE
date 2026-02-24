@@ -1,0 +1,1 @@
+Get-ADGroup -Filter * -Property whenChanged, whenCreated | Export-Csv -Path C:\Temp\AdGroups.csv -NoTypeInformation

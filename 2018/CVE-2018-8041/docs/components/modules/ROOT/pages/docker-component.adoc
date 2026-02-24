@@ -1,1 +1,0 @@
-../../../../../components/camel-docker/src/main/docs/docker-component.adoc

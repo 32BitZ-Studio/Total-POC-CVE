@@ -1,1 +1,0 @@
-../../../../../components/camel-debezium/camel-debezium-postgres/src/main/docs/debezium-postgres-component.adoc

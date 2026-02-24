@@ -1,1 +1,0 @@
-../../../../../components/camel-slack/src/main/docs/slack-component.adoc

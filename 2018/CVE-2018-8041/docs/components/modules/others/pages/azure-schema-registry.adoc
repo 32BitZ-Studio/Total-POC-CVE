@@ -1,1 +1,0 @@
-../../../../../components/camel-azure/camel-azure-schema-registry/src/main/docs/azure-schema-registry.adoc

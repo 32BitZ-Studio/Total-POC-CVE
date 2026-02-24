@@ -1,1 +1,0 @@
-../../../../../components/camel-microprofile/camel-microprofile-fault-tolerance/src/main/docs/microprofile-fault-tolerance.adoc

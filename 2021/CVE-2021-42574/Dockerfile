@@ -1,0 +1,7 @@
+FROM rust:1.56
+
+COPY ./ ./
+
+RUN cargo build --release
+
+CMD [ "./target/release/CVE-2021-42574" ]

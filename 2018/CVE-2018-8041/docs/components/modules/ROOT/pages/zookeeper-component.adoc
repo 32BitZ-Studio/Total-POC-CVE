@@ -1,1 +1,0 @@
-../../../../../components/camel-zookeeper/src/main/docs/zookeeper-component.adoc

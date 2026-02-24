@@ -1,1 +1,0 @@
-../../../../../components/camel-printer/src/main/docs/lpr-component.adoc

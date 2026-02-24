@@ -1,1 +1,0 @@
-../../../../../components/camel-influxdb/src/main/docs/influxdb-component.adoc

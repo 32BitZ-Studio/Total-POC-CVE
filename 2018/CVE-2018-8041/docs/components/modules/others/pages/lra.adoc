@@ -1,1 +1,0 @@
-../../../../../components/camel-lra/src/main/docs/lra.adoc

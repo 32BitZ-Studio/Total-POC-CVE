@@ -1,1 +1,0 @@
-../../../../../components/camel-whatsapp/src/main/docs/whatsapp-component.adoc

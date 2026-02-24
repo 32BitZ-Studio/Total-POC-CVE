@@ -1,2 +1,0 @@
-org.keycloak.testsuite.federation.DummyUserFederationProviderFactory
-org.keycloak.testsuite.federation.UserMapStorageFactory

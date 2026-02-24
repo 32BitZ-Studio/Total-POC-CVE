@@ -1,1 +1,0 @@
-../../../../../components/camel-aws/camel-aws2-mq/src/main/docs/aws2-mq-component.adoc

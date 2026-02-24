@@ -1,0 +1,15 @@
+# https://www.forum-nas.fr/threads/filebrowser-une-interface-graphique-pour-parcourir-et-partager-les-fichiers-de-votre-serveur.15308/
+version: "3.7"
+services:
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser:v2.17.2
+    restart: unless-stopped
+    environment:
+      - PUID=1026
+      - PGID=100
+      - TZ=Europe/Paris
+    ports:
+      - 8080:80
+    volumes:
+      - ./config/database.db:/database.db

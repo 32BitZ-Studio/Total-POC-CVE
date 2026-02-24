@@ -1,1 +1,0 @@
-../../../../../components/camel-aws/camel-aws-bedrock/src/main/docs/aws-bedrock-agent-component.adoc

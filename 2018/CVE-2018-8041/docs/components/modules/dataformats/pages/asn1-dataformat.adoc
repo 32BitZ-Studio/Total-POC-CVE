@@ -1,1 +1,0 @@
-../../../../../components/camel-asn1/src/main/docs/asn1-dataformat.adoc

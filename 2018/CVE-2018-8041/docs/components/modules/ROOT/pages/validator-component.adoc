@@ -1,1 +1,0 @@
-../../../../../components/camel-validator/src/main/docs/validator-component.adoc

@@ -1,1 +1,0 @@
-../../../../../components/camel-dropbox/src/main/docs/dropbox-component.adoc

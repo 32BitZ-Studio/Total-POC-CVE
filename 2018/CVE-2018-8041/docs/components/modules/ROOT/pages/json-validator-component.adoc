@@ -1,1 +1,0 @@
-../../../../../components/camel-json-validator/src/main/docs/json-validator-component.adoc

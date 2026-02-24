@@ -1,1 +1,0 @@
-../../../../../components/camel-wordpress/src/main/docs/wordpress-component.adoc

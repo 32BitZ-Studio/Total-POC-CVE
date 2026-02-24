@@ -1,1 +1,0 @@
-../../../../../components/camel-dynamic-router/src/main/docs/dynamic-router-component.adoc

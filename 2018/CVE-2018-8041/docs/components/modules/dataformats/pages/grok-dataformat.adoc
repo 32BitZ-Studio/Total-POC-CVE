@@ -1,1 +1,0 @@
-../../../../../components/camel-grok/src/main/docs/grok-dataformat.adoc

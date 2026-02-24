@@ -1,0 +1,74 @@
+<!--
+
+    Copyright (C) 2015 Red Hat, Inc.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="kuberntes-features-${project.version}">
+
+  <feature name="kubernetes-client" description="Fabric8 Kubernetes Client" version="${project.version}">
+    <bundle dependency='true'>mvn:com.google.code.findbugs/jsr305/${jsr305.version}</bundle>
+    <bundle dependency='true'>mvn:com.fasterxml.jackson.core/jackson-core/${jackson.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/${jackson.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:com.fasterxml.jackson.datatype/jackson-datatype-jsr310/${jackson.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:org.yaml/snakeyaml/${snakeyaml.version}</bundle>
+    <bundle dependency='true'>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.generex/${generex.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.automaton/${automaton.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.conscrypt-openjdk/${conscrypt-openjdk-uber.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.okhttp/${okhttp.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.okio/${okio.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:org.apache.aries.spifly/org.apache.aries.spifly.dynamic.bundle/${aries-spifly.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:org.ow2.asm/asm/${asm.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:org.ow2.asm/asm-analysis/${asm.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:org.ow2.asm/asm-commons/${asm.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:org.ow2.asm/asm-tree/${asm.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:org.ow2.asm/asm-util/${asm.bundle.version}</bundle>
+    <bundle dependency='true'>mvn:io.fabric8/kubernetes-model-common/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/zjsonpatch/${zjsonpatch.version}</bundle>
+
+    <bundle>mvn:io.fabric8/kubernetes-model-core/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-rbac/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-admissionregistration/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-apiextensions/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-apps/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-autoscaling/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-batch/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-certificates/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-coordination/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-discovery/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-events/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-extensions/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-networking/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-node/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-metrics/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-policy/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-scheduling/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-settings/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-storageclass/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/openshift-model/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-client/${project.version}/jar/bundle</bundle>
+  </feature>
+
+  <feature name="openshift-client" description="Fabric8 Openshift Client" version="${project.version}">
+    <feature>kubernetes-client</feature>
+    <bundle>mvn:io.fabric8/openshift-client/${project.version}/jar/bundle</bundle>
+    <bundle>mvn:io.fabric8/openshift-model-console/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/openshift-model-monitoring/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/openshift-model-operator/${project.version}</bundle>
+    <bundle>mvn:io.fabric8/openshift-model-operatorhub/${project.version}</bundle>
+  </feature>
+
+</features>

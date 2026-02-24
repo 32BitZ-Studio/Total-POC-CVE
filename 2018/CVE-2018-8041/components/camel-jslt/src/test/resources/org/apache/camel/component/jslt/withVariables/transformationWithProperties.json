@@ -1,6 +1,0 @@
-{
-  "published": $headers.published,
-  "type": $headers.type,
-  "id": $exchange.properties.instance,
-  * : .
-}

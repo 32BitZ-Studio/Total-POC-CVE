@@ -1,0 +1,135 @@
+const sqlite = require('sqlite');
+const sqlite3 = require('sqlite3');
+
+function Database(dbname) {
+    this.dbname = dbname;
+}
+
+const connDB = async function(databaseInstance) {
+    var self = databaseInstance;
+
+    if (!self.db) {
+        self.db = await sqlite.open({
+            filename: self.dbname,
+            driver: sqlite3.Database
+        });
+    }
+
+}
+const closeDB = async function(databaseInstance) {
+    var self = databaseInstance;
+
+    if (self.db) {
+        await self.db.close();
+        self.db = undefined;
+    }
+}
+
+const dbGet = async function(databaseInstance, query, qparams) {
+    await connDB(databaseInstance);    
+    let params = qparams ? qparams : [];
+    let results = await databaseInstance.db.get(query, params);
+    await closeDB(databaseInstance);
+    return results;
+}
+
+const dbAll = async function(databaseInstance, query, qparams) {
+    await connDB(databaseInstance);    
+    let params = qparams ? qparams : [];
+    let results = await databaseInstance.db.all(query, params);
+    await closeDB(databaseInstance);
+    return results;
+}
+
+const dbRun = async function(databaseInstance, query, qparams) {
+    await connDB(databaseInstance);    
+    let params = qparams ? qparams : [];
+    let results = await databaseInstance.db.run(query, params);
+    await closeDB(databaseInstance);
+    return results;
+
+}
+
+Database.prototype.getUser = async function (userName) {
+    var self = this;
+    const query = `
+        SELECT * FROM Users WHERE name = ?;
+    `;
+    let params = [userName]
+    let result = await dbGet(self, query, params);
+    return result;
+}
+
+Database.prototype.getAllUsers = async function() {
+    var self = this;
+    const query = `SELECT * FROM Users`;
+    let result = await dbAll(self, query);
+    return result;
+}
+
+Database.prototype.getAllPosts = async function () {
+    var self = this;
+    const postsQuery = `
+    SELECT 
+    Posts.post_id, 
+    Posts.post_content, 
+    Comments.comment_id, 
+    Comments.comment_content,
+    Users.id as user_id,
+    Users.name as post_author,
+    CommentUsers.name as comment_author
+    FROM Posts 
+    LEFT JOIN Comments ON Posts.post_id = Comments.post_id
+    LEFT JOIN Users ON Posts.author_id = Users.id
+    LEFT JOIN Users as CommentUsers ON Comments.author_id = CommentUsers.id
+    `;
+    const rows = await dbAll(self, postsQuery);
+    const postsWithComments = {};
+    rows.forEach(row => {
+        if (!postsWithComments[row.post_id]) {
+            postsWithComments[row.post_id] = {
+              id: row.post_id,
+              post_content: row.post_content,
+              post_author: row.post_author,
+              comments: []
+            };
+          }
+          
+          if (row.comment_id && row.comment_content) {
+            postsWithComments[row.post_id].comments.push({
+              comment_id: row.comment_id,
+              comment_author: row.comment_author,
+              comment_content: row.comment_content
+            });
+          }
+    });
+
+    const postsList = Object.values(postsWithComments);
+    for (const post of postsList) {
+        post.comments.sort((a,b) => a.comment_id - b.comment_id);
+    }
+    return postsList;
+}
+
+Database.prototype.createPost = async function(postContent, userId) {
+    var self = this;
+    const query = `
+      INSERT INTO Posts (post_content, author_id)
+      VALUES (?, ?)
+    `;
+    let params = [postContent, userId];
+    const result = await dbRun(self, query, params);
+    return result;
+}
+
+Database.prototype.createComment = async function(commentContent, postId, userId) {
+    var self = this;
+    const query = `INSERT INTO Comments (comment_content, author_id, post_id)
+    VALUES (?, ?, ?);`
+    let params = [commentContent, userId, postId];
+    const result = await dbRun(self, query, params);
+    return result;
+}
+
+module.exports = Database;
+

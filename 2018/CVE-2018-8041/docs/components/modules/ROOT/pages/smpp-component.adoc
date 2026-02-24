@@ -1,1 +1,0 @@
-../../../../../components/camel-smpp/src/main/docs/smpp-component.adoc

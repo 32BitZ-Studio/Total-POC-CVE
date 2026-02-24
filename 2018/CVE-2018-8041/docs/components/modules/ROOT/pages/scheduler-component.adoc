@@ -1,1 +1,0 @@
-../../../../../components/camel-scheduler/src/main/docs/scheduler-component.adoc

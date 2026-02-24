@@ -1,1 +1,0 @@
-../../../../../components/camel-timer/src/main/docs/timer-component.adoc

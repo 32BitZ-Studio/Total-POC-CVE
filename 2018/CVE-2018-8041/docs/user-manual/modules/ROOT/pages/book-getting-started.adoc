@@ -1,3 +1,0 @@
-= Getting Started with Apache Camel
-
-This content was moved to the link:/camel-core/getting-started[Getting Started].

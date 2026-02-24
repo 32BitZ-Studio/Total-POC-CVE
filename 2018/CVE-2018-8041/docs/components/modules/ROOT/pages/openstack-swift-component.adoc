@@ -1,1 +1,0 @@
-../../../../../components/camel-openstack/src/main/docs/openstack-swift-component.adoc

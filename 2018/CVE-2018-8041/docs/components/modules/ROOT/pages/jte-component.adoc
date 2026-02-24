@@ -1,1 +1,0 @@
-../../../../../components/camel-jte/src/main/docs/jte-component.adoc

@@ -1,0 +1,7 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(run, Some(60b0bbf6-2607-4166-941a-1068ed5af6c1), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / run[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /home/cxosmo/github/n-day_exploits/CVE-2021-42697/scala-akka-http-server-example/target/scala-3.0.0-RC1/classes ...[0m
+[0m[[0m[32msuccess[0m] [0m[0mTotal time: 7 s, completed 18 Apr 2022, 21:04:26[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m
+[0m[[0m[0minfo[0m] [0m[0mshutting down sbt server[0m

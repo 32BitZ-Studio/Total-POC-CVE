@@ -1,1 +1,0 @@
-../../../../../components/camel-aws/camel-aws-config/src/main/docs/aws-config-component.adoc

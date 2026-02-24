@@ -1,1 +1,0 @@
-../../../../../components/camel-stub/src/main/docs/stub-component.adoc

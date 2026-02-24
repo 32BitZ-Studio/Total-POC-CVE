@@ -1,1 +1,0 @@
-../../../../../components/camel-flink/src/main/docs/flink-component.adoc

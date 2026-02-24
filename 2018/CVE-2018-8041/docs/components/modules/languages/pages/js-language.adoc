@@ -1,1 +1,0 @@
-../../../../../components/camel-javascript/src/main/docs/js-language.adoc

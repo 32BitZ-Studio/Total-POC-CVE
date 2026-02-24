@@ -1,1 +1,0 @@
-../../../../../components/camel-mybatis/src/main/docs/mybatis-component.adoc

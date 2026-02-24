@@ -1,1 +1,0 @@
-../../../../../components/camel-hashicorp-vault/src/main/docs/hashicorp-vault-component.adoc

@@ -1,1 +1,0 @@
-../../../../../components/camel-thymeleaf/src/main/docs/thymeleaf-component.adoc

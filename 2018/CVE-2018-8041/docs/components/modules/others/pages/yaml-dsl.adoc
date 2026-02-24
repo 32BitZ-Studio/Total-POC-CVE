@@ -1,1 +1,0 @@
-../../../../../dsl/camel-yaml-dsl/camel-yaml-dsl/src/main/docs/yaml-dsl.adoc

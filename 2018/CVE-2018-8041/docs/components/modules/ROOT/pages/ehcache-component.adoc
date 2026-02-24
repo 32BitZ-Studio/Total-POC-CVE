@@ -1,1 +1,0 @@
-../../../../../components/camel-ehcache/src/main/docs/ehcache-component.adoc

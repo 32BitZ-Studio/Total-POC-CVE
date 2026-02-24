@@ -1,1 +1,0 @@
-../../../../../components/camel-micrometer/src/main/docs/micrometer-component.adoc

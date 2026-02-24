@@ -1,1 +1,0 @@
-../../../../../dsl/camel-kamelet-main/src/main/docs/kamelet-main.adoc

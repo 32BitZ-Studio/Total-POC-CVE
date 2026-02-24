@@ -1,1 +1,0 @@
-../../../../../components/camel-jsonata/src/main/docs/jsonata-component.adoc

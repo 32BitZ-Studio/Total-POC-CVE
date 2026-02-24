@@ -1,1 +1,0 @@
-../../../../../components/camel-gson/src/main/docs/gson-dataformat.adoc

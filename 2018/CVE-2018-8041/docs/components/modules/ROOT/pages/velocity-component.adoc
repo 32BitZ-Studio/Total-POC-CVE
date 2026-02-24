@@ -1,1 +1,0 @@
-../../../../../components/camel-velocity/src/main/docs/velocity-component.adoc

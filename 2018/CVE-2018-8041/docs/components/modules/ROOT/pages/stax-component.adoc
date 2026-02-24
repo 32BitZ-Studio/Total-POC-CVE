@@ -1,1 +1,0 @@
-../../../../../components/camel-stax/src/main/docs/stax-component.adoc

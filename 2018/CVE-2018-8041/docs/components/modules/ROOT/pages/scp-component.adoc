@@ -1,1 +1,0 @@
-../../../../../components/camel-jsch/src/main/docs/scp-component.adoc

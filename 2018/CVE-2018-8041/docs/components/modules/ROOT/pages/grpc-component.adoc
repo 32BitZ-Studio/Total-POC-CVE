@@ -1,1 +1,0 @@
-../../../../../components/camel-grpc/src/main/docs/grpc-component.adoc

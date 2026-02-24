@@ -1,1 +1,0 @@
-../../../../../components/camel-azure/camel-azure-storage-queue/src/main/docs/azure-storage-queue-component.adoc

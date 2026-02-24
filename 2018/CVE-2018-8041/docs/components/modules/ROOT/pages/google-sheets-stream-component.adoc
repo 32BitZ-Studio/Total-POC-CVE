@@ -1,1 +1,0 @@
-../../../../../components/camel-google/camel-google-sheets/src/main/docs/google-sheets-stream-component.adoc

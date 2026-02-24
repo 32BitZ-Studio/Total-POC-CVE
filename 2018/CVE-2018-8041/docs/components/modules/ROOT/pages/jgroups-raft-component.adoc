@@ -1,1 +1,0 @@
-../../../../../components/camel-jgroups-raft/src/main/docs/jgroups-raft-component.adoc

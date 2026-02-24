@@ -1,1 +1,0 @@
-../../../../../components/camel-jolt/src/main/docs/jolt-component.adoc

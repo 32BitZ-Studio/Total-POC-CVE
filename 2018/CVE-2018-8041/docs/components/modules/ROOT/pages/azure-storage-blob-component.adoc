@@ -1,1 +1,0 @@
-../../../../../components/camel-azure/camel-azure-storage-blob/src/main/docs/azure-storage-blob-component.adoc

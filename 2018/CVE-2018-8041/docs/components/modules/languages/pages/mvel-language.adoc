@@ -1,1 +1,0 @@
-../../../../../components/camel-mvel/src/main/docs/mvel-language.adoc

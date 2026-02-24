@@ -1,1 +1,0 @@
-../../../../../components/camel-google/camel-google-mail/src/main/docs/google-mail-component.adoc

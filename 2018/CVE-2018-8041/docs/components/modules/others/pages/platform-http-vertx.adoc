@@ -1,1 +1,0 @@
-../../../../../components/camel-platform-http-vertx/src/main/docs/platform-http-vertx.adoc

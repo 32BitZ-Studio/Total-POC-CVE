@@ -1,1 +1,0 @@
-../../../../../components/camel-cxf/camel-cxf-transport/src/main/docs/cxf-transport.adoc

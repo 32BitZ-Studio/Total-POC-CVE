@@ -1,7 +1,0 @@
-# Ansible
-###########
-*_inventory.yml
-*.pem
-ansible.log
-files/
-env.yml

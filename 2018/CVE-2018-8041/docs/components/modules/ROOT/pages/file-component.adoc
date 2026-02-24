@@ -1,1 +1,0 @@
-../../../../../components/camel-file/src/main/docs/file-component.adoc

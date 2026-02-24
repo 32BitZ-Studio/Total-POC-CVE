@@ -1,1 +1,0 @@
-../../../../../components/camel-elasticsearch-rest-client/src/main/docs/elasticsearch-rest-client-component.adoc

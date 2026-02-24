@@ -1,1 +1,0 @@
-../../../../../components/camel-azure/camel-azure-cosmosdb/src/main/docs/azure-cosmosdb-component.adoc

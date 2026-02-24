@@ -1,1 +1,0 @@
-../../../../../components/camel-ai/camel-chatscript/src/main/docs/chatscript-component.adoc

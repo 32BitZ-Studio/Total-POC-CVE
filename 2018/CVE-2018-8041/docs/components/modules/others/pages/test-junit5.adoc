@@ -1,1 +1,0 @@
-../../../../../components/camel-test/camel-test-junit5/src/main/docs/test-junit5.adoc

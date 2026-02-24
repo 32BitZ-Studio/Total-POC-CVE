@@ -1,1 +1,0 @@
-../../../../../components/camel-debezium/camel-debezium-mysql/src/main/docs/debezium-mysql-component.adoc

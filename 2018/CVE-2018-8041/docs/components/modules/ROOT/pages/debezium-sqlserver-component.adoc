@@ -1,1 +1,0 @@
-../../../../../components/camel-debezium/camel-debezium-sqlserver/src/main/docs/debezium-sqlserver-component.adoc

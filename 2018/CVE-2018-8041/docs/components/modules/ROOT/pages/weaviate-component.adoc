@@ -1,1 +1,0 @@
-../../../../../components/camel-ai/camel-weaviate/src/main/docs/weaviate-component.adoc

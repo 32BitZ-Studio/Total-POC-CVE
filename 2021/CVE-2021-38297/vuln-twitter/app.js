@@ -1,0 +1,94 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+const dbHelper = require('./modules/dbwrapper');
+const { xss } = require('express-xss-sanitizer');
+
+const app = express();
+const port = 3000;
+const db = new dbHelper('./DB/twitter.db');
+
+// Middleware to parse JSON data
+app.use(bodyParser.urlencoded({'extended':'true'})); 
+app.use(bodyParser.json());
+app.use(xss());
+
+app.use("/public", express.static(path.join(__dirname, 'public')));
+
+const asyncHandler = fn => (req, res, next) => {
+  return Promise
+      .resolve(fn(req, res, next))
+      .catch(next);
+};
+
+const verifyAuth = async function (req, res, next) {
+  const {user} = req.body;
+  if (!user) {
+    res.status(401).json({"message": "Not Authorized"});
+    return;
+  }
+  let dbuser = await db.getUser(user);
+
+  if (!dbuser) {
+    res.status(401).json({"message": "Not Authorized"});
+    return;
+  }
+
+  req.body.user_id = dbuser.id;
+  next();
+}
+
+
+//Fake Login
+app.post('/api/login', async (req, res) => {
+  const {username, password} = req.body
+  const user = await db.getUser(username)
+  if (!user) {
+    res.status(200).json({"auth":"false", "message": "Invalid credentials"});
+    return;
+  }
+  if (user.password == password) {
+    res.status(200).json({"auth":"true", "message":"Successful authorization", "id": user.id, "name": user.name})
+    return;
+  }
+  res.status(200).json({"auth":"false", "message":"Invalid Creds"});
+  return;
+});
+
+//Get Feed
+// Gets all the posts present in the server
+app.get('/api/feed', asyncHandler(async (req,res) => {
+  let posts = await db.getAllPosts();
+  res.status(200).json({"posts": posts});
+}));
+
+
+//Create post
+app.post('/api/post', asyncHandler(verifyAuth), asyncHandler(async (req,res) => {
+  const {post_content, user_id} = req.body;
+  let result = await db.createPost(post_content, user_id);
+  res.status(200).json({"message":"ok"});
+}));
+
+//Create comment
+app.post('/api/comment', asyncHandler(verifyAuth), asyncHandler(async(req, res) => {
+  const {comment_content, post_id, user_id} = req.body;
+  let result = await db.createComment(comment_content, post_id, user_id);
+  res.status(200).json({"message": "ok"});
+})); 
+
+
+app.use(function(req,res){
+  return res.status(404).json({
+      message:"Page not found"
+  });
+})
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({"message": "Internal Server error"});
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});

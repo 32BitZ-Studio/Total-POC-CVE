@@ -1,1 +1,0 @@
-../../../../../components/camel-protobuf/src/main/docs/protobuf-dataformat.adoc

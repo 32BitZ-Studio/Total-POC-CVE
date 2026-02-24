@@ -1,1 +1,0 @@
-../../../../../components/camel-weather/src/main/docs/weather-component.adoc

@@ -1,1 +1,0 @@
-../../../../../components/camel-csv/src/main/docs/csv-dataformat.adoc

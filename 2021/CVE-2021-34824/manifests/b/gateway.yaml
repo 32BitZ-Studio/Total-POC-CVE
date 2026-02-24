@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gw-b
+  namespace: ns-b
+spec:
+  selector:
+    istio: gw-b
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: foo-dot-com
+    hosts:
+    - foo.com

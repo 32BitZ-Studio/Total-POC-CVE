@@ -1,0 +1,198 @@
+################################################################################################
+# THIS SAMPLE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED 
+# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR 
+# FITNESS FOR A PARTICULAR PURPOSE.
+#
+# This sample is not supported under any Microsoft standard support program or service. 
+# The script is provided AS IS without warranty of any kind. Microsoft further disclaims all
+# implied warranties including, without limitation, any implied warranties of merchantability
+# or of fitness for a particular purpose. The entire risk arising out of the use or performance
+# of the sample and documentation remains with you. In no event shall Microsoft, its authors,
+# or anyone else involved in the creation, production, or delivery of the script be liable for 
+# any damages whatsoever (including, without limitation, damages for loss of business profits, 
+# business interruption, loss of business information, or other pecuniary loss) arising out of 
+# the use of or inability to use the sample or documentation, even if Microsoft has been advised 
+# of the possibility of such damages.
+################################################################################################
+
+# deniz.sezer@microsoft.com
+# 01.07.2021
+# Updated: --
+
+$Domains = (Get-ADForest).Domains| ForEach-Object {Get-ADDomain -Server $_} | Select-Object name,ReplicaDirectoryServers,ReadOnlyReplicaDirectoryServers
+
+$DCS = @()
+ForEach($Domain in $Domains){
+    ForEach ($DomainController in $Domain.ReplicaDirectoryServers){
+        #Write-Host "Checking $DomainController ..."
+        try{
+            $result = get-service -computername $DomainController -Name Spooler -ErrorAction stop | Select-Object Status,Name
+        }catch{
+
+            Write-Host "Error checking $($DomainController)" -ForegroundColor Red
+
+        }
+        $Object = New-Object PSObject -Property @{
+            DomainController = $DomainController
+            Serivce = $result.Name
+            State = $result.Status
+        }
+        $DCS += $Object
+    }
+    ForEach ($DomainController in $Domain.ReadOnlyReplicaDirectoryServers){
+        #Write-Host "Checking $DomainController ..."
+        try{
+            $result = get-service -computername $DomainController -Name Spooler -ErrorAction stop | Select-Object Status,Name
+        }catch{
+
+            Write-Host "Error checking $($DomainController)" -ForegroundColor Red
+
+        }
+        $Object = New-Object PSObject -Property @{
+            DomainController = $DomainController
+            Serivce = $result.Name
+            State = $result.Status
+        }
+        $DCS += $Object
+    }
+}
+
+$DCs
+# SIG # Begin signature block
+# MIIZfAYJKoZIhvcNAQcCoIIZbTCCGWkCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
+# gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUDlx3Ex4K4L3pq36eB4Xu6qki
+# q3KgghSKMIIE/jCCA+agAwIBAgIQDUJK4L46iP9gQCHOFADw3TANBgkqhkiG9w0B
+# AQsFADByMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYD
+# VQQLExB3d3cuZGlnaWNlcnQuY29tMTEwLwYDVQQDEyhEaWdpQ2VydCBTSEEyIEFz
+# c3VyZWQgSUQgVGltZXN0YW1waW5nIENBMB4XDTIxMDEwMTAwMDAwMFoXDTMxMDEw
+# NjAwMDAwMFowSDELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMu
+# MSAwHgYDVQQDExdEaWdpQ2VydCBUaW1lc3RhbXAgMjAyMTCCASIwDQYJKoZIhvcN
+# AQEBBQADggEPADCCAQoCggEBAMLmYYRnxYr1DQikRcpja1HXOhFCvQp1dU2UtAxQ
+# tSYQ/h3Ib5FrDJbnGlxI70Tlv5thzRWRYlq4/2cLnGP9NmqB+in43Stwhd4CGPN4
+# bbx9+cdtCT2+anaH6Yq9+IRdHnbJ5MZ2djpT0dHTWjaPxqPhLxs6t2HWc+xObTOK
+# fF1FLUuxUOZBOjdWhtyTI433UCXoZObd048vV7WHIOsOjizVI9r0TXhG4wODMSlK
+# XAwxikqMiMX3MFr5FK8VX2xDSQn9JiNT9o1j6BqrW7EdMMKbaYK02/xWVLwfoYer
+# vnpbCiAvSwnJlaeNsvrWY4tOpXIc7p96AXP4Gdb+DUmEvQECAwEAAaOCAbgwggG0
+# MA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMBYGA1UdJQEB/wQMMAoGCCsG
+# AQUFBwMIMEEGA1UdIAQ6MDgwNgYJYIZIAYb9bAcBMCkwJwYIKwYBBQUHAgEWG2h0
+# dHA6Ly93d3cuZGlnaWNlcnQuY29tL0NQUzAfBgNVHSMEGDAWgBT0tuEgHf4prtLk
+# YaWyoiWyyBc1bjAdBgNVHQ4EFgQUNkSGjqS6sGa+vCgtHUQ23eNqerwwcQYDVR0f
+# BGowaDAyoDCgLoYsaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL3NoYTItYXNzdXJl
+# ZC10cy5jcmwwMqAwoC6GLGh0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNvbS9zaGEyLWFz
+# c3VyZWQtdHMuY3JsMIGFBggrBgEFBQcBAQR5MHcwJAYIKwYBBQUHMAGGGGh0dHA6
+# Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBPBggrBgEFBQcwAoZDaHR0cDovL2NhY2VydHMu
+# ZGlnaWNlcnQuY29tL0RpZ2lDZXJ0U0hBMkFzc3VyZWRJRFRpbWVzdGFtcGluZ0NB
+# LmNydDANBgkqhkiG9w0BAQsFAAOCAQEASBzctemaI7znGucgDo5nRv1CclF0CiNH
+# o6uS0iXEcFm+FKDlJ4GlTRQVGQd58NEEw4bZO73+RAJmTe1ppA/2uHDPYuj1UUp4
+# eTZ6J7fz51Kfk6ftQ55757TdQSKJ+4eiRgNO/PT+t2R3Y18jUmmDgvoaU+2QzI2h
+# F3MN9PNlOXBL85zWenvaDLw9MtAby/Vh/HUIAHa8gQ74wOFcz8QRcucbZEnYIpp1
+# FUL1LTI4gdr0YKK6tFL7XOBhJCVPst/JKahzQ1HavWPWH1ub9y4bTxMd90oNcX6X
+# t/Q/hOvB46NJofrOp79Wz7pZdmGJX36ntI5nePk2mOHLKNpbh6aKLzCCBRswggQD
+# oAMCAQICEAizf/CkOPU20f5Mw2X902wwDQYJKoZIhvcNAQELBQAwcjELMAkGA1UE
+# BhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3LmRpZ2lj
+# ZXJ0LmNvbTExMC8GA1UEAxMoRGlnaUNlcnQgU0hBMiBBc3N1cmVkIElEIENvZGUg
+# U2lnbmluZyBDQTAeFw0yMTA1MjAwMDAwMDBaFw0yNDA1MjQyMzU5NTlaMFkxCzAJ
+# BgNVBAYTAkRFMQ8wDQYDVQQIEwZCYXllcm4xDTALBgNVBAcTBEhhYXIxFDASBgNV
+# BAoTC0Rlbml6IFNlemVyMRQwEgYDVQQDEwtEZW5peiBTZXplcjCCASIwDQYJKoZI
+# hvcNAQEBBQADggEPADCCAQoCggEBALi8ZV/FYmaVFJXgmYWFZ18XZu3TLF2vaEo5
+# iFlTyPwNOHuZQ3dTgLn6LYB/x1YRXDlIn3jl2y/U+5KG+e9Lz43cGXMR1qon3HTj
+# Gu4BakNOtDLUg9U7pIQg3EgXw0Z0h3NuUBy/IWuQYIdpRick+x+TJfa0tX2yGOG0
+# qcGNr3uCwE13PjICRH64556k041+VRmc2D/2aKpSNwTw2DU1fvmkvWkb2ql/u26I
+# u2LrKB3ued41kkDtdmZ6i/bPVT/hCUA1Lj2KeUVoSET2gy3SvgKo+5t4oalTU22Y
+# ndYe07i0zUeiQqqtlzr6RkytwaQ1mOHENgYRUhrGLJQaWU4LHfECAwEAAaOCAcQw
+# ggHAMB8GA1UdIwQYMBaAFFrEuXsqCqOl6nEDwGD5LfZldQ5YMB0GA1UdDgQWBBR8
+# r8BG3AvBBC3XXkh7GFSf9qOnHDAOBgNVHQ8BAf8EBAMCB4AwEwYDVR0lBAwwCgYI
+# KwYBBQUHAwMwdwYDVR0fBHAwbjA1oDOgMYYvaHR0cDovL2NybDMuZGlnaWNlcnQu
+# Y29tL3NoYTItYXNzdXJlZC1jcy1nMS5jcmwwNaAzoDGGL2h0dHA6Ly9jcmw0LmRp
+# Z2ljZXJ0LmNvbS9zaGEyLWFzc3VyZWQtY3MtZzEuY3JsMEsGA1UdIAREMEIwNgYJ
+# YIZIAYb9bAMBMCkwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZGlnaWNlcnQuY29t
+# L0NQUzAIBgZngQwBBAEwgYQGCCsGAQUFBwEBBHgwdjAkBggrBgEFBQcwAYYYaHR0
+# cDovL29jc3AuZGlnaWNlcnQuY29tME4GCCsGAQUFBzAChkJodHRwOi8vY2FjZXJ0
+# cy5kaWdpY2VydC5jb20vRGlnaUNlcnRTSEEyQXNzdXJlZElEQ29kZVNpZ25pbmdD
+# QS5jcnQwDAYDVR0TAQH/BAIwADANBgkqhkiG9w0BAQsFAAOCAQEA4rgIm5dObdWC
+# neBP64Gib1xP6mogSmd6z3Gd6CzGfa45nPDCcu5bMKJ3Nqh0Fsn/Qi4T7ci7oRc5
+# ojLhBWwgfMQK2NECqrQcnTFdPTr24MCbfCbi4niRAYl7mc21gD4ktvSr9TMRNSga
+# 830ohr2OAAagvBLBFC1EBg27wSf7VO4qhl06kO0yx19VWgjvq8OtRNAiDkt8rYYX
+# ILFIb8aknPJNSRXDyTeIm9lwbcj3zHmqc9t1sW4kMohzdlxeDTkouBOHW9vJtncG
+# V5Iykm6gJwmJt4YkJ4rFFl01yY1x/LbFtfnEfnaWYZk9IdIoY3qmXafQbGPsz7kU
+# vKZJS0oNSzCCBTAwggQYoAMCAQICEAQJGBtf1btmdVNDtW+VUAgwDQYJKoZIhvcN
+# AQELBQAwZTELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcG
+# A1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEkMCIGA1UEAxMbRGlnaUNlcnQgQXNzdXJl
+# ZCBJRCBSb290IENBMB4XDTEzMTAyMjEyMDAwMFoXDTI4MTAyMjEyMDAwMFowcjEL
+# MAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3
+# LmRpZ2ljZXJ0LmNvbTExMC8GA1UEAxMoRGlnaUNlcnQgU0hBMiBBc3N1cmVkIElE
+# IENvZGUgU2lnbmluZyBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
+# APjTsxx/DhGvZ3cH0wsxSRnP0PtFmbE620T1f+Wondsy13Hqdp0FLreP+pJDwKX5
+# idQ3Gde2qvCchqXYJawOeSg6funRZ9PG+yknx9N7I5TkkSOWkHeC+aGEI2YSVDNQ
+# dLEoJrskacLCUvIUZ4qJRdQtoaPpiCwgla4cSocI3wz14k1gGL6qxLKucDFmM3E+
+# rHCiq85/6XzLkqHlOzEcz+ryCuRXu0q16XTmK/5sy350OTYNkO/ktU6kqepqCquE
+# 86xnTrXE94zRICUj6whkPlKWwfIPEvTFjg/BougsUfdzvL2FsWKDc0GCB+Q4i2pz
+# INAPZHM8np+mM6n9Gd8lk9ECAwEAAaOCAc0wggHJMBIGA1UdEwEB/wQIMAYBAf8C
+# AQAwDgYDVR0PAQH/BAQDAgGGMBMGA1UdJQQMMAoGCCsGAQUFBwMDMHkGCCsGAQUF
+# BwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+# CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRB
+# c3N1cmVkSURSb290Q0EuY3J0MIGBBgNVHR8EejB4MDqgOKA2hjRodHRwOi8vY3Js
+# NC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURSb290Q0EuY3JsMDqgOKA2
+# hjRodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURSb290
+# Q0EuY3JsME8GA1UdIARIMEYwOAYKYIZIAYb9bAACBDAqMCgGCCsGAQUFBwIBFhxo
+# dHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMAoGCGCGSAGG/WwDMB0GA1UdDgQW
+# BBRaxLl7KgqjpepxA8Bg+S32ZXUOWDAfBgNVHSMEGDAWgBRF66Kv9JLLgjEtUYun
+# pyGd823IDzANBgkqhkiG9w0BAQsFAAOCAQEAPuwNWiSz8yLRFcgsfCUpdqgdXRwt
+# OhrE7zBh134LYP3DPQ/Er4v97yrfIFU3sOH20ZJ1D1G0bqWOWuJeJIFOEKTuP3GO
+# Yw4TS63XX0R58zYUBor3nEZOXP+QsRsHDpEV+7qvtVHCjSSuJMbHJyqhKSgaOnEo
+# AjwukaPAJRHinBRHoXpoaK+bp1wgXNlxsQyPu6j4xRJon89Ay0BEpRPw5mQMJQhC
+# MrI2iiQC/i9yfhzXSUWW6Fkd6fp0ZGuy62ZD2rOwjNXpDd32ASDOmTFjPQgaGLOB
+# m0/GkxAG/AeB+ova+YJJ92JuoVP6EpQYhS6SkepobEQysmah5xikmmRR7zCCBTEw
+# ggQZoAMCAQICEAqhJdbWMht+QeQF2jaXwhUwDQYJKoZIhvcNAQELBQAwZTELMAkG
+# A1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3LmRp
+# Z2ljZXJ0LmNvbTEkMCIGA1UEAxMbRGlnaUNlcnQgQXNzdXJlZCBJRCBSb290IENB
+# MB4XDTE2MDEwNzEyMDAwMFoXDTMxMDEwNzEyMDAwMFowcjELMAkGA1UEBhMCVVMx
+# FTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNv
+# bTExMC8GA1UEAxMoRGlnaUNlcnQgU0hBMiBBc3N1cmVkIElEIFRpbWVzdGFtcGlu
+# ZyBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL3QMu5LzY9/3am6
+# gpnFOVQoV7YjSsQOB0UzURB90Pl9TWh+57ag9I2ziOSXv2MhkJi/E7xX08PhfgjW
+# ahQAOPcuHjvuzKb2Mln+X2U/4Jvr40ZHBhpVfgsnfsCi9aDg3iI/Dv9+lfvzo7oi
+# PhisEeTwmQNtO4V8CdPuXciaC1TjqAlxa+DPIhAPdc9xck4Krd9AOly3UeGheRTG
+# TSQjMF287DxgaqwvB8z98OpH2YhQXv1mblZhJymJhFHmgudGUP2UKiyn5HU+upgP
+# hH+fMRTWrdXyZMt7HgXQhBlyF/EXBu89zdZN7wZC/aJTKk+FHcQdPK/P2qwQ9d2s
+# rOlW/5MCAwEAAaOCAc4wggHKMB0GA1UdDgQWBBT0tuEgHf4prtLkYaWyoiWyyBc1
+# bjAfBgNVHSMEGDAWgBRF66Kv9JLLgjEtUYunpyGd823IDzASBgNVHRMBAf8ECDAG
+# AQH/AgEAMA4GA1UdDwEB/wQEAwIBhjATBgNVHSUEDDAKBggrBgEFBQcDCDB5Bggr
+# BgEFBQcBAQRtMGswJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNv
+# bTBDBggrBgEFBQcwAoY3aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL0RpZ2lD
+# ZXJ0QXNzdXJlZElEUm9vdENBLmNydDCBgQYDVR0fBHoweDA6oDigNoY0aHR0cDov
+# L2NybDQuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZElEUm9vdENBLmNybDA6
+# oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZElE
+# Um9vdENBLmNybDBQBgNVHSAESTBHMDgGCmCGSAGG/WwAAgQwKjAoBggrBgEFBQcC
+# ARYcaHR0cHM6Ly93d3cuZGlnaWNlcnQuY29tL0NQUzALBglghkgBhv1sBwEwDQYJ
+# KoZIhvcNAQELBQADggEBAHGVEulRh1Zpze/d2nyqY3qzeM8GN0CE70uEv8rPAwL9
+# xafDDiBCLK938ysfDCFaKrcFNB1qrpn4J6JmvwmqYN92pDqTD/iy0dh8GWLoXoIl
+# HsS6HHssIeLWWywUNUMEaLLbdQLgcseY1jxk5R9IEBhfiThhTWJGJIdjjJFSLK8p
+# ieV4H9YLFKWA1xJHcLN11ZOFk362kmf7U2GJqPVrlsD0WGkNfMgBsbkodbeZY4Ui
+# jGHKeZR+WfyMD+NvtQEmtmyl7odRIeRYYJu6DC0rbaLEfrvEJStHAgh8Sa4TtuF8
+# QkIoxhhWz0E0tmZdtnR79VYzIi8iNrJLokqV2PWmjlIxggRcMIIEWAIBATCBhjBy
+# MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
+# d3cuZGlnaWNlcnQuY29tMTEwLwYDVQQDEyhEaWdpQ2VydCBTSEEyIEFzc3VyZWQg
+# SUQgQ29kZSBTaWduaW5nIENBAhAIs3/wpDj1NtH+TMNl/dNsMAkGBSsOAwIaBQCg
+# eDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqGSIb3DQEJAzEMBgorBgEE
+# AYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJ
+# BDEWBBRbIQJWSlzZcsC/pDbNuluXUIvcXjANBgkqhkiG9w0BAQEFAASCAQBcY+DX
+# pEWObx3FnN95ME+b7Jg0r8wHMdirGW5AglE0FLpk8gQahRzheNmtiLNf5uicD7um
+# 889v9kGVQBFAWHD+JEivgp9hDQiupTvOsqLMhgJgnDjn0HkOvqpz1d8aAag5EJRP
+# Ygc8pb2dRQwOAuEnykp2nqlSy6CCQy9Rln5c7K6kIwIfv4eBNi+OcUsijEmKcYQl
+# 9G0U5JUapYPGCqWepJMlxDhUFHPKLztVv7BJAyLy2sPVHc0zD8xBiNnBQkO3HQBb
+# WnsA7F85+4YUKnNghJlo1SMlcM+lEby5sfvBMiXeXOZItlBbloiEeuD5JtGyx6RW
+# q46X9kSsDdPIrwkvoYICMDCCAiwGCSqGSIb3DQEJBjGCAh0wggIZAgEBMIGGMHIx
+# CzAJBgNVBAYTAlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3
+# dy5kaWdpY2VydC5jb20xMTAvBgNVBAMTKERpZ2lDZXJ0IFNIQTIgQXNzdXJlZCBJ
+# RCBUaW1lc3RhbXBpbmcgQ0ECEA1CSuC+Ooj/YEAhzhQA8N0wDQYJYIZIAWUDBAIB
+# BQCgaTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0y
+# MTA3MDExMzA2NTlaMC8GCSqGSIb3DQEJBDEiBCB7ER3fWvONu2hHpgpTJX4/Gx3d
+# tmxZc56mQ2SBNrtQTTANBgkqhkiG9w0BAQEFAASCAQCDvIV+8LfsN454ekgZNuXe
+# BABiqzpsvOKBKftli1hLOLPE+joXt0KqHCLIAL33Iw+QSv7tGmmZ/nxeqh74KXbh
+# Wc3TAiUw+J9p2VM20FZ3d+4vzFuoEE6JYvJ78xNPZIA1neKRpnxgU0vEd4Hydff0
+# RRirXNXADc4NVvSm7b+AtLZ9Hoo6JNqcreEc66tansgOWKzbd4Dk9KfsgjpJ8+5p
+# PwYaSg4kvZArpN+eN+veLQyco24qjLduK6tsrcQW1P9arIhgI5Vj5myvOK6me+01
+# QsDR9wlW3r4k44bjVbcRIq8GC2+OBqkiJUS5Kb4hMZobuRObnMzlI5hfMNAnLGBk
+# SIG # End signature block

@@ -1,1 +1,0 @@
-../../../../../components/camel-mongodb-gridfs/src/main/docs/mongodb-gridfs-component.adoc

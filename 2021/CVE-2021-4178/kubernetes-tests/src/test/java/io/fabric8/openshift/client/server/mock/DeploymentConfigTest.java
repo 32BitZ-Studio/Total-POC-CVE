@@ -1,0 +1,378 @@
+/**
+ * Copyright (C) 2015 Red Hat, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package io.fabric8.openshift.client.server.mock;
+
+import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import io.fabric8.kubernetes.api.builder.TypedVisitor;
+import io.fabric8.kubernetes.api.model.APIGroupListBuilder;
+import io.fabric8.kubernetes.api.model.ContainerFluent;
+import io.fabric8.kubernetes.api.model.DeletionPropagation;
+import io.fabric8.kubernetes.api.model.PodBuilder;
+import io.fabric8.kubernetes.api.model.PodListBuilder;
+import io.fabric8.kubernetes.api.model.WatchEvent;
+import io.fabric8.kubernetes.client.dsl.LogWatch;
+import io.fabric8.kubernetes.client.utils.Utils;
+import io.fabric8.openshift.api.model.DeploymentConfigSpecFluent;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.Rule;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.migrationsupport.rules.EnableRuleMigrationSupport;
+
+import io.fabric8.openshift.api.model.DeploymentConfig;
+import io.fabric8.openshift.api.model.DeploymentConfigBuilder;
+import io.fabric8.openshift.api.model.DeploymentConfigList;
+import io.fabric8.openshift.api.model.DeploymentConfigListBuilder;
+import io.fabric8.openshift.client.OpenShiftClient;
+
+import java.io.ByteArrayOutputStream;
+import java.net.HttpURLConnection;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+@EnableRuleMigrationSupport
+class DeploymentConfigTest {
+  @Rule
+  public OpenShiftServer server = new OpenShiftServer();
+
+  @Test
+  void testList() {
+   server.expect().withPath("/apis/apps.openshift.io/v1/namespaces/test/deploymentconfigs").andReturn(200, new DeploymentConfigListBuilder().build()).once();
+   server.expect().withPath("/apis").andReturn(200, new APIGroupListBuilder()
+      .addNewGroup()
+      .withApiVersion("v1")
+      .withName("autoscaling.k8s.io")
+      .endGroup()
+      .addNewGroup()
+      .withApiVersion("v1")
+      .withName("security.openshift.io")
+      .endGroup()
+      .build()).always();
+   server.expect().withPath("/apis/apps.openshift.io/v1/namespaces/ns1/deploymentconfigs").andReturn(200, new DeploymentConfigListBuilder()
+      .addNewItem().and()
+      .addNewItem().and().build()).once();
+
+   server.expect().withPath("/apis/apps.openshift.io/v1/deploymentconfigs").andReturn(200, new DeploymentConfigListBuilder()
+      .addNewItem().and()
+      .addNewItem().and()
+      .addNewItem()
+      .and().build()).once();
+
+    OpenShiftClient client = server.getOpenshiftClient();
+
+    DeploymentConfigList buildConfigList = client.deploymentConfigs().list();
+    assertNotNull(buildConfigList);
+    assertEquals(0, buildConfigList.getItems().size());
+
+    buildConfigList = client.deploymentConfigs().inNamespace("ns1").list();
+    assertNotNull(buildConfigList);
+    assertEquals(2, buildConfigList.getItems().size());
+
+    buildConfigList = client.deploymentConfigs().inAnyNamespace().list();
+    assertNotNull(buildConfigList);
+    assertEquals(3, buildConfigList.getItems().size());
+  }
+
+  @Test
+  void testGet() {
+   server.expect().withPath("/apis/apps.openshift.io/v1/namespaces/test/deploymentconfigs/dc1").andReturn(200, new DeploymentConfigBuilder()
+      .withNewMetadata().withName("dc1").endMetadata()
+      .build()).once();
+
+   server.expect().withPath("/apis/apps.openshift.io/v1/namespaces/ns1/deploymentconfigs/dc2").andReturn(200, new DeploymentConfigBuilder()
+      .withNewMetadata().withName("dc2").endMetadata()
+      .build()).once();
+
+    OpenShiftClient client = server.getOpenshiftClient();
+
+    DeploymentConfig buildConfig = client.deploymentConfigs().withName("dc1").get();
+    assertNotNull(buildConfig);
+    assertEquals("dc1", buildConfig.getMetadata().getName());
+
+    buildConfig = client.deploymentConfigs().withName("dc2").get();
+    assertNull(buildConfig);
+
+    buildConfig = client.deploymentConfigs().inNamespace("ns1").withName("dc2").get();
+    assertNotNull(buildConfig);
+    assertEquals("dc2", buildConfig.getMetadata().getName());
+  }
+
+  @Test
+  void testDelete() throws InterruptedException {
+    DeploymentConfig dc1 = new DeploymentConfigBuilder()
+      .withNewMetadata()
+        .withName("dc1")
+      .endMetadata()
+      .withNewSpec()
+        .withReplicas(1)
+        .addToSelector("name", "dc1")
+        .withNewTemplate()
+          .withNewSpec()
+            .addNewContainer()
+              .withName("container")
+              .withImage("image")
+            .endContainer()
+          .endSpec()
+        .endTemplate()
+      .endSpec()
+      .build();
+
+    DeploymentConfig dc2 = new DeploymentConfigBuilder()
+      .withNewMetadata()
+        .withName("dc2")
+      .endMetadata()
+      .withNewSpec()
+        .withReplicas(1)
+        .addToSelector("name", "dc1")
+        .withNewTemplate()
+          .withNewSpec()
+            .addNewContainer()
+              .withName("container")
+              .withImage("image")
+            .endContainer()
+          .endSpec()
+        .endTemplate()
+      .endSpec()
+      .withNewStatus()
+        .withObservedGeneration(1L)
+      .endStatus()
+      .build();
+
+   server.expect().withPath("/apis/apps.openshift.io/v1/namespaces/test/deploymentconfigs/dc1").andReturn(200, dc1).times(2);
+   server.expect().withPath("/apis/apps.openshift.io/v1/namespaces/ns1/deploymentconfigs/dc2").andReturn( 200, dc2).times(5);
+
+    OpenShiftClient client = server.getOpenshiftClient();
+
+    Boolean deleted = client.deploymentConfigs().withName("dc1").delete();
+    assertNotNull(deleted);
+    deleted = client.deploymentConfigs().withName("dc2").delete();
+    assertFalse(deleted);
+
+    deleted = client.deploymentConfigs().inNamespace("ns1").withName("dc2").delete();
+    assertTrue(deleted);
+    RecordedRequest recordedRequest = server.getLastRequest();
+    assertEquals("{\"apiVersion\":\"v1\",\"kind\":\"DeleteOptions\",\"propagationPolicy\":\"Background\"}", recordedRequest.getBody().readUtf8());
+  }
+
+  @Test
+  void testDeleteWithPropagationPolicy() throws InterruptedException {
+    server.expect().delete()
+      .withPath("/apis/apps.openshift.io/v1/namespaces/test/deploymentconfigs/dc1")
+      .andReturn(200, new DeploymentConfigBuilder().build())
+      .once();
+    OpenShiftClient client = server.getOpenshiftClient();
+
+    Boolean isDeleted = client.deploymentConfigs().inNamespace("test").withName("dc1").withPropagationPolicy(DeletionPropagation.ORPHAN).delete();
+    assertTrue(isDeleted);
+    RecordedRequest recordedRequest = server.getLastRequest();
+    assertEquals("{\"apiVersion\":\"v1\",\"kind\":\"DeleteOptions\",\"propagationPolicy\":\"Orphan\"}", recordedRequest.getBody().readUtf8());
+  }
+
+  @Test
+	void testDeployingLatest() {
+		server.expect().withPath("/apis/apps.openshift.io/v1/namespaces/test/deploymentconfigs/dc1")
+				.andReturn(200, new DeploymentConfigBuilder().withNewMetadata().withName("dc1").endMetadata()
+						.withNewStatus().withLatestVersion(1L).endStatus().build())
+				.always();
+
+		server.expect().patch().withPath("/apis/apps.openshift.io/v1/namespaces/test/deploymentconfigs/dc1")
+				.andReturn(200, new DeploymentConfigBuilder().withNewMetadata().withName("dc1").endMetadata()
+						.withNewStatus().withLatestVersion(2L).endStatus().build())
+				.once();
+
+		OpenShiftClient client = server.getOpenshiftClient();
+
+		DeploymentConfig deploymentConfig = client.deploymentConfigs().withName("dc1").deployLatest();
+		assertNotNull(deploymentConfig);
+		assertEquals(Long.valueOf(2), deploymentConfig.getStatus().getLatestVersion());
+	}
+
+  @Test
+  void testDeployingLatestHandlesMissingLatestVersion() {
+    server.expect().withPath("/apis/apps.openshift.io/v1/namespaces/test/deploymentconfigs/dc1")
+      .andReturn(200, new DeploymentConfigBuilder().withNewMetadata().withName("dc1").endMetadata()
+        .withNewStatus().endStatus().build())
+      .always();
+
+    server.expect().patch().withPath("/apis/apps.openshift.io/v1/namespaces/test/deploymentconfigs/dc1")
+      .andReturn(200, new DeploymentConfigBuilder().withNewMetadata().withName("dc1").endMetadata()
+        .withNewStatus().withLatestVersion(1L).endStatus().build())
+      .once();
+
+    OpenShiftClient client = server.getOpenshiftClient();
+
+    DeploymentConfig deploymentConfig = client.deploymentConfigs().withName("dc1").deployLatest();
+    assertNotNull(deploymentConfig);
+    assertEquals(Long.valueOf(1), deploymentConfig.getStatus().getLatestVersion());
+  }
+
+  //This is a test that verifies a recent fix (sundrio #135).
+  //According to this issue when editing a list of buildables using predicates, the object visitors get overwrriten.
+  @Test
+  void testDeploymentConfigVisitor() {
+   AtomicBoolean visitedContainer = new AtomicBoolean();
+   DeploymentConfig dc1 = getDeploymentConfig().build();
+
+   DeploymentConfig dc2 = new DeploymentConfigBuilder(dc1)
+     .accept(new TypedVisitor<DeploymentConfigSpecFluent<?>>() {
+       @Override
+       public void visit(DeploymentConfigSpecFluent<?> spec) {
+         spec.editMatchingTrigger(b -> b.buildImageChangeParams().getContainerNames().contains("container"))
+           .withType("ImageChange")
+           .endTrigger();
+       }
+     })
+     .accept(new TypedVisitor<ContainerFluent<?>>() {
+       @Override
+       public void visit(ContainerFluent<?> container) {
+         container.addNewEnv().withName("FOO").withValue("BAR").endEnv();
+         visitedContainer.set(true);
+
+       }
+     }).build();
+   assertNotNull(dc2);
+   assertTrue(visitedContainer.get());
+  }
+
+  @Test
+  void testGetLog() {
+    // Given
+    server.expect().get().withPath("/apis/apps.openshift.io/v1/namespaces/ns1/deploymentconfigs/dc1/log")
+      .andReturn(HttpURLConnection.HTTP_OK, "testlog")
+      .times(2);
+    OpenShiftClient client = server.getOpenshiftClient();
+
+    // When
+    String log = client.deploymentConfigs().inNamespace("ns1").withName("dc1").getLog();
+
+    // Then
+    assertNotNull(log);
+    assertEquals("testlog", log);
+  }
+
+  @Test
+  void testWatchLog() {
+    // Given
+    server.expect().get().withPath("/apis/apps.openshift.io/v1/namespaces/ns1/deploymentconfigs/dc1")
+      .andReturn(HttpURLConnection.HTTP_OK, getDeploymentConfig().build())
+      .times(2);
+    server.expect().get().withPath("/api/v1/namespaces/ns1/pods?labelSelector=" + Utils.toUrlEncoded("openshift.io/deployment-config.name=dc1"))
+      .andReturn(HttpURLConnection.HTTP_OK, new PodListBuilder()
+        .addToItems(new PodBuilder()
+          .withNewStatus()
+          .addNewCondition()
+          .withType("Ready")
+          .endCondition()
+          .endStatus()
+          .build())
+        .build())
+      .always();
+    server.expect().get().withPath("/apis/apps.openshift.io/v1/namespaces/ns1/deploymentconfigs/dc1/log?follow=true")
+      .andReturn(HttpURLConnection.HTTP_OK, "testlog")
+      .once();
+    OpenShiftClient client = server.getOpenshiftClient();
+    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+    // When
+    LogWatch logWatch = client.deploymentConfigs().inNamespace("ns1").withName("dc1").watchLog(byteArrayOutputStream);
+
+    // Then
+    await().atMost(2, TimeUnit.SECONDS).until(() -> byteArrayOutputStream.toString().length() > 0);
+    assertNotNull(byteArrayOutputStream.toString());
+    assertEquals("testlog", byteArrayOutputStream.toString());
+    logWatch.close();
+  }
+
+  @Test
+  void testWaitUntilReady() throws InterruptedException {
+    // Given
+    DeploymentConfig deploymentConfig = getDeploymentConfig().withNewStatus()
+      .addNewCondition()
+      .withType("Available")
+      .endCondition()
+      .withReplicas(1).withAvailableReplicas(1)
+      .endStatus().build();
+    server.expect().get().withPath("/apis/apps.openshift.io/v1/namespaces/ns1/deploymentconfigs/dc1")
+      .andReturn(HttpURLConnection.HTTP_OK, deploymentConfig)
+      .always();
+    OpenShiftClient client = server.getOpenshiftClient();
+
+    // When
+    deploymentConfig = client.deploymentConfigs().inNamespace("ns1").withName("dc1").waitUntilReady(10, TimeUnit.SECONDS);
+
+    // Then
+    assertNotNull(deploymentConfig);
+    assertEquals(1, deploymentConfig.getStatus().getAvailableReplicas().intValue());
+    assertTrue(deploymentConfig.getStatus().getConditions().stream().anyMatch(c -> c.getType().equals("Available")));
+  }
+
+  @Test
+  void testIsReady() {
+    // Given
+    DeploymentConfig deploymentConfig = getDeploymentConfig().withNewStatus()
+      .addNewCondition()
+      .withType("Available")
+      .endCondition()
+      .withReplicas(1).withAvailableReplicas(1)
+      .endStatus().build();
+    server.expect().get().withPath("/apis/apps.openshift.io/v1/namespaces/ns1/deploymentconfigs/dc1")
+      .andReturn(HttpURLConnection.HTTP_OK, deploymentConfig)
+      .always();
+    OpenShiftClient client = server.getOpenshiftClient();
+
+    // When
+    boolean result =  client.deploymentConfigs().inNamespace("ns1").withName("dc1").isReady();
+
+    // Then
+    assertTrue(result);
+  }
+
+  private DeploymentConfigBuilder getDeploymentConfig() {
+    return new DeploymentConfigBuilder()
+      .withNewMetadata()
+      .withName("dc1")
+      .endMetadata()
+      .withNewSpec()
+      .withReplicas(1)
+      .addToSelector("name", "dc1")
+      .addNewTrigger()
+      .withType("ImageChange")
+      .withNewImageChangeParams()
+      .withAutomatic(true)
+      .withContainerNames("container")
+      .withNewFrom()
+      .withKind("ImageStreamTag")
+      .withName("image:1.0")
+      .endFrom()
+      .endImageChangeParams()
+      .endTrigger()
+      .withNewTemplate()
+      .withNewSpec()
+      .addNewContainer()
+      .withName("container")
+      .withImage("image")
+      .endContainer()
+      .endSpec()
+      .endTemplate()
+      .endSpec();
+  }
+}

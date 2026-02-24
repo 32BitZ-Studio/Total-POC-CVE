@@ -1,1 +1,0 @@
-../../../../../components/camel-jsonapi/src/main/docs/jsonApi-dataformat.adoc

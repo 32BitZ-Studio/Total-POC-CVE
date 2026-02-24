@@ -1,1 +1,0 @@
-../../../../../components/camel-sap-netweaver/src/main/docs/sap-netweaver-component.adoc

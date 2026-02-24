@@ -1,1 +1,0 @@
-../../../../../components/camel-debug/src/main/docs/debug.adoc

@@ -1,1 +1,0 @@
-../../../../../components/camel-box/camel-box-component/src/main/docs/box-component.adoc

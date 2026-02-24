@@ -1,1 +1,0 @@
-../../../../../components/camel-cometd/src/main/docs/cometd-component.adoc

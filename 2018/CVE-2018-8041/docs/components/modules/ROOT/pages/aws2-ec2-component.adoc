@@ -1,1 +1,0 @@
-../../../../../components/camel-aws/camel-aws2-ec2/src/main/docs/aws2-ec2-component.adoc

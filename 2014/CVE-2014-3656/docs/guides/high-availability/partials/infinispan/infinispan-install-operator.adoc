@@ -1,1 +1,0 @@
-. Install the {infinispan-operator-docs}#installation[{jdgserver_name} Operator]

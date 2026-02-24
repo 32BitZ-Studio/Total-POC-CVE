@@ -1,1 +1,0 @@
-../../../../../components/camel-platform-http/src/main/docs/platform-http-component.adoc

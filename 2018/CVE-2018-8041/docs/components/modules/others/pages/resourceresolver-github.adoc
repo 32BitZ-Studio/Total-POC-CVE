@@ -1,1 +1,0 @@
-../../../../../components/camel-resourceresolver-github/src/main/docs/resourceresolver-github.adoc

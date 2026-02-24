@@ -1,1 +1,0 @@
-../../../../../components/camel-bean-validator/src/main/docs/bean-validator-component.adoc

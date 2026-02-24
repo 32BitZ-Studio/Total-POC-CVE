@@ -1,1 +1,0 @@
-../../../../../components/camel-arangodb/src/main/docs/arangodb-component.adoc

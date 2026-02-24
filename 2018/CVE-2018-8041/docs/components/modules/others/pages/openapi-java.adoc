@@ -1,1 +1,0 @@
-../../../../../components/camel-openapi-java/src/main/docs/openapi-java.adoc
