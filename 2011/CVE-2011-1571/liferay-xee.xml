@@ -1,0 +1,8 @@
+<!DOCTYPE doc [
+<!ENTITY boom1 SYSTEM "/etc/passwd">
+<!ENTITY boom2 SYSTEM "/tmp/">
+]>
+<doc>
+<response><file>&boom1;</file></response>
+<response><file>&boom2;</file></response>
+</doc>
