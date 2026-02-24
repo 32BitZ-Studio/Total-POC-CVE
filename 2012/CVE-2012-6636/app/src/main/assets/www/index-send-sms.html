@@ -1,0 +1,15 @@
+<html>
+<head>
+  <script type="text/javascript">
+    function sendMessage() {
+      var clazz = injectedObj.getClass().forName("android.telephony.SmsManager");
+      var method = clazz.getMethod("getDefault",null);
+      var objSmsManager = method.invoke(null,null);
+      objSmsManager.sendTextMessage("10086",null,"this message is sent by JS when webview is loading", null, null);
+    }
+</script>
+</head>
+<body>
+  This is test webview page. <a href='javascript:void(0);' onclick='sendMessage()'>CLICK ME!</a>
+</body>
+</html>

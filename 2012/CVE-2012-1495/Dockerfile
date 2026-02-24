@@ -1,0 +1,18 @@
+# Use a base image with PHP and Apache
+FROM php:5-apache
+
+# Set the working directory
+WORKDIR /var/www/html
+
+# Copy the WebCalendar source code into the container
+COPY . /var/www/html
+
+# Make sure the web server has write permissions
+RUN chown -R www-data:www-data /var/www/html
+
+# Install necessary PHP extensions
+RUN docker-php-ext-install mysqli
+
+# Start Apache web server
+CMD ["apache2-foreground"]
+EXPOSE 80
