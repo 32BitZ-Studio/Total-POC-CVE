@@ -1,0 +1,14 @@
+Windows Registry Editor Version 5.00
+
+; Intel NUC Performance Driver (ACPI\INTC1036) - Group Policy Device Block
+; This prevents the device from loading and blocks driver installations.
+;
+; To apply: Right-click > Merge (requires Administrator)
+; To revert: Use revert-device-gpo.reg or delete the Restrictions key
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions]
+"DenyDeviceIDs"=dword:00000001
+"DenyDeviceIDsRetroactive"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DenyDeviceIDs]
+"1"="ACPI\\INTC1036"

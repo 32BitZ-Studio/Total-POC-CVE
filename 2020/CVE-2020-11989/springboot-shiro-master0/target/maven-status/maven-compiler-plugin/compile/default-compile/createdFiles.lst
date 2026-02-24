@@ -1,0 +1,4 @@
+org\syclover\srpingbootshiro\LoginController.class
+org\syclover\srpingbootshiro\SrpingbootShiroApplication.class
+org\syclover\srpingbootshiro\MyRealm.class
+org\syclover\srpingbootshiro\ShiroConfig.class

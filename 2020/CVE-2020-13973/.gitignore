@@ -1,0 +1,17 @@
+# Eclipse
+.classpath
+.settings
+.project
+.tern-project
+target
+
+# Intellij
+.idea
+.iml
+
+# sonarqube
+.sonar_lock
+
+# Emacs
+*~
+\#*\#

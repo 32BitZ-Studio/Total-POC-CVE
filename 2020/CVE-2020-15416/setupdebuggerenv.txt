@@ -1,0 +1,25 @@
+How to set up the debugging environment with qemu user mode?
+
+➜  squashfs-root ls                                                                                                  
+bin  etc          lib                media  nvram.ini  qemu-arm-static       sbin      sys  usr  www
+dev  httpd_patch  libnvram-faker.so  mnt    proc       qemu-arm-static.1.gz  start.sh  tmp  var
+
+1. sudo mount -o bind /dev ./dev
+2. sudo mount -t proc /proc ./proc
+3. cp $(whereis qemu-arm-static) .
+4. sudo chroot . ./qemu-arm-static -E LD_PRELOAD="./libnvram-faker.so" --strace -g 12345 ./usr/sbin/httpd_patch
+
+
+
+5. Launch gdb-multiarch 
+➜  sbin pwd                              
+/home/kailu/IoT/netgear/qemu_user_mode/_R6300v2-V1.0.4.36_10.0.93.chk.extracted/squashfs-root/usr/sbin
+➜  sbin sudo gdb-multiarch httpd_patch 
+
+target remote :12345
+set breakpoints you want
+set sysroot /home/kailu/IoT/netgear/qemu_user_mode/_R6300v2-V1.0.4.36_10.0.93.chk.extracted/squashfs-root
+
+
+Then you can start the debug world in GDB for fun!
+
