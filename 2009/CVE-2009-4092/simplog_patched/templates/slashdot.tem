@@ -1,0 +1,11 @@
+<table width="99%" cellpadding=0 cellspacing=0 border=0>
+<tr>
+<td valign=top bgcolor="#006666"><img src="templates/images/slc.gif" width=13 height=16 alt="" align=top><font size=4 color="#FFFFFF"><b>--title--</b></td>
+</tr>
+</table>
+<b>Posted by <a href="--url--">--name--</a> on  --date--</b>
+<br>
+--body--
+<p>
+[--link--][--comments--][--karma--]
+<p>

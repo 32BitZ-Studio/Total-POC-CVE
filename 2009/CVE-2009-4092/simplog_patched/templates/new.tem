@@ -1,0 +1,11 @@
+<table width=100%>
+<tr>
+<td bgColor="#eeeeee" style="border:3px double #999999;">
+<b>--title--</b> 
+--date-- by <a href="--url--">--name--</a>
+</td>
+</tr>
+</table>
+--body--<p>[--link--][--comments--][--karma--]
+<p>
+

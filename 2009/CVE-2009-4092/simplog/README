@@ -1,0 +1,64 @@
+Simplog - A complete and powerful blogging tool
+=================================================
+ 
+Welcome to Simplog!
+ 
+Thanks for downloading this software.
+ 
+Simplog is free software, released under GNU GPL Licence version 2.0
+(see LICENSE file for details)
+
+Simplog was created to provide people with an easy way to create and maintain
+their own personal or a community weblog.  With the increasing number of people
+creating on-line journals, there is a need for a tool that allows them a quick
+and easy way to share their lives with the rest of the world.
+
+Simplog is NOT trying to a news/portal app like Slash/Scoop/PHP-Nuke, nor
+will it ever be, although it can be used for this purpose.  Simplog is
+intended for use as a personal or community weblog tool.
+
+Thank you for using Simplog!
+
+f-bomb
+(jeremy ashcraft)
+http://www.simplog.org
+ashcraft@13monkeys.com
+
+=========================
+NOTICE!
+=========================
+
+As of this release(0.9), we are no longer supporting upgrades from versions
+less than 0.5.
+
+=========================
+Security
+=========================
+
+Since I am not a security expert, if you find any type of security hole, possible hack, 
+or just have a suggestion to make Simplog more secure, please go to the
+following link and submit a bug report:
+
+http://www.simplog.org/bugs/
+
+thanks
+
+=========================
+New Features
+=========================
+
+Please read the CHANGES file
+
+=========================
+Upgrade/Installation instructions
+=========================
+
+Place all files inside your web server's directory.  Point your browser at "install.php".  If your web server is properly configured with PHP support, the installation script will execute and guide you through the installation process.
+
+For help go to:  http://www.simplog.org/forums/viewforum.php?f=1
+
+After the installation is complete, documentation is available at doc/index.php. 
+
+*If you are running PHP version 4.0.6 or lower, please uncomment the pre41vars() function call in the lib.php file.
+
+*After installation is complete, copy the config-dist.php file to cofing.php and edit the settings in the config.php file to match your local settings.

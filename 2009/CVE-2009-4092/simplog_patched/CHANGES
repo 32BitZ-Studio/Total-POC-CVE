@@ -1,0 +1,222 @@
+Simplog CHANGELOG
+---
+0.9.2
+---
+moved tb  white/black lists into DB
+added IP banning in comments and trackbacks
+removed some of jim's changes
+	glyph and html helpers
+	opened comments back up to public......
+added new IP/Spam section to system admin section
+
+
+---
+0.901jh
+---
+Numerous changes by J. Hu (jimhu@tamu.edu)...many of these made so long before I figured out CVS that they are not as well documented as they should be.
+Features:
+	Recent trackbacks block
+	Recent comments block
+	tb_validate.php includes blacklist and whitelist for blocking trackback spam
+	Glyph (symbol) and HTML pallettes in addition to smileys
+	Ability to display a given post only up to a <!--readmore--> comment, and to see more on click
+	Go directly to Edit from archive display.
+	Primitive support for image galleries using imagelist.php. 
+		To use this, place a folder inside /images/gallery
+		Place html in the blog 
+		$baseurl/imagelist.php?imagedir=<dirname>&blogid=<blogid>
+		clicking this should give a gallery where buttons automatically make a new post with the image.
+	New header/index organization to allow customization the look of different blogs (examples included)
+	Comments restricted to registered users
+	Modified Entry structure to use both modification and entry post date.  
+		****WARNING****: this will crash existing installations unless the underlying database is modified to add a new field, post_date, before date in blog_entries!
+Bug fixes
+	Some typos fixed
+	Some warnings reduced
+Known issues:
+	Date issue noted above (I haven't figured out how to modify the installer)
+	Incompatibilities with J. Buberel's security scheme.
+	
+---
+0.9
+---
+
+Improved admin interface
+Support for Atom feeds
+Graphical Smilieys
+Added trackback/pingback support
+New object oriented backend
+index.php is now display page. Editing blog entries moved to edit.php
+Should now work with all DBs supported under ADOdb, although only tested with mysql and postgresql
+
+---
+0.8
+---
+
+Tons of new stuff.....
+
+Categories!
+Can now read RSS feeds and add a post from a feed into your blog
+Can create various types of blocks for inclusion in blog
+Blog admins can now add/remove user from blog, create/edit blocks, create/edit categories, edit comments
+New summary for last 5 blog entries
+New menus
+Comment administration now done in comment screen
+Ability to preview comments
+Implementation of Blogger and MetaWeblog APIs, so you can now post to your blog from any API supporting client
+Posts now referenced by unique ID in archive rather than date
+
+
+---
+0.7
+---
+Good Lord!  way to many to list, but we'll give it a try......
+
+ Code Changes:
+ 	Security hole fixed that allowed arbitrary execution of SQL commands on some setups.
+	New look and feel
+	Use of CSS for layout and style
+	Entries can now preserve formatting
+	Auto translation of text links
+	Previewing of entries
+	Templates now stored in database and can be edited/created by admin
+	Previewing of templates
+	Added help link to online documentation
+	Search capabilities in archive
+	Can send update notification to weblogs.com via XML-RPC
+	Option to have comments pop up in new window
+	Admin user now specified during Installation/Upgrade (no more default God account)
+	Admin user can give blog level admin privileges to users
+	
+ DB Changes:
+ 	Altered blog tables to handle preformetted entries
+	Altered user list to specify Admin Super User in DB and not in lib.php file
+	Altered blog list to give blog level admin access to users
+	Added template table
+	
+
+---
+0.6
+---
+
+ Code Changes:
+ 	New web-based installation/upgrade
+ 	Passwords now stored with MD5 hashing
+	All code ported to use the ADODB database libraries to make MyPHPblog compatible with 
+		multiple database platforms
+	Option to strip out bad HTML from user's comments
+	Dynamically generated RSS feed
+	"New User/No Blog" login problem fixed
+	More secure lost password retrieval
+
+ DB Changes:
+
+  	Altered password field in blog_users table to accomodate MD5 passwords
+
+-----
+0.5.1
+-----
+
+minor bug fixes
+
+---
+0.5
+---
+
+ Code Changes:
+ 	Added new archive script to replace view.php - uses calendar based interface
+	Added ability for visitors to post comments about entries
+	Added ability for users to delete comments
+	Added ability for visitors to rate entries using "karma" points
+	Added marker to show link to entry in archive
+	User session also tracks user's IP address to make it harder to hijack session
+	I actually commented some of the functions in lib.php
+
+	DB Changes:
+
+		Added karma field to all blog tables
+		Added blog_comments table
+		Added blog_karma table to track karma voting
+	
+---
+0.3
+---
+ =========================
+ New Features in 0.3
+ =========================
+  
+  Please read the CHANGES file for a quick overview
+   
+   MyPHPblog now supports mulitple blogs!!  Create any number of blogs and have any number of users contribute.
+   Users can now send requests to the admin to create new blogs.
+    
+	When displaying your blog, you now must include the full URL to the blog.php file and add a parameter to specify which blog to show.  The blogid should be visible next to the blog's name in your blog list on the entry screen.
+	Example:
+	        <? inlcude("http://yourdomain.com/myphpblog/blog.php?blogid=3"); ?>
+			 
+ 	There are now 3 types of blogs, public, protected, and private
+        public - all users may contribute
+        protected - only a select group of users may contribute
+        private - only one user may contribute
+						  
+	You can now have a title for each of your blog entries and add titles to old entries.
+									   
+    Multiple templates are now available.  Just add the parameter tem=basic (the name of any .tem file in the templates/ directory.  tem=basic will use the basic.tem template) to the include to blog.php
+   Example:
+           <? include("http://yourdomain.com/myphpblog/blog.php?blogid=1&tem=new"); ?>
+											    
+	The admin section now has a blog administration section.  The admin user can create, modify, and delete blogs.  Each blog has its own Access Control List(ACL) that the admin user can edit.
+												 
+
+ Code Changes:
+  
+  Added support for multiple blogs
+  Added titles to blog entries
+  Now have 3 types of blogs, public, protected, and private
+  Added screen for sending a blog creation request to the admin user
+  Added a blog administration to admin script.  Admin can create/delete blogs, modify blog titles, add/remove users from blog ACL.
+  Added cool "Powered By MyPHPblog" image to footer
+  New script for upgrading DB from 0.2.1
+  Created a bunch of new templates for displaying blogs
+   
+   DB Changes:
+    
+	Changed all tables in DB to begin with "blog_" to keep table names from conflict on systems with only one database
+	Added blog_acl table to hold ACL data
+	Added blog_list table to hold blog information
+	Added blog_request table to hold new blog requests
+
+-----
+0.2.1
+-----
+ 
+ Added vars in lib.php for admin's email address and blog url
+ New user account creation email now comes from admin's email addy
+ Got rid of some debugging messages I accidentaly left in
+ Switched links to icons in user menus
+
+---
+0.2
+---
+
+Code Changes: 
+
+Added use of template for displaying blog
+Added blog entry listing to show user's entries on New Entry screen
+Added ability to edit and delete existing entries on New Entry screen
+Created blog.php to be included in a file of user's choosing to display blog
+Got rid of cookie.php file - didn't need it in the first place!
+
+DB Changes:
+
+none
+
+Administritava:
+
+Actually added a CHANGELOG and README file
+ 
+---
+0,1
+---
+ 
+Initial Revision

@@ -1,0 +1,348 @@
+<a name="top"></a>
+<b>Administration/Installation Guide</b>
+<hr>
+<p>
+<b>Contents</b>
+<ol>
+<li><a href="#over">Overview and requirements</a>
+<li><a href="#install">Installation/Upgrading</a>
+<li><a href="#config">Configuration</a>
+<li><a href="#service">Offering Simplog as a service on your webserver</a>
+<li><a href="#admin">Simplog Administration</a>
+<li><a href="#blog">Blog Administration</a>
+<li><a href="#other">Other Features</a>
+</ol>
+<hr>
+<a name="over"></a>
+<b>Overview and Requirements</b>
+<p>
+Simplog(Simplog) provides blog ('weblog') facilities using an
+SQL database backend to store content, and PHP as a server-side
+frontend to provide an interface to that content.
+<p>
+Simplog is developed and tested in a linux/apache environment, although 
+it is possible for it to work with other webservers and OSes that can handle PHP.  
+Installation is very easy and takes only minutes.  Installtion and upgrading are outlined in section 2.
+<p>	  
+At the server level, multiple users can use the Simplog
+software: if you are a sysadmin looking into providing users blogging
+facilities in a shared hosting environment, please see section 3.
+<p>
+Each of those users can administer several blogs, allowing
+others to help out. If you are looking to administer blogs, have
+a look at section 4.
+<p>				    
+Requirements:<br>
+<li>MySQL or PostgresSQL database either on the webserver, or on
+another server that can be accessed from the webserver
+<li>A webserver capable of handling PHP pages
+<p>					   
+Known to work:<br>
+Apache &gt;= 1.3.27<br>
+PHP &gt;= 4.3.1<br>
+MySQL &gt;= 4.0.11<br>
+PostgreSQL &gt;= 7.3.2<p>
+Simplog will probably work with versions lower than this, but has been tested these versions......
+<p>
+<a href="#top">Back to Top</a>
+<br>
+<hr>
+<a name="install"></a>
+<b>Installation/Upgrading</b>
+<p>
+    * Your web root directory is where your index page is stored,
+	not where the websever binaries are.
+	<p>
+	** If upgrading, MAKE BACKUPS of your blog directories and database.  Better safe than sorry!!! 
+<p>
+If you have access to a shell account on the machine hosting your website:<p>
+<ol>
+<li>FTP the simplog-X.X.tar.gz file into your web root directory.
+<li>Unpack the tar.gz into the simplog directory with: tar zxvf simplog-X.X.tar.gz<p>
+If upgrading, DO NOT remove your previous version.  Unpack the tarball over your previous version
+<li>If performing a new installation and do not already have a database created, be sure to create a database for you blog.<p>
+MySQL: mysqladmin -uusername create dbname<br>
+PostgreSQL: createdb -Uusername dbname<p>
+If you are in a shared hosting environment and do not know if you have your own database, please contact an administrator from your hosting provider.
+</ol>
+<br>
+If you only have FTP access to your host machine:<p>
+<ol>
+<li>Unpack the simplog-X.X.tar.gz file in a directory on your local machine
+<li>FTP to your hosting machine and change to your web root directory
+<li>Create a directory called 'simplog' in your web root directory
+<li>Change directories to this new directory you just made
+<li>Create the following directories
+	<ul>
+	<li>adodb
+	<li>cache
+	<li>doc
+	<li>images
+	<li>install
+	<li>templates
+	</ul>
+<li>Transfer the contents of the local simplog/ directory into the remote simplog/, then the contents of the subdirectories
+</ol>
+
+Then.....<br>
+
+<li>Point your browser to http://whatyourdomainis.com/simplog/install.php and follow the instructions
+<li>Copy or rename the 'config-dist.php' file to create 'config.php'
+<li>Edit the config.php file to contain your database information and other blog preferences
+<li>If you are in a shared hosting environment, change the permissions on the cache directory to be world writable
+<p>
+<a href="#top">Back to Top</a>
+<br>
+<hr>
+<a name="config"</a>
+<b>Simplog Configuration</b>
+<p>
+All configuration directives for Simplog are housed in a file name config.php.  If this is a new installation, you need to copy the config-dist.php file to a new file named config.php and then edit the config.php to match your local settings.  Here is an overview an explanation of each of the variables found in the config.php file.<p>
+<table border=1 cellspacing=0>
+	<tr><th>Variable</th><th>description</th><th>Example Value</th></tr>
+	<tr><td valign=top> $blogurl</td><td> URL to your main blog page</td><td valign=top>http://www.example.com/simplog/index.php</td></tr>
+	<tr><td valign=top>$baseurl </td><td> Base URL of Simplog directory</td><td valign=top>http://www.example.com/simplog/</td></tr>
+	<tr><td valign=top> $basepath </td><td> path to Simplog on the filesystem</td><td valign=top>/home/example/simlpog</td></tr>
+	<tr><td valign=top> $host</td><td>  host machine of your database</td><td valign=top>localhost</td></tr>
+	<tr><td valign=top> $dbase </td><td> name of the database</td><td valign=top>dbname</td></tr>
+	<tr><td valign=top> $user </td><td>  your userid for the database</td><td valign=top>dbuser</td></tr>
+	<tr><td valign=top> $passwd </td><td> your password for the database</td><td valign=top>passwd</td></tr>
+	<tr><td valign=top> $dbtype </td><td> type of database you are using.</td><td valign=top>mysql,postgres,oracle,etc....Acceptable values at <a href="http://phplens.com/lens/adodb/docs-adodb.htm#drivers" target="_new">http://phplens.com/lens/adodb/docs-adodb.htm#drivers</a></td></tr>
+	<tr><td valign=top> $anon</td><td>  name displayed for anonymous comment posters</td><td valign=top>Anonymous</td></tr>
+	<tr><td valign=top> $ratename </td><td> what you want to call your rating points</td><td valign=top>Karma,Rating</td></tr>
+	<tr><td valign=top> $limit </td><td> the number of entries to display</td><td valign=top>5</td></tr>
+	<tr><td valign=top> $timeout </td><td> time in minutes for an XML feed to live in cache</td><td valign=top>30</td></tr>
+	<tr><td valign=top> $dateformat </td><td>date and time format for blog entries.  uses format of PHP date() function.  See <a href="http://us3.php.net/manual/en/function.date.php" target="_new">http://us3.php.net/manual/en/function.date.php</a> for more details.</td><td valign=top>m/d/Y h:i:s a (will display as 02/15/2004 12:32:12 am</td></tr>
+	<tr><td valign=top> $use_weblog_rpc </td><td> register changes with weblogs.com</td><td valign=top>0,1</td></tr>
+	<tr><td valign=top> $enable_trackback </td><td> use trackback</td><td valign=top>0,1</td></tr>
+	<tr><td valign=top> $enable_pingback </td><td> use pingback</td><td valign=top>0,1</td></tr>
+	<tr><td valign=top> $enable_smilies </td><td>enable graphical smilies</td><td valign=top>0,1</td></tr>
+	<tr><td valign=top> $safe_comments </td><td> attempt to clean up HTML in comments to keep out malicious code</td><td valign=top>0,1</td></tr>
+	<tr><td valign=top> $comment_win </td><td> open comments in new window</td><td valign=top>0,1</td></tr>
+</table>
+<p>
+<a href="#top">Back to Top</a>
+<br>
+<hr>
+<a name="service"></a>
+<b>Offering Simplog as a service</b>
+<p>
+You can offer Simplog as a standard service for users in a shared hosting environment
+ <p>
+ Simplog requires<br>
+ <li>A webserver that can serve php pages.
+ <li>A MySQL or PostgresSQL database either on the webserver, or
+     accessible from that webserver (ie, access isn't prevented
+     by firewalls).  There are other database engines that should theoretically work(Interbase, Firebird, Informix, Oracle, MS SQL 7, Foxpro, Access, ADO, Sybase, FrontBase, DB2, SAP DB, SQLite and generic ODBC. The Sybase, Informix, FrontBase) since we use the ADOdb database libraries, but only MySQL and PostgreSQL have been tested and verified to work.
+	<p>	  
+  Details for installing a webserver, PHP libraries and the
+  database are beyond the scope of this document; you should refer
+  to the documentation for those products. With regards to apache/php/
+  mysql/postgresql, we've got this running using the default settings specified
+  by each.
+	<p>	   
+   Providing a user with Simplog access is a two step process:<br>
+   1. Create a database for the user to use for their blog.
+   Each user will need select, insert, update, delete, create and
+   drop permissions.<br>
+	2. Untar the simplog-X.X.tar.gz in the user's webroot.
+	 <p>
+	 You can now let the user know they're ready to go.
+<p>
+<a href="#top">Back to Top</a>
+<br>
+<hr>
+<a name="admin"></a>
+<b>Simplog Administration</b><p>
+It is the blog super user's job to create new blogs, create new users, give and rescind editing right on blogs, change blog information, and create/edit blog templates.  All of these are done from within the Simplog application.  Once logged in, the admin user will see an "Administration" link in his/her blog menu.
+<p>
+<li>Creating new blogs<p>
+Log in as normal, then click on 'Blog Administration'. If any of your
+users have requested a new blog, you'll see the request on the right
+of the screen. On the left, you can fill in the name of the Blog to be
+started. a multi-choice list of users, one or more of whom you can
+add in. Each user you add in will be permitted to add their own
+blog entries.<p>
+A new blog can be Public, Protected or Private, and this provides a
+method of pre-defining which users can contribute new comments
+without explicitly defining each. In a public blog, any user with a
+logon can add entries.  In a protected blog, any one of a specfic
+set of users can add entries, and others are stopped.  In a
+private blog, only one person can add entries.
+Regardless of whether the blog is public, protected or private,
+everyone can read the blog.
+<p>
+<li>Modifying blogs
+<p>
+At the bottom of the blog administration screen, there is a dropdown list of all the current blogs.  Choose a blog and click 'Select'.  You will then be presented with an interface to modify the properties of the blog.  You will also be able to assign a blog level administrator, who will be able to add and remove users, create blocks, and create categories.
+<p>
+<li>Removing blogs
+<p>
+Login, 'Blog Administration'. At the bottom of the page under
+Modify Blog you can choose which blog, and delete it.
+<p>
+<li>Adding new users
+<p>
+Enter the user's details and they will be emailed their password, effective
+immediately. If they want to start a new blog, or join an existing
+blog, direct them to clicking on 'Request' as soon as they've logged
+in. They can then use the template to tell you what they want.
+<p>
+<li>Removing users
+<p>
+After logging in as the administrator, you are presented with
+the 'User Administration' page. You can remove people's accounts here.
+There is currently no facility for suspending users temporarily.
+<p>
+<a name="marker"></a>
+<li>Creating Blog Templates
+<p>
+A blog template defines the layout and look of each blog entry.<p>
+To create/edit blog templates,  click the 'Template Adminstration' link in the Admin Menu.<p>
+When creating/editing a template, entry specific information is denoted by 'markers', placeholders for where the actual data will appear.
+<p>
+Current markers are:
+<dl>
+<dd>
+<table border=1 cellspacing=0>
+<tr>
+<td align=center>--name--</td><td>Name of user who created the entry</td>
+</tr>
+<tr>
+<td align=center>--date--</td><td>Date and time the entry was created</td>
+</tr>
+<tr>
+<td align=center>--shortdate--</td><td>Date the entry was created</td>
+</tr>
+<tr>
+<td align=center>--time--</td><td>Time the entry was created</td>
+</tr>
+
+<tr>
+<td align=center>--url--</td><td>Website of the user</td>
+</tr>
+<tr>
+<td align=center>--email--</td><td>Email address of the user</td>
+</tr>
+<tr>
+<td align=center>--body--</td><td>The text of the blog entry</td>
+</tr>
+<tr>
+<td align=center>--title--</td><td>Title of blog entry</td>
+</tr>
+<tr>
+<td align=center>--link--</td><td>Provides a link to the entry in the archive</td>
+</tr>
+<tr>
+<td align=center>--karma--</td><td>Shows the rating of the entry and (+/-) voting links</td>
+</tr>
+<tr>
+<td align=center>--comments--</td><td>Displays link to comments showing # of comments</td>
+</tr>
+<tr>
+<td align=center>--category--</td><td>Shows name of category post has been put into</td>
+</tr>
+<tr>
+<td align=center>--trackbacks--</td><td>Displays link to trackbacks and show number</td>
+</tr>
+<tr>
+<td align=center>--tbrdf--</td><td>Adds hidden markup in page to allow trackback auto-discovery</td>
+</tr>
+<tr>
+<td align=center>--pingbacks--</td><td>Displays link to pingbacks and show number</td>
+</tr>
+</table>
+</dd>
+</dl>
+<p>
+Templates can be edited and previewed from the 'Template Administration' area.  Any images, stylesheets, etc for templates should be placed in the templates/ directory within the simplog base directory.
+<p>
+<a href="#top">Back to Top</a>
+<br>
+<hr>
+<a name="blog"></a>
+<b>Blog Administration</b>
+<p>
+Blog adminstrators are assigned by the blog superuser.  Blog administrators have the ability to change the blog template, add and remove users form the blog, add and remove categories for the blog, add and remove side blocks for the blog, and edit and delete comments.  When logged in, an administration menu will appear while the user is blog admin for the current blog.
+<p>
+<li>Changing Templates
+<p>
+In the Add/Edit Entries screen, simply select a different template from the dropdown.
+<p>
+<li>Add/Edit Users
+Click "Add/Edit Users" in the Blog Administration menu.  You will see two lists: one with all current users in the system and another showing all users with permissions for the current blog.  To add users to the blog highlight names in the left select box and click the arrow button point to the right.  To remove users from the blog, highlist names in the right select box and click the arrow button pointing left.  Once finished, click "Save".  To undo changes before you click Save, click "Reset".
+<p>
+<li>Blocks Administration
+<p>
+Click "Blocks" in the Administration Menu.  You will see a list of all blocks that exist for the current blog.  The list shows title, block type, controls to change the order the blocks appear on the page, an edit button if the block contains editable content, and a delete button.  There are 9 types of blocks:
+<ol>
+<li>Categories<br>shows a list of all categories and links to entries in the archive of that category
+<li>RSS<br>pick from any RSS feed in the system and have the headlines display
+<li>Previous Entries<br>a list of the last 8 entries by title
+<li>Archives<br>a list by month and year of entries
+<li>PHP<br>enter custon PHP code to be displayed
+<li>HTML<br>enter custom HTML to be displayed
+<li>Search<br>a search form to search the blog
+<li>Login<br>a login box to login from your blog, will display your login name and links to blog tools once logged in
+<li>Calendar<br>the archive calendar, now treated as a block
+</ol>
+<p>
+<li>Category Administration
+<p>
+To Add/Edit categories for the blog, click "Categories" in the Blog Administration menu or "New Category" on the Add/Edit Entries screen next to the category dropdown.  Simply type the name of a new category and save.  You can also delete and Edit Categories.
+<p>
+<li>Comment Administration
+<p>
+Simlpy visit the comment page while logged in.  You will be able to edit and delete any comments.
+<p>
+<a href="#top">Back to Top</a>
+<br>
+<hr>
+<a name="other"></a>
+<b>Other Features</b>
+<p>
+XML-RPC ping support
+<p>
+The "XML-RPC ping" technology allows for your blog to inform the
+www.weblogs.com server that the blog has been recently changed;
+visitors to that server will then be informed of your change.
+For more information on this use of XML-RPC ping, please visit
+http://newhome.weblogs.com/faq
+<p>
+To Turn XML-RPC ping on or off, please modify your copy of config.php:
+<p>
+$use_weblog_rpc = 0;    //off, the default<br>
+$use_weblog_rpc = 1;    //on
+<p>
+Trackback/Pingback
+<p>
+Simplog now supports trackback/pingback.  You can enable these features for all users in the config.php file:
+<br>
+$enable_trackback = 1;<br>
+$enable_pingback = 1;<br>
+<p>
+Another feature of trackback/pingback is auto-discovery.  This allows other trackback/pingback enabled applications to send trackback/pingback pings to your blog that are recorded.  To allow trackback autodiscovery, add the --tbrdf-- marker to othe endof the blog template you are using.  
+<p>Pingback autodiscovery is enabled by default for all blogs in a default installation.  If you customize your installation by modifying header.php or using a different header file, make sure that you add a special HTTP header with<br>
+header("X-Pingback: $baseurl/api.php\n");<br>
+before outputting any HTML and add a &lt;link&gt; tag in your header file like this one:<br>
+&lt;link rel="pingback" href="http://www.yourdomain.com/simplog/api.php" /&gt;
+
+<p>
+RSS/Atom
+<p>
+RSS = RDF Site Summary. RSS works to allow many different sites to describe their sites
+according to a common standard; that description is then made
+available to all such that others who want to focus on a particular
+subject can rely on a site's description of its own content rather
+than put human time into working it out.
+<p> 
+Simplog allows RSS/Atom files to be created, but as at this version it only
+works when you manually request the file.  Simplog currently generates 3 feeds:<br>
+RSS 0.91 - http://mywebsite/simplog/rss.php
+RSS 2.0 - http://mywebsite/simplog/rss2.php
+Atom 0.3 - http://mywebsite/simplog/atom.php
+<P>
+For more information on RSS see http://www.purl.com/pub/a/2000/01/rss.html.  For more information on Atom, visit http://www.intertwingly.net/wiki/pie/FrontPage
+<p>
+<a href="#top">Back to Top</a>
+<br>

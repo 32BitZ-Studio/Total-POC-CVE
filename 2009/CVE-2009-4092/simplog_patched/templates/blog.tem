@@ -1,0 +1,17 @@
+<table width=100%>
+<tr>
+<td>
+--date-- by <a href="--url--">--name--</a>
+<br>
+<hr>
+<b>--title--</b><p>
+--body--
+</td>
+</tr>
+<tr>
+<td>
+[ --comments-- | --karma-- | --link-- ]
+</td>
+</tr>
+</table>
+<p>

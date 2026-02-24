@@ -1,0 +1,34 @@
+<table width=100%>
+<tr>
+<td align=left>
+<font face="helvetica,arial,sans-serif">
+<b>--title--</b>
+</font>
+</td>
+<td align=right>
+<font size=1 face="helvetica,arial,sans-serif">
+--date-- by <a href="--url--">--name--</a>
+</font>
+</td>
+</tr>
+<tr>
+<td colspan=2>
+<img src="templates/images/line.gif" width=100% height=5>
+</td>
+</tr>
+<tr>
+<td colspan=2>
+<font size=2 face="helvetica,arial,sans-serif">
+--body--
+</font>
+</td>
+</tr>
+<tr>
+<td colspan=2>
+<font size=2 face="helvetica,arial,sans-serif">
+[--comments--][--karma--][--link--]
+</font>
+</td>
+</tr>
+</table>
+<p>

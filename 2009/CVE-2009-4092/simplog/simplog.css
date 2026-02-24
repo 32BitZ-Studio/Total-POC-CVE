@@ -1,0 +1,151 @@
+BODY {
+font-family: arial,helvetica,sans-serif;
+font-size:12px;
+margin-top:0px;
+margin-bottom:0px;
+margin-left:0px;
+margin-right:0px;
+}
+td {
+font-family: arial,helvetica,sans-serif;
+font-size:12px;
+}
+A:LINK, A:VISITED {
+color: #555555;
+font-family: arial,helvetica,sans-serif;
+text-decoration: underline;
+}
+
+A:ACTIVE {
+color: #ff0000;
+font-family: arial,helvetica,sans-serif;
+text-decoration: underline;
+}
+
+A:HOVER {
+color: #0000ff;
+font-family: arial,helvetica,sans-serif;
+text-decoration: none;
+}
+.calday {
+font-family: arial,helvetica,sans-serif;
+font-size: 11px;
+line-height:12px;
+}
+.small {
+font-family: arial,helvetica,sans-serif;
+font-size: 11px;
+}
+.blogname {
+font-family: verdana,arial,helvetica,sans-serif;
+font-size:20px;
+font-weight:bold;
+color:#777777;
+letter-spacing:-1px;
+}
+
+.blogtag {
+		font-family: verdana,arial,helvetica,sans-serif;
+		font-style:italic;
+		font-size:10px;
+}
+
+.entrytitle {
+font-family: verdana,arial,helvetica,sans-serif;
+font-size:16px;
+font-weight:bold;
+color:#666666;
+}
+.karma {
+font-family: arial,helvetica,sans-serif;
+font-size: 13px;
+font-weight:bold;
+}
+
+.lightRow {
+	background: #eeeeee;
+}
+
+.darkRow {
+	background: #dddddd;
+}
+
+.smallheader {
+        background: #cccccc;
+        padding:4px;
+        border:1px solid #999999;
+	font-size:10px;	
+}
+
+.header {
+	background: #dddddd;
+	padding:4px;
+	border:1px solid #999999;
+}
+
+.menu {
+	background: #eeeeee;
+        padding:4px;
+        border:1px solid #999999;
+}
+
+.subheader {
+    background: #aaaaaa;
+    padding:2px;
+    border:1px solid #999999;
+}
+
+.search {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #000000;
+    background-color: #eeeeee;
+    background-image: url("/simplog/images/bgbutton.gif");
+}
+
+.search2 {
+	background-color: #fefefe;
+    border-width: 1px;
+    border-color: #cccccc;
+    border-style: solid;
+    padding: 2px;
+    margin: 1px;
+}
+
+textarea,input,select {
+	font-size: 10px;
+    background-color: #fafafa;
+    border-width: 1px;
+    border-color: #cccccc;
+    border-style: solid;
+    padding: 1px;
+    margin: 1px;
+}
+
+/* VARIATION BUTTON STYLING (v2.0) - SIZABLE SIZE */
+
+#css-buttons2 p{border: 1px solid #999; margin: 5px 0 0 20px; width:9.0em;}
+#css-buttons2 p a{color: #333; text-decoration: none;}
+
+.css-button2 {
+        display:block;
+        font: 0.8em verdana, arial, sans-serif;
+        padding: 2px 0 2px 0px; border: 1px solid white;
+        text-decoration: none;
+        background: #ddd;color: #333;
+}
+
+.css-button2 span {
+	    font: bold 1.0em verdana, arial, sans-serif;
+        padding: 2px 3px 2px 3px; color: #fff;
+		text-decoration: none;
+}
+
+
+
+/* BUTTON LOGO STYLING */
+.rss span{background:#f60;}
+.atom span{background:#069;}
+.w3c span {background: #fff; color: #069; font: bold 1.1em helvetica, arial, Sans-Serif;}
+.w3c2{background: #fc6;color: black !important;}
+.simp span{background: #aaa;}

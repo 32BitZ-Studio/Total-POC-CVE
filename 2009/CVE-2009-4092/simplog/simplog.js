@@ -1,0 +1,82 @@
+<!--//
+function del(bid,blogid) {
+
+	if(confirm("Do you really want to delete that blog entry?")) {
+		document.location = "edit.php?act=del&pid="+bid+"&blogid="+blogid;
+	}
+	
+}
+
+function openComments(baseurl,blogid,pid,tem) {
+
+	window.open(baseurl+'/comments.php?blogid='+blogid+'&pid='+pid+'&tem='+tem+'#comment','comments','width=480,height=480,scrollbars=yes,status=yes'); 
+
+}
+
+function openImg() {
+
+        window.open('img.php','img','width=380,height=480,scrollbars=yes');
+
+}
+
+function openHelp(baseurl) {
+ 
+     window.open(baseurl,'doc','width=640,height=480,scrollbars=yes,status=yes');
+	  
+}
+
+function openMarkers(baseurl) {
+
+     window.open(baseurl+'/doc/index.php?s=admin#marker','doc','width=480,height=480,scrollbars=yes,status=yes');
+
+}
+
+function openPrev() {
+ 
+    preview = window.open('','preview','width=640,height=480,scrollbars=yes,status=yes');
+	document.prev.elements['etitle'].value = document.entry.elements['etitle'].value;
+	document.prev.elements['body'].value = document.entry.elements['body'].value;
+	
+	if(document.entry.elements['comm']) {
+		document.prev.elements['body'].value += "<p><em>" + document.entry.elements['comm'].value + "</em>";
+	}
+	
+	document.prev.elements['cid'].value = document.entry.elements['cid'].options[document.entry.elements['cid'].selectedIndex].value;
+	
+	if(document.entry.elements['trans'].checked) {
+		document.prev.elements['trans'].value = "1";
+	} else {
+		document.prev.elements['trans'].value = "0";
+	}
+	if(document.entry.elements['format'].checked) {
+		document.prev.elements['format'].value = "1";
+	} else {
+		document.prev.elements['format'].value = "0";
+	}
+	
+	document.prev.submit();
+	
+	  
+}
+
+function openPrev2() {
+ 
+    preview = window.open('','preview','width=640,height=480,scrollbars=yes,status=yes');
+	document.entry.action = "preview.php";
+	document.entry.target = "preview";
+	document.entry.submit();
+	document.entry.action = "admin.php";
+	document.entry.target= "_self";
+	return false;
+				  
+}
+
+function openPrev3(tid,usr) {
+ 
+     preview = window.open('preview.php?adm=tem&remuser='+usr+'&tid='+tid,'preview','width=640,height=480,scrollbars=yes,status=yes');
+     return false;
+							  
+}
+
+//-->
+

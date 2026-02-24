@@ -1,0 +1,31 @@
+The idea(and a little HTML) for the browser based install taken from the Post Nuke team http://postnuke.com
+
+The code for generating the calendar in the archive came from someone else, but I lost the link to the guy's site.  Sorry man....
+
+The random password script was originally written in Perl by Chris Hunt and ported to PHP by me(f-bomb).
+
+The ADODB libraries are the creation of John Lim and other collaborators.
+http://php.weblogs.com/ADODB/
+
+A huge thank you goes out to Mr. Joe Jenett for redesigning the interface for the 0.7 release.  Joe is a true artist among us.
+http://www.jenett.org
+http://www.coolstop.com
+
+Special thanks to Blogger for driving me insane and making me write my own blogging tool!
+
+The Magpie RSS Parser courtesy of http://magpierss.sf.net
+
+Trackback codebase contributed by Dougal Campbell - http://dougal.gunters.org
+Pingback code based on pingback implementation for b2 - http://www.cafelog.com
+
+Smileys gifs from the phpBB forums over at polevaultpower.com
+
+Flickr API class courtesy of Dan Coulter at http://www.phpFlickr.com
+
+Special thanks goes out to all those who submitted bugs and answered questions in the Support forums
+
+Simplog development team:
+
+f-bomb - http://www.webhack.com
+jbuberel - http://www.buberel.org
+jimhu - http://dimer.tamu.edu

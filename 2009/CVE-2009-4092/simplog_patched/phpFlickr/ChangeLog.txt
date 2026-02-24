@@ -1,0 +1,42 @@
+---------------------
+phpFlickr - Changelog
+---------------------
+
+Version 1.2.1
+-------------
+
+2005-06-30 Dan Coulter  <dancoulter@users.sourceforge.net>
+    * phpFlickr.php: Added a comment to the photos_search() method to 
+      help people know how to use it. 
+    * README.txt: Fixed several typos relating to photos_search() and to
+      the PEAR prereqs. 
+
+2005-06-23 Dan Coulter  <dancoulter@users.sourceforge.net>
+    * phpFlickr.php: Fixed a bug in the buildPhotoURL method that caused 
+      an invalid URL to be returned.
+    * phpFlickr.php: removed the login parameters from the constructor
+      and added "die_on_error" parameter.  Added login() and two error
+      methods.
+    * README.txt: Edited text about constructor's parameters and included 
+      information on new login method.
+
+Version 1.2
+-----------
+
+2005-06-12 Dan Coulter  <dancoulter@users.sourceforge.net>
+    * phpFlickr.php: Created functions for the new methods: photosets.addPhoto
+      and photosets.removePhoto.  Also fixed some code formatting.
+    * phpFlickr.php: Changed URLs to reflect the new phpflickr.com site.
+    * README.txt: Changed URLs to reflect the new phpflickr.com site and added
+      a few notes about coding.
+    * example.php: Added an example php script.
+          
+2005-06-11 Dan Coulter  <dancoulter@users.sourceforge.net>
+    * phpFlickr.php: Fixed a bug in the definition of groups_pools_getPhotos()
+      that made the fifth parameter not optional.
+      
+Version 1.1
+-----------
+
+2005-06-09 Dan Coulter  <dancoulter@users.sourceforge.net>
+    * phpFlickr.php: Added caching functionality

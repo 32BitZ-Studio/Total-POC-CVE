@@ -1,0 +1,23 @@
+<table width="100%" cellpadding=1 cellspacing=0 border=0 bgcolor=006699>
+		<tbody>
+		<tr>
+		<td valign=top>
+		 <table width="100%" cellpadding=1 cellspacing=0 border=0 bgcolor=006699>
+		  <tbody>
+		  <tr>
+		   <td bgcolor=eeeeee><font size=4 color="#000000"><b>
+		    --title--</b><br>
+		    Posted by <a href="--url--">--name--</a> on 
+		    --date--<br>
+		   </td>
+		  </tr>
+		  </tbody>
+		 </table>
+		</td>
+		</tr>
+		</tbody>
+		</table>
+--body--
+<p>
+[--link--][--comments--][--karma--]
+<p>
