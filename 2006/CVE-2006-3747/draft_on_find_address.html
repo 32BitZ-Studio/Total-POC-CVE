@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>Some notes on how to find the right address in your specific environment
+to exploit Apache.</title>
+</head>
+<body>
+<h1>Some notes on how to find the right address in your specific environment to
+exploit Apache.</h1>
+
+<table border="0" width="80%" align="center">
+<tr><td>
+On my environment Debian Sarge with Apache 1.3.34 installed from apt-get, the
+address which I had to jump to execute the shellcode was <em>0x0834ae77</em>.
+As this address it is not helpful at all in exactly the same conditions,
+here a little help to figure out this address in your environment.
+</table>
+
+<p>
+To guess the address I thought different methods. Please, if you find another way
+would be nice to hear from you :)
+<ol>
+<li><b>Debugger's help</b>: In an optimal environment or if we compile Apache
+with debug support, we can use gdb to debug Apache setting a breakpoint inside
+the function <i>escape_absolute_uri</i> and get the address of <i>uri</i>
+variable. But if we are trying to exploit in-the-wild or just our binary is
+stripped (table of symbols lacks) and does not have debug support, it is not so
+simple... Indeed,
+that was my case :D<br><br>
+<li><b>Brute force until success</b>: Here there are no tricks, just begin
+trying with the highest heap memory to the lowest one, incrementing one byte at a
+time.<br>In kernel 2.6.18-5-686 the starting address for the heap is
+<em>0x080495C4</em>, then a proper range to try would be from <em>0x080495C0</em> to
+<em>0x085495C0</em> (5 MB range space).<br><br>
+<li><b>Get the address from apache's child core file</b>: This is quite tricky
+but worked at the first time to me, quite hard but accurate.<p>The first thing
+to do (obviously to exploit a machine which is yours and you have root
+access) is enable Core Dump support for apache. Once you got the core file from
+the server (trying with some trivial address like 0x01020304) establish a
+mapping between adresses of the core file and memory addresses.
+<br>
+To establish the mapping, I searched into the crashed process' memory map
+(<i>gdb /usr/sbin/apache core</i>) what contains some random address, i.e.
+0x0808bbc0, now you know some memory address and its content. Now searching for
+the contents into the core file you can get the offset (difference between
+memory addresses and core file addresses). In my case I was able to access 0x0808bbc0
+in the core file using an offset of 0x8bc0, i.e. memory address 0x0808bbc0 was
+dumped to 0x8bc0 in the core file. 
+<br>
+I wrote a naive program to ease the finding of the shellcode address:
+<pre>
+#include &lt;stdio.h&gt;
+
+int main() {
+        FILE *f;
+        char c, u, z;
+        int addr= 0x0808bbc0;
+        f= fopen("core", "r");
+        fseek(f, 0x8bc0, SEEK_SET);
+        fread(&amp;z, 1, 1, f); addr++;
+        fread(&amp;u, 1, 1, f); addr++;
+        while (!feof(f)){
+                fread(&amp;c, 1, 1, f); addr++;
+                if (z == '\x90' &amp;&amp; u == '\x89' &amp;&amp; c == '\xe6') {
+                        printf("addr: 0x%x\n", addr);
+                }
+                z= u; u= c;
+        }
+        return 0;
+}
+</pre>
+Where <i>addr</i> is the address where the heap begins, and \x90, \x89 and \xe6
+is some shellcode's OPcodes to find. Once we got some addresses, using gdb we
+can check whether it is the correct one or not.
+<br><br>
+Maybe knowing better the core files format (ELF) another approach could be
+reached to get this easily and faster, anyway as I had no time to find a method, I
+thought that and worked for me.
+</ol>
+</p>
+
+<p>Note: I suppose that you already know that linux kernel uses Virtual Address
+space Randomization since version 2.6.11, so it is "impossible" to take
+advantage in those situations.</p>
+
+(c) spinfoo
+
+</body>
+</html>
