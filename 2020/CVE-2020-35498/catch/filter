@@ -1,0 +1,28 @@
+ldh [12]
+jeq #0x86DD, ipv6
+jne #0x0800, drop
+ldb [16]
+lsh #8
+tax
+ldb [17]
+or x
+jmp calculate
+
+ipv6:
+ldb [18]
+lsh #8 
+tax
+ldb [19]
+or x
+
+calculate:
+tax
+ld #len
+sub x
+jgt #273, keep /* 255 + 18 */
+
+drop:
+ret #0
+
+keep:
+ret #-1

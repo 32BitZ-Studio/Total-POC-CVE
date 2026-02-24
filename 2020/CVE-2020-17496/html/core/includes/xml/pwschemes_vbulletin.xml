@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<schemes>
+	<scheme name='argon2id:::' priority='20' />
+	<scheme name='blowfish:15' priority='10' />
+	<scheme name='blowfish:10' priority='' />
+	<scheme name='legacy' priority='' />
+</schemes>

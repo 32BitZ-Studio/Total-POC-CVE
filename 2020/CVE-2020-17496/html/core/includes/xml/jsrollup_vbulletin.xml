@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<js product="vbulletin">
+	<rollup name="header-rollup.js">
+		<template>js/modernizr.min.js</template>
+		<template>js/global-head.js</template>
+	</rollup>
+	<rollup name="footer-rollup.js">
+		<template>js/jquery/jquery-migrate-1.2.1.min.js</template>
+		<template>js/jquery/jquery-ui-1.11.4.custom.min.js</template>
+		<template>js/jquery/jquery.ui.touch-punch.min.js</template>
+		<template>js/jquery/jquery.cookie.min.js</template>
+		<template>js/responsive.js</template>
+		<template>js/jquery/jquery.elastic-1.6.11.custom.min.js</template>
+		<template>js/jquery/jquery.form.min.js</template>
+		<template>js/jquery/jquery.selectBox.min.js</template>
+		<template>js/storage.js</template>
+		<template>js/sitedata.js</template>
+		<template>js/ajax.js</template>
+		<template>js/global.js</template>
+		<template>js/jquery/history.js</template>
+		<template>js/jquery/history.adapter.jquery.js</template>
+		<template>js/jquery/jquery.jcarousel.custom.min.js</template>
+		<template>js/history.js</template>
+		<template>js/autocomplete.js</template>
+		<template>js/poll.js</template>
+		<template>js/vbSlideshow.js</template>
+		<template>js/conversation_filter.js</template>
+		<template>js/channel_conversation.js</template>
+		<template>js/link.js</template>
+		<template>js/media.js</template>
+		<template>js/sb_activity.js</template>
+		<template>js/hv.js</template>
+		<template>js/css_b_comp_menu_horizontal.js</template>
+		<template>js/css_b_comp_menu_dropdown.js</template>
+		<template>js/pmchat.js</template>
+		<template>js/module-search2.js</template>
+		<template>js/module-tabbedcontainer.js</template>
+	</rollup>
+	<rollup name="channel-rollup.js">
+		<template>js/jquery/jquery.qtip.min.js</template>
+		<template>js/qtip.js</template>
+		<template>js/subscribe.js</template>
+	</rollup>
+	<rollup name="content-entry-rollup.js">
+		<template>js/jquery/jquery.qtip.min.js</template>
+		<template>js/qtip.js</template>
+		<template>js/tag-editor.js</template>
+		<template>js/flatpickr/flatpickr.min.js</template>
+		<template>js/flatpickr.js</template>
+	</rollup>
+	<rollup name="conversation-rollup.js">
+		<template>js/jquery/jquery.qtip.min.js</template>
+		<template>js/qtip.js</template>
+		<template>js/infraction.js</template>
+		<template>js/conversation.js</template>
+		<template>js/subscribe.js</template>
+		<template>js/tag-editor.js</template>
+	</rollup>
+	<rollup name="file-upload-rollup.js">
+		<template>js/jquery/jquery.tmpl.min.js</template>
+		<template>js/blueimp/jquery.fileupload.min.js</template>
+		<template>js/fileupload.js</template>
+	</rollup>
+	<rollup name="profile-sidebar-rollup.js">
+		<template>js/subscribe.js</template>
+		<template>js/profile.js</template>
+		<template>js/jquery/jquery.imgareaselect.pack.js</template>
+	</rollup>
+	<rollup name="groupadmin-rollup.js">
+		<template>js/sb_groupadmin.js</template>
+		<template>js/group_summary.js</template>
+	</rollup>
+	<rollup name="group-home-rollup.js">
+		<template>js/sb_socialgroups.js</template>
+		<template>js/subscribe.js</template>
+	</rollup>
+	<rollup name="blog-rollup.js">
+		<template>js/sb_blogs.js</template>
+		<template>js/blog_summary.js</template>
+	</rollup>
+	<rollup name="admin-sitebuilder-rollup.js">
+		<template>js/jquery/jquery.thumbnail-radio-checkbox.min.js</template>
+		<template>js/sb_page.js</template>
+		<template>js/jquery/jquery.qtip.min.js</template>
+		<template>js/qtip.js</template>
+		<template>js/admin-sbpanel-style.js</template>
+		<template>js/vbulletin_stylegenerator.js</template>
+		<template>js/vbulletin_stylegeneratorcolor.js</template>
+		<template>js/jquery/datatables/js/jquery.dataTables.min.js</template>
+	</rollup>
+	<rollup name="profile-custom-edit-rollup.js">
+		<template>js/colorpicker.min.js</template>
+		<template>js/vbColorPicker.js</template>
+		<template>js/profile_customization.js</template>
+	</rollup>
+	<rollup name="ckeditor-rollup.js">
+		<template>js/jquery/jquery.qtip.min.js</template>
+		<template>js/qtip.js</template>
+		<template>js/tag-editor.js</template>
+		<template>js/content_entry_box.js</template>
+		<template>js/ckeditor/ckeditor.js</template>
+		<template>js/ckeplugins/vblink/plugin.js</template>
+		<template>js/ckeplugins/vbwrapbuttons/plugin.js</template>
+		<template>js/ckeplugins/vbsource/plugin.js</template>
+		<template>js/ckeplugins/videotag/plugin.js</template>
+		<template>js/ckeplugins/autosave/plugin.js</template>
+		<template>js/ckeditor/adapters/jquery.js</template>
+		<template>js/ckeditor.js</template>
+	</rollup>
+	<rollup name="search-rollup.js">
+		<template>js/jquery/jquery.qtip.min.js</template>
+		<template>js/qtip.js</template>
+		<template>js/tag-editor.js</template>
+		<template>js/flatpickr/flatpickr.min.js</template>
+		<template>js/flatpickr.js</template>
+		<template>js/sb_search.js</template>
+	</rollup>
+	<rollup name="announcement-rollup.js">
+		<template>js/jquery/jquery.condense.custom.min.js</template>
+		<template>js/announcement.js</template>
+	</rollup>
+	<!-- TODO: Support nested rollups? -->
+	<rollup name="fullcalendar-rollup.js">
+		<!-- Also relies on jquery (and possibly jquery UI, though jquery UI reliance was supposedly dropped at FullCalendar 2.1.0,
+			the 3.1.0 download still contains jquery UI files. Either way, we should already have jquery on the page.
+		-->
+		<template>js/jquery/fullcalendar/moment.min.js</template> <!-- TODO: Move this to a more central location to prevent dupes in case of future dependencies from other plugins -->
+		<template>js/jquery/fullcalendar/fullcalendar.min.js</template>
+		<template>js/module-calendar.js</template>
+	</rollup>
+	<rollup name="reset-password-rollup.js">
+		<template>js/password.js</template>
+		<template>js/reset-password.js</template>
+	</rollup>
+	<rollup name="signup-rollup.js">
+		<template>js/password.js</template>
+		<template>js/signup.js</template>
+	</rollup>
+	<rollup name="usersettings-rollup.js">
+		<template>js/password.js</template>
+		<template>js/usersettings.js</template>
+	</rollup>
+</js>

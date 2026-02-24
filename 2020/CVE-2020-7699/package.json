@@ -1,0 +1,18 @@
+{
+  "name": "cve-2020-7699",
+  "version": "1.0.0",
+  "description": "复现 CVE-2020-7699 漏洞",
+  "main": "index.js",
+  "scripts": {
+    "start-server": "node index.js",
+    "launch-attack": "python launch_attack.py"
+  },
+  "keywords": ["bug reproduce"],
+  "author": "hemaoqi",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.4"
+  }
+}

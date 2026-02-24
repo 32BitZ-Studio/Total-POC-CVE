@@ -1,0 +1,6 @@
+[submodule "forks/tmux-fuzzing-corpus"]
+	path = forks/tmux-fuzzing-corpus
+	url = https://github.com/tmux/tmux-fuzzing-corpus.git
+[submodule "forks/tmux"]
+	path = forks/tmux
+	url = https://github.com/tmux/tmux.git

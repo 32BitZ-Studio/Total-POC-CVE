@@ -1,0 +1,8 @@
+.venv
+wolfssl
+wolfssl-examples
+libs
+servers
+certs
+keylog
+*.pyc

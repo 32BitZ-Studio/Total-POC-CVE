@@ -1,0 +1,1 @@
+(function(A){A(document).ready(function(){A(".js-drop-down-example").selectBox()})})(jQuery);

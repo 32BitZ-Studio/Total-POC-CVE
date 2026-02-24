@@ -1,0 +1,212 @@
+<chapter id="Miscellaneous">
+   <title>Miscellaneous changes</title>
+   
+   <para>
+   In addition to the various updated frameworks discussed in previous sections, a few individual
+   classes have been updated or discarded.
+   </para>
+
+   <section>
+   <title>Link</title>
+   
+   <para>
+   <classname>org.jboss.resteasy.spi.Link</classname> has been replaced by
+   the abstract class <classname>javax.ws.rs.core.Link</classname> and its implementation
+   <classname>org.jboss.resteasy.specimpl.LinkImpl</classname>. They both represent links as
+   described in <ulink url="https://tools.ietf.org/html/rfc5988">RFC 5988</ulink>, with slight
+   variations. For example, there is now <methodname>javax.ws.rs.core.Link.getRel()</methodname>
+   instead of <methodname>org.jboss.resteasy.spi.Link.getRelationship()</methodname>. Also, they
+   are constructed differently. For example,
+   </para>
+   
+   <programlisting>
+@GET
+@Path("/link-header")
+public Response getWithHeader(@Context UriInfo uri)
+{
+   URI subUri = uri.getAbsolutePathBuilder().path("next-link").build();
+   Link link = new Link();
+   link.setHref(subUri.toASCIIString());
+   link.setRelationship("nextLink");
+   return Response.noContent().header("Link", link.toString()).build();
+}
+   </programlisting>
+   
+   <para>
+   would now be written
+   </para>
+   
+   <programlisting>
+@GET
+@Path("/link-header")
+public Response getWithHeader(@Context UriInfo uri)
+{
+   URI subUri = uri.getAbsolutePathBuilder().path("next-link").build();
+   Link link = new LinkBuilderImpl().uri(subUri).rel("nextLink").build();
+   return Response.noContent().header("Link", link.toString()).build();
+}
+   </programlisting>
+   </section>
+
+   <section>
+   <title>GenericType</title>
+   
+   <para>
+   <classname>org.jboss.resteasy.util.GenericType</classname>, which allows the creation of 
+   parameterized type objects at runtime, is now replaced by
+   <classname>javax.ws.rs.core.GenericType</classname>. They are essentially the same class, with
+   minor method name changes. In particular, <methodname>getGenericType()</methodname> becomes 
+   <methodname>getType()</methodname> and <methodname>getType()</methodname> becomes
+   <methodname>getRawType()</methodname>. 
+   </para>
+   
+   </section>
+   
+   <section>
+   <title>StringConverter</title>
+   
+   <para>
+   Implementations of the <classname>org.jboss.resteasy.spi.StringConverter</classname> interface in
+   Resteasy 2 are providers that can marshal and unmarshal string-based parameters labelled with @HeaderParam,
+   @MatrixParam, @QueryParam, or @PathParam. JAX-RS 2.0 introduces a similar interface, 
+   <classname>javax.ws.rs.ext.ParamConverter</classname>, but implementations of 
+   <classname>ParamConverter</classname> are not recognized as providers. Rather, a provider
+   that implements <classname>javax.ws.rs.ext.ParamConverterProvider</classname>, which produces a
+   <classname>ParamConverter</classname>, may be registered. For example,
+   </para>
+   
+   <programlisting>
+public static class POJO { ... }
+   
+public static class POJOConverter implements ParamConverter&lt;POJO&gt;
+{
+   public POJO fromString(String str)
+   {
+      POJO pojo = new POJO();
+      return pojo;
+   }
+
+   public String toString(POJO value)
+   {
+      return value.getName();
+   }
+}
+
+public static class POJOConverterProvider implements ParamConverterProvider
+{
+   @Override
+   public &lt;T&gt; ParamConverter&lt;T&gt; getConverter(Class&lt;T&gt; rawType, Type genericType, Annotation[] annotations)
+   {
+      if (!POJO.class.equals(rawType)) return null;
+      return (ParamConverter&lt;T&gt;)new POJOConverter();
+   }
+}
+
+...
+ResteasyProviderFactory.getInstance().registerProvider(POJOConverterProvider.class);
+...
+   </programlisting>
+   </section>
+   
+   <section>
+   <title>Logger</title>
+   
+   <para>
+   Resteasy 2 comes with a logging abstraction called <classname>org.jboss.resteasy.logging.Logger</classname>,
+   extensions of which delegate to logging frameworks such as log4j and slf4j. Resteasy 3 no longer uses its
+   own logging abstraction but rather adopts the JBoss Logging framework, a brief description of which can
+   be found at 
+   <ulink url="http://docs.jboss.org/hibernate/orm/4.3/topical/html/logging/Logging.html">http://docs.jboss.org/hibernate/orm/4.3/topical/html/logging/Logging.html</ulink>.
+   JBoss Logging was chosen for its internationalization and localization support.
+   </para>
+   
+   </section>
+
+   <section>
+      <title>Matching Requests to Resource Methods</title>
+
+      <para>
+         Improvements and corrections have been made in Resteasy 3 to the implementation of
+         the matching rules as defined in the JAX-RS 2.0 specification.  In particular
+         a change for handling an ambiguous URI on a sub-resource method and
+         sub-resource locator was made.  In Resteasy 2 it was possible for a
+         sub-resource locator to execute successfully even when there was also a sub-resource
+         with the same URI.  This was incorrect behavior according to the specification.
+      </para>
+      <para>
+         A sub-resource method is associated with a @Path annotation and a REST verb (e.g. @GET, @POST);
+         it handles a HTTP request directly.  A sub-resource locator method is annotated with a @Path
+         annotation but returns an object that handles the HTTP request. The presence or absence of a
+         REST verb on the resource method differentiates the two.  In the situation where a sub-resource
+          and sub-resource locator method share the same URI, the sub-resource is selected.
+      </para>
+      <para>
+         Here are two scenarios of an ambiguous uri on a sub-resource method and sub-resource locator.
+      </para>
+      <para>
+         In the first scenario the sub-resource method, subResource, resides in class TestResource1,
+         and the sub-resource locator method, subResourceLocator, resides in a different class,
+         TestResource2.  Both resources are declared to use the same path, "test/x".  The matching rules
+         declare this as an uri ambiguity.  In such a case the method with the REST verb is selected
+         (i.e. subResource).
+      </para>
+
+      <programlisting>
+@Path("test")
+public class TestResource1 {
+
+         @GET
+         @Path("x")
+         @Produces("text/plain")
+         public Response subResource() {
+            return Response.ok("ok").build();
+         }
+ }
+
+@Path("test")
+public class TestResource2 {
+
+         @Path("x")
+         @Produces("text/plain")
+         public SubResource subResourceLocator() {
+            return new SubResource();
+         }
+ }
+
+public class SubResource {
+
+         @POST
+         @Path("")
+         public String sub(String s) {
+            return "sub(" + s + ")";
+         }
+ }
+      </programlisting>
+       <para>
+           In the second scenario the sub-resource method, anotherResource, and sub-resource locator method,
+           anotherResourceLocator, reside in the same class, TestResource3.  Both resources are declared
+           to use the same path, "anotherTest/y".  As in the previous case, because the REST verb
+           "POST" is declared on method anotherResource, and method anotherResourceLocator is defined as
+           a sub-resource locator, the endpoint anotherResource is the one selected by the matching rules.
+       </para>
+   <programlisting>
+@Path("anotherTest")
+   public class TestResource3 {
+
+         @POST
+         @Path("y")
+         @Produces("text/plain")
+         public Response anotherResource(String text) {
+            return Response.ok("ok").build();
+         }
+
+         @Path("y")
+         @Produces("text/plain")
+         public SubResource anotherResourceLocator() {
+            return new SubResource();
+         }
+}
+      </programlisting>
+
+   </section>
+</chapter>

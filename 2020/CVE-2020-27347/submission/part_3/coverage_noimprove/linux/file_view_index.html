@@ -1,0 +1,2218 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name='viewport' content='width=device-width,initial-scale=1'>
+    <meta charset='UTF-8'>
+    <link rel='stylesheet' type='text/css' href='../style.css'>
+    <!-- Custom style overrides -->
+    <style>
+      /* Copyright 2018 The Chromium Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file. */
+
+th, td {
+  padding: 5px 16px;
+}
+
+tbody td, tfoot td {
+  font-size: 14px;
+}
+
+thead th {
+  font-size: 16px;
+}
+
+thead th, tfoot td {
+  background-color: #f5f5f5;
+  border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
+  color: #484848;
+  text-transform: uppercase;
+}
+
+tbody tr:hover td, tfoot tr:hover td {
+  background-color: #f5f5f5;
+  border-color: #e4e4e4 !important;
+}
+    </style>
+  </head>
+  <body>
+    <h2>Coverage Report</h2>
+    <p>
+      View results by:
+            <a href='directory_view_index.html'>Directories</a>
+              | <a href='file_view_index.html'>Files</a>
+          </p>
+    <div class='centered'><table>
+  <thead>
+    <tr>
+      <th class="column-entry-bold">Path</th>
+      <th class="column-entry-bold" onclick="sortTable(SORT_COLUMN.LINE)" title=
+          "Line coverage is the percentage of code lines which have been executed at least once. Only executable lines within function bodies are considered to be code lines.">
+        Line Coverage
+      </th>
+      <th class="column-entry-bold" onclick="sortTable(SORT_COLUMN.FUNCTION)" title=
+          "Function coverage is the percentage of functions which have been executed at least once. A function is considered to be executed if any of its instantiations are executed.">
+        Function Coverage
+      </th>
+      <th class="column-entry-bold" onclick="sortTable(SORT_COLUMN.REGION)" title=
+          "Region coverage is the percentage of code regions which have been executed at least once. A code region may span multiple lines (e.g in a large function body with no control flow). However, it's also possible for a single line to contain multiple code regions (e.g in 'return x || y &amp;&amp; z').">
+        Region Coverage
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/alerts.c.html'>src/tmux/alerts.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 15.18% (29/191)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 23.08% (3/13)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  9.28% (22/237)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/arguments.c.html'>src/tmux/arguments.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  5.82% (45/773)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  9.52% (4/42)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  6.76% (33/488)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/attributes.c.html'>src/tmux/attributes.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/72)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/107)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cfg.c.html'>src/tmux/cfg.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/173)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/8)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/109)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/client.c.html'>src/tmux/client.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/557)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/13)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/344)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-attach-session.c.html'>src/tmux/cmd-attach-session.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/106)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/94)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-bind-key.c.html'>src/tmux/cmd-bind-key.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/50)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/30)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-break-pane.c.html'>src/tmux/cmd-break-pane.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/85)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/55)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-capture-pane.c.html'>src/tmux/cmd-capture-pane.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/173)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/4)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/124)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-choose-tree.c.html'>src/tmux/cmd-choose-tree.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/23)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/18)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-command-prompt.c.html'>src/tmux/cmd-command-prompt.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/141)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/4)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/84)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-confirm-before.c.html'>src/tmux/cmd-confirm-before.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/81)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/4)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/51)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-copy-mode.c.html'>src/tmux/cmd-copy-mode.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/41)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/31)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-detach-client.c.html'>src/tmux/cmd-detach-client.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/46)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/45)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-display-menu.c.html'>src/tmux/cmd-display-menu.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/370)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/4)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/242)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-display-message.c.html'>src/tmux/cmd-display-message.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/87)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/64)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-display-panes.c.html'>src/tmux/cmd-display-panes.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/208)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/6)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/144)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-find-window.c.html'>src/tmux/cmd-find-window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/63)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/49)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-find.c.html'>src/tmux/cmd-find.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  6.54% (58/887)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 25.81% (8/31)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  4.19% (35/836)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-if-shell.c.html'>src/tmux/cmd-if-shell.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/104)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/4)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/61)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-join-pane.c.html'>src/tmux/cmd-join-pane.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/100)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/63)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-kill-pane.c.html'>src/tmux/cmd-kill-pane.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/20)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/17)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-kill-server.c.html'>src/tmux/cmd-kill-server.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/5)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-kill-session.c.html'>src/tmux/cmd-kill-session.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/24)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/31)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-kill-window.c.html'>src/tmux/cmd-kill-window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/43)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/41)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-list-buffers.c.html'>src/tmux/cmd-list-buffers.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/29)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/12)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-list-clients.c.html'>src/tmux/cmd-list-clients.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/40)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/27)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-list-keys.c.html'>src/tmux/cmd-list-keys.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/279)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/6)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/206)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-list-panes.c.html'>src/tmux/cmd-list-panes.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/78)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/4)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/41)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-list-sessions.c.html'>src/tmux/cmd-list-sessions.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/32)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/16)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-list-windows.c.html'>src/tmux/cmd-list-windows.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/54)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/31)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-load-buffer.c.html'>src/tmux/cmd-load-buffer.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/49)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/28)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-lock-server.c.html'>src/tmux/cmd-lock-server.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/12)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/7)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-move-window.c.html'>src/tmux/cmd-move-window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/48)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/31)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-new-session.c.html'>src/tmux/cmd-new-session.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/246)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/185)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-new-window.c.html'>src/tmux/cmd-new-window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/92)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/63)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-parse.c.html'>src/tmux/cmd-parse.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 26.95% (452/1677)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 63.89% (23/36)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 29.87% (351/1175)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-paste-buffer.c.html'>src/tmux/cmd-paste-buffer.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/54)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/42)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-pipe-pane.c.html'>src/tmux/cmd-pipe-pane.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/126)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/4)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/67)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-queue.c.html'>src/tmux/cmd-queue.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 21.25% (116/546)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 26.83% (11/41)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 22.67% (73/322)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-refresh-client.c.html'>src/tmux/cmd-refresh-client.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/251)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/6)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/216)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-rename-session.c.html'>src/tmux/cmd-rename-session.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/30)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/13)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-rename-window.c.html'>src/tmux/cmd-rename-window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/13)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-resize-pane.c.html'>src/tmux/cmd-resize-pane.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/149)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/130)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-resize-window.c.html'>src/tmux/cmd-resize-window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/61)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/44)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-respawn-pane.c.html'>src/tmux/cmd-respawn-pane.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/41)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/15)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-respawn-window.c.html'>src/tmux/cmd-respawn-window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/39)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/14)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-rotate-window.c.html'>src/tmux/cmd-rotate-window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/63)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/65)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-run-shell.c.html'>src/tmux/cmd-run-shell.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/187)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/6)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/117)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-save-buffer.c.html'>src/tmux/cmd-save-buffer.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/52)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/31)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-select-layout.c.html'>src/tmux/cmd-select-layout.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/66)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/38)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-select-pane.c.html'>src/tmux/cmd-select-pane.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/161)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/149)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-select-window.c.html'>src/tmux/cmd-select-window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/58)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/45)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-send-keys.c.html'>src/tmux/cmd-send-keys.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/158)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/124)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-server-access.c.html'>src/tmux/cmd-server-access.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/83)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/69)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-set-buffer.c.html'>src/tmux/cmd-set-buffer.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/72)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/48)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-set-environment.c.html'>src/tmux/cmd-set-environment.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/67)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/44)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-set-option.c.html'>src/tmux/cmd-set-option.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/142)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/114)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-show-environment.c.html'>src/tmux/cmd-show-environment.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/75)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/57)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-show-messages.c.html'>src/tmux/cmd-show-messages.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/50)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/34)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-show-options.c.html'>src/tmux/cmd-show-options.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/163)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/117)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-show-prompt-history.c.html'>src/tmux/cmd-show-prompt-history.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/51)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/32)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-source-file.c.html'>src/tmux/cmd-source-file.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/149)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/5)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/92)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-split-window.c.html'>src/tmux/cmd-split-window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/128)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/76)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-swap-pane.c.html'>src/tmux/cmd-swap-pane.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/92)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/76)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-swap-window.c.html'>src/tmux/cmd-swap-window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/41)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/37)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-switch-client.c.html'>src/tmux/cmd-switch-client.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/87)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/67)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-unbind-key.c.html'>src/tmux/cmd-unbind-key.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/55)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/45)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd-wait-for.c.html'>src/tmux/cmd-wait-for.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/129)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/9)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/142)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/cmd.c.html'>src/tmux/cmd.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 26.70% (118/442)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 33.33% (11/33)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 31.20% (107/343)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/colour.c.html'>src/tmux/colour.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 70.38% (713/1013)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 68.42% (13/19)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 38.34% (143/373)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/closefrom.c.html'>src/tmux/compat/closefrom.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/28)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/29)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/fdforkpty.c.html'>src/tmux/compat/fdforkpty.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/6)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/fgetln.c.html'>src/tmux/compat/fgetln.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/32)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/25)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/freezero.c.html'>src/tmux/compat/freezero.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/6)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/getdtablecount.c.html'>src/tmux/compat/getdtablecount.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/11)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/5)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/getopt_long.c.html'>src/tmux/compat/getopt_long.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/252)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/5)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/325)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/getpeereid.c.html'>src/tmux/compat/getpeereid.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/10)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/4)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/getprogname.c.html'>src/tmux/compat/getprogname.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/htonll.c.html'>src/tmux/compat/htonll.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/7)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/imsg-buffer.c.html'>src/tmux/compat/imsg-buffer.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/610)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/60)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/412)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/imsg.c.html'>src/tmux/compat/imsg.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/226)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/25)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/150)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/ntohll.c.html'>src/tmux/compat/ntohll.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/7)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/recallocarray.c.html'>src/tmux/compat/recallocarray.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 13.89% (5/36)</pre>
+      </td>
+            <td class='column-entry-green'>
+        <pre>100.00% (1/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  7.32% (3/41)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/setproctitle.c.html'>src/tmux/compat/setproctitle.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/15)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/5)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/strlcat.c.html'>src/tmux/compat/strlcat.c</a></pre>
+              </td>
+            <td class='column-entry-yellow'>
+        <pre> 90.48% (19/21)</pre>
+      </td>
+            <td class='column-entry-green'>
+        <pre>100.00% (1/1)</pre>
+      </td>
+            <td class='column-entry-yellow'>
+        <pre> 83.33% (10/12)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/strlcpy.c.html'>src/tmux/compat/strlcpy.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/18)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/15)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/strtonum.c.html'>src/tmux/compat/strtonum.c</a></pre>
+              </td>
+            <td class='column-entry-yellow'>
+        <pre> 96.97% (32/33)</pre>
+      </td>
+            <td class='column-entry-green'>
+        <pre>100.00% (1/1)</pre>
+      </td>
+            <td class='column-entry-yellow'>
+        <pre> 93.33% (28/30)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/tree.h.html'>src/tmux/compat/tree.h</a></pre>
+              </td>
+            <td class='column-entry-yellow'>
+        <pre> 93.86% (275/293)</pre>
+      </td>
+            <td class='column-entry-yellow'>
+        <pre> 88.89% (8/9)</pre>
+      </td>
+            <td class='column-entry-yellow'>
+        <pre> 95.33% (694/728)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/unvis.c.html'>src/tmux/compat/unvis.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/184)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/173)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/compat/vis.c.html'>src/tmux/compat/vis.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 15.69% (24/153)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 20.00% (1/5)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 32.46% (62/191)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/control-notify.c.html'>src/tmux/control-notify.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  8.28% (13/157)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 21.43% (3/14)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  6.10% (15/246)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/control.c.html'>src/tmux/control.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/699)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/41)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/565)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/environ.c.html'>src/tmux/environ.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  3.68% (6/163)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  6.67% (1/15)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  3.88% (4/103)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/file.c.html'>src/tmux/file.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/596)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/31)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/372)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/format-draw.c.html'>src/tmux/format-draw.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/833)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/16)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/503)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/format.c.html'>src/tmux/format.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 28.20% (961/3408)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 76.21% (189/248)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 22.75% (616/2708)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/fuzz/input-fuzzer.c.html'>src/tmux/fuzz/input-fuzzer.c</a></pre>
+              </td>
+            <td class='column-entry-yellow'>
+        <pre> 93.88% (46/49)</pre>
+      </td>
+            <td class='column-entry-green'>
+        <pre>100.00% (2/2)</pre>
+      </td>
+            <td class='column-entry-yellow'>
+        <pre> 88.89% (24/27)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/grid-reader.c.html'>src/tmux/grid-reader.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/289)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/18)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/266)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/grid-view.c.html'>src/tmux/grid-view.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 69.64% (78/112)</pre>
+      </td>
+            <td class='column-entry-yellow'>
+        <pre> 86.67% (13/15)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 64.38% (47/73)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/grid.c.html'>src/tmux/grid.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 33.52% (358/1068)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 52.83% (28/53)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 36.53% (293/802)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/hyperlinks.c.html'>src/tmux/hyperlinks.c</a></pre>
+              </td>
+            <td class='column-entry-yellow'>
+        <pre> 81.25% (78/96)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 77.78% (7/9)</pre>
+      </td>
+            <td class='column-entry-yellow'>
+        <pre> 84.21% (64/76)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/input-keys.c.html'>src/tmux/input-keys.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/316)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/12)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/470)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/input.c.html'>src/tmux/input.c</a></pre>
+              </td>
+            <td class='column-entry-yellow'>
+        <pre> 92.48% (1660/1795)</pre>
+      </td>
+            <td class='column-entry-yellow'>
+        <pre> 90.62% (58/64)</pre>
+      </td>
+            <td class='column-entry-yellow'>
+        <pre> 92.05% (1146/1245)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/job.c.html'>src/tmux/job.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/264)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/14)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/220)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/key-bindings.c.html'>src/tmux/key-bindings.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/496)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/20)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/187)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/key-string.c.html'>src/tmux/key-string.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/230)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/4)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/263)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/layout-custom.c.html'>src/tmux/layout-custom.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/259)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/8)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/200)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/layout-set.c.html'>src/tmux/layout-set.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/460)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/12)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/364)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/layout.c.html'>src/tmux/layout.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  1.52% (12/791)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  3.03% (1/33)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  1.54% (11/716)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/log.c.html'>src/tmux/log.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  8.54% (7/82)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 20.00% (2/10)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  9.52% (4/42)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/menu.c.html'>src/tmux/menu.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/412)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/12)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/362)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/mode-tree.c.html'>src/tmux/mode-tree.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/973)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/43)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/790)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/names.c.html'>src/tmux/names.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/104)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/6)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/64)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/notify.c.html'>src/tmux/notify.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 49.30% (106/215)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 50.00% (6/12)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 54.17% (65/120)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/options.c.html'>src/tmux/options.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 25.85% (244/944)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 44.64% (25/56)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 25.64% (221/862)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/osdep-linux.c.html'>src/tmux/osdep-linux.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 12.73% (7/55)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 33.33% (1/3)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  3.85% (1/26)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/paste.c.html'>src/tmux/paste.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 38.33% (69/180)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 43.75% (7/16)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 38.64% (51/132)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/popup.c.html'>src/tmux/popup.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/583)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/18)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/384)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/proc.c.html'>src/tmux/proc.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/221)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/17)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/109)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/regsub.c.html'>src/tmux/regsub.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/66)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/39)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/resize.c.html'>src/tmux/resize.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/275)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/10)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/349)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/screen-redraw.c.html'>src/tmux/screen-redraw.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/751)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/22)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/774)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/screen-write.c.html'>src/tmux/screen-write.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 64.06% (957/1494)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 73.91% (51/69)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 65.24% (749/1148)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/screen.c.html'>src/tmux/screen.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 49.78% (223/448)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 76.00% (19/25)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 38.31% (159/415)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/server-acl.c.html'>src/tmux/server-acl.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/91)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/10)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/83)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/server-client.c.html'>src/tmux/server-client.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3191)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/60)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3088)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/server-fn.c.html'>src/tmux/server-fn.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  2.45% (8/327)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  7.69% (2/26)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  2.98% (10/336)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/server.c.html'>src/tmux/server.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/359)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/17)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/299)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/session.c.html'>src/tmux/session.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/468)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/39)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/450)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/spawn.c.html'>src/tmux/spawn.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/317)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/247)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/status.c.html'>src/tmux/status.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1598)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/52)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1193)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/style.c.html'>src/tmux/style.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 27.27% (90/330)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 62.50% (5/8)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 32.48% (102/314)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/tmux.c.html'>src/tmux/tmux.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.79% (3/380)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  6.67% (1/15)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.35% (1/288)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/tty-acs.c.html'>src/tmux/tty-acs.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/58)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/8)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/42)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/tty-features.c.html'>src/tmux/tty-features.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/107)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/4)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/63)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/tty-keys.c.html'>src/tmux/tty-keys.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/883)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/18)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/839)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/tty-term.c.html'>src/tmux/tty-term.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/439)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/19)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/293)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/tty.c.html'>src/tmux/tty.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  1.86% (38/2040)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  2.75% (3/109)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  1.28% (25/1958)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/utf8-combined.c.html'>src/tmux/utf8-combined.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 38.18% (21/55)</pre>
+      </td>
+            <td class='column-entry-green'>
+        <pre>100.00% (4/4)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 31.25% (15/48)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/utf8.c.html'>src/tmux/utf8.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 26.85% (134/499)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 37.50% (12/32)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 29.81% (107/359)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/window-buffer.c.html'>src/tmux/window-buffer.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/326)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/18)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/163)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/window-client.c.html'>src/tmux/window-client.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/232)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/13)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/140)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/window-clock.c.html'>src/tmux/window-clock.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/119)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/6)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/71)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/window-copy.c.html'>src/tmux/window-copy.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/3867)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/201)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/2289)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/window-customize.c.html'>src/tmux/window-customize.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1130)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/37)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/729)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/window-tree.c.html'>src/tmux/window-tree.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/1012)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/34)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  0.00% (0/655)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/window.c.html'>src/tmux/window.c</a></pre>
+              </td>
+            <td class='column-entry-red'>
+        <pre> 14.40% (191/1326)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 20.43% (19/93)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre>  9.60% (129/1344)</pre>
+      </td>
+          </tr>
+        <tr class="light-row">
+      <td>
+                  <pre><a href='src/tmux/xmalloc.c.html'>src/tmux/xmalloc.c</a></pre>
+              </td>
+            <td class='column-entry-yellow'>
+        <pre> 80.46% (70/87)</pre>
+      </td>
+            <td class='column-entry-green'>
+        <pre>100.00% (11/11)</pre>
+      </td>
+            <td class='column-entry-red'>
+        <pre> 77.59% (45/58)</pre>
+      </td>
+          </tr>
+      </tbody>
+      <tfoot>
+      <tr class="light-row-bold">
+        <td>
+          <pre>Totals</pre>
+        </td>
+                <td class='column-entry-red'>
+          <pre> 13.97% (7266/52029)</pre>
+        </td>
+                <td class='column-entry-red'>
+          <pre> 24.32% (555/2282)</pre>
+        </td>
+                <td class='column-entry-red'>
+          <pre> 13.36% (5465/40913)</pre>
+        </td>
+              </tr>
+    </tfoot>
+  </table>
+
+<script>
+  const SORT_COLUMN = {
+    LINE: 2,
+    FUNCTION: 3,
+    REGION: 4,
+  }
+
+  const SORT_TYPES = {
+    UNSET: -1,
+    PERCENT: 0,
+    AGGREGATE: 1,
+  }
+
+  var SORT_ORDER = {
+    [SORT_COLUMN.LINE]: [SORT_TYPES.UNSET],
+    [SORT_COLUMN.FUNCTION]: [SORT_TYPES.UNSET],
+    [SORT_COLUMN.REGION]: [SORT_TYPES.UNSET],
+  }
+
+  function sortTable(columnNumber) {
+    SORT_ORDER[columnNumber] = ++SORT_ORDER[columnNumber] % 2;
+
+    let columnSortOrder = SORT_ORDER[columnNumber];
+    let tbody = document.getElementsByTagName("tbody")[0];
+
+    [].slice.call(tbody.rows).sort(function(a, b) {
+      let aColumn = a.cells[columnNumber-1].textContent;
+      let bColumn = b.cells[columnNumber-1].textContent;
+
+      let aColumnCompare, bColumnCompare;
+      if (columnSortOrder == SORT_TYPES.PERCENT) {
+        aColumnCompare = parseFloat(/([0-9.]+)%/.exec(aColumn)[1]);
+        bColumnCompare = parseFloat(/([0-9.]+)%/.exec(bColumn)[1]);
+      } else {
+        aColumnCompare = parseInt(/\/(\d+)/.exec(aColumn)[1]);
+        bColumnCompare = parseInt(/\/(\d+)/.exec(bColumn)[1]);
+      }
+
+      return (
+          aColumnCompare < bColumnCompare ? -1:
+              aColumnCompare > bColumnCompare ? 1 : 0);
+    }).forEach(function(value, index) {
+      tbody.appendChild(value);
+    });
+  }
+
+</script>    </div>
+  </body>
+</html>

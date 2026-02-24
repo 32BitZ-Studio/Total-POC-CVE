@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<product productid="twitterlogin" active="1">
+	<title>Third Party Login - Twitter</title>
+	<description>Allows forum users to link a Twitter account with their vB account and login to the forum via Twitter.</description>
+	<version>5.6.0</version>
+	<url />
+	<versioncheckurl />
+	<dependencies>
+		<dependency dependencytype="vbulletin" minversion="5.6.0" maxversion="" />
+	</dependencies>
+	<codes>
+		<code version="*">
+			<installcode><![CDATA[
+				/*
+					//This doesn't work as part of the install code, because we cannot
+					//instantiate the library class before the product is enabled.
+
+				$library = vB_Library::instance('TwitterLogin:ExternalLogin');
+				$libid = $library->installLibrary();
+				 */
+				$library = vB_Library::instance('ExternalLogin');
+				$library->createLoginLibraryId('twitterlogin', 'TwitterLogin:ExternalLogin');
+				]]></installcode>
+			<uninstallcode><![CDATA[
+				/*
+					Remove product-specific additions. Specifically, records from the following table:
+						`userauth`
+						`sessionauth`
+						`loginlibrary`
+					Note that loginlibrary record will come back (with a different autoincremented loginlibraryid)
+					while the product.php specifies $AutoInstall = true due to the product code immediately
+					reinstalling autoinstall products.
+				*/
+				$productid = "twitterlogin";
+				$assertor = vB::getDBAssertor();
+				// get libraryid if it exists. Avoid using the library because product status is
+				// uncertain at this point (might be disabled, meaning it can't be instanced normally)
+				$record = $assertor->getRow('vBForum:loginlibrary', array('productid' => $productid));
+				if (!empty($record['loginlibraryid']))
+				{
+					$libid = $record['loginlibraryid'];
+
+					// Remove userauth & sessionauth records.
+					$conditions = array('loginlibraryid' => $libid);
+					$check1 = $assertor->delete('vBForum:userauth', $conditions);
+					$check2 = $assertor->delete('vBForum:sessionauth', $conditions);
+					// Remove libraryid
+					$assertor->delete('vBForum:loginlibrary', $conditions);
+
+					// Options ETC should be removed by the regular product uninstall process.
+				}
+				]]></uninstallcode>
+		</code>
+	</codes>
+	<templates>
+		<template name="twitterlogin_javascript" templatetype="template" date="1465340830" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[<script type="text/javascript">
+			// package scope
+			(function() {
+				var onJquery = function($)
+				{
+					// There's some weird race condition where the inputs are getting wiped.
+					// Wait a few milliseconds
+					setTimeout(function(){
+						var $registerAutoFillData = $(".js-twitterlogin-register-data");
+						if ($registerAutoFillData.length > 0 && !$registerAutoFillData.data('register-init'))
+						{
+							var username = $registerAutoFillData.data('username'),
+								email = $registerAutoFillData.data('email'),
+								$username = $("#regDataUsername"),
+								$email = $("#regDataEmail"),
+								 // todo: any reason we should NOT autofill the confirmation email (e.g. legal etc)
+								$confEmail = $("#regDataEmailConfirm");
+							if (username && $username.length && $username.val() == '')
+							{
+								$username.val(username);
+							}
+
+							if (email)
+							{
+								if ($email.length && $confEmail.length && $email.val() == '' && $confEmail.val() == '')
+								{
+									$email.val(email);
+									$confEmail.val(email);
+								}
+							}
+
+							$registerAutoFillData.data('register-init', true);
+						}
+					}, 400);
+
+					$(".js-twitterlogin-register-remove").off('click').on('click', function(evt) {
+						evt.preventDefault();
+
+						var twitterlogin_saved = $(this).data('twitterlogin_saved');
+
+						// remove sessionauth & reload the page
+						window.vBulletin.loadingIndicator.show();
+						vBulletin.AJAX(
+						{
+							// for packages in controller names, : in templates, . in JS.
+							// e.g. for package_api_class_suffix , package:class_suffix ,  package.class_suffix respectively
+							call: '/ajax/api/TwitterLogin.ExternalLogin/forgetRegistrationData',
+							data: {
+								twitterlogin_saved: twitterlogin_saved,
+								url: window.location.href,
+							},
+							success: function(result)
+							{
+								if (result.url)
+								{
+									window.location.href = result.url;
+								}
+							},
+							complete: function(jqXHR, textStatus)
+							{
+								window.vBulletin.loadingIndicator.hide();
+							},
+						}); // end vBulletin.AJAX()
+					});
+
+					$(".js-twitterlogin-onready-show").removeClass("h-hide");
+
+					$(".js-twitterlogin-unlink-twitter").off('click').on('click', function(evt) {
+						evt.preventDefault();
+						console.log({
+							msg: "unlink...",
+						});
+
+
+						window.vBulletin.loadingIndicator.show();
+						vBulletin.AJAX(
+						{
+							// for packages in controller names, : in templates, . in JS.
+							// e.g. for package_api_class_suffix , package:class_suffix ,  package.class_suffix respectively
+							call: '/ajax/api/TwitterLogin.ExternalLogin/unlinkUser',
+							success: function(result)
+							{
+								$(".js-twitterlogin-show-on-unlink").removeClass("h-hide");
+								$(".js-twitterlogin-hide-on-unlink").addClass("h-hide");
+
+								openAlertDialog({
+									'title':vBulletin.phrase.get('twitterlogin_disconnect_from_twitter'),
+									'message': vBulletin.phrase.get('twitterlogin_disconnect_complete'),
+									'iconType':'none',
+								});
+							},
+							emptyResponse: function()
+							{
+								openAlertDialog({
+									'title':vBulletin.phrase.get('twitterlogin_disconnect_from_twitter'),
+									'message': vBulletin.phrase.get('twitterlogin_error_tryagain_later'),
+									'iconType':'error',
+								});
+
+								console.log("unlinkUser returned an empty response!");
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								openAlertDialog({
+									'title':vBulletin.phrase.get('twitterlogin_disconnect_from_twitter'),
+									'message': vBulletin.phrase.get('twitterlogin_error_tryagain_later'),
+									'iconType':'error',
+								});
+
+								console.log("unlinkUser failed!");
+								console.log("----------------");
+								console.log("jqXHR:");
+								console.dir(jqXHR);
+								console.log("text status:");
+								console.dir(textStatus);
+								console.log("error thrown:");
+								console.dir(errorThrown);
+								console.log("----------------");
+							},
+							complete: function(jqXHR, textStatus)
+							{
+								window.vBulletin.loadingIndicator.hide();
+							},
+						}); // end vBulletin.AJAX()
+					});
+
+
+					$(".js-twitterlogin-link-twitter, .js-twitterlogin-signin-with-twitter, .js-twitterlogin-register-with-twitter")
+						.off('click')
+						.on('click', function(evt) {
+						evt.preventDefault();
+						var $this = $(this),
+							origin = $this && $this.data("click-origin") || "",
+							// window.parent in case we're inside the login iframe
+							redirectTo = window.parent.location.href;
+
+						window.vBulletin.loadingIndicator.show();
+						vBulletin.AJAX(
+						{
+							// for packages in controller names, : in templates, . in JS.
+							// e.g. for package_api_class_suffix , package:class_suffix ,  package.class_suffix respectively
+							call: '/ajax/api/TwitterLogin.ExternalLogin/fetchTwitterLinkUrl',
+							data: {
+								origin: origin,
+								redirectTo: redirectTo,
+							},
+							success: function(result)
+							{
+								console.log({
+									msg: "fetchTwitterLinkUrl() ajax result",
+									result: result,
+								});
+								if (result.url && result.url != "#")
+								{
+									window.location.href = result.url;
+								}
+
+							},
+							emptyResponse: function()
+							{
+								console.log("fetchTwitterLinkUrl returned an empty response!");
+							},
+							error: function(jqXHR, textStatus, errorThrown)
+							{
+								// VBV-15000 - This is a background service, so just log the error details
+								// to console, but do not show an overt error/interruption
+								console.log("fetchTwitterLinkUrl failed!");
+								console.log("----------------");
+								console.log("jqXHR:");
+								console.dir(jqXHR);
+								console.log("text status:");
+								console.dir(textStatus);
+								console.log("error thrown:");
+								console.dir(errorThrown);
+								console.log("----------------");
+							},
+							complete: function(jqXHR, textStatus)
+							{
+								window.vBulletin.loadingIndicator.hide();
+							},
+						}); // end vBulletin.AJAX()
+					}); // end click handler
+				};
+
+				// defer until jQuery is loaded
+				var tries = 0,
+					waittime = 100;
+				function waitForJQuery(func) {
+					if (window.jQuery) {
+						console.log({
+							msg: "jQuery is ready. Executing function",
+						});
+						func(window.jQuery);
+					}
+					else if (tries < 20) {
+						tries++;
+						console.log({
+							msg: "jQuery is not ready. Waiting...",
+							tries: tries,
+							waittime: (waittime * tries),
+						});
+						setTimeout(function(){
+							waitForJQuery(func);
+						}, waittime * tries);
+					}
+					else
+					{
+						// tries timed out...
+						console.log({
+							msg: "jQuery is not ready. Timed out.",
+							tries: tries,
+						});
+					}
+				}
+
+				// defer until vBulletin scripts have loaded.
+				var tries2 = 0,
+					waittime2 = 300;
+				function waitForvBulletin()
+				{
+					if (window.vBulletin) {
+						console.log({
+							msg: "vBulletin is ready. Executing function",
+						});
+						waitForJQuery(onJquery);
+					}
+					else if (tries2 < 10) {
+						tries2++;
+						console.log({
+							msg: "vBulletin is not ready. Waiting...",
+							tries2: tries2,
+							waittime2: (waittime2 * tries2),
+						});
+						setTimeout(function(){
+							waitForvBulletin();
+						}, waittime2 * tries2);
+					}
+					else
+					{
+						// tries timed out...
+						console.log({
+							msg: "vBulletin is not ready. Timed out.",
+							tries2: tries2,
+						});
+					}
+				}
+				waitForvBulletin();
+
+			})();
+			</script>]]></template>
+		<template name="twitterlogin_linkaccount" templatetype="template" date="1465340830" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[{vb:data state, TwitterLogin:ExternalLogin, getState}
+			<vb:if condition="!empty($state['enabled'])">
+				{vb:template twitterlogin_javascript}
+				{vb:cssExtra twitterlogin_style.css}
+				<div id="twitterlogin_linkaccount" class="h-inline-block h-align-top h-hide js-twitterlogin-onready-show">
+					<div class="js-twitterlogin-hide-on-unlink {vb:if "empty($state['external_userid'])", "h-hide"}">
+						<a
+							href="#twitterlogin_linkaccount"
+							class="twitterlogin-linkbutton js-twitterlogin-unlink-twitter"
+							data-click-origin="user-setting"
+							>
+							<span class="b-icon twitterlogin-icon"></span>
+							<span>{vb:phrase twitterlogin_disconnect_from_twitter}</span>
+						</a>
+					</div>
+					<div class="js-twitterlogin-show-on-unlink {vb:if "!empty($state['external_userid'])", "h-hide"}">
+						<a
+							href="#twitterlogin_linkaccount"
+							class="twitterlogin-linkbutton js-twitterlogin-link-twitter"
+							data-click-origin="user-setting"
+							>
+							<span class="b-icon twitterlogin-icon"></span>
+							<span>{vb:phrase twitterlogin_connect_to_twitter}</span>
+						</a>
+					</div>
+				</div>
+			</vb:if>]]></template>
+		<template name="twitterlogin_loginbutton" templatetype="template" date="1465340830" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[{vb:data state, TwitterLogin:ExternalLogin, getState}
+			<vb:if condition="!empty($state['enabled'])">
+				{vb:template twitterlogin_javascript}
+				{vb:cssExtra twitterlogin_style.css}
+				<span class="h-left h-margin-left-m js-external-login-provider h-hide js-twitterlogin-onready-show">
+					<a href="#"
+						class="js-twitterlogin-signin-with-twitter"
+						title="{vb:phrase twitterlogin_signin_with_twitter}"
+						data-click-origin="login"
+						><span class="twitterlogin-loginbutton h-block">{vb:phrase twitterlogin_signin_with_twitter}</span></a>
+				</span>
+			</vb:if>]]></template>
+		<template name="twitterlogin_registeruserbutton" templatetype="template" date="1465340830" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[{vb:data state, TwitterLogin:ExternalLogin, getState}
+			<vb:if condition="!empty($state['enabled']) AND !empty($state['register_enabled']) AND empty($state['external_userid'])">
+				{vb:template twitterlogin_javascript}
+				{vb:cssExtra twitterlogin_style.css}
+				<vb:if condition="!empty($_GET['twitterlogin_saved'])">
+					{vb:data registerData, TwitterLogin:ExternalLogin, getRegistrationData, {vb:raw _GET.twitterlogin_saved}}
+				</vb:if>
+				<div class="twitterlogin-register{vb:if "empty($registerData['found'])", " h-inline-block"} h-align-top h-hide js-twitterlogin-onready-show">
+					<vb:if condition="!empty($registerData) AND !empty($registerData['found'])">
+						<div class="h-hide js-twitterlogin-register-data"
+							data-username="{vb:if "!empty($registerData['username'])", {vb:var registerData.username}}"
+							data-email="{vb:if "!empty($registerData['email'])", {vb:var registerData.email}}"
+						>
+							<input type="hidden" name="twitterlogin[external_userid]" value="{vb:var registerData.external_userid}"/>
+							<input type="hidden" name="twitterlogin[twitterlogin_saved]" value="{vb:var _GET.twitterlogin_saved}"/>
+						</div>
+						<div class="twitterlogin-register-welcome">
+							<img src="{vb:raw registerData.profile_image_url_https}" title="{vb:var registerData.username}">
+							{vb:rawphrase welcome_x_link_y, {vb:var registerData.username}, {vb:raw registerData.url}}
+							<a
+								href="{vb:var registerData.return_to_url}"
+								class="twitterlogin-linkbutton js-twitterlogin-register-remove"
+								data-click-origin="register"
+								data-twitterlogin_saved="{vb:var _GET.twitterlogin_saved}"
+								>
+								<span class="b-icon twitterlogin-icon"></span>
+								<span>{vb:phrase twitterlogin_disconnect_from_twitter}</span>
+							</a>
+						</div>
+					<vb:else />
+						<div class="h-inline-block">
+							<a
+								href="#"
+								class="twitterlogin-linkbutton js-twitterlogin-register-with-twitter"
+								data-click-origin="register"
+								>
+								<span class="b-icon twitterlogin-icon"></span>
+								<span>{vb:phrase twitterlogin_connect_to_twitter}</span>
+							</a>
+						</div>
+					</vb:if>
+				</div>
+			</vb:if>]]></template>
+		<template name="twitterlogin_style.css" templatetype="template" date="1551284165" username="David Grove" version="5.5.2 Alpha 1"><![CDATA[<vb:if condition="!empty($vboptions['twitterlogin_images_directory'])">
+				{vb:set imagepath, {vb:raw vboptions.twitterlogin_images_directory}}
+			<vb:else />
+				{vb:set imagepath, 'core/packages/twitterlogin/images'}
+			</vb:if>
+			.twitterlogin-linkbutton,
+			.twitterlogin-linkbutton:hover,
+			.twitterlogin-linkbutton:focus,
+			.twitterlogin-linkbutton:link,
+			.twitterlogin-linkbutton:visited {
+				/* from b-button */
+				vertical-align: middle;
+
+				border-radius: 4px;
+				border: {vb:stylevar button_secondary_border};
+
+				text-align: center;
+				font: {vb:stylevar button_font};
+				<vb:comment>/*
+					The height of the button is dictated by the logo's height + margins,
+					and we're currently targetting 2rem.
+				 */</vb:comment>
+				line-height: 3.2rem;
+				/*padding: 0.25rem 0.75rem;*/
+
+				<vb:comment> /* ignored:
+					background: {vb:stylevar button_secondary_background};
+					color: {vb:stylevar button_secondary_text_color};
+				*/</vb:comment>
+
+				/* end b-button */
+
+				display: inline-block;
+
+				background-color: #1da1f2;
+				color: #FFFFFF;
+
+				cursor: pointer;
+			}
+			.twitterlogin-linkbutton .twitterlogin-icon {
+				<vb:comment>/*White logo + text on blue background*/</vb:comment>
+				background-image: url("{vb:concat {vb:raw imagepath}, '/Twitter_Logo_WhiteOnBlue.svg'}");
+				<vb:comment>/*
+					"Connect with Facebook" button is 1.2rem (height) + 0.4rem (top margin) + 0.4rem (bot margin)
+					= 2.0rem
+					Since the "padding" explicit in the *images* are different, the logo size has to be different
+					to make them similar in size.
+					To make the button heights the same, whatever we end up with in terms of height + margin etc
+					should be 2rem
+				*/</vb:comment>
+				width: 2.6rem;
+				height: 2.6rem;
+				margin: 0.3rem;
+				background-size: contain;
+				vertical-align: middle;
+			}
+			.twitterlogin-linkbutton span:not(.twitterlogin-icon) {
+				<vb:comment>
+					/*
+					Match updated "Connect with Facebook" button styling.
+					Keep in sync with .b-link__facebook-connect span in css_b_link
+					*/
+				</vb:comment>
+				vertical-align: middle;
+				font-weight:normal;
+				font-size:1.4rem;
+				margin-{vb:stylevar right}:10px;
+			}
+			.twitterlogin-loginbutton {
+				display: inline-block;
+
+				<vb:comment>/*
+					make the corners rounded to make it match the style of the facebook login button and
+					the legacy twitter icon
+				*/</vb:comment>
+				border-radius: 2px;
+				border: 0px solid #1DA1F2;
+
+				<vb:comment>/*White logo on blue background*/</vb:comment>
+				background: #1da1f2 url("{vb:concat {vb:raw imagepath}, '/Twitter_Logo_WhiteOnBlue.svg'}") no-repeat scroll 0 0;
+
+				<vb:comment>from b-icon & b-icon__twitter-24 rules</vb:comment>
+				overflow: hidden;
+				text-indent: -99999px;
+				width: 24px;
+				height: 24px;
+			}
+			.twitterlogin-register {
+				margin: 20px 0;
+			}
+			.twitterlogin-register-welcome img {
+				vertical-align: middle;
+			}]]></template>
+	</templates>
+	<stylevardfns>
+	</stylevardfns>
+	<stylevars>
+	</stylevars>
+	<hooks>
+		<hook>
+			<hookname>header_topusermenu_external_login</hookname>
+			<title>Login Button</title>
+			<active>1</active>
+			<hookorder>10</hookorder>
+			<template>twitterlogin_loginbutton</template>
+			<arguments />
+		</hook>
+		<hook>
+			<hookname>register_with_thirdparty</hookname>
+			<title>Registration Button</title>
+			<active>1</active>
+			<hookorder>10</hookorder>
+			<template>twitterlogin_registeruserbutton</template>
+			<arguments />
+		</hook>
+		<hook>
+			<hookname>settings_account_externallogin_link</hookname>
+			<title>User Panel</title>
+			<active>1</active>
+			<hookorder>10</hookorder>
+			<template>twitterlogin_linkaccount</template>
+			<arguments><![CDATA[a:1:{s:8:"userInfo";a:1:{s:8:"userInfo";i:1;}}]]></arguments>
+		</hook>
+	</hooks>
+	<phrases>
+		<phrasetype name="GLOBAL" fieldname="global">
+			<phrase name="twitterlogin_connect_to_twitter" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Connect to Twitter]]></phrase>
+			<phrase name="twitterlogin_disconnect_complete" date="1521592816" username="kevin" version="5.4.2 Alpha 2"><![CDATA[Your Twitter account information has been removed from the forum, but we cannot remove your Twitter account's allowed permissions for the app. <br />
+Please go to your <a href="https://twitter.com/settings/applications">twitter account settings</a> and click "Revoke access" for this app. <br />
+Once revoked, the app will require you to allow permissions again the next time you try to link your account.]]></phrase>
+			<phrase name="twitterlogin_disconnect_from_twitter" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Disconnect from Twitter]]></phrase>
+			<phrase name="twitterlogin_error_account_issue" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Twitter reported an issue with your account. Please check your Twitter account to see if it has been locked or suspended.]]></phrase>
+			<phrase name="twitterlogin_error_invalid_token" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Invalid token received. Please double check your Twitter credentials and try again.]]></phrase>
+			<phrase name="twitterlogin_error_need_app_auth" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[You must authorize the forum's app on your Twitter account before you can use Twitter Login features.]]></phrase>
+			<phrase name="twitterlogin_error_ratelimit_tryagain_later" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Your Twitter account has hit the rate limit for this application. This can happen if you try to link or login too frequently (typically over 15 times per 15 minute window). Please try again in 15 minutes.]]></phrase>
+			<phrase name="twitterlogin_error_tryagain_later" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[We're having issues connecting to Twitter. Please try again later.]]></phrase>
+			<phrase name="twitterlogin_external_userid" date="1529454370" username="jinsoojo" version="5.4.3 Alpha 4"><![CDATA[Twitter ID]]></phrase>
+			<phrase name="twitterlogin_no_oauth_user_found_register_x" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Failed to find account. Please verify your credentials and ensure that you already have linked the twitter account with your vBulletin user. <br /><a href="{1}">Click here</a> to register a new account with your twitter account.]]></phrase>
+			<phrase name="twitterlogin_signin_with_twitter" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Sign-in with Twitter]]></phrase>
+			<phrase name="twitterlogin_twitter" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 4"><![CDATA[Twitter]]></phrase>
+		</phrasetype>
+		<phrasetype name="Style Tools" fieldname="style">
+			<phrase name="group_twitterlogin" date="1521237521" username="kevin" version="5.4.2 Alpha 1"><![CDATA[Twitter Login]]></phrase>
+		</phrasetype>
+		<phrasetype name="vBulletin Settings" fieldname="vbsettings">
+			<phrase name="setting_twitterlogin_consumer_key_desc" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Enter your forum's Twitter App Consumer Key (also known as API Key) here. <br />
+You can find your app's consumer key and secret by going to the "Keys and Access Tokens" tab in your app settings page (e.g. https://apps.twitter.com/app/14741803/keys where 14741803 is your app's id). <br />
+You can access the specific app's settings by visiting the <a href="https://apps.twitter.com/app/new" target="_blank">Twitter Apps page</a> after logging in to Twitter. <br />
+If you do not have a Twitter App for your forum yet, you can create one by going to <a href="https://apps.twitter.com/app/new" target="_blank">Twitter's Create an application page</a> after logging in to Twitter.]]></phrase>
+			<phrase name="setting_twitterlogin_consumer_key_title" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Twitter App Consumer Key (API Key)]]></phrase>
+			<phrase name="setting_twitterlogin_consumer_secret_desc" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Enter your forum's Twitter App Consumer Secret (also known as API Secret) here. <br />
+See notes above for "Twitter App Consumer Key" on where to find this value.]]></phrase>
+			<phrase name="setting_twitterlogin_consumer_secret_title" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Twitter App Consumer Secret (API Secret)]]></phrase>
+			<phrase name="setting_twitterlogin_enabled_desc" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Enabling this option will allow users to connect their vBulletin account with their Twitter account, and use their Twitter credentials to log-in to the forum.]]></phrase>
+			<phrase name="setting_twitterlogin_enabled_title" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Enable Sign-in with Twitter]]></phrase>
+			<phrase name="setting_twitterlogin_images_directory_desc" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Change this value to the new directory if the images directory inside the package has been moved from the default location.]]></phrase>
+			<phrase name="setting_twitterlogin_images_directory_title" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[TwitterLogin Package Images Directory]]></phrase>
+			<phrase name="setting_twitterlogin_register_enabled_desc" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Enabling this option will allow users to connect their Twitter account while creating their vB user account. It will also automatically fill the username & email fields with those fetched from their Twitter account, if available.]]></phrase>
+			<phrase name="setting_twitterlogin_register_enabled_title" date="1465340711" username="jinsoojo" version="5.4.1 Alpha 1"><![CDATA[Enable Registration with Twitter]]></phrase>
+		</phrasetype>
+	</phrases>
+	<options>
+		<settinggroup name="externallogin" displayorder="35">
+			<setting varname="twitterlogin_enabled" displayorder="200">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="twitterlogin_register_enabled" displayorder="210">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="twitterlogin_consumer_key" displayorder="220">
+				<datatype>free</datatype>
+				<optioncode>input:60</optioncode>
+			</setting>
+			<setting varname="twitterlogin_consumer_secret" displayorder="230">
+				<datatype>free</datatype>
+				<optioncode>input:60</optioncode>
+			</setting>
+			<setting varname="twitterlogin_images_directory" displayorder="240">
+				<datatype>free</datatype>
+				<optioncode>input:60</optioncode>
+				<defaultvalue>core/packages/twitterlogin/images</defaultvalue>
+			</setting>
+		</settinggroup>
+	</options>
+	<helptopics>
+	</helptopics>
+	<cronentries>
+	</cronentries>
+	<faqentries>
+	</faqentries>
+	<widgets>
+	</widgets>
+	<pagetemplates>
+	</pagetemplates>
+	<pages>
+	</pages>
+	<channels>
+	</channels>
+	<routes>
+		<route guid="twitterlogin-route-authcallback-5a739f288b74e0.66074971">
+			<name>twitterlogin_authenticate_callback</name>
+			<prefix>twitterlogin/auth_callback</prefix>
+			<regex>twitterlogin/auth_callback</regex>
+			<controller>twitterlogin:page</controller>
+			<action>actionAuthCallback</action>
+			<product>twitterlogin</product>
+		</route>
+	</routes>
+</product>

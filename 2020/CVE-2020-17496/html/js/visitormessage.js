@@ -1,0 +1,11 @@
+/*=======================================================================*\
+|| ###################################################################### ||
+|| # vBulletin 5.6.0
+|| # ------------------------------------------------------------------ # ||
+|| # Copyright 2000-2020 MH Sub I, LLC dba vBulletin. All Rights Reserved.  # ||
+|| # This file may not be redistributed in whole or significant part.   # ||
+|| # ----------------- VBULLETIN IS NOT FREE SOFTWARE ----------------- # ||
+|| # http://www.vbulletin.com | http://www.vbulletin.com/license.html   # ||
+|| ###################################################################### ||
+\*========================================================================*/
+(function(A){window.vBulletin=window.vBulletin||{};var B=[".visitormessage-widget"];if(!vBulletin.pageHasSelectors(B)){return false}A(document).ready(function(){var C=A(".visitormessage-widget");C.off("click",".js-post-control__comment").on("click",".js-post-control__comment",function(){var E=A(this);var D=E.parents("ul.list-container").find(".js-comment-entry .js-comment-entry__textbox");A("html, body").animate({scrollTop:D.offset().top},"slow",function(){D.focus()})});C.off("click",".js-comment-entry__post").on("click",".js-comment-entry__post",function(D){vBulletin.conversation.postComment.apply(this,[D,function(){location.reload()}])});C.off("click",".js-post-control__ip-address").on("click",".js-post-control__ip-address",vBulletin.conversation.showIp);C.off("click",".js-post-control__edit").on("click",".js-post-control__edit",vBulletin.conversation.editPost);C.off("click",".js-post-control__flag").on("click",".js-post-control__flag",vBulletin.conversation.flagPost);C.off("click",".js-post-control__vote").on("click",".js-post-control__vote",function(D){if(A(D.target).closest(".js-bubble-flyout").length==1){vBulletin.conversation.showWhoVoted.apply(D.target,[D])}else{vBulletin.conversation.votePost.apply(this,[D])}return false});vBulletin.conversation.bindEditFormEventHandlers("all")})})(jQuery);

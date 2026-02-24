@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<product productid="vbfilescan" active="1">
+	<title>vBulletin File Scanner</title>
+	<description>vBulletin File Scanner using ClamAV</description>
+	<version>5.6.0</version>
+	<url />
+	<versioncheckurl />
+	<dependencies>
+		<dependency dependencytype="vbulletin" minversion="5.6.0" maxversion="" />
+	</dependencies>
+	<codes>
+		<code version="*">
+			<installcode><![CDATA[]]></installcode>
+			<uninstallcode><![CDATA[]]></uninstallcode>
+		</code>
+	</codes>
+	<templates>
+	</templates>
+	<stylevardfns>
+	</stylevardfns>
+	<stylevars>
+	</stylevars>
+	<hooks>
+	</hooks>
+	<phrases>
+		<phrasetype name="Control Panel Help Text" fieldname="cphelptext">
+			<phrase name="options_options_vbfilescan_clamd_ip_text" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[The ClamAV Daemon (clamd) can be configured to use a unix local socket, or a TCP socket. The Windows version currently only supports TCP sockets. Set this value to the IP Address that clamd is configured to listen to ("TCPAddr" in clamd.conf). Leave this setting empty if using the local socket, as this value will take precedence.]]></phrase>
+			<phrase name="options_options_vbfilescan_clamd_ip_title" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Clamd Network Socket IP]]></phrase>
+			<phrase name="options_options_vbfilescan_clamd_port_text" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[The ClamAV Daemon (clamd) can be configured to use a unix local socket, or a TCP socket. The Windows version currently only supports TCP sockets. Set this value to the Port that clamd is configured to listen to ("TCPSocket" in clamd.conf). Leave this setting empty if using the local socket, as this value will take precedence.]]></phrase>
+			<phrase name="options_options_vbfilescan_clamd_port_title" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Clamd Network Socket Port]]></phrase>
+			<phrase name="options_options_vbfilescan_clamd_sock_text" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[The ClamAV Daemon (clamd) can be configured to use a unix local socket, or a TCP socket. The Windows version currently only supports TCP sockets. Set this value to the .sock file that clamd is configured to listen to ("LocalSocket" in clamd.conf). If using the TCP socket, this setting is unused.]]></phrase>
+			<phrase name="options_options_vbfilescan_clamd_sock_title" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Clamd Local Socket]]></phrase>
+			<phrase name="options_options_vbfilescan_clamd_socklen_text" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Byte fetch length for PHP's socket_recv() function. Currently the default is large enough to accept all expected clamd responses in a single fetch, and should not be changed.]]></phrase>
+			<phrase name="options_options_vbfilescan_clamd_socklen_title" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Clamd Socket Receive Max Length]]></phrase>
+		</phrasetype>
+		<phrasetype name="Error Messages" fieldname="error">
+			<phrase name="vbfilescan_error_clamav_x" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 2"><![CDATA[ClamAV Error: {1}]]></phrase>
+			<phrase name="vbfilescan_error_missing_options" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 2"><![CDATA[Required options for ClamAV are missing. Please verify that "Clamd Local Socket" or "Clamd Network Socket IP" & "Clamd Network Socket Port" are configured correctly.]]></phrase>
+			<phrase name="vbfilescan_error_missing_sockets_extension" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 2"><![CDATA[Dependency check for ClamAV failed. Please verify that the "Sockets" PHP Extension is installed & enabled on the server.]]></phrase>
+			<phrase name="vbfilescan_error_please_verify_clamd" date="1524176154" username="jinsoojo" version="5.5.5 Alpha 2"><![CDATA[ClamAV did not respond properly to a PING command. Please verify that the ClamAV Daemon is configured & running correctly on the server, and that the "Clamd Local Socket" or "Clamd Network Socket IP" & "Clamd Network Socket Port" are configured correctly.]]></phrase>
+		</phrasetype>
+		<phrasetype name="vBulletin Settings" fieldname="vbsettings">
+			<phrase name="setting_vbfilescan_clamd_ip_desc" date="1465340711" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[IP Address for the network socket used by clamd. Leave this empty if using the "Clamd Local Socket" option. This is the "TCPAddr" value in the ClamAV Daemon's configuration (clamd.conf) file.]]></phrase>
+			<phrase name="setting_vbfilescan_clamd_ip_title" date="1465340711" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Clamd Network Socket IP]]></phrase>
+			<phrase name="setting_vbfilescan_clamd_port_desc" date="1465340711" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Port for the network socket used by the clamd. Only required if using the "Clamd Network Socket IP" option. This is the "TCPSocket" value in clamd.conf .]]></phrase>
+			<phrase name="setting_vbfilescan_clamd_port_title" date="1465340711" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Clamd Network Socket Port]]></phrase>
+			<phrase name="setting_vbfilescan_clamd_sock_desc" date="1465340711" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Filepath to the unix socket used by the ClamAV Daemon (clamd). Alternatively (if using the TCP socket with clamd) you can use the "Clamd TCP Socket IP" & "Clamd TCP Socket Port" options.]]></phrase>
+			<phrase name="setting_vbfilescan_clamd_sock_title" date="1465340711" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Clamd Local Socket]]></phrase>
+			<phrase name="setting_vbfilescan_clamd_socklen_desc" date="1465340711" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Do not change this unless instructed by vBulletin support. Byte fetch length for socket_recv() .]]></phrase>
+			<phrase name="setting_vbfilescan_clamd_socklen_title" date="1465340711" username="jinsoojo" version="5.5.5 Alpha 1"><![CDATA[Clamd Socket Receive Max Length]]></phrase>
+			<phrase name="vbfilescan_clamav_label" date="1465340711" username="jinsoojo" version="5.5.5 Alpha 2"><![CDATA[ClamAV]]></phrase>
+		</phrasetype>
+	</phrases>
+	<options>
+		<settinggroup name="filescanner" displayorder="6800">
+			<!-- Enable option is added via hooks.php -->
+			<setting varname="vbfilescan_clamd_sock" displayorder="1000">
+				<datatype>free</datatype>
+				<optioncode>input:60</optioncode>
+			</setting>
+			<setting varname="vbfilescan_clamd_ip" displayorder="1010">
+				<datatype>free</datatype>
+				<optioncode>input:60</optioncode>
+			</setting>
+			<setting varname="vbfilescan_clamd_port" displayorder="1020">
+				<datatype>free</datatype>
+				<optioncode>input:60</optioncode>
+			</setting>
+			<!--
+			<setting varname="vbfilescan_clamd_socklen" displayorder="1030">
+				<datatype>free</datatype>
+				<optioncode>input:60</optioncode>
+				<defaultvalue>20000</defaultvalue>
+			</setting>
+			-->
+		</settinggroup>
+	</options>
+	<helptopics>
+		<helpscript name="options">
+			<helptopic disp="1" act="options" opt="vbfilescan_clamd_sock" />
+			<helptopic disp="1" act="options" opt="vbfilescan_clamd_ip" />
+			<helptopic disp="1" act="options" opt="vbfilescan_clamd_port" />
+		</helpscript>
+	</helptopics>
+	<cronentries>
+	</cronentries>
+	<faqentries>
+	</faqentries>
+	<widgets>
+	</widgets>
+	<pagetemplates>
+	</pagetemplates>
+	<pages>
+	</pages>
+	<channels>
+	</channels>
+	<routes>
+	</routes>
+</product>

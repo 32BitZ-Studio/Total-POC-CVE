@@ -1,0 +1,37 @@
+{
+  "cube": "CUBE[name=kylin_sales_cube]",
+  "partial": false,
+  "affectedRowCount": 0,
+  "isException": false,
+  "pushDown": false,
+  "results": [
+    [
+      "10000"
+    ]
+  ],
+  "exceptionMessage": null,
+  "columnMetas": [
+    {
+      "scale": 0,
+      "columnType": -5,
+      "name": "EXPR$0",
+      "searchable": false,
+      "currency": false,
+      "autoIncrement": false,
+      "definitelyWritable": false,
+      "tableName": null,
+      "precision": 19,
+      "displaySize": 19,
+      "label": "EXPR$0",
+      "writable": false,
+      "caseSensitive": true,
+      "readOnly": true,
+      "catelogName": null,
+      "signed": true,
+      "columnTypeName": "BIGINT",
+      "schemaName": null,
+      "isNullable": 0
+    }
+  ],
+  "traceUrl": null
+}

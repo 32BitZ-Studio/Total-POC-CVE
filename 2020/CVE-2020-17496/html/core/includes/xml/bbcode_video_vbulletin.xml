@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- vBulletin 5.3.4 Alpha 4 -->
+<video_bbcode>
+	<provider tagoption="hulu">
+		<title>Hulu</title>
+		<url>http://www.hulu.com</url>
+		<regex_url><![CDATA[https?:\/\/www\.hulu\.com\/watch\/]]></regex_url>
+		<regex_scrape><![CDATA[<link rel="media:video" href="https?:\/\/www\.hulu\.com\/embed\.html\?eid=([^"]+)"]]></regex_scrape>
+		<embed><![CDATA[<iframe
+			src="//www.hulu.com/embed.html?eid={vb:raw code}"
+			width="<vb:if condition="isset($width) AND $width > 0">{vb:raw width}<vb:else />512</vb:if>"
+			height="<vb:if condition="$height">{vb:raw height}<vb:else />296</vb:if>"
+			frameborder="0"
+			webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>]]></embed>
+		<priority>-1</priority>
+	</provider>
+	<provider tagoption="youtube">
+		<title>YouTube (Long)</title>
+		<url>http://www.youtube.com</url>
+		<regex_url><![CDATA[https?:\/\/www\.youtube\.com\/watch\?.*v=([a-z0-9-_]+)]]></regex_url>
+		<regex_scrape></regex_scrape>
+		<embed><![CDATA[<iframe class="restrain" title="YouTube video player" width="<vb:if condition="isset($width) AND $width > 0">{vb:raw width}<vb:else />640</vb:if>" height="<vb:if condition="$height">{vb:raw height}<vb:else />390</vb:if>" src="//www.youtube.com/embed/{vb:raw code}?wmode={vb:raw vboptions.player_wmode}&autoplay=1" allowFullScreen></iframe>]]></embed>
+		<priority>-1</priority>
+	</provider>
+	<provider tagoption="youtube_share">
+		<title>YouTube (Short)</title>
+		<url>http://youtu.be</url>
+		<regex_url><![CDATA[https?:\/\/youtu\.be\/([a-z0-9\-_]+)]]></regex_url>
+		<regex_scrape></regex_scrape>
+		<embed><![CDATA[<iframe class="restrain" title="YouTube video player" width="<vb:if condition="isset($width) AND $width > 0">{vb:raw width}<vb:else />640</vb:if>" height="<vb:if condition="$height">{vb:raw height}<vb:else />390</vb:if>" src="//www.youtube.com/embed/{vb:raw code}?wmode={vb:raw vboptions.player_wmode}&autoplay=1" allowFullScreen></iframe>]]></embed>
+		<priority>-1</priority>
+	</provider>
+	<provider tagoption="vimeo">
+		<title>Vimeo</title>
+		<url>http://www.vimeo.com</url>
+		<regex_url><![CDATA[https?:\/\/(?:www\.)?vimeo\.com\/([0-9]+)]]></regex_url>
+		<regex_scrape></regex_scrape>
+		<embed><![CDATA[<iframe
+			src="https://player.vimeo.com/video/{vb:raw code}?autoplay=1"
+			width="<vb:if condition="isset($width) AND $width > 0">{vb:raw width}<vb:else />640</vb:if>"
+			height="<vb:if condition="$height">{vb:raw height}<vb:else />360</vb:if>"
+			frameborder="0"
+			webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>]]></embed>
+		<priority>-1</priority>
+	</provider>
+	<provider tagoption="dailymotion">
+		<title>Dailymotion</title>
+		<url>http://www.dailymotion.com</url>
+		<regex_url><![CDATA[https?:\/\/www\.dailymotion\.com(?:\/[^\/]+)?\/video\/([a-z0-9]+)]]></regex_url>
+		<regex_scrape></regex_scrape>
+		<embed><![CDATA[<iframe
+			src="//www.dailymotion.com/embed/video/{vb:raw code}?autoplay=1"
+			width="<vb:if condition="isset($width) AND $width > 0">{vb:raw width}<vb:else />420</vb:if>"
+			height="<vb:if condition="$height">{vb:raw height}<vb:else />339</vb:if>"
+			frameborder="0"
+			webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>]]></embed>
+		<priority>-1</priority>
+	</provider>
+	<provider tagoption="metacafe">
+		<title>Metacafe</title>
+		<url>http://www.metacafe.com</url>
+		<regex_url><![CDATA[http:\/\/www\.metacafe\.com\/watch\/([0-9a-z_\-\/]+)]]></regex_url>
+		<regex_scrape></regex_scrape>
+		<embed><![CDATA[<iframe
+			width="<vb:if condition="isset($width) AND $width > 0">{vb:raw width}<vb:else />400</vb:if>"
+			height="<vb:if condition="$height">{vb:raw height}<vb:else />345</vb:if>"
+			src="http://www.metacafe.com/embed/{vb:raw code}"
+			frameborder="0"
+			webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>]]></embed>
+		<priority>-1</priority>
+	</provider>
+	<provider tagoption="google">
+		<title>Google</title>
+		<url>http://video.google.com</url>
+		<regex_url><![CDATA[http:\/\/video\.google\.com\/videoplay\?docid=([0-9\-]+)]]></regex_url>
+		<regex_scrape></regex_scrape>
+		<embed><![CDATA[<object class="restrain" type="application/x-shockwave-flash" width="<vb:if condition="isset($width) AND $width > 0">{vb:raw width}<vb:else />400</vb:if>" height="<vb:if condition="$height">{vb:raw height}<vb:else />326</vb:if>" data="http://video.google.com/googleplayer.swf?docid={vb:raw code}&autoplay=1">
+	<param name="movie" value="http://video.google.com/googleplayer.swf?docid={vb:raw code}" />
+	<param name="wmode" value="{vb:raw vboptions.player_wmode}" />
+	</object>]]></embed>
+		<priority>-1</priority>
+	</provider>
+	<provider tagoption="facebook">
+		<title>Facebook (Legacy)</title>
+		<url>http://www.facebook.com</url>
+		<regex_url><![CDATA[https?:\/\/www\.facebook\.com\/(?:video\/video|photo)\.php\?v=([0-9]+)]]></regex_url>
+		<regex_scrape></regex_scrape>
+		<embed><![CDATA[<iframe src="https://www.facebook.com/video/embed?video_id={vb:raw code}" width="<vb:if condition="isset($width) AND $width > 0">{vb:raw width}<vb:else />576</vb:if>" height="<vb:if condition="$height">{vb:raw height}<vb:else />432</vb:if>" frameborder="0" allowFullScreen></iframe>]]></embed>
+		<priority>-1</priority>
+	</provider>
+	<provider tagoption="facebook_2017">
+		<title>Facebook</title>
+		<url>http://www.facebook.com</url>
+		<regex_url><![CDATA[https?:\/\/www\.facebook\.com\/((?:[^\/]+)\/videos\/[0-9]+\/?)]]></regex_url>
+		<regex_scrape></regex_scrape>
+		<embed><![CDATA[<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F{vb:urlencode {vb:raw code}}&show_text=0" width="<vb:if condition="isset($width) AND $width > 0">{vb:raw width}<vb:else />576</vb:if>" height="<vb:if condition="$height">{vb:raw height}<vb:else />432</vb:if>" frameborder="0" allowFullScreen></iframe>]]></embed>
+		<priority>-1</priority>
+	</provider>
+</video_bbcode>

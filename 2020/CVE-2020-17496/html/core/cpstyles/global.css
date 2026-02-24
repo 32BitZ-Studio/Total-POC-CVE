@@ -1,0 +1,131 @@
+/*========================================================================*\
+|| ###################################################################### ||
+|| # vBulletin 5.6.0
+|| # ------------------------------------------------------------------ # ||
+|| # Copyright 2000-2020 MH Sub I, LLC dba vBulletin. All Rights Reserved.  # ||
+|| # This file may not be redistributed in whole or significant part.   # ||
+|| # ----------------- VBULLETIN IS NOT FREE SOFTWARE ----------------- # ||
+|| # http://www.vbulletin.com | http://www.vbulletin.com/license.html   # ||
+|| ###################################################################### ||
+\*========================================================================*/
+
+/**
+* vBulletin Global CSS
+*/
+
+/* Auto-clearing of floats */
+.floatcontainer:after, .block_row:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.floatcontainer {
+	display: inline-block;
+}
+/* IE-Mac hide \*/
+* html .floatcontainer {
+	height: 1%;
+}
+.floatcontainer {
+	display: block;
+}
+
+.cms_widget_config_400 {
+	width:400px;
+}
+
+.cms_widget_config_450 {
+	width:450px;
+}
+
+.cms_widget_config_500 {
+	width:500px;
+}
+
+.cms_widget_config_550 {
+	width:550px;
+}
+
+.cms_widget_config_600 {
+	width:600px;
+}
+
+.cms_widget_config_650 {
+	width:650px;
+}
+
+.cms_widget_config_700 {
+	width:700px;
+}
+
+.cms_widget_config_750 {
+	width:750px;
+}
+
+.cms_widget_config_800 {
+	width:800px;
+}
+
+ul.floatlist {
+	margin:0;
+	padding:0;
+}
+
+ul.floatlist li {
+	list-style:none;
+	margin:0px;
+	padding:1px;
+}
+
+.section_row {
+	background-color:#DDDDDD;
+}
+
+.yui-main, .yui-b, .yui-g {
+	width: 100%;
+	float: left;
+}
+/*****************************CodeMirror**********************************************/
+.CodeMirror {
+	border: 1px solid #B3B7BF;
+	font-family: "Courier New",Courier,monospace !important;
+	font-size: 13px !important;
+}
+.CodeMirror-focused .cm-matchhighlight {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFklEQVQI12NgYGBgkKzc8x9CMDAwAAAmhwSbidEoSQAAAABJRU5ErkJggg==);
+	background-position: bottom;
+	background-repeat: repeat-x;
+}
+.CodeMirror-foldmarker {
+	color: blue;
+	text-shadow: #b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px;
+	font-family: arial;
+	line-height: .3;
+	cursor: pointer;
+}
+.cm-tab {
+	 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+	 background-position: right;
+	 background-repeat: no-repeat;
+}
+.cm-vbulletincurly{
+	font-weight: bold;
+}
+.CodeMirror-fullscreen {
+	display: block;
+	position: absolute !important;
+	top: 0; left: 0;
+	width: 100%;
+	z-index: 9999;
+	background: white;
+  }
+.CodeMirror-activeline-background {background: #e8f2ff !important;}
+
+/*========================================================================*\
+|| ######################################################################
+|| # NulleD By - vBSupport.org
+|| # CVS: $RCSfile$ - $Revision: 99798 $
+|| ######################################################################
+\*========================================================================*/
