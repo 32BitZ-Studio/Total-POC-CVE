@@ -1,0 +1,34 @@
+To let legacy 16-bit applications do BIOS interrupt calls Windows NT Kernel supports the concept
+of BIOS calls in the Virtual-8086 mode.
+BIOS runs in real mode, inorder to call BIOS interrupts we need the kernel to step down from 
+the protected mode and run in real mode for a while. This is done in two satges, The kernel
+transitions to the second stage when the General Trap Protection trap handler (nt!KiTrap0D) detects
+that the cs:eip matches specific magic values referring to a BIOS call for switching modes?
+
+To transition into the second stage the kernel has to restore execution context and call stack which
+had been previously saved by the faulting trap (interrupt evoker) once the authencity of the caller
+is verified. 
+
+We leverage this "verification" process due to the following flaws (incorrect assumptions):
+	
+	-> Setting up a VDM (Virtual DOS Machine) context requires a specific flag set called SeTcbPrivilege.
+	-> Ring3 code cannot install arbitrary code segment selectors.
+	-> Ring3 code cannot forge a trap frame.
+
+	Trap frame saves userspace registers. It saves user-space registers when the cpu changes
+	from user mode to kernel mode. (Its a data structure)
+
+Inorder to do things in t he Virtual-8086 mode we use VDM. Now this is where the first flaw comes in 
+helpful. Its assumed that setting up a VDM context requires SeTcbPrivilege. 
+
+	Creating a VDM context requires EPROCESS->Flags.VdmAllowed to be set in order
+	to access the authenticated system service, NtVdmControl(). VdmAllowed can
+	only be set using NtSetInformationProcess(), which verifies the caller has
+	SeTcbPrivilege. If this is true, the caller is very privileged and can
+	certainly be trusted.
+
+	Now this restriction can be subverted by requesting the NTVDM subsystem which has the flag
+	already set. Now we use CreateRemoteThread() to execute our exploit in the context of the 
+	subsystem process.
+
+
