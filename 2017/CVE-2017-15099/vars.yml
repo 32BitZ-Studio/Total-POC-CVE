@@ -1,0 +1,8 @@
+shared:
+  box: generic/rocky9
+  mem_size: 1024
+  cpus: 2
+  network: 192.168.0.21
+  networktype: public
+
+

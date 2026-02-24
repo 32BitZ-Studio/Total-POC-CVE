@@ -1,0 +1,7 @@
+
+<account-authenticator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accountType="com.android.test"
+    android:icon="@drawable/ic_launcher_background"
+    android:smallIcon="@drawable/ic_launcher_foreground"
+    android:label="Poc-2917-13286"/>

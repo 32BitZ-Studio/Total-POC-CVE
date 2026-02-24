@@ -1,0 +1,7 @@
+name: CVE-2017-8543
+title: CVE-2017-8543 Patch Status
+maintainer: ApexInfra <apxlab@microsoft.com>
+copyright: Microsoft, Inc.
+license: MIT
+summary: Detect a host's patch status for CVE-2017-8543
+version: 0.2.0

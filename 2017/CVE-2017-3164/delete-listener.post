@@ -1,0 +1,8 @@
+POST /solr/NAME_OF_COLLECTION/config HTTP/1.1
+Host: IP_OF_SOLR_SERVER:8983
+Content-Type: application/json
+Content-Length: 223
+
+{
+  "delete-listener" : "newlistener"
+}

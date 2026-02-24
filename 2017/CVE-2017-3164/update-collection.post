@@ -1,0 +1,6 @@
+POST /solr/NAME_OF_COLLECTION/update HTTP/1.1
+Host: IP_OF_SOLR_SERVER:8983
+Content-Type: application/json
+Content-Length: 124
+
+[{"id":"sectest2","name":"sectest2","otherkeysneede":"values"}]

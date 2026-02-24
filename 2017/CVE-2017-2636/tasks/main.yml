@@ -1,0 +1,9 @@
+---
+# tasks file for cve-2017-2636-el
+
+- name: Blacklist HDLC module from being loaded 
+  copy: src=disable-n_hdlc.conf dest=/etc/modprobe.d/disable-n_hdlc.conf owner=root group=root mode=0644
+
+- name: Remove n_hdlc kernel module if loaded (reboot recommended anyway)
+  modprobe: name=n_hdlc state=absent
+  

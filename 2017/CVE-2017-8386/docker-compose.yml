@@ -1,0 +1,8 @@
+version: '3'
+services:
+  git-shell-vuln:
+    build: .
+    container_name: git-shell-cve-2017-8386
+    ports:
+      - "3322:22"
+    restart: unless-stopped

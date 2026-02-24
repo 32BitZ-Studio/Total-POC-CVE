@@ -1,0 +1,2 @@
+gcc -fno-stack-protector -z execstack shellcode.cc -o /tmp/test
+/tmp/test

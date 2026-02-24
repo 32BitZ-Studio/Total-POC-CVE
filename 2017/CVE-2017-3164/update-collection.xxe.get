@@ -1,0 +1,1 @@
+http://IP_OF_SOLR_SERVER:8983/solr/NAME_OF_COLECTION/select?q=xxx&shards=localhost:8983/solr/NAME_OF_COLECTION/update%23&commit=true

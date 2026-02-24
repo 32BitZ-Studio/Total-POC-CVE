@@ -1,0 +1,16 @@
+# IDEA specific patterns
+.idea
+*.iml
+
+# Maven specific patterns
+target
+
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+.classpath
+.project
+.settings

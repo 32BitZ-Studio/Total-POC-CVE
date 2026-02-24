@@ -1,0 +1,25 @@
+<chapter id="_Context">
+<title>@Context</title>
+
+<para>
+
+The @Context annotation allows you to inject instances of 
+</para>
+
+<itemizedlist>
+   <listitem>javax.ws.rs.core.HttpHeaders</listitem>
+   <listitem>javax.ws.rs.core.UriInfo</listitem> 
+   <listitem>javax.ws.rs.core.Request</listitem>
+   <listitem>javax.servlet.http.HttpServletRequest</listitem>
+   <listitem>javax.servlet.http.HttpServletResponse</listitem>
+   <listitem>javax.servlet.ServletConfig</listitem>
+   <listitem>javax.servlet.ServletContext</listitem>
+   <listitem>javax.ws.rs.core.SecurityContext</listitem>
+</itemizedlist>
+
+<para>objects.</para>
+<para>
+
+
+</para>
+</chapter>

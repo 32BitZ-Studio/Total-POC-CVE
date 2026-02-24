@@ -1,0 +1,42 @@
+<chapter id="Migration_from_older_versions">
+<title>Migration from older versions</title>
+<sect1>
+    <title>Migrating from RESTEasy 2 to RESTEasy 3</title>
+    
+    <para>
+        Many facilities from RESTEasy 2 appear in a different form in RESTEasy 3. For example, much
+        of the client framework in RESTEasy 2 is formalized, in modified form, in JAX-RS 2.0. RESTEasy
+        versions 3.0.x implement both the older deprecated form and the newer conformant form. The
+        deprecated form is moved to legacy module in RESTEasy 3.1 and finally removed in RESTEasy 4.
+        For more information on upgrading from various deprecated facilities in RESTEasy 2, see
+        <ulink url="http://docs.jboss.org/resteasy/docs/resteasy-upgrade-guide-en-US.pdf">http://docs.jboss.org/resteasy/docs/resteasy-upgrade-guide-en-US.pdf</ulink>
+    </para>
+</sect1>
+<sect1>
+    <title>Migrating from 3.0.x to 4.0.0</title>
+    <itemizedlist>
+        <listitem>
+            In releases 3.0.x, when bean validation (<xref linkend="Validation"/>) threw instances of exceptions
+            <itemizedlist>
+                <listitem><classname>javax.validation.ConstraintDefinitionException</classname>,</listitem>
+                <listitem><classname>javax.validation.ConstraintDeclarationException</classname>, or</listitem>
+                <listitem><classname>javax.validation.GroupDefinitionException</classname>,</listitem>
+            </itemizedlist>
+            <para>
+                they were wrapped in a
+                <classname>org.jboss.resteasy.api.validation.Resteasy.ResteasyViolationException</classname>,
+                which <classname>org.jboss.resteasy.api.validation.ResteasyViolationExceptionMapper</classname>,
+                the built-in implementation of
+                <classname>javax.ws.rs.ext.ExceptionMapper&lt;javax.validation.ValidationException&gt;</classname>,
+                then turned into descriptive text.
+                As of release 4.0.0, instances of <classname>ConstraintDefinitionException</classname>, etc., are thrown as is.
+                They are still caught by <classname>ResteasyViolationExceptionMapper</classname>, so, in general, there is
+                no detectable change. It should be noted, however, that an implementation of
+                <classname>ExceptionMapper&lt;ResteasyViolationException&gt;</classname>, which, prior to release
+                4.0.0, would have caught wrapped instances of <classname>ConstraintDefinitionException</classname>,
+                will not catch unwrapped instances.
+            </para>
+        </listitem>
+    </itemizedlist>
+</sect1>
+</chapter>
