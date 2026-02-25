@@ -1,0 +1,75 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.sagemaker.model;
+
+import javax.annotation.Generated;
+
+/**
+ * 
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public enum AutoMLMetricEnum {
+
+    Accuracy("Accuracy"),
+    MSE("MSE"),
+    F1("F1"),
+    F1macro("F1macro"),
+    AUC("AUC"),
+    RMSE("RMSE"),
+    BalancedAccuracy("BalancedAccuracy"),
+    R2("R2"),
+    Recall("Recall"),
+    RecallMacro("RecallMacro"),
+    Precision("Precision"),
+    PrecisionMacro("PrecisionMacro"),
+    MAE("MAE"),
+    MAPE("MAPE"),
+    MASE("MASE"),
+    WAPE("WAPE"),
+    AverageWeightedQuantileLoss("AverageWeightedQuantileLoss");
+
+    private String value;
+
+    private AutoMLMetricEnum(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return this.value;
+    }
+
+    /**
+     * Use this in place of valueOf.
+     *
+     * @param value
+     *        real value
+     * @return AutoMLMetricEnum corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
+     */
+    public static AutoMLMetricEnum fromValue(String value) {
+        if (value == null || "".equals(value)) {
+            throw new IllegalArgumentException("Value cannot be null or empty!");
+        }
+
+        for (AutoMLMetricEnum enumEntry : AutoMLMetricEnum.values()) {
+            if (enumEntry.toString().equals(value)) {
+                return enumEntry;
+            }
+        }
+
+        throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+    }
+}

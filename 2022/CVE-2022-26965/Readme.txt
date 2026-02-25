@@ -1,0 +1,4 @@
+please install VirtualBox and then install the Pluck.ova file in it and then follow the report of the project to capture the flag. 
+The required codes is being updated in the repository.
+
+The project is made by skdevils with love

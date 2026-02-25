@@ -1,0 +1,124 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.sagemaker.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeLineageGroup" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class DescribeLineageGroupRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The name of the lineage group.
+     * </p>
+     */
+    private String lineageGroupName;
+
+    /**
+     * <p>
+     * The name of the lineage group.
+     * </p>
+     * 
+     * @param lineageGroupName
+     *        The name of the lineage group.
+     */
+
+    public void setLineageGroupName(String lineageGroupName) {
+        this.lineageGroupName = lineageGroupName;
+    }
+
+    /**
+     * <p>
+     * The name of the lineage group.
+     * </p>
+     * 
+     * @return The name of the lineage group.
+     */
+
+    public String getLineageGroupName() {
+        return this.lineageGroupName;
+    }
+
+    /**
+     * <p>
+     * The name of the lineage group.
+     * </p>
+     * 
+     * @param lineageGroupName
+     *        The name of the lineage group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeLineageGroupRequest withLineageGroupName(String lineageGroupName) {
+        setLineageGroupName(lineageGroupName);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getLineageGroupName() != null)
+            sb.append("LineageGroupName: ").append(getLineageGroupName());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof DescribeLineageGroupRequest == false)
+            return false;
+        DescribeLineageGroupRequest other = (DescribeLineageGroupRequest) obj;
+        if (other.getLineageGroupName() == null ^ this.getLineageGroupName() == null)
+            return false;
+        if (other.getLineageGroupName() != null && other.getLineageGroupName().equals(this.getLineageGroupName()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getLineageGroupName() == null) ? 0 : getLineageGroupName().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public DescribeLineageGroupRequest clone() {
+        return (DescribeLineageGroupRequest) super.clone();
+    }
+
+}

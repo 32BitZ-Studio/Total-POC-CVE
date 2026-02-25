@@ -1,0 +1,260 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.ssooidc;
+
+import javax.annotation.Generated;
+
+import com.amazonaws.*;
+import com.amazonaws.regions.*;
+
+import com.amazonaws.services.ssooidc.model.*;
+
+/**
+ * Interface for accessing SSO OIDC.
+ * <p>
+ * <b>Note:</b> Do not directly implement this interface, new methods are added to it regularly. Extend from
+ * {@link com.amazonaws.services.ssooidc.AbstractAWSSSOOIDC} instead.
+ * </p>
+ * <p>
+ * <p>
+ * IAM Identity Center OpenID Connect (OIDC) is a web service that enables a client (such as CLI or a native
+ * application) to register with IAM Identity Center. The service also enables the client to fetch the user’s access
+ * token upon successful authentication and authorization with IAM Identity Center.
+ * </p>
+ * <note>
+ * <p>
+ * IAM Identity Center uses the <code>sso</code> and <code>identitystore</code> API namespaces.
+ * </p>
+ * </note>
+ * <p>
+ * <b>Considerations for Using This Guide</b>
+ * </p>
+ * <p>
+ * Before you begin using this guide, we recommend that you first review the following important information about how
+ * the IAM Identity Center OIDC service works.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * The IAM Identity Center OIDC service currently implements only the portions of the OAuth 2.0 Device Authorization
+ * Grant standard (<a href="https://tools.ietf.org/html/rfc8628">https://tools.ietf.org/html/rfc8628</a>) that are
+ * necessary to enable single sign-on authentication with the CLI.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * With older versions of the CLI, the service only emits OIDC access tokens, so to obtain a new token, users must
+ * explicitly re-authenticate. To access the OIDC flow that supports token refresh and doesn’t require
+ * re-authentication, update to the latest CLI version (1.27.10 for CLI V1 and 2.9.0 for CLI V2) with support for OIDC
+ * token refresh and configurable IAM Identity Center session durations. For more information, see <a
+ * href="https://docs.aws.amazon.com/singlesignon/latest/userguide/configure-user-session.html">Configure Amazon Web
+ * Services access portal session duration </a>.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * The access tokens provided by this service grant access to all Amazon Web Services account entitlements assigned to
+ * an IAM Identity Center user, not just a particular application.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * The documentation in this guide does not describe the mechanism to convert the access token into Amazon Web Services
+ * Auth (“sigv4”) credentials for use with IAM-protected Amazon Web Services service endpoints. For more information,
+ * see <a href="https://docs.aws.amazon.com/singlesignon/latest/PortalAPIReference/API_GetRoleCredentials.html">
+ * GetRoleCredentials</a> in the <i>IAM Identity Center Portal API Reference Guide</i>.
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * For general information about IAM Identity Center, see <a
+ * href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html">What is IAM Identity Center?</a> in the
+ * <i>IAM Identity Center User Guide</i>.
+ * </p>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public interface AWSSSOOIDC {
+
+    /**
+     * The region metadata service name for computing region endpoints. You can use this value to retrieve metadata
+     * (such as supported regions) of the service.
+     *
+     * @see RegionUtils#getRegionsForService(String)
+     */
+    String ENDPOINT_PREFIX = "oidc";
+
+    /**
+     * <p>
+     * Creates and returns access and refresh tokens for clients that are authenticated using client secrets. The access
+     * token can be used to fetch short-term credentials for the assigned AWS accounts or to access application APIs
+     * using <code>bearer</code> authentication.
+     * </p>
+     * 
+     * @param createTokenRequest
+     * @return Result of the CreateToken operation returned by the service.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a required parameter might
+     *         be missing or out of range.
+     * @throws InvalidClientException
+     *         Indicates that the <code>clientId</code> or <code>clientSecret</code> in the request is invalid. For
+     *         example, this can occur when a client sends an incorrect <code>clientId</code> or an expired
+     *         <code>clientSecret</code>.
+     * @throws InvalidGrantException
+     *         Indicates that a request contains an invalid grant. This can occur if a client makes a <a>CreateToken</a>
+     *         request with an invalid grant type.
+     * @throws UnauthorizedClientException
+     *         Indicates that the client is not currently authorized to make the request. This can happen when a
+     *         <code>clientId</code> is not issued for a public client.
+     * @throws UnsupportedGrantTypeException
+     *         Indicates that the grant type in the request is not supported by the service.
+     * @throws InvalidScopeException
+     *         Indicates that the scope provided in the request is invalid.
+     * @throws AuthorizationPendingException
+     *         Indicates that a request to authorize a client with an access user session token is pending.
+     * @throws SlowDownException
+     *         Indicates that the client is making the request too frequently and is more than the service can handle.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws ExpiredTokenException
+     *         Indicates that the token issued by the service is expired and is no longer valid.
+     * @throws InternalServerException
+     *         Indicates that an error from the service occurred while trying to process a request.
+     * @sample AWSSSOOIDC.CreateToken
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sso-oidc-2019-06-10/CreateToken" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateTokenResult createToken(CreateTokenRequest createTokenRequest);
+
+    /**
+     * <p>
+     * Creates and returns access and refresh tokens for clients and applications that are authenticated using IAM
+     * entities. The access token can be used to fetch short-term credentials for the assigned Amazon Web Services
+     * accounts or to access application APIs using <code>bearer</code> authentication.
+     * </p>
+     * 
+     * @param createTokenWithIAMRequest
+     * @return Result of the CreateTokenWithIAM operation returned by the service.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a required parameter might
+     *         be missing or out of range.
+     * @throws InvalidClientException
+     *         Indicates that the <code>clientId</code> or <code>clientSecret</code> in the request is invalid. For
+     *         example, this can occur when a client sends an incorrect <code>clientId</code> or an expired
+     *         <code>clientSecret</code>.
+     * @throws InvalidGrantException
+     *         Indicates that a request contains an invalid grant. This can occur if a client makes a <a>CreateToken</a>
+     *         request with an invalid grant type.
+     * @throws UnauthorizedClientException
+     *         Indicates that the client is not currently authorized to make the request. This can happen when a
+     *         <code>clientId</code> is not issued for a public client.
+     * @throws UnsupportedGrantTypeException
+     *         Indicates that the grant type in the request is not supported by the service.
+     * @throws InvalidScopeException
+     *         Indicates that the scope provided in the request is invalid.
+     * @throws AuthorizationPendingException
+     *         Indicates that a request to authorize a client with an access user session token is pending.
+     * @throws SlowDownException
+     *         Indicates that the client is making the request too frequently and is more than the service can handle.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws ExpiredTokenException
+     *         Indicates that the token issued by the service is expired and is no longer valid.
+     * @throws InternalServerException
+     *         Indicates that an error from the service occurred while trying to process a request.
+     * @throws InvalidRequestRegionException
+     *         Indicates that a token provided as input to the request was issued by and is only usable by calling IAM
+     *         Identity Center endpoints in another region.
+     * @sample AWSSSOOIDC.CreateTokenWithIAM
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sso-oidc-2019-06-10/CreateTokenWithIAM" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateTokenWithIAMResult createTokenWithIAM(CreateTokenWithIAMRequest createTokenWithIAMRequest);
+
+    /**
+     * <p>
+     * Registers a client with IAM Identity Center. This allows clients to initiate device authorization. The output
+     * should be persisted for reuse through many authentication requests.
+     * </p>
+     * 
+     * @param registerClientRequest
+     * @return Result of the RegisterClient operation returned by the service.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a required parameter might
+     *         be missing or out of range.
+     * @throws InvalidScopeException
+     *         Indicates that the scope provided in the request is invalid.
+     * @throws InvalidClientMetadataException
+     *         Indicates that the client information sent in the request during registration is invalid.
+     * @throws InternalServerException
+     *         Indicates that an error from the service occurred while trying to process a request.
+     * @throws InvalidRedirectUriException
+     *         Indicates that one or more redirect URI in the request is not supported for this operation.
+     * @throws UnsupportedGrantTypeException
+     *         Indicates that the grant type in the request is not supported by the service.
+     * @sample AWSSSOOIDC.RegisterClient
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sso-oidc-2019-06-10/RegisterClient" target="_top">AWS API
+     *      Documentation</a>
+     */
+    RegisterClientResult registerClient(RegisterClientRequest registerClientRequest);
+
+    /**
+     * <p>
+     * Initiates device authorization by requesting a pair of verification codes from the authorization service.
+     * </p>
+     * 
+     * @param startDeviceAuthorizationRequest
+     * @return Result of the StartDeviceAuthorization operation returned by the service.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a required parameter might
+     *         be missing or out of range.
+     * @throws InvalidClientException
+     *         Indicates that the <code>clientId</code> or <code>clientSecret</code> in the request is invalid. For
+     *         example, this can occur when a client sends an incorrect <code>clientId</code> or an expired
+     *         <code>clientSecret</code>.
+     * @throws UnauthorizedClientException
+     *         Indicates that the client is not currently authorized to make the request. This can happen when a
+     *         <code>clientId</code> is not issued for a public client.
+     * @throws SlowDownException
+     *         Indicates that the client is making the request too frequently and is more than the service can handle.
+     * @throws InternalServerException
+     *         Indicates that an error from the service occurred while trying to process a request.
+     * @sample AWSSSOOIDC.StartDeviceAuthorization
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sso-oidc-2019-06-10/StartDeviceAuthorization"
+     *      target="_top">AWS API Documentation</a>
+     */
+    StartDeviceAuthorizationResult startDeviceAuthorization(StartDeviceAuthorizationRequest startDeviceAuthorizationRequest);
+
+    /**
+     * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and
+     * callers are not expected to call it, but can if they want to explicitly release any open resources. Once a client
+     * has been shutdown, it should not be used to make any more requests.
+     */
+    void shutdown();
+
+    /**
+     * Returns additional metadata for a previously executed successful request, typically used for debugging issues
+     * where a service isn't acting as expected. This data isn't considered part of the result data returned by an
+     * operation, so it's available through this separate, diagnostic interface.
+     * <p>
+     * Response metadata is only cached for a limited period of time, so if you need to access this extra diagnostic
+     * information for an executed request, you should use this method to retrieve it as soon as possible after
+     * executing a request.
+     *
+     * @param request
+     *        The originally executed request.
+     *
+     * @return The response metadata for the specified request, or null if none is available.
+     */
+    ResponseMetadata getCachedResponseMetadata(AmazonWebServiceRequest request);
+
+}

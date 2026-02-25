@@ -1,6 +1,0 @@
-CREATE TABLE Person (
-  id BIGINT NOT NULL,
-  clientId BIGINT DEFAULT -1,
-  name VARCHAR(255) DEFAULT 'N/A',
-  PRIMARY KEY (id)
-)

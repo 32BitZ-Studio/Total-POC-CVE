@@ -1,3 +1,0 @@
-%%center
-[Bem Vindo|TitleBox] à [JSPWiki!|About]
-/%

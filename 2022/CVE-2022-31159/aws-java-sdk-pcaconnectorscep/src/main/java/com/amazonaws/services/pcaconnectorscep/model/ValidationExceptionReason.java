@@ -1,0 +1,65 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.pcaconnectorscep.model;
+
+import javax.annotation.Generated;
+
+/**
+ * 
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public enum ValidationExceptionReason {
+
+    CA_CERT_VALIDITY_TOO_SHORT("CA_CERT_VALIDITY_TOO_SHORT"),
+    INVALID_CA_USAGE_MODE("INVALID_CA_USAGE_MODE"),
+    INVALID_CONNECTOR_TYPE("INVALID_CONNECTOR_TYPE"),
+    INVALID_STATE("INVALID_STATE"),
+    NO_CLIENT_TOKEN("NO_CLIENT_TOKEN"),
+    UNKNOWN_OPERATION("UNKNOWN_OPERATION"),
+    OTHER("OTHER");
+
+    private String value;
+
+    private ValidationExceptionReason(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return this.value;
+    }
+
+    /**
+     * Use this in place of valueOf.
+     *
+     * @param value
+     *        real value
+     * @return ValidationExceptionReason corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
+     */
+    public static ValidationExceptionReason fromValue(String value) {
+        if (value == null || "".equals(value)) {
+            throw new IllegalArgumentException("Value cannot be null or empty!");
+        }
+
+        for (ValidationExceptionReason enumEntry : ValidationExceptionReason.values()) {
+            if (enumEntry.toString().equals(value)) {
+                return enumEntry;
+            }
+        }
+
+        throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+    }
+}

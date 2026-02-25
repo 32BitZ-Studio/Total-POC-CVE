@@ -1,0 +1,471 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.securityhub.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Details for a cluster logging configuration.
+ * </p>
+ * 
+ * @see <a
+ *      href="http://docs.aws.amazon.com/goto/WebAPI/securityhub-2018-10-26/AwsEksClusterLoggingClusterLoggingDetails"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class AwsEksClusterLoggingClusterLoggingDetails implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * Whether the logging types that are listed in <code>Types</code> are enabled.
+     * </p>
+     */
+    private Boolean enabled;
+    /**
+     * <p>
+     * A list of logging types. Valid values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>api</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>audit</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>authenticator</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>controllerManager</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>scheduler</code>
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private java.util.List<String> types;
+
+    /**
+     * <p>
+     * Whether the logging types that are listed in <code>Types</code> are enabled.
+     * </p>
+     * 
+     * @param enabled
+     *        Whether the logging types that are listed in <code>Types</code> are enabled.
+     */
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * <p>
+     * Whether the logging types that are listed in <code>Types</code> are enabled.
+     * </p>
+     * 
+     * @return Whether the logging types that are listed in <code>Types</code> are enabled.
+     */
+
+    public Boolean getEnabled() {
+        return this.enabled;
+    }
+
+    /**
+     * <p>
+     * Whether the logging types that are listed in <code>Types</code> are enabled.
+     * </p>
+     * 
+     * @param enabled
+     *        Whether the logging types that are listed in <code>Types</code> are enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEksClusterLoggingClusterLoggingDetails withEnabled(Boolean enabled) {
+        setEnabled(enabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether the logging types that are listed in <code>Types</code> are enabled.
+     * </p>
+     * 
+     * @return Whether the logging types that are listed in <code>Types</code> are enabled.
+     */
+
+    public Boolean isEnabled() {
+        return this.enabled;
+    }
+
+    /**
+     * <p>
+     * A list of logging types. Valid values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>api</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>audit</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>authenticator</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>controllerManager</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>scheduler</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return A list of logging types. Valid values are as follows:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>api</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>audit</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>authenticator</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>controllerManager</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>scheduler</code>
+     *         </p>
+     *         </li>
+     */
+
+    public java.util.List<String> getTypes() {
+        return types;
+    }
+
+    /**
+     * <p>
+     * A list of logging types. Valid values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>api</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>audit</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>authenticator</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>controllerManager</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>scheduler</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param types
+     *        A list of logging types. Valid values are as follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>api</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>audit</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>authenticator</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>controllerManager</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>scheduler</code>
+     *        </p>
+     *        </li>
+     */
+
+    public void setTypes(java.util.Collection<String> types) {
+        if (types == null) {
+            this.types = null;
+            return;
+        }
+
+        this.types = new java.util.ArrayList<String>(types);
+    }
+
+    /**
+     * <p>
+     * A list of logging types. Valid values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>api</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>audit</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>authenticator</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>controllerManager</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>scheduler</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTypes(java.util.Collection)} or {@link #withTypes(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param types
+     *        A list of logging types. Valid values are as follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>api</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>audit</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>authenticator</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>controllerManager</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>scheduler</code>
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEksClusterLoggingClusterLoggingDetails withTypes(String... types) {
+        if (this.types == null) {
+            setTypes(new java.util.ArrayList<String>(types.length));
+        }
+        for (String ele : types) {
+            this.types.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of logging types. Valid values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>api</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>audit</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>authenticator</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>controllerManager</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>scheduler</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param types
+     *        A list of logging types. Valid values are as follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>api</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>audit</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>authenticator</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>controllerManager</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>scheduler</code>
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEksClusterLoggingClusterLoggingDetails withTypes(java.util.Collection<String> types) {
+        setTypes(types);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getEnabled() != null)
+            sb.append("Enabled: ").append(getEnabled()).append(",");
+        if (getTypes() != null)
+            sb.append("Types: ").append(getTypes());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof AwsEksClusterLoggingClusterLoggingDetails == false)
+            return false;
+        AwsEksClusterLoggingClusterLoggingDetails other = (AwsEksClusterLoggingClusterLoggingDetails) obj;
+        if (other.getEnabled() == null ^ this.getEnabled() == null)
+            return false;
+        if (other.getEnabled() != null && other.getEnabled().equals(this.getEnabled()) == false)
+            return false;
+        if (other.getTypes() == null ^ this.getTypes() == null)
+            return false;
+        if (other.getTypes() != null && other.getTypes().equals(this.getTypes()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getEnabled() == null) ? 0 : getEnabled().hashCode());
+        hashCode = prime * hashCode + ((getTypes() == null) ? 0 : getTypes().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public AwsEksClusterLoggingClusterLoggingDetails clone() {
+        try {
+            return (AwsEksClusterLoggingClusterLoggingDetails) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.securityhub.model.transform.AwsEksClusterLoggingClusterLoggingDetailsMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

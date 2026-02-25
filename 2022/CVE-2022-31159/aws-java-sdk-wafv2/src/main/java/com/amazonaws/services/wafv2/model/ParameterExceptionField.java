@@ -1,0 +1,128 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.wafv2.model;
+
+import javax.annotation.Generated;
+
+/**
+ * 
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public enum ParameterExceptionField {
+
+    WEB_ACL("WEB_ACL"),
+    RULE_GROUP("RULE_GROUP"),
+    REGEX_PATTERN_SET("REGEX_PATTERN_SET"),
+    IP_SET("IP_SET"),
+    MANAGED_RULE_SET("MANAGED_RULE_SET"),
+    RULE("RULE"),
+    EXCLUDED_RULE("EXCLUDED_RULE"),
+    STATEMENT("STATEMENT"),
+    BYTE_MATCH_STATEMENT("BYTE_MATCH_STATEMENT"),
+    SQLI_MATCH_STATEMENT("SQLI_MATCH_STATEMENT"),
+    XSS_MATCH_STATEMENT("XSS_MATCH_STATEMENT"),
+    SIZE_CONSTRAINT_STATEMENT("SIZE_CONSTRAINT_STATEMENT"),
+    GEO_MATCH_STATEMENT("GEO_MATCH_STATEMENT"),
+    RATE_BASED_STATEMENT("RATE_BASED_STATEMENT"),
+    RULE_GROUP_REFERENCE_STATEMENT("RULE_GROUP_REFERENCE_STATEMENT"),
+    REGEX_PATTERN_REFERENCE_STATEMENT("REGEX_PATTERN_REFERENCE_STATEMENT"),
+    IP_SET_REFERENCE_STATEMENT("IP_SET_REFERENCE_STATEMENT"),
+    MANAGED_RULE_SET_STATEMENT("MANAGED_RULE_SET_STATEMENT"),
+    LABEL_MATCH_STATEMENT("LABEL_MATCH_STATEMENT"),
+    AND_STATEMENT("AND_STATEMENT"),
+    OR_STATEMENT("OR_STATEMENT"),
+    NOT_STATEMENT("NOT_STATEMENT"),
+    IP_ADDRESS("IP_ADDRESS"),
+    IP_ADDRESS_VERSION("IP_ADDRESS_VERSION"),
+    FIELD_TO_MATCH("FIELD_TO_MATCH"),
+    TEXT_TRANSFORMATION("TEXT_TRANSFORMATION"),
+    SINGLE_QUERY_ARGUMENT("SINGLE_QUERY_ARGUMENT"),
+    SINGLE_HEADER("SINGLE_HEADER"),
+    DEFAULT_ACTION("DEFAULT_ACTION"),
+    RULE_ACTION("RULE_ACTION"),
+    ENTITY_LIMIT("ENTITY_LIMIT"),
+    OVERRIDE_ACTION("OVERRIDE_ACTION"),
+    SCOPE_VALUE("SCOPE_VALUE"),
+    RESOURCE_ARN("RESOURCE_ARN"),
+    RESOURCE_TYPE("RESOURCE_TYPE"),
+    TAGS("TAGS"),
+    TAG_KEYS("TAG_KEYS"),
+    METRIC_NAME("METRIC_NAME"),
+    FIREWALL_MANAGER_STATEMENT("FIREWALL_MANAGER_STATEMENT"),
+    FALLBACK_BEHAVIOR("FALLBACK_BEHAVIOR"),
+    POSITION("POSITION"),
+    FORWARDED_IP_CONFIG("FORWARDED_IP_CONFIG"),
+    IP_SET_FORWARDED_IP_CONFIG("IP_SET_FORWARDED_IP_CONFIG"),
+    HEADER_NAME("HEADER_NAME"),
+    CUSTOM_REQUEST_HANDLING("CUSTOM_REQUEST_HANDLING"),
+    RESPONSE_CONTENT_TYPE("RESPONSE_CONTENT_TYPE"),
+    CUSTOM_RESPONSE("CUSTOM_RESPONSE"),
+    CUSTOM_RESPONSE_BODY("CUSTOM_RESPONSE_BODY"),
+    JSON_MATCH_PATTERN("JSON_MATCH_PATTERN"),
+    JSON_MATCH_SCOPE("JSON_MATCH_SCOPE"),
+    BODY_PARSING_FALLBACK_BEHAVIOR("BODY_PARSING_FALLBACK_BEHAVIOR"),
+    LOGGING_FILTER("LOGGING_FILTER"),
+    FILTER_CONDITION("FILTER_CONDITION"),
+    EXPIRE_TIMESTAMP("EXPIRE_TIMESTAMP"),
+    CHANGE_PROPAGATION_STATUS("CHANGE_PROPAGATION_STATUS"),
+    ASSOCIABLE_RESOURCE("ASSOCIABLE_RESOURCE"),
+    LOG_DESTINATION("LOG_DESTINATION"),
+    MANAGED_RULE_GROUP_CONFIG("MANAGED_RULE_GROUP_CONFIG"),
+    PAYLOAD_TYPE("PAYLOAD_TYPE"),
+    HEADER_MATCH_PATTERN("HEADER_MATCH_PATTERN"),
+    COOKIE_MATCH_PATTERN("COOKIE_MATCH_PATTERN"),
+    MAP_MATCH_SCOPE("MAP_MATCH_SCOPE"),
+    OVERSIZE_HANDLING("OVERSIZE_HANDLING"),
+    CHALLENGE_CONFIG("CHALLENGE_CONFIG"),
+    TOKEN_DOMAIN("TOKEN_DOMAIN"),
+    ATP_RULE_SET_RESPONSE_INSPECTION("ATP_RULE_SET_RESPONSE_INSPECTION"),
+    ASSOCIATED_RESOURCE_TYPE("ASSOCIATED_RESOURCE_TYPE"),
+    SCOPE_DOWN("SCOPE_DOWN"),
+    CUSTOM_KEYS("CUSTOM_KEYS"),
+    ACP_RULE_SET_RESPONSE_INSPECTION("ACP_RULE_SET_RESPONSE_INSPECTION");
+
+    private String value;
+
+    private ParameterExceptionField(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return this.value;
+    }
+
+    /**
+     * Use this in place of valueOf.
+     *
+     * @param value
+     *        real value
+     * @return ParameterExceptionField corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
+     */
+    public static ParameterExceptionField fromValue(String value) {
+        if (value == null || "".equals(value)) {
+            throw new IllegalArgumentException("Value cannot be null or empty!");
+        }
+
+        for (ParameterExceptionField enumEntry : ParameterExceptionField.values()) {
+            if (enumEntry.toString().equals(value)) {
+                return enumEntry;
+            }
+        }
+
+        throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+    }
+}

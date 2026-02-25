@@ -1,0 +1,4 @@
+# Restrict Deployment Workflows to be Approved by Cloud Team
+.github/workflows/test-env* @saleor/cloud
+.github/workflows/deploy-* @saleor/cloud
+.github/workflows/notify/* @saleor/cloud

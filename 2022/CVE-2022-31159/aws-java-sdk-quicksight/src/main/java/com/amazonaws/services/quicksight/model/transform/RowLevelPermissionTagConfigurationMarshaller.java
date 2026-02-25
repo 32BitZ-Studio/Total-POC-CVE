@@ -1,0 +1,62 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.quicksight.model.transform;
+
+import java.util.List;
+import javax.annotation.Generated;
+
+import com.amazonaws.SdkClientException;
+import com.amazonaws.services.quicksight.model.*;
+
+import com.amazonaws.protocol.*;
+import com.amazonaws.annotation.SdkInternalApi;
+
+/**
+ * RowLevelPermissionTagConfigurationMarshaller
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+@SdkInternalApi
+public class RowLevelPermissionTagConfigurationMarshaller {
+
+    private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Status").build();
+    private static final MarshallingInfo<List> TAGRULES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("TagRules").build();
+    private static final MarshallingInfo<List> TAGRULECONFIGURATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TagRuleConfigurations").build();
+
+    private static final RowLevelPermissionTagConfigurationMarshaller instance = new RowLevelPermissionTagConfigurationMarshaller();
+
+    public static RowLevelPermissionTagConfigurationMarshaller getInstance() {
+        return instance;
+    }
+
+    /**
+     * Marshall the given parameter object.
+     */
+    public void marshall(RowLevelPermissionTagConfiguration rowLevelPermissionTagConfiguration, ProtocolMarshaller protocolMarshaller) {
+
+        if (rowLevelPermissionTagConfiguration == null) {
+            throw new SdkClientException("Invalid argument passed to marshall(...)");
+        }
+
+        try {
+            protocolMarshaller.marshall(rowLevelPermissionTagConfiguration.getStatus(), STATUS_BINDING);
+            protocolMarshaller.marshall(rowLevelPermissionTagConfiguration.getTagRules(), TAGRULES_BINDING);
+            protocolMarshaller.marshall(rowLevelPermissionTagConfiguration.getTagRuleConfigurations(), TAGRULECONFIGURATIONS_BINDING);
+        } catch (Exception e) {
+            throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
+        }
+    }
+
+}

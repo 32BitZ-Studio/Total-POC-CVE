@@ -1,0 +1,517 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.route53resolver.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * A complex type that contains information about a Resolver configuration for a VPC.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53resolver-2018-04-01/ResolverConfig" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class ResolverConfig implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * ID for the Resolver configuration.
+     * </p>
+     */
+    private String id;
+    /**
+     * <p>
+     * The ID of the Amazon Virtual Private Cloud VPC that you're configuring Resolver for.
+     * </p>
+     */
+    private String resourceId;
+    /**
+     * <p>
+     * The owner account ID of the Amazon Virtual Private Cloud VPC.
+     * </p>
+     */
+    private String ownerId;
+    /**
+     * <p>
+     * The status of whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is enabled
+     * by default. The status can be one of following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>ENABLING:</b> Autodefined rules for reverse DNS lookups are being enabled but are not complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>ENABLED:</b> Autodefined rules for reverse DNS lookups are enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>DISABLING:</b> Autodefined rules for reverse DNS lookups are being disabled but are not complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>DISABLED:</b> Autodefined rules for reverse DNS lookups are disabled.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String autodefinedReverse;
+
+    /**
+     * <p>
+     * ID for the Resolver configuration.
+     * </p>
+     * 
+     * @param id
+     *        ID for the Resolver configuration.
+     */
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * <p>
+     * ID for the Resolver configuration.
+     * </p>
+     * 
+     * @return ID for the Resolver configuration.
+     */
+
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * <p>
+     * ID for the Resolver configuration.
+     * </p>
+     * 
+     * @param id
+     *        ID for the Resolver configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResolverConfig withId(String id) {
+        setId(id);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Amazon Virtual Private Cloud VPC that you're configuring Resolver for.
+     * </p>
+     * 
+     * @param resourceId
+     *        The ID of the Amazon Virtual Private Cloud VPC that you're configuring Resolver for.
+     */
+
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Amazon Virtual Private Cloud VPC that you're configuring Resolver for.
+     * </p>
+     * 
+     * @return The ID of the Amazon Virtual Private Cloud VPC that you're configuring Resolver for.
+     */
+
+    public String getResourceId() {
+        return this.resourceId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Amazon Virtual Private Cloud VPC that you're configuring Resolver for.
+     * </p>
+     * 
+     * @param resourceId
+     *        The ID of the Amazon Virtual Private Cloud VPC that you're configuring Resolver for.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResolverConfig withResourceId(String resourceId) {
+        setResourceId(resourceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The owner account ID of the Amazon Virtual Private Cloud VPC.
+     * </p>
+     * 
+     * @param ownerId
+     *        The owner account ID of the Amazon Virtual Private Cloud VPC.
+     */
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    /**
+     * <p>
+     * The owner account ID of the Amazon Virtual Private Cloud VPC.
+     * </p>
+     * 
+     * @return The owner account ID of the Amazon Virtual Private Cloud VPC.
+     */
+
+    public String getOwnerId() {
+        return this.ownerId;
+    }
+
+    /**
+     * <p>
+     * The owner account ID of the Amazon Virtual Private Cloud VPC.
+     * </p>
+     * 
+     * @param ownerId
+     *        The owner account ID of the Amazon Virtual Private Cloud VPC.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResolverConfig withOwnerId(String ownerId) {
+        setOwnerId(ownerId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is enabled
+     * by default. The status can be one of following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>ENABLING:</b> Autodefined rules for reverse DNS lookups are being enabled but are not complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>ENABLED:</b> Autodefined rules for reverse DNS lookups are enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>DISABLING:</b> Autodefined rules for reverse DNS lookups are being disabled but are not complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>DISABLED:</b> Autodefined rules for reverse DNS lookups are disabled.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param autodefinedReverse
+     *        The status of whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is
+     *        enabled by default. The status can be one of following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>ENABLING:</b> Autodefined rules for reverse DNS lookups are being enabled but are not complete.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>ENABLED:</b> Autodefined rules for reverse DNS lookups are enabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>DISABLING:</b> Autodefined rules for reverse DNS lookups are being disabled but are not complete.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>DISABLED:</b> Autodefined rules for reverse DNS lookups are disabled.
+     *        </p>
+     *        </li>
+     * @see ResolverAutodefinedReverseStatus
+     */
+
+    public void setAutodefinedReverse(String autodefinedReverse) {
+        this.autodefinedReverse = autodefinedReverse;
+    }
+
+    /**
+     * <p>
+     * The status of whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is enabled
+     * by default. The status can be one of following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>ENABLING:</b> Autodefined rules for reverse DNS lookups are being enabled but are not complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>ENABLED:</b> Autodefined rules for reverse DNS lookups are enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>DISABLING:</b> Autodefined rules for reverse DNS lookups are being disabled but are not complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>DISABLED:</b> Autodefined rules for reverse DNS lookups are disabled.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The status of whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is
+     *         enabled by default. The status can be one of following:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <b>ENABLING:</b> Autodefined rules for reverse DNS lookups are being enabled but are not complete.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>ENABLED:</b> Autodefined rules for reverse DNS lookups are enabled.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>DISABLING:</b> Autodefined rules for reverse DNS lookups are being disabled but are not complete.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>DISABLED:</b> Autodefined rules for reverse DNS lookups are disabled.
+     *         </p>
+     *         </li>
+     * @see ResolverAutodefinedReverseStatus
+     */
+
+    public String getAutodefinedReverse() {
+        return this.autodefinedReverse;
+    }
+
+    /**
+     * <p>
+     * The status of whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is enabled
+     * by default. The status can be one of following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>ENABLING:</b> Autodefined rules for reverse DNS lookups are being enabled but are not complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>ENABLED:</b> Autodefined rules for reverse DNS lookups are enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>DISABLING:</b> Autodefined rules for reverse DNS lookups are being disabled but are not complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>DISABLED:</b> Autodefined rules for reverse DNS lookups are disabled.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param autodefinedReverse
+     *        The status of whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is
+     *        enabled by default. The status can be one of following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>ENABLING:</b> Autodefined rules for reverse DNS lookups are being enabled but are not complete.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>ENABLED:</b> Autodefined rules for reverse DNS lookups are enabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>DISABLING:</b> Autodefined rules for reverse DNS lookups are being disabled but are not complete.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>DISABLED:</b> Autodefined rules for reverse DNS lookups are disabled.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResolverAutodefinedReverseStatus
+     */
+
+    public ResolverConfig withAutodefinedReverse(String autodefinedReverse) {
+        setAutodefinedReverse(autodefinedReverse);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is enabled
+     * by default. The status can be one of following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>ENABLING:</b> Autodefined rules for reverse DNS lookups are being enabled but are not complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>ENABLED:</b> Autodefined rules for reverse DNS lookups are enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>DISABLING:</b> Autodefined rules for reverse DNS lookups are being disabled but are not complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>DISABLED:</b> Autodefined rules for reverse DNS lookups are disabled.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param autodefinedReverse
+     *        The status of whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is
+     *        enabled by default. The status can be one of following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>ENABLING:</b> Autodefined rules for reverse DNS lookups are being enabled but are not complete.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>ENABLED:</b> Autodefined rules for reverse DNS lookups are enabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>DISABLING:</b> Autodefined rules for reverse DNS lookups are being disabled but are not complete.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>DISABLED:</b> Autodefined rules for reverse DNS lookups are disabled.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResolverAutodefinedReverseStatus
+     */
+
+    public ResolverConfig withAutodefinedReverse(ResolverAutodefinedReverseStatus autodefinedReverse) {
+        this.autodefinedReverse = autodefinedReverse.toString();
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getId() != null)
+            sb.append("Id: ").append(getId()).append(",");
+        if (getResourceId() != null)
+            sb.append("ResourceId: ").append(getResourceId()).append(",");
+        if (getOwnerId() != null)
+            sb.append("OwnerId: ").append(getOwnerId()).append(",");
+        if (getAutodefinedReverse() != null)
+            sb.append("AutodefinedReverse: ").append(getAutodefinedReverse());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof ResolverConfig == false)
+            return false;
+        ResolverConfig other = (ResolverConfig) obj;
+        if (other.getId() == null ^ this.getId() == null)
+            return false;
+        if (other.getId() != null && other.getId().equals(this.getId()) == false)
+            return false;
+        if (other.getResourceId() == null ^ this.getResourceId() == null)
+            return false;
+        if (other.getResourceId() != null && other.getResourceId().equals(this.getResourceId()) == false)
+            return false;
+        if (other.getOwnerId() == null ^ this.getOwnerId() == null)
+            return false;
+        if (other.getOwnerId() != null && other.getOwnerId().equals(this.getOwnerId()) == false)
+            return false;
+        if (other.getAutodefinedReverse() == null ^ this.getAutodefinedReverse() == null)
+            return false;
+        if (other.getAutodefinedReverse() != null && other.getAutodefinedReverse().equals(this.getAutodefinedReverse()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
+        hashCode = prime * hashCode + ((getResourceId() == null) ? 0 : getResourceId().hashCode());
+        hashCode = prime * hashCode + ((getOwnerId() == null) ? 0 : getOwnerId().hashCode());
+        hashCode = prime * hashCode + ((getAutodefinedReverse() == null) ? 0 : getAutodefinedReverse().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public ResolverConfig clone() {
+        try {
+            return (ResolverConfig) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.route53resolver.model.transform.ResolverConfigMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

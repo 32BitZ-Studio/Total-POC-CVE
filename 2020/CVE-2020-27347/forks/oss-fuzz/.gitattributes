@@ -1,2 +1,0 @@
-# Check out Linux shell scripts with LF (necessary when using Docker setup on Windows)
-*.sh text eol=lf

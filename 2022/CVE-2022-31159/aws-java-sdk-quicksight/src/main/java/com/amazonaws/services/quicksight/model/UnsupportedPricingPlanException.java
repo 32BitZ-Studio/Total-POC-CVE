@@ -1,0 +1,93 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.quicksight.model;
+
+import javax.annotation.Generated;
+
+/**
+ * <p>
+ * This error indicates that you are calling an embedding operation in Amazon QuickSight without the required pricing
+ * plan on your Amazon Web Services account. Before you can use embedding for anonymous users, a QuickSight
+ * administrator needs to add capacity pricing to Amazon QuickSight. You can do this on the <b>Manage Amazon
+ * QuickSight</b> page.
+ * </p>
+ * <p>
+ * After capacity pricing is added, you can use the
+ * <code> <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GetDashboardEmbedUrl.html">GetDashboardEmbedUrl</a> </code>
+ * API operation with the <code>--identity-type ANONYMOUS</code> option.
+ * </p>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class UnsupportedPricingPlanException extends com.amazonaws.services.quicksight.model.AmazonQuickSightException {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * <p>
+     * The Amazon Web Services request ID for this request.
+     * </p>
+     */
+    private String requestId;
+
+    /**
+     * Constructs a new UnsupportedPricingPlanException with the specified error message.
+     *
+     * @param message
+     *        Describes the error encountered.
+     */
+    public UnsupportedPricingPlanException(String message) {
+        super(message);
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services request ID for this request.
+     * </p>
+     * 
+     * @param requestId
+     *        The Amazon Web Services request ID for this request.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("RequestId")
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services request ID for this request.
+     * </p>
+     * 
+     * @return The Amazon Web Services request ID for this request.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("RequestId")
+    public String getRequestId() {
+        return this.requestId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services request ID for this request.
+     * </p>
+     * 
+     * @param requestId
+     *        The Amazon Web Services request ID for this request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UnsupportedPricingPlanException withRequestId(String requestId) {
+        setRequestId(requestId);
+        return this;
+    }
+
+}

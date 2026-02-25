@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  frontend:
+    image: "martinvks/cve-2022-45059-frontend"
+    ports:
+      - "80:80"
+  backend:
+    image: "martinvks/cve-2022-45059-backend"
+    expose:
+      - "8080"
+  victim:
+    image: "martinvks/cve-2022-45059-victim"
+  tcpdump:
+    image: nicolaka/netshoot
+    depends_on:
+      - backend
+    command: tcpdump -i eth0 -w /capture/backend.pcap port 8080
+    network_mode: service:backend
+    volumes:
+      - $PWD/capture:/capture

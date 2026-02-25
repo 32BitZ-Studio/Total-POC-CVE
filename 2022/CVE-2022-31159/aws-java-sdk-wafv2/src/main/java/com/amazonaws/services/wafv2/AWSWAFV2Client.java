@@ -1,0 +1,6206 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.wafv2;
+
+import org.w3c.dom.*;
+
+import java.net.*;
+import java.util.*;
+
+import javax.annotation.Generated;
+
+import org.apache.commons.logging.*;
+
+import com.amazonaws.*;
+import com.amazonaws.annotation.SdkInternalApi;
+import com.amazonaws.auth.*;
+
+import com.amazonaws.handlers.*;
+import com.amazonaws.http.*;
+import com.amazonaws.internal.*;
+import com.amazonaws.internal.auth.*;
+import com.amazonaws.metrics.*;
+import com.amazonaws.regions.*;
+import com.amazonaws.transform.*;
+import com.amazonaws.util.*;
+import com.amazonaws.protocol.json.*;
+import com.amazonaws.util.AWSRequestMetrics.Field;
+import com.amazonaws.annotation.ThreadSafe;
+import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
+import com.amazonaws.services.wafv2.AWSWAFV2ClientBuilder;
+
+import com.amazonaws.AmazonServiceException;
+
+import com.amazonaws.services.wafv2.model.*;
+
+import com.amazonaws.services.wafv2.model.transform.*;
+
+/**
+ * Client for accessing WAFV2. All service calls made using this client are blocking, and will not return until the
+ * service call completes.
+ * <p>
+ * <fullname>WAF</fullname> <note>
+ * <p>
+ * This is the latest version of the <b>WAF</b> API, released in November, 2019. The names of the entities that you use
+ * to access this API, like endpoints and namespaces, all have the versioning information added, like "V2" or "v2", to
+ * distinguish from the prior version. We recommend migrating your resources to this version, because it has a number of
+ * significant improvements.
+ * </p>
+ * <p>
+ * If you used WAF prior to this release, you can't use this WAFV2 API to access any WAF resources that you created
+ * before. You can access your old rules, web ACLs, and other WAF resources only through the WAF Classic APIs. The WAF
+ * Classic APIs have retained the prior names, endpoints, and namespaces.
+ * </p>
+ * <p>
+ * For information, including how to migrate your WAF resources to this version, see the <a
+ * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">WAF Developer Guide</a>.
+ * </p>
+ * </note>
+ * <p>
+ * WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to an Amazon
+ * CloudFront distribution, Amazon API Gateway REST API, Application Load Balancer, AppSync GraphQL API, Amazon Cognito
+ * user pool, App Runner service, or Amazon Web Services Verified Access instance. WAF also lets you control access to
+ * your content, to protect the Amazon Web Services resource that WAF is monitoring. Based on conditions that you
+ * specify, such as the IP addresses that requests originate from or the values of query strings, the protected resource
+ * responds to requests with either the requested content, an HTTP 403 status code (Forbidden), or with a custom
+ * response.
+ * </p>
+ * <p>
+ * This API guide is for developers who need detailed information about WAF API actions, data types, and errors. For
+ * detailed information about WAF features and guidance for configuring and using WAF, see the <a
+ * href="https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">WAF Developer Guide</a>.
+ * </p>
+ * <p>
+ * You can make calls using the endpoints listed in <a href="https://docs.aws.amazon.com/general/latest/gr/waf.html">WAF
+ * endpoints and quotas</a>.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * For regional applications, you can use any of the endpoints in the list. A regional application can be an Application
+ * Load Balancer (ALB), an Amazon API Gateway REST API, an AppSync GraphQL API, an Amazon Cognito user pool, an App
+ * Runner service, or an Amazon Web Services Verified Access instance.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For Amazon CloudFront applications, you must use the API endpoint listed for US East (N. Virginia): us-east-1.
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * Alternatively, you can use one of the Amazon Web Services SDKs to access an API that's tailored to the programming
+ * language or platform that you're using. For more information, see <a href="http://aws.amazon.com/tools/#SDKs">Amazon
+ * Web Services SDKs</a>.
+ * </p>
+ * <p>
+ * We currently provide two versions of the WAF API: this API and the prior versions, the classic WAF APIs. This new API
+ * provides the same functionality as the older versions, with the following major improvements:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * You use one API for both global and regional applications. Where you need to distinguish the scope, you specify a
+ * <code>Scope</code> parameter and set it to <code>CLOUDFRONT</code> or <code>REGIONAL</code>.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * You can define a web ACL or rule group with a single call, and update it with a single call. You define all rule
+ * specifications in JSON format, and pass them to your rule group or web ACL calls.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * The limits WAF places on the use of rules more closely reflects the cost of running each type of rule. Rule groups
+ * include capacity settings, so you know the maximum cost of a rule group when you use it.
+ * </p>
+ * </li>
+ * </ul>
+ */
+@ThreadSafe
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class AWSWAFV2Client extends AmazonWebServiceClient implements AWSWAFV2 {
+
+    /** Provider for AWS credentials. */
+    private final AWSCredentialsProvider awsCredentialsProvider;
+
+    private static final Log log = LogFactory.getLog(AWSWAFV2.class);
+
+    /** Default signing name for the service. */
+    private static final String DEFAULT_SIGNING_NAME = "wafv2";
+
+    /** Client configuration factory providing ClientConfigurations tailored to this client */
+    protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
+
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+            new JsonClientMetadata()
+                    .withProtocolVersion("1.1")
+                    .withSupportsCbor(false)
+                    .withSupportsIon(false)
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFLimitsExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFLimitsExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFAssociatedItemException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFAssociatedItemExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidPermissionPolicyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFInvalidPermissionPolicyExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFDuplicateItemException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFDuplicateItemExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFInvalidParameterExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFTagOperationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFTagOperationExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFTagOperationInternalErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFTagOperationInternalErrorExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFSubscriptionNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFSubscriptionNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidResourceException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFInvalidResourceExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFOptimisticLockException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFOptimisticLockExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFLogDestinationPermissionIssueException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFLogDestinationPermissionIssueExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFNonexistentItemException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFNonexistentItemExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFConfigurationWarningException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFConfigurationWarningExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFServiceLinkedRoleErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFServiceLinkedRoleErrorExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFInternalErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFInternalErrorExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidOperationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFInvalidOperationExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFUnsupportedAggregateKeyTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFUnsupportedAggregateKeyTypeExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFExpiredManagedRuleGroupVersionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFExpiredManagedRuleGroupVersionExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFUnavailableEntityException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.wafv2.model.transform.WAFUnavailableEntityExceptionUnmarshaller.getInstance()))
+                    .withBaseServiceExceptionClass(com.amazonaws.services.wafv2.model.AWSWAFV2Exception.class));
+
+    public static AWSWAFV2ClientBuilder builder() {
+        return AWSWAFV2ClientBuilder.standard();
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on WAFV2 using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AWSWAFV2Client(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on WAFV2 using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AWSWAFV2Client(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
+        super(clientParams);
+        this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
+        init();
+    }
+
+    private void init() {
+        setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(ENDPOINT_PREFIX);
+        // calling this.setEndPoint(...) will also modify the signer accordingly
+        setEndpoint("wafv2.us-east-1.amazonaws.com");
+        HandlerChainFactory chainFactory = new HandlerChainFactory();
+        requestHandler2s.addAll(chainFactory.newRequestHandlerChain("/com/amazonaws/services/wafv2/request.handlers"));
+        requestHandler2s.addAll(chainFactory.newRequestHandler2Chain("/com/amazonaws/services/wafv2/request.handler2s"));
+        requestHandler2s.addAll(chainFactory.getGlobalHandlers());
+    }
+
+    /**
+     * <p>
+     * Associates a web ACL with a regional application resource, to protect the resource. A regional application can be
+     * an Application Load Balancer (ALB), an Amazon API Gateway REST API, an AppSync GraphQL API, an Amazon Cognito
+     * user pool, an App Runner service, or an Amazon Web Services Verified Access instance.
+     * </p>
+     * <p>
+     * For Amazon CloudFront, don't use this call. Instead, use your CloudFront distribution configuration. To associate
+     * a web ACL, in the CloudFront call <code>UpdateDistribution</code>, set the web ACL ID to the Amazon Resource Name
+     * (ARN) of the web ACL. For information, see <a
+     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html"
+     * >UpdateDistribution</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * <p>
+     * <b>Required permissions for customer-managed IAM policies</b>
+     * </p>
+     * <p>
+     * This call requires permissions that are specific to the protected resource type. For details, see <a href=
+     * "https://docs.aws.amazon.com/waf/latest/developerguide/security_iam_service-with-iam.html#security_iam_action-AssociateWebACL"
+     * >Permissions for AssociateWebACL</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * <p>
+     * <b>Temporary inconsistencies during updates</b>
+     * </p>
+     * <p>
+     * When you create or change a web ACL or other WAF resources, the changes take a small amount of time to propagate
+     * to all areas where the resources are stored. The propagation time can be from a few seconds to a number of
+     * minutes.
+     * </p>
+     * <p>
+     * The following are examples of the temporary inconsistencies that you might notice during change propagation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * After you create a web ACL, if you try to associate it with a resource, you might get an exception indicating
+     * that the web ACL is unavailable.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you add a rule group to a web ACL, the new rule group rules might be in effect in one area where the web
+     * ACL is used and not in another.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you change a rule action setting, you might see the old action in some places and the new action in others.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you add an IP address to an IP set that is in use in a blocking rule, the new address might be blocked in
+     * one area while still allowed in another.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param associateWebACLRequest
+     * @return Result of the AssociateWebACL operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFUnavailableEntityException
+     *         WAF couldn’t retrieve a resource that you specified for this operation. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate. Verify the resources that you are specifying in
+     *         your request parameters and then retry the operation.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.AssociateWebACL
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/AssociateWebACL" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public AssociateWebACLResult associateWebACL(AssociateWebACLRequest request) {
+        request = beforeClientExecution(request);
+        return executeAssociateWebACL(request);
+    }
+
+    @SdkInternalApi
+    final AssociateWebACLResult executeAssociateWebACL(AssociateWebACLRequest associateWebACLRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(associateWebACLRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AssociateWebACLRequest> request = null;
+        Response<AssociateWebACLResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AssociateWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateWebACLRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateWebACL");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AssociateWebACLResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new AssociateWebACLResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the web ACL capacity unit (WCU) requirements for a specified scope and set of rules. You can use this to
+     * check the capacity requirements for the rules you want to use in a <a>RuleGroup</a> or <a>WebACL</a>.
+     * </p>
+     * <p>
+     * WAF uses WCUs to calculate and control the operating resources that are used to run your rules, rule groups, and
+     * web ACLs. WAF calculates capacity differently for each rule type, to reflect the relative cost of each rule.
+     * Simple rules that cost little to run use fewer WCUs than more complex rules that use more processing power. Rule
+     * group capacity is fixed at creation, which helps users plan their web ACL WCU usage when they use a rule group.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/aws-waf-capacity-units.html">WAF web ACL capacity
+     * units (WCU)</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * 
+     * @param checkCapacityRequest
+     * @return Result of the CheckCapacity operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @throws WAFInvalidResourceException
+     *         WAF couldn’t perform the operation because the resource that you requested isn’t valid. Check the
+     *         resource, and try again.
+     * @throws WAFUnavailableEntityException
+     *         WAF couldn’t retrieve a resource that you specified for this operation. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate. Verify the resources that you are specifying in
+     *         your request parameters and then retry the operation.
+     * @throws WAFSubscriptionNotFoundException
+     *         You tried to use a managed rule group that's available by subscription, but you aren't subscribed to it
+     *         yet.
+     * @throws WAFExpiredManagedRuleGroupVersionException
+     *         The operation failed because the specified version for the managed rule group has expired. You can
+     *         retrieve the available versions for the managed rule group by calling
+     *         <a>ListAvailableManagedRuleGroupVersions</a>.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.CheckCapacity
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/CheckCapacity" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CheckCapacityResult checkCapacity(CheckCapacityRequest request) {
+        request = beforeClientExecution(request);
+        return executeCheckCapacity(request);
+    }
+
+    @SdkInternalApi
+    final CheckCapacityResult executeCheckCapacity(CheckCapacityRequest checkCapacityRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(checkCapacityRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CheckCapacityRequest> request = null;
+        Response<CheckCapacityResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CheckCapacityRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(checkCapacityRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CheckCapacity");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CheckCapacityResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CheckCapacityResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates an API key that contains a set of token domains.
+     * </p>
+     * <p>
+     * API keys are required for the integration of the CAPTCHA API in your JavaScript client applications. The API lets
+     * you customize the placement and characteristics of the CAPTCHA puzzle for your end users. For more information
+     * about the CAPTCHA JavaScript integration, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-application-integration.html">WAF client
+     * application integration</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * <p>
+     * You can use a single key for up to 5 domains. After you generate a key, you can copy it for use in your
+     * JavaScript integration.
+     * </p>
+     * 
+     * @param createAPIKeyRequest
+     * @return Result of the CreateAPIKey operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @sample AWSWAFV2.CreateAPIKey
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/CreateAPIKey" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateAPIKeyResult createAPIKey(CreateAPIKeyRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateAPIKey(request);
+    }
+
+    @SdkInternalApi
+    final CreateAPIKeyResult executeCreateAPIKey(CreateAPIKeyRequest createAPIKeyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createAPIKeyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateAPIKeyRequest> request = null;
+        Response<CreateAPIKeyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateAPIKeyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAPIKeyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAPIKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateAPIKeyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateAPIKeyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates an <a>IPSet</a>, which you use to identify web requests that originate from specific IP addresses or
+     * ranges of IP addresses. For example, if you're receiving a lot of requests from a ranges of IP addresses, you can
+     * configure WAF to block them using an IPSet that lists those IP addresses.
+     * </p>
+     * 
+     * @param createIPSetRequest
+     * @return Result of the CreateIPSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFDuplicateItemException
+     *         WAF couldn’t perform the operation because the resource that you tried to save is a duplicate of an
+     *         existing one.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @throws WAFTagOperationException
+     *         An error occurred during the tagging operation. Retry your request.
+     * @throws WAFTagOperationInternalErrorException
+     *         WAF couldn’t perform your tagging operation because of an internal error. Retry your request.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.CreateIPSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/CreateIPSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateIPSetResult createIPSet(CreateIPSetRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateIPSet(request);
+    }
+
+    @SdkInternalApi
+    final CreateIPSetResult executeCreateIPSet(CreateIPSetRequest createIPSetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createIPSetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateIPSetRequest> request = null;
+        Response<CreateIPSetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createIPSetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateIPSet");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateIPSetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateIPSetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a <a>RegexPatternSet</a>, which you reference in a <a>RegexPatternSetReferenceStatement</a>, to have WAF
+     * inspect a web request component for the specified patterns.
+     * </p>
+     * 
+     * @param createRegexPatternSetRequest
+     * @return Result of the CreateRegexPatternSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFDuplicateItemException
+     *         WAF couldn’t perform the operation because the resource that you tried to save is a duplicate of an
+     *         existing one.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @throws WAFTagOperationException
+     *         An error occurred during the tagging operation. Retry your request.
+     * @throws WAFTagOperationInternalErrorException
+     *         WAF couldn’t perform your tagging operation because of an internal error. Retry your request.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.CreateRegexPatternSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/CreateRegexPatternSet" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateRegexPatternSetResult createRegexPatternSet(CreateRegexPatternSetRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateRegexPatternSet(request);
+    }
+
+    @SdkInternalApi
+    final CreateRegexPatternSetResult executeCreateRegexPatternSet(CreateRegexPatternSetRequest createRegexPatternSetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createRegexPatternSetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateRegexPatternSetRequest> request = null;
+        Response<CreateRegexPatternSetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateRegexPatternSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRegexPatternSetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRegexPatternSet");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateRegexPatternSetResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new CreateRegexPatternSetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a <a>RuleGroup</a> per the specifications provided.
+     * </p>
+     * <p>
+     * A rule group defines a collection of rules to inspect and control web requests that you can use in a
+     * <a>WebACL</a>. When you create a rule group, you define an immutable capacity limit. If you update a rule group,
+     * you must stay within the capacity. This allows others to reuse the rule group with confidence in its capacity
+     * requirements.
+     * </p>
+     * 
+     * @param createRuleGroupRequest
+     * @return Result of the CreateRuleGroup operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFDuplicateItemException
+     *         WAF couldn’t perform the operation because the resource that you tried to save is a duplicate of an
+     *         existing one.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @throws WAFUnavailableEntityException
+     *         WAF couldn’t retrieve a resource that you specified for this operation. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate. Verify the resources that you are specifying in
+     *         your request parameters and then retry the operation.
+     * @throws WAFTagOperationException
+     *         An error occurred during the tagging operation. Retry your request.
+     * @throws WAFTagOperationInternalErrorException
+     *         WAF couldn’t perform your tagging operation because of an internal error. Retry your request.
+     * @throws WAFSubscriptionNotFoundException
+     *         You tried to use a managed rule group that's available by subscription, but you aren't subscribed to it
+     *         yet.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.CreateRuleGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/CreateRuleGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateRuleGroupResult createRuleGroup(CreateRuleGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateRuleGroup(request);
+    }
+
+    @SdkInternalApi
+    final CreateRuleGroupResult executeCreateRuleGroup(CreateRuleGroupRequest createRuleGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createRuleGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateRuleGroupRequest> request = null;
+        Response<CreateRuleGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateRuleGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRuleGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRuleGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateRuleGroupResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateRuleGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a <a>WebACL</a> per the specifications provided.
+     * </p>
+     * <p>
+     * A web ACL defines a collection of rules to use to inspect and control web requests. Each rule has a statement
+     * that defines what to look for in web requests and an action that WAF applies to requests that match the
+     * statement. In the web ACL, you assign a default action to take (allow, block) for any request that does not match
+     * any of the rules. The rules in a web ACL can be a combination of the types <a>Rule</a>, <a>RuleGroup</a>, and
+     * managed rule group. You can associate a web ACL with one or more Amazon Web Services resources to protect. The
+     * resources can be an Amazon CloudFront distribution, an Amazon API Gateway REST API, an Application Load Balancer,
+     * an AppSync GraphQL API, an Amazon Cognito user pool, an App Runner service, or an Amazon Web Services Verified
+     * Access instance.
+     * </p>
+     * 
+     * @param createWebACLRequest
+     * @return Result of the CreateWebACL operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFDuplicateItemException
+     *         WAF couldn’t perform the operation because the resource that you tried to save is a duplicate of an
+     *         existing one.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @throws WAFInvalidResourceException
+     *         WAF couldn’t perform the operation because the resource that you requested isn’t valid. Check the
+     *         resource, and try again.
+     * @throws WAFUnavailableEntityException
+     *         WAF couldn’t retrieve a resource that you specified for this operation. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate. Verify the resources that you are specifying in
+     *         your request parameters and then retry the operation.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFTagOperationException
+     *         An error occurred during the tagging operation. Retry your request.
+     * @throws WAFTagOperationInternalErrorException
+     *         WAF couldn’t perform your tagging operation because of an internal error. Retry your request.
+     * @throws WAFSubscriptionNotFoundException
+     *         You tried to use a managed rule group that's available by subscription, but you aren't subscribed to it
+     *         yet.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @throws WAFConfigurationWarningException
+     *         The operation failed because you are inspecting the web request body, headers, or cookies without
+     *         specifying how to handle oversize components. Rules that inspect the body must either provide an
+     *         <code>OversizeHandling</code> configuration or they must be preceded by a
+     *         <code>SizeConstraintStatement</code> that blocks the body content from being too large. Rules that
+     *         inspect the headers or cookies must provide an <code>OversizeHandling</code> configuration. </p>
+     *         <p>
+     *         Provide the handling configuration and retry your operation.
+     *         </p>
+     *         <p>
+     *         Alternately, you can suppress this warning by adding the following tag to the resource that you provide
+     *         to this operation: <code>Tag</code> (key:<code>WAF:OversizeFieldsHandlingConstraintOptOut</code>, value:
+     *         <code>true</code>).
+     * @throws WAFExpiredManagedRuleGroupVersionException
+     *         The operation failed because the specified version for the managed rule group has expired. You can
+     *         retrieve the available versions for the managed rule group by calling
+     *         <a>ListAvailableManagedRuleGroupVersions</a>.
+     * @sample AWSWAFV2.CreateWebACL
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/CreateWebACL" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateWebACLResult createWebACL(CreateWebACLRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateWebACL(request);
+    }
+
+    @SdkInternalApi
+    final CreateWebACLResult executeCreateWebACL(CreateWebACLRequest createWebACLRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createWebACLRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateWebACLRequest> request = null;
+        Response<CreateWebACLResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createWebACLRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateWebACL");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateWebACLResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateWebACLResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified API key.
+     * </p>
+     * <p>
+     * After you delete a key, it can take up to 24 hours for WAF to disallow use of the key in all regions.
+     * </p>
+     * 
+     * @param deleteAPIKeyRequest
+     * @return Result of the DeleteAPIKey operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.DeleteAPIKey
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DeleteAPIKey" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteAPIKeyResult deleteAPIKey(DeleteAPIKeyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteAPIKey(request);
+    }
+
+    @SdkInternalApi
+    final DeleteAPIKeyResult executeDeleteAPIKey(DeleteAPIKeyRequest deleteAPIKeyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteAPIKeyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteAPIKeyRequest> request = null;
+        Response<DeleteAPIKeyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteAPIKeyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteAPIKeyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAPIKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteAPIKeyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteAPIKeyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes all rule groups that are managed by Firewall Manager for the specified web ACL.
+     * </p>
+     * <p>
+     * You can only use this if <code>ManagedByFirewallManager</code> is false in the specified <a>WebACL</a>.
+     * </p>
+     * 
+     * @param deleteFirewallManagerRuleGroupsRequest
+     * @return Result of the DeleteFirewallManagerRuleGroups operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.DeleteFirewallManagerRuleGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DeleteFirewallManagerRuleGroups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteFirewallManagerRuleGroupsResult deleteFirewallManagerRuleGroups(DeleteFirewallManagerRuleGroupsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteFirewallManagerRuleGroups(request);
+    }
+
+    @SdkInternalApi
+    final DeleteFirewallManagerRuleGroupsResult executeDeleteFirewallManagerRuleGroups(
+            DeleteFirewallManagerRuleGroupsRequest deleteFirewallManagerRuleGroupsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteFirewallManagerRuleGroupsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteFirewallManagerRuleGroupsRequest> request = null;
+        Response<DeleteFirewallManagerRuleGroupsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteFirewallManagerRuleGroupsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteFirewallManagerRuleGroupsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFirewallManagerRuleGroups");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteFirewallManagerRuleGroupsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteFirewallManagerRuleGroupsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified <a>IPSet</a>.
+     * </p>
+     * 
+     * @param deleteIPSetRequest
+     * @return Result of the DeleteIPSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFAssociatedItemException
+     *         WAF couldn’t perform the operation because your resource is being used by another resource or it’s
+     *         associated with another resource.
+     * @throws WAFTagOperationException
+     *         An error occurred during the tagging operation. Retry your request.
+     * @throws WAFTagOperationInternalErrorException
+     *         WAF couldn’t perform your tagging operation because of an internal error. Retry your request.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.DeleteIPSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DeleteIPSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteIPSetResult deleteIPSet(DeleteIPSetRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteIPSet(request);
+    }
+
+    @SdkInternalApi
+    final DeleteIPSetResult executeDeleteIPSet(DeleteIPSetRequest deleteIPSetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteIPSetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteIPSetRequest> request = null;
+        Response<DeleteIPSetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteIPSetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteIPSet");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteIPSetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteIPSetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the <a>LoggingConfiguration</a> from the specified web ACL.
+     * </p>
+     * 
+     * @param deleteLoggingConfigurationRequest
+     * @return Result of the DeleteLoggingConfiguration operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.DeleteLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DeleteLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteLoggingConfigurationResult deleteLoggingConfiguration(DeleteLoggingConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteLoggingConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final DeleteLoggingConfigurationResult executeDeleteLoggingConfiguration(DeleteLoggingConfigurationRequest deleteLoggingConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteLoggingConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteLoggingConfigurationRequest> request = null;
+        Response<DeleteLoggingConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteLoggingConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteLoggingConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteLoggingConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteLoggingConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteLoggingConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Permanently deletes an IAM policy from the specified rule group.
+     * </p>
+     * <p>
+     * You must be the owner of the rule group to perform this operation.
+     * </p>
+     * 
+     * @param deletePermissionPolicyRequest
+     * @return Result of the DeletePermissionPolicy operation returned by the service.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @sample AWSWAFV2.DeletePermissionPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DeletePermissionPolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeletePermissionPolicyResult deletePermissionPolicy(DeletePermissionPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeletePermissionPolicy(request);
+    }
+
+    @SdkInternalApi
+    final DeletePermissionPolicyResult executeDeletePermissionPolicy(DeletePermissionPolicyRequest deletePermissionPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deletePermissionPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeletePermissionPolicyRequest> request = null;
+        Response<DeletePermissionPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeletePermissionPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePermissionPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePermissionPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeletePermissionPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeletePermissionPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified <a>RegexPatternSet</a>.
+     * </p>
+     * 
+     * @param deleteRegexPatternSetRequest
+     * @return Result of the DeleteRegexPatternSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFAssociatedItemException
+     *         WAF couldn’t perform the operation because your resource is being used by another resource or it’s
+     *         associated with another resource.
+     * @throws WAFTagOperationException
+     *         An error occurred during the tagging operation. Retry your request.
+     * @throws WAFTagOperationInternalErrorException
+     *         WAF couldn’t perform your tagging operation because of an internal error. Retry your request.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.DeleteRegexPatternSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DeleteRegexPatternSet" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteRegexPatternSetResult deleteRegexPatternSet(DeleteRegexPatternSetRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteRegexPatternSet(request);
+    }
+
+    @SdkInternalApi
+    final DeleteRegexPatternSetResult executeDeleteRegexPatternSet(DeleteRegexPatternSetRequest deleteRegexPatternSetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteRegexPatternSetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRegexPatternSetRequest> request = null;
+        Response<DeleteRegexPatternSetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRegexPatternSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRegexPatternSetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRegexPatternSet");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteRegexPatternSetResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DeleteRegexPatternSetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified <a>RuleGroup</a>.
+     * </p>
+     * 
+     * @param deleteRuleGroupRequest
+     * @return Result of the DeleteRuleGroup operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFAssociatedItemException
+     *         WAF couldn’t perform the operation because your resource is being used by another resource or it’s
+     *         associated with another resource.
+     * @throws WAFTagOperationException
+     *         An error occurred during the tagging operation. Retry your request.
+     * @throws WAFTagOperationInternalErrorException
+     *         WAF couldn’t perform your tagging operation because of an internal error. Retry your request.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.DeleteRuleGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DeleteRuleGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteRuleGroupResult deleteRuleGroup(DeleteRuleGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteRuleGroup(request);
+    }
+
+    @SdkInternalApi
+    final DeleteRuleGroupResult executeDeleteRuleGroup(DeleteRuleGroupRequest deleteRuleGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteRuleGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRuleGroupRequest> request = null;
+        Response<DeleteRuleGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRuleGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRuleGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRuleGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteRuleGroupResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteRuleGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified <a>WebACL</a>.
+     * </p>
+     * <p>
+     * You can only use this if <code>ManagedByFirewallManager</code> is false in the specified <a>WebACL</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Before deleting any web ACL, first disassociate it from all resources.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To retrieve a list of the resources that are associated with a web ACL, use the following calls:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For regional resources, call <a>ListResourcesForWebACL</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Amazon CloudFront distributions, use the CloudFront call <code>ListDistributionsByWebACLId</code>. For
+     * information, see <a
+     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListDistributionsByWebACLId.html"
+     * >ListDistributionsByWebACLId</a> in the <i>Amazon CloudFront API Reference</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * To disassociate a resource from a web ACL, use the following calls:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For regional resources, call <a>DisassociateWebACL</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Amazon CloudFront distributions, provide an empty web ACL ID in the CloudFront call
+     * <code>UpdateDistribution</code>. For information, see <a
+     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html"
+     * >UpdateDistribution</a> in the <i>Amazon CloudFront API Reference</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param deleteWebACLRequest
+     * @return Result of the DeleteWebACL operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFAssociatedItemException
+     *         WAF couldn’t perform the operation because your resource is being used by another resource or it’s
+     *         associated with another resource.
+     * @throws WAFTagOperationException
+     *         An error occurred during the tagging operation. Retry your request.
+     * @throws WAFTagOperationInternalErrorException
+     *         WAF couldn’t perform your tagging operation because of an internal error. Retry your request.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.DeleteWebACL
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DeleteWebACL" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteWebACLResult deleteWebACL(DeleteWebACLRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteWebACL(request);
+    }
+
+    @SdkInternalApi
+    final DeleteWebACLResult executeDeleteWebACL(DeleteWebACLRequest deleteWebACLRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteWebACLRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteWebACLRequest> request = null;
+        Response<DeleteWebACLResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteWebACLRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteWebACL");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteWebACLResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteWebACLResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides high-level information for the Amazon Web Services Managed Rules rule groups and Amazon Web Services
+     * Marketplace managed rule groups.
+     * </p>
+     * 
+     * @param describeAllManagedProductsRequest
+     * @return Result of the DescribeAllManagedProducts operation returned by the service.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @sample AWSWAFV2.DescribeAllManagedProducts
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DescribeAllManagedProducts"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeAllManagedProductsResult describeAllManagedProducts(DescribeAllManagedProductsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeAllManagedProducts(request);
+    }
+
+    @SdkInternalApi
+    final DescribeAllManagedProductsResult executeDescribeAllManagedProducts(DescribeAllManagedProductsRequest describeAllManagedProductsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeAllManagedProductsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeAllManagedProductsRequest> request = null;
+        Response<DescribeAllManagedProductsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeAllManagedProductsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeAllManagedProductsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAllManagedProducts");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeAllManagedProductsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeAllManagedProductsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides high-level information for the managed rule groups owned by a specific vendor.
+     * </p>
+     * 
+     * @param describeManagedProductsByVendorRequest
+     * @return Result of the DescribeManagedProductsByVendor operation returned by the service.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @sample AWSWAFV2.DescribeManagedProductsByVendor
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DescribeManagedProductsByVendor"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeManagedProductsByVendorResult describeManagedProductsByVendor(DescribeManagedProductsByVendorRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeManagedProductsByVendor(request);
+    }
+
+    @SdkInternalApi
+    final DescribeManagedProductsByVendorResult executeDescribeManagedProductsByVendor(
+            DescribeManagedProductsByVendorRequest describeManagedProductsByVendorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeManagedProductsByVendorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeManagedProductsByVendorRequest> request = null;
+        Response<DescribeManagedProductsByVendorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeManagedProductsByVendorRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeManagedProductsByVendorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeManagedProductsByVendor");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeManagedProductsByVendorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeManagedProductsByVendorResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides high-level information for a managed rule group, including descriptions of the rules.
+     * </p>
+     * 
+     * @param describeManagedRuleGroupRequest
+     * @return Result of the DescribeManagedRuleGroup operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidResourceException
+     *         WAF couldn’t perform the operation because the resource that you requested isn’t valid. Check the
+     *         resource, and try again.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @throws WAFExpiredManagedRuleGroupVersionException
+     *         The operation failed because the specified version for the managed rule group has expired. You can
+     *         retrieve the available versions for the managed rule group by calling
+     *         <a>ListAvailableManagedRuleGroupVersions</a>.
+     * @sample AWSWAFV2.DescribeManagedRuleGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DescribeManagedRuleGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeManagedRuleGroupResult describeManagedRuleGroup(DescribeManagedRuleGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeManagedRuleGroup(request);
+    }
+
+    @SdkInternalApi
+    final DescribeManagedRuleGroupResult executeDescribeManagedRuleGroup(DescribeManagedRuleGroupRequest describeManagedRuleGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeManagedRuleGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeManagedRuleGroupRequest> request = null;
+        Response<DescribeManagedRuleGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeManagedRuleGroupRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeManagedRuleGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeManagedRuleGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeManagedRuleGroupResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeManagedRuleGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Disassociates the specified regional application resource from any existing web ACL association. A resource can
+     * have at most one web ACL association. A regional application can be an Application Load Balancer (ALB), an Amazon
+     * API Gateway REST API, an AppSync GraphQL API, an Amazon Cognito user pool, an App Runner service, or an Amazon
+     * Web Services Verified Access instance.
+     * </p>
+     * <p>
+     * For Amazon CloudFront, don't use this call. Instead, use your CloudFront distribution configuration. To
+     * disassociate a web ACL, provide an empty web ACL ID in the CloudFront call <code>UpdateDistribution</code>. For
+     * information, see <a
+     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html">
+     * UpdateDistribution</a> in the <i>Amazon CloudFront API Reference</i>.
+     * </p>
+     * <p>
+     * <b>Required permissions for customer-managed IAM policies</b>
+     * </p>
+     * <p>
+     * This call requires permissions that are specific to the protected resource type. For details, see <a href=
+     * "https://docs.aws.amazon.com/waf/latest/developerguide/security_iam_service-with-iam.html#security_iam_action-DisassociateWebACL"
+     * >Permissions for DisassociateWebACL</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * 
+     * @param disassociateWebACLRequest
+     * @return Result of the DisassociateWebACL operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.DisassociateWebACL
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/DisassociateWebACL" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DisassociateWebACLResult disassociateWebACL(DisassociateWebACLRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateWebACL(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateWebACLResult executeDisassociateWebACL(DisassociateWebACLRequest disassociateWebACLRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateWebACLRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateWebACLRequest> request = null;
+        Response<DisassociateWebACLResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disassociateWebACLRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateWebACL");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateWebACLResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DisassociateWebACLResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Generates a presigned download URL for the specified release of the mobile SDK.
+     * </p>
+     * <p>
+     * The mobile SDK is not generally available. Customers who have access to the mobile SDK can use it to establish
+     * and manage WAF tokens for use in HTTP(S) requests from a mobile device to WAF. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-application-integration.html">WAF client
+     * application integration</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * 
+     * @param generateMobileSdkReleaseUrlRequest
+     * @return Result of the GenerateMobileSdkReleaseUrl operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.GenerateMobileSdkReleaseUrl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GenerateMobileSdkReleaseUrl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GenerateMobileSdkReleaseUrlResult generateMobileSdkReleaseUrl(GenerateMobileSdkReleaseUrlRequest request) {
+        request = beforeClientExecution(request);
+        return executeGenerateMobileSdkReleaseUrl(request);
+    }
+
+    @SdkInternalApi
+    final GenerateMobileSdkReleaseUrlResult executeGenerateMobileSdkReleaseUrl(GenerateMobileSdkReleaseUrlRequest generateMobileSdkReleaseUrlRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(generateMobileSdkReleaseUrlRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GenerateMobileSdkReleaseUrlRequest> request = null;
+        Response<GenerateMobileSdkReleaseUrlResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GenerateMobileSdkReleaseUrlRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(generateMobileSdkReleaseUrlRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GenerateMobileSdkReleaseUrl");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GenerateMobileSdkReleaseUrlResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GenerateMobileSdkReleaseUrlResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns your API key in decrypted form. Use this to check the token domains that you have defined for the key.
+     * </p>
+     * <p>
+     * API keys are required for the integration of the CAPTCHA API in your JavaScript client applications. The API lets
+     * you customize the placement and characteristics of the CAPTCHA puzzle for your end users. For more information
+     * about the CAPTCHA JavaScript integration, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-application-integration.html">WAF client
+     * application integration</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * 
+     * @param getDecryptedAPIKeyRequest
+     * @return Result of the GetDecryptedAPIKey operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @throws WAFInvalidResourceException
+     *         WAF couldn’t perform the operation because the resource that you requested isn’t valid. Check the
+     *         resource, and try again.
+     * @sample AWSWAFV2.GetDecryptedAPIKey
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetDecryptedAPIKey" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetDecryptedAPIKeyResult getDecryptedAPIKey(GetDecryptedAPIKeyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetDecryptedAPIKey(request);
+    }
+
+    @SdkInternalApi
+    final GetDecryptedAPIKeyResult executeGetDecryptedAPIKey(GetDecryptedAPIKeyRequest getDecryptedAPIKeyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getDecryptedAPIKeyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetDecryptedAPIKeyRequest> request = null;
+        Response<GetDecryptedAPIKeyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetDecryptedAPIKeyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDecryptedAPIKeyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDecryptedAPIKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetDecryptedAPIKeyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetDecryptedAPIKeyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the specified <a>IPSet</a>.
+     * </p>
+     * 
+     * @param getIPSetRequest
+     * @return Result of the GetIPSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.GetIPSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetIPSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetIPSetResult getIPSet(GetIPSetRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetIPSet(request);
+    }
+
+    @SdkInternalApi
+    final GetIPSetResult executeGetIPSet(GetIPSetRequest getIPSetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getIPSetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetIPSetRequest> request = null;
+        Response<GetIPSetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getIPSetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetIPSet");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetIPSetResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetIPSetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the <a>LoggingConfiguration</a> for the specified web ACL.
+     * </p>
+     * 
+     * @param getLoggingConfigurationRequest
+     * @return Result of the GetLoggingConfiguration operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.GetLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetLoggingConfiguration" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetLoggingConfigurationResult getLoggingConfiguration(GetLoggingConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetLoggingConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final GetLoggingConfigurationResult executeGetLoggingConfiguration(GetLoggingConfigurationRequest getLoggingConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getLoggingConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetLoggingConfigurationRequest> request = null;
+        Response<GetLoggingConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetLoggingConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getLoggingConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLoggingConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetLoggingConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetLoggingConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the specified managed rule set.
+     * </p>
+     * <note>
+     * <p>
+     * This is intended for use only by vendors of managed rule sets. Vendors are Amazon Web Services and Amazon Web
+     * Services Marketplace sellers.
+     * </p>
+     * <p>
+     * Vendors, you can use the managed rule set APIs to provide controlled rollout of your versioned managed rule group
+     * offerings for your customers. The APIs are <code>ListManagedRuleSets</code>, <code>GetManagedRuleSet</code>,
+     * <code>PutManagedRuleSetVersions</code>, and <code>UpdateManagedRuleSetVersionExpiryDate</code>.
+     * </p>
+     * </note>
+     * 
+     * @param getManagedRuleSetRequest
+     * @return Result of the GetManagedRuleSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.GetManagedRuleSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetManagedRuleSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetManagedRuleSetResult getManagedRuleSet(GetManagedRuleSetRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetManagedRuleSet(request);
+    }
+
+    @SdkInternalApi
+    final GetManagedRuleSetResult executeGetManagedRuleSet(GetManagedRuleSetRequest getManagedRuleSetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getManagedRuleSetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetManagedRuleSetRequest> request = null;
+        Response<GetManagedRuleSetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetManagedRuleSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getManagedRuleSetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetManagedRuleSet");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetManagedRuleSetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetManagedRuleSetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves information for the specified mobile SDK release, including release notes and tags.
+     * </p>
+     * <p>
+     * The mobile SDK is not generally available. Customers who have access to the mobile SDK can use it to establish
+     * and manage WAF tokens for use in HTTP(S) requests from a mobile device to WAF. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-application-integration.html">WAF client
+     * application integration</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * 
+     * @param getMobileSdkReleaseRequest
+     * @return Result of the GetMobileSdkRelease operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.GetMobileSdkRelease
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetMobileSdkRelease" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetMobileSdkReleaseResult getMobileSdkRelease(GetMobileSdkReleaseRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetMobileSdkRelease(request);
+    }
+
+    @SdkInternalApi
+    final GetMobileSdkReleaseResult executeGetMobileSdkRelease(GetMobileSdkReleaseRequest getMobileSdkReleaseRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getMobileSdkReleaseRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetMobileSdkReleaseRequest> request = null;
+        Response<GetMobileSdkReleaseResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetMobileSdkReleaseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMobileSdkReleaseRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMobileSdkRelease");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetMobileSdkReleaseResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetMobileSdkReleaseResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the IAM policy that is attached to the specified rule group.
+     * </p>
+     * <p>
+     * You must be the owner of the rule group to perform this operation.
+     * </p>
+     * 
+     * @param getPermissionPolicyRequest
+     * @return Result of the GetPermissionPolicy operation returned by the service.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @sample AWSWAFV2.GetPermissionPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetPermissionPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetPermissionPolicyResult getPermissionPolicy(GetPermissionPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetPermissionPolicy(request);
+    }
+
+    @SdkInternalApi
+    final GetPermissionPolicyResult executeGetPermissionPolicy(GetPermissionPolicyRequest getPermissionPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getPermissionPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetPermissionPolicyRequest> request = null;
+        Response<GetPermissionPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetPermissionPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPermissionPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPermissionPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetPermissionPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetPermissionPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the IP addresses that are currently blocked by a rate-based rule instance. This is only available for
+     * rate-based rules that aggregate solely on the IP address or on the forwarded IP address.
+     * </p>
+     * <p>
+     * The maximum number of addresses that can be blocked for a single rate-based rule instance is 10,000. If more than
+     * 10,000 addresses exceed the rate limit, those with the highest rates are blocked.
+     * </p>
+     * <p>
+     * For a rate-based rule that you've defined inside a rule group, provide the name of the rule group reference
+     * statement in your request, in addition to the rate-based rule name and the web ACL name.
+     * </p>
+     * <p>
+     * WAF monitors web requests and manages keys independently for each unique combination of web ACL, optional rule
+     * group, and rate-based rule. For example, if you define a rate-based rule inside a rule group, and then use the
+     * rule group in a web ACL, WAF monitors web requests and manages keys for that web ACL, rule group reference
+     * statement, and rate-based rule instance. If you use the same rule group in a second web ACL, WAF monitors web
+     * requests and manages keys for this second usage completely independent of your first.
+     * </p>
+     * 
+     * @param getRateBasedStatementManagedKeysRequest
+     * @return Result of the GetRateBasedStatementManagedKeys operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @throws WAFUnsupportedAggregateKeyTypeException
+     *         The rule that you've named doesn't aggregate solely on the IP address or solely on the forwarded IP
+     *         address. This call is only available for rate-based rules with an <code>AggregateKeyType</code> setting
+     *         of <code>IP</code> or <code>FORWARDED_IP</code>.
+     * @sample AWSWAFV2.GetRateBasedStatementManagedKeys
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetRateBasedStatementManagedKeys"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetRateBasedStatementManagedKeysResult getRateBasedStatementManagedKeys(GetRateBasedStatementManagedKeysRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRateBasedStatementManagedKeys(request);
+    }
+
+    @SdkInternalApi
+    final GetRateBasedStatementManagedKeysResult executeGetRateBasedStatementManagedKeys(
+            GetRateBasedStatementManagedKeysRequest getRateBasedStatementManagedKeysRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRateBasedStatementManagedKeysRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRateBasedStatementManagedKeysRequest> request = null;
+        Response<GetRateBasedStatementManagedKeysResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRateBasedStatementManagedKeysRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getRateBasedStatementManagedKeysRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRateBasedStatementManagedKeys");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRateBasedStatementManagedKeysResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetRateBasedStatementManagedKeysResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the specified <a>RegexPatternSet</a>.
+     * </p>
+     * 
+     * @param getRegexPatternSetRequest
+     * @return Result of the GetRegexPatternSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.GetRegexPatternSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetRegexPatternSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetRegexPatternSetResult getRegexPatternSet(GetRegexPatternSetRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRegexPatternSet(request);
+    }
+
+    @SdkInternalApi
+    final GetRegexPatternSetResult executeGetRegexPatternSet(GetRegexPatternSetRequest getRegexPatternSetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRegexPatternSetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRegexPatternSetRequest> request = null;
+        Response<GetRegexPatternSetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRegexPatternSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRegexPatternSetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRegexPatternSet");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRegexPatternSetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetRegexPatternSetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the specified <a>RuleGroup</a>.
+     * </p>
+     * 
+     * @param getRuleGroupRequest
+     * @return Result of the GetRuleGroup operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.GetRuleGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetRuleGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetRuleGroupResult getRuleGroup(GetRuleGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRuleGroup(request);
+    }
+
+    @SdkInternalApi
+    final GetRuleGroupResult executeGetRuleGroup(GetRuleGroupRequest getRuleGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRuleGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRuleGroupRequest> request = null;
+        Response<GetRuleGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRuleGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRuleGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRuleGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRuleGroupResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetRuleGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets detailed information about a specified number of requests--a sample--that WAF randomly selects from among
+     * the first 5,000 requests that your Amazon Web Services resource received during a time range that you choose. You
+     * can specify a sample size of up to 500 requests, and you can specify any time range in the previous three hours.
+     * </p>
+     * <p>
+     * <code>GetSampledRequests</code> returns a time range, which is usually the time range that you specified.
+     * However, if your resource (such as a CloudFront distribution) received 5,000 requests before the specified time
+     * range elapsed, <code>GetSampledRequests</code> returns an updated time range. This new time range indicates the
+     * actual period during which WAF selected the requests in the sample.
+     * </p>
+     * 
+     * @param getSampledRequestsRequest
+     * @return Result of the GetSampledRequests operation returned by the service.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @sample AWSWAFV2.GetSampledRequests
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetSampledRequests" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetSampledRequestsResult getSampledRequests(GetSampledRequestsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetSampledRequests(request);
+    }
+
+    @SdkInternalApi
+    final GetSampledRequestsResult executeGetSampledRequests(GetSampledRequestsRequest getSampledRequestsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getSampledRequestsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetSampledRequestsRequest> request = null;
+        Response<GetSampledRequestsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetSampledRequestsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSampledRequestsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSampledRequests");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetSampledRequestsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetSampledRequestsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the specified <a>WebACL</a>.
+     * </p>
+     * 
+     * @param getWebACLRequest
+     * @return Result of the GetWebACL operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.GetWebACL
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetWebACL" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetWebACLResult getWebACL(GetWebACLRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetWebACL(request);
+    }
+
+    @SdkInternalApi
+    final GetWebACLResult executeGetWebACL(GetWebACLRequest getWebACLRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getWebACLRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetWebACLRequest> request = null;
+        Response<GetWebACLResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getWebACLRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetWebACL");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetWebACLResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetWebACLResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the <a>WebACL</a> for the specified resource.
+     * </p>
+     * <p>
+     * This call uses <code>GetWebACL</code>, to verify that your account has permission to access the retrieved web
+     * ACL. If you get an error that indicates that your account isn't authorized to perform
+     * <code>wafv2:GetWebACL</code> on the resource, that error won't be included in your CloudTrail event history.
+     * </p>
+     * <p>
+     * For Amazon CloudFront, don't use this call. Instead, call the CloudFront action
+     * <code>GetDistributionConfig</code>. For information, see <a
+     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistributionConfig.html"
+     * >GetDistributionConfig</a> in the <i>Amazon CloudFront API Reference</i>.
+     * </p>
+     * <p>
+     * <b>Required permissions for customer-managed IAM policies</b>
+     * </p>
+     * <p>
+     * This call requires permissions that are specific to the protected resource type. For details, see <a href=
+     * "https://docs.aws.amazon.com/waf/latest/developerguide/security_iam_service-with-iam.html#security_iam_action-GetWebACLForResource"
+     * >Permissions for GetWebACLForResource</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * 
+     * @param getWebACLForResourceRequest
+     * @return Result of the GetWebACLForResource operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFUnavailableEntityException
+     *         WAF couldn’t retrieve a resource that you specified for this operation. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate. Verify the resources that you are specifying in
+     *         your request parameters and then retry the operation.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.GetWebACLForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetWebACLForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetWebACLForResourceResult getWebACLForResource(GetWebACLForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetWebACLForResource(request);
+    }
+
+    @SdkInternalApi
+    final GetWebACLForResourceResult executeGetWebACLForResource(GetWebACLForResourceRequest getWebACLForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getWebACLForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetWebACLForResourceRequest> request = null;
+        Response<GetWebACLForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetWebACLForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getWebACLForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetWebACLForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetWebACLForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetWebACLForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list of the API keys that you've defined for the specified scope.
+     * </p>
+     * <p>
+     * API keys are required for the integration of the CAPTCHA API in your JavaScript client applications. The API lets
+     * you customize the placement and characteristics of the CAPTCHA puzzle for your end users. For more information
+     * about the CAPTCHA JavaScript integration, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-application-integration.html">WAF client
+     * application integration</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * 
+     * @param listAPIKeysRequest
+     * @return Result of the ListAPIKeys operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @throws WAFInvalidResourceException
+     *         WAF couldn’t perform the operation because the resource that you requested isn’t valid. Check the
+     *         resource, and try again.
+     * @sample AWSWAFV2.ListAPIKeys
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListAPIKeys" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListAPIKeysResult listAPIKeys(ListAPIKeysRequest request) {
+        request = beforeClientExecution(request);
+        return executeListAPIKeys(request);
+    }
+
+    @SdkInternalApi
+    final ListAPIKeysResult executeListAPIKeys(ListAPIKeysRequest listAPIKeysRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listAPIKeysRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListAPIKeysRequest> request = null;
+        Response<ListAPIKeysResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAPIKeysRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAPIKeysRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAPIKeys");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListAPIKeysResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListAPIKeysResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of the available versions for the specified managed rule group.
+     * </p>
+     * 
+     * @param listAvailableManagedRuleGroupVersionsRequest
+     * @return Result of the ListAvailableManagedRuleGroupVersions operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.ListAvailableManagedRuleGroupVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListAvailableManagedRuleGroupVersions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListAvailableManagedRuleGroupVersionsResult listAvailableManagedRuleGroupVersions(ListAvailableManagedRuleGroupVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListAvailableManagedRuleGroupVersions(request);
+    }
+
+    @SdkInternalApi
+    final ListAvailableManagedRuleGroupVersionsResult executeListAvailableManagedRuleGroupVersions(
+            ListAvailableManagedRuleGroupVersionsRequest listAvailableManagedRuleGroupVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listAvailableManagedRuleGroupVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListAvailableManagedRuleGroupVersionsRequest> request = null;
+        Response<ListAvailableManagedRuleGroupVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAvailableManagedRuleGroupVersionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listAvailableManagedRuleGroupVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAvailableManagedRuleGroupVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListAvailableManagedRuleGroupVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListAvailableManagedRuleGroupVersionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves an array of managed rule groups that are available for you to use. This list includes all Amazon Web
+     * Services Managed Rules rule groups and all of the Amazon Web Services Marketplace managed rule groups that you're
+     * subscribed to.
+     * </p>
+     * 
+     * @param listAvailableManagedRuleGroupsRequest
+     * @return Result of the ListAvailableManagedRuleGroups operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.ListAvailableManagedRuleGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListAvailableManagedRuleGroups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListAvailableManagedRuleGroupsResult listAvailableManagedRuleGroups(ListAvailableManagedRuleGroupsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListAvailableManagedRuleGroups(request);
+    }
+
+    @SdkInternalApi
+    final ListAvailableManagedRuleGroupsResult executeListAvailableManagedRuleGroups(ListAvailableManagedRuleGroupsRequest listAvailableManagedRuleGroupsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listAvailableManagedRuleGroupsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListAvailableManagedRuleGroupsRequest> request = null;
+        Response<ListAvailableManagedRuleGroupsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAvailableManagedRuleGroupsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listAvailableManagedRuleGroupsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAvailableManagedRuleGroups");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListAvailableManagedRuleGroupsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListAvailableManagedRuleGroupsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves an array of <a>IPSetSummary</a> objects for the IP sets that you manage.
+     * </p>
+     * 
+     * @param listIPSetsRequest
+     * @return Result of the ListIPSets operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.ListIPSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListIPSets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListIPSetsResult listIPSets(ListIPSetsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListIPSets(request);
+    }
+
+    @SdkInternalApi
+    final ListIPSetsResult executeListIPSets(ListIPSetsRequest listIPSetsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listIPSetsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListIPSetsRequest> request = null;
+        Response<ListIPSetsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListIPSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listIPSetsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListIPSets");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListIPSetsResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListIPSetsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves an array of your <a>LoggingConfiguration</a> objects.
+     * </p>
+     * 
+     * @param listLoggingConfigurationsRequest
+     * @return Result of the ListLoggingConfigurations operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.ListLoggingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListLoggingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListLoggingConfigurationsResult listLoggingConfigurations(ListLoggingConfigurationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListLoggingConfigurations(request);
+    }
+
+    @SdkInternalApi
+    final ListLoggingConfigurationsResult executeListLoggingConfigurations(ListLoggingConfigurationsRequest listLoggingConfigurationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listLoggingConfigurationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListLoggingConfigurationsRequest> request = null;
+        Response<ListLoggingConfigurationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListLoggingConfigurationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listLoggingConfigurationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLoggingConfigurations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListLoggingConfigurationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListLoggingConfigurationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the managed rule sets that you own.
+     * </p>
+     * <note>
+     * <p>
+     * This is intended for use only by vendors of managed rule sets. Vendors are Amazon Web Services and Amazon Web
+     * Services Marketplace sellers.
+     * </p>
+     * <p>
+     * Vendors, you can use the managed rule set APIs to provide controlled rollout of your versioned managed rule group
+     * offerings for your customers. The APIs are <code>ListManagedRuleSets</code>, <code>GetManagedRuleSet</code>,
+     * <code>PutManagedRuleSetVersions</code>, and <code>UpdateManagedRuleSetVersionExpiryDate</code>.
+     * </p>
+     * </note>
+     * 
+     * @param listManagedRuleSetsRequest
+     * @return Result of the ListManagedRuleSets operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.ListManagedRuleSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListManagedRuleSets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListManagedRuleSetsResult listManagedRuleSets(ListManagedRuleSetsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListManagedRuleSets(request);
+    }
+
+    @SdkInternalApi
+    final ListManagedRuleSetsResult executeListManagedRuleSets(ListManagedRuleSetsRequest listManagedRuleSetsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listManagedRuleSetsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListManagedRuleSetsRequest> request = null;
+        Response<ListManagedRuleSetsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListManagedRuleSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listManagedRuleSetsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListManagedRuleSets");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListManagedRuleSetsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListManagedRuleSetsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list of the available releases for the mobile SDK and the specified device platform.
+     * </p>
+     * <p>
+     * The mobile SDK is not generally available. Customers who have access to the mobile SDK can use it to establish
+     * and manage WAF tokens for use in HTTP(S) requests from a mobile device to WAF. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-application-integration.html">WAF client
+     * application integration</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * 
+     * @param listMobileSdkReleasesRequest
+     * @return Result of the ListMobileSdkReleases operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.ListMobileSdkReleases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListMobileSdkReleases" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListMobileSdkReleasesResult listMobileSdkReleases(ListMobileSdkReleasesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListMobileSdkReleases(request);
+    }
+
+    @SdkInternalApi
+    final ListMobileSdkReleasesResult executeListMobileSdkReleases(ListMobileSdkReleasesRequest listMobileSdkReleasesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listMobileSdkReleasesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListMobileSdkReleasesRequest> request = null;
+        Response<ListMobileSdkReleasesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListMobileSdkReleasesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listMobileSdkReleasesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListMobileSdkReleases");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListMobileSdkReleasesResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new ListMobileSdkReleasesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves an array of <a>RegexPatternSetSummary</a> objects for the regex pattern sets that you manage.
+     * </p>
+     * 
+     * @param listRegexPatternSetsRequest
+     * @return Result of the ListRegexPatternSets operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.ListRegexPatternSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListRegexPatternSets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListRegexPatternSetsResult listRegexPatternSets(ListRegexPatternSetsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRegexPatternSets(request);
+    }
+
+    @SdkInternalApi
+    final ListRegexPatternSetsResult executeListRegexPatternSets(ListRegexPatternSetsRequest listRegexPatternSetsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRegexPatternSetsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRegexPatternSetsRequest> request = null;
+        Response<ListRegexPatternSetsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRegexPatternSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRegexPatternSetsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRegexPatternSets");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListRegexPatternSetsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListRegexPatternSetsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves an array of the Amazon Resource Names (ARNs) for the regional resources that are associated with the
+     * specified web ACL.
+     * </p>
+     * <p>
+     * For Amazon CloudFront, don't use this call. Instead, use the CloudFront call
+     * <code>ListDistributionsByWebACLId</code>. For information, see <a
+     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListDistributionsByWebACLId.html"
+     * >ListDistributionsByWebACLId</a> in the <i>Amazon CloudFront API Reference</i>.
+     * </p>
+     * <p>
+     * <b>Required permissions for customer-managed IAM policies</b>
+     * </p>
+     * <p>
+     * This call requires permissions that are specific to the protected resource type. For details, see <a href=
+     * "https://docs.aws.amazon.com/waf/latest/developerguide/security_iam_service-with-iam.html#security_iam_action-ListResourcesForWebACL"
+     * >Permissions for ListResourcesForWebACL</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * 
+     * @param listResourcesForWebACLRequest
+     * @return Result of the ListResourcesForWebACL operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.ListResourcesForWebACL
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListResourcesForWebACL" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListResourcesForWebACLResult listResourcesForWebACL(ListResourcesForWebACLRequest request) {
+        request = beforeClientExecution(request);
+        return executeListResourcesForWebACL(request);
+    }
+
+    @SdkInternalApi
+    final ListResourcesForWebACLResult executeListResourcesForWebACL(ListResourcesForWebACLRequest listResourcesForWebACLRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listResourcesForWebACLRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListResourcesForWebACLRequest> request = null;
+        Response<ListResourcesForWebACLResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListResourcesForWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listResourcesForWebACLRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResourcesForWebACL");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListResourcesForWebACLResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListResourcesForWebACLResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves an array of <a>RuleGroupSummary</a> objects for the rule groups that you manage.
+     * </p>
+     * 
+     * @param listRuleGroupsRequest
+     * @return Result of the ListRuleGroups operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.ListRuleGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListRuleGroups" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListRuleGroupsResult listRuleGroups(ListRuleGroupsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRuleGroups(request);
+    }
+
+    @SdkInternalApi
+    final ListRuleGroupsResult executeListRuleGroups(ListRuleGroupsRequest listRuleGroupsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRuleGroupsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRuleGroupsRequest> request = null;
+        Response<ListRuleGroupsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRuleGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRuleGroupsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRuleGroups");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListRuleGroupsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListRuleGroupsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the <a>TagInfoForResource</a> for the specified resource. Tags are key:value pairs that you can use to
+     * categorize and manage your resources, for purposes like billing. For example, you might set the tag key to
+     * "customer" and the value to the customer name or ID. You can specify one or more tags to add to each Amazon Web
+     * Services resource, up to 50 tags for a resource.
+     * </p>
+     * <p>
+     * You can tag the Amazon Web Services resources that you manage through WAF: web ACLs, rule groups, IP sets, and
+     * regex pattern sets. You can't manage or view tags through the WAF console.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFTagOperationException
+     *         An error occurred during the tagging operation. Retry your request.
+     * @throws WAFTagOperationInternalErrorException
+     *         WAF couldn’t perform your tagging operation because of an internal error. Retry your request.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves an array of <a>WebACLSummary</a> objects for the web ACLs that you manage.
+     * </p>
+     * 
+     * @param listWebACLsRequest
+     * @return Result of the ListWebACLs operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.ListWebACLs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/ListWebACLs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListWebACLsResult listWebACLs(ListWebACLsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListWebACLs(request);
+    }
+
+    @SdkInternalApi
+    final ListWebACLsResult executeListWebACLs(ListWebACLsRequest listWebACLsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listWebACLsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListWebACLsRequest> request = null;
+        Response<ListWebACLsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListWebACLsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listWebACLsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListWebACLs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListWebACLsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListWebACLsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Enables the specified <a>LoggingConfiguration</a>, to start logging from a web ACL, according to the
+     * configuration provided.
+     * </p>
+     * <note>
+     * <p>
+     * This operation completely replaces any mutable specifications that you already have for a logging configuration
+     * with the ones that you provide to this call.
+     * </p>
+     * <p>
+     * To modify an existing logging configuration, do the following:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Retrieve it by calling <a>GetLoggingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Update its settings as needed
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provide the complete logging configuration specification to this call
+     * </p>
+     * </li>
+     * </ol>
+     * </note> <note>
+     * <p>
+     * You can define one logging destination per web ACL.
+     * </p>
+     * </note>
+     * <p>
+     * You can access information about the traffic that WAF inspects using the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Create your logging destination. You can use an Amazon CloudWatch Logs log group, an Amazon Simple Storage
+     * Service (Amazon S3) bucket, or an Amazon Kinesis Data Firehose.
+     * </p>
+     * <p>
+     * The name that you give the destination must start with <code>aws-waf-logs-</code>. Depending on the type of
+     * destination, you might need to configure additional settings or permissions.
+     * </p>
+     * <p>
+     * For configuration requirements and pricing information for each destination type, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/logging.html">Logging web ACL traffic</a> in the
+     * <i>WAF Developer Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Associate your logging destination to your web ACL using a <code>PutLoggingConfiguration</code> request.
+     * </p>
+     * </li>
+     * </ol>
+     * <p>
+     * When you successfully enable logging using a <code>PutLoggingConfiguration</code> request, WAF creates an
+     * additional role or policy that is required to write logs to the logging destination. For an Amazon CloudWatch
+     * Logs log group, WAF creates a resource policy on the log group. For an Amazon S3 bucket, WAF creates a bucket
+     * policy. For an Amazon Kinesis Data Firehose, WAF creates a service-linked role.
+     * </p>
+     * <p>
+     * For additional information about web ACL logging, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/logging.html">Logging web ACL traffic information</a>
+     * in the <i>WAF Developer Guide</i>.
+     * </p>
+     * 
+     * @param putLoggingConfigurationRequest
+     * @return Result of the PutLoggingConfiguration operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFServiceLinkedRoleErrorException
+     *         WAF is not able to access the service linked role. This can be caused by a previous
+     *         <code>PutLoggingConfiguration</code> request, which can lock the service linked role for about 20
+     *         seconds. Please try your request again. The service linked role can also be locked by a previous
+     *         <code>DeleteServiceLinkedRole</code> request, which can lock the role for 15 minutes or more. If you
+     *         recently made a call to <code>DeleteServiceLinkedRole</code>, wait at least 15 minutes and try the
+     *         request again. If you receive this same exception again, you will have to wait additional time until the
+     *         role is unlocked.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @throws WAFLogDestinationPermissionIssueException
+     *         The operation failed because you don't have the permissions that your logging configuration requires. For
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/logging.html">Logging web
+     *         ACL traffic information</a> in the <i>WAF Developer Guide</i>.
+     * @sample AWSWAFV2.PutLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/PutLoggingConfiguration" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public PutLoggingConfigurationResult putLoggingConfiguration(PutLoggingConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executePutLoggingConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final PutLoggingConfigurationResult executePutLoggingConfiguration(PutLoggingConfigurationRequest putLoggingConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putLoggingConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutLoggingConfigurationRequest> request = null;
+        Response<PutLoggingConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutLoggingConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putLoggingConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutLoggingConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutLoggingConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutLoggingConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Defines the versions of your managed rule set that you are offering to the customers. Customers see your
+     * offerings as managed rule groups with versioning.
+     * </p>
+     * <note>
+     * <p>
+     * This is intended for use only by vendors of managed rule sets. Vendors are Amazon Web Services and Amazon Web
+     * Services Marketplace sellers.
+     * </p>
+     * <p>
+     * Vendors, you can use the managed rule set APIs to provide controlled rollout of your versioned managed rule group
+     * offerings for your customers. The APIs are <code>ListManagedRuleSets</code>, <code>GetManagedRuleSet</code>,
+     * <code>PutManagedRuleSetVersions</code>, and <code>UpdateManagedRuleSetVersionExpiryDate</code>.
+     * </p>
+     * </note>
+     * <p>
+     * Customers retrieve their managed rule group list by calling <a>ListAvailableManagedRuleGroups</a>. The name that
+     * you provide here for your managed rule set is the name the customer sees for the corresponding managed rule
+     * group. Customers can retrieve the available versions for a managed rule group by calling
+     * <a>ListAvailableManagedRuleGroupVersions</a>. You provide a rule group specification for each version. For each
+     * managed rule set, you must specify a version that you recommend using.
+     * </p>
+     * <p>
+     * To initiate the expiration of a managed rule group version, use <a>UpdateManagedRuleSetVersionExpiryDate</a>.
+     * </p>
+     * 
+     * @param putManagedRuleSetVersionsRequest
+     * @return Result of the PutManagedRuleSetVersions operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.PutManagedRuleSetVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/PutManagedRuleSetVersions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutManagedRuleSetVersionsResult putManagedRuleSetVersions(PutManagedRuleSetVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executePutManagedRuleSetVersions(request);
+    }
+
+    @SdkInternalApi
+    final PutManagedRuleSetVersionsResult executePutManagedRuleSetVersions(PutManagedRuleSetVersionsRequest putManagedRuleSetVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putManagedRuleSetVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutManagedRuleSetVersionsRequest> request = null;
+        Response<PutManagedRuleSetVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutManagedRuleSetVersionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putManagedRuleSetVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutManagedRuleSetVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutManagedRuleSetVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutManagedRuleSetVersionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Attaches an IAM policy to the specified resource. Use this to share a rule group across accounts.
+     * </p>
+     * <p>
+     * You must be the owner of the rule group to perform this operation.
+     * </p>
+     * <p>
+     * This action is subject to the following restrictions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can attach only one policy with each <code>PutPermissionPolicy</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The ARN in the request must be a valid WAF <a>RuleGroup</a> ARN and the rule group must exist in the same Region.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The user making the request must be the owner of the rule group.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param putPermissionPolicyRequest
+     * @return Result of the PutPermissionPolicy operation returned by the service.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidPermissionPolicyException
+     *         The operation failed because the specified policy isn't in the proper format. </p>
+     *         <p>
+     *         The policy specifications must conform to the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The policy must be composed using IAM Policy version 2012-10-17.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The policy must include specifications for <code>Effect</code>, <code>Action</code>, and
+     *         <code>Principal</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Effect</code> must specify <code>Allow</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Action</code> must specify <code>wafv2:CreateWebACL</code>, <code>wafv2:UpdateWebACL</code>, and
+     *         <code>wafv2:PutFirewallManagerRuleGroups</code> and may optionally specify
+     *         <code>wafv2:GetRuleGroup</code>. WAF rejects any extra actions or wildcard actions in the policy.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The policy must not include a <code>Resource</code> parameter.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html">IAM Policies</a>.
+     * @sample AWSWAFV2.PutPermissionPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/PutPermissionPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public PutPermissionPolicyResult putPermissionPolicy(PutPermissionPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executePutPermissionPolicy(request);
+    }
+
+    @SdkInternalApi
+    final PutPermissionPolicyResult executePutPermissionPolicy(PutPermissionPolicyRequest putPermissionPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putPermissionPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutPermissionPolicyRequest> request = null;
+        Response<PutPermissionPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutPermissionPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putPermissionPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutPermissionPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutPermissionPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutPermissionPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Associates tags with the specified Amazon Web Services resource. Tags are key:value pairs that you can use to
+     * categorize and manage your resources, for purposes like billing. For example, you might set the tag key to
+     * "customer" and the value to the customer name or ID. You can specify one or more tags to add to each Amazon Web
+     * Services resource, up to 50 tags for a resource.
+     * </p>
+     * <p>
+     * You can tag the Amazon Web Services resources that you manage through WAF: web ACLs, rule groups, IP sets, and
+     * regex pattern sets. You can't manage or view tags through the WAF console.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFTagOperationException
+     *         An error occurred during the tagging operation. Retry your request.
+     * @throws WAFTagOperationInternalErrorException
+     *         WAF couldn’t perform your tagging operation because of an internal error. Retry your request.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Disassociates tags from an Amazon Web Services resource. Tags are key:value pairs that you can associate with
+     * Amazon Web Services resources. For example, the tag key might be "customer" and the tag value might be
+     * "companyA." You can specify one or more tags to add to each container. You can add up to 50 tags to each Amazon
+     * Web Services resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFTagOperationException
+     *         An error occurred during the tagging operation. Retry your request.
+     * @throws WAFTagOperationInternalErrorException
+     *         WAF couldn’t perform your tagging operation because of an internal error. Retry your request.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the specified <a>IPSet</a>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation completely replaces the mutable specifications that you already have for the IP set with the ones
+     * that you provide to this call.
+     * </p>
+     * <p>
+     * To modify an IP set, do the following:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Retrieve it by calling <a>GetIPSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Update its settings as needed
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provide the complete IP set specification to this call
+     * </p>
+     * </li>
+     * </ol>
+     * </note>
+     * <p>
+     * <b>Temporary inconsistencies during updates</b>
+     * </p>
+     * <p>
+     * When you create or change a web ACL or other WAF resources, the changes take a small amount of time to propagate
+     * to all areas where the resources are stored. The propagation time can be from a few seconds to a number of
+     * minutes.
+     * </p>
+     * <p>
+     * The following are examples of the temporary inconsistencies that you might notice during change propagation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * After you create a web ACL, if you try to associate it with a resource, you might get an exception indicating
+     * that the web ACL is unavailable.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you add a rule group to a web ACL, the new rule group rules might be in effect in one area where the web
+     * ACL is used and not in another.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you change a rule action setting, you might see the old action in some places and the new action in others.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you add an IP address to an IP set that is in use in a blocking rule, the new address might be blocked in
+     * one area while still allowed in another.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateIPSetRequest
+     * @return Result of the UpdateIPSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFDuplicateItemException
+     *         WAF couldn’t perform the operation because the resource that you tried to save is a duplicate of an
+     *         existing one.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.UpdateIPSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/UpdateIPSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateIPSetResult updateIPSet(UpdateIPSetRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateIPSet(request);
+    }
+
+    @SdkInternalApi
+    final UpdateIPSetResult executeUpdateIPSet(UpdateIPSetRequest updateIPSetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateIPSetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateIPSetRequest> request = null;
+        Response<UpdateIPSetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateIPSetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateIPSet");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateIPSetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateIPSetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the expiration information for your managed rule set. Use this to initiate the expiration of a managed
+     * rule group version. After you initiate expiration for a version, WAF excludes it from the response to
+     * <a>ListAvailableManagedRuleGroupVersions</a> for the managed rule group.
+     * </p>
+     * <note>
+     * <p>
+     * This is intended for use only by vendors of managed rule sets. Vendors are Amazon Web Services and Amazon Web
+     * Services Marketplace sellers.
+     * </p>
+     * <p>
+     * Vendors, you can use the managed rule set APIs to provide controlled rollout of your versioned managed rule group
+     * offerings for your customers. The APIs are <code>ListManagedRuleSets</code>, <code>GetManagedRuleSet</code>,
+     * <code>PutManagedRuleSetVersions</code>, and <code>UpdateManagedRuleSetVersionExpiryDate</code>.
+     * </p>
+     * </note>
+     * 
+     * @param updateManagedRuleSetVersionExpiryDateRequest
+     * @return Result of the UpdateManagedRuleSetVersionExpiryDate operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.UpdateManagedRuleSetVersionExpiryDate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/UpdateManagedRuleSetVersionExpiryDate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateManagedRuleSetVersionExpiryDateResult updateManagedRuleSetVersionExpiryDate(UpdateManagedRuleSetVersionExpiryDateRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateManagedRuleSetVersionExpiryDate(request);
+    }
+
+    @SdkInternalApi
+    final UpdateManagedRuleSetVersionExpiryDateResult executeUpdateManagedRuleSetVersionExpiryDate(
+            UpdateManagedRuleSetVersionExpiryDateRequest updateManagedRuleSetVersionExpiryDateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateManagedRuleSetVersionExpiryDateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateManagedRuleSetVersionExpiryDateRequest> request = null;
+        Response<UpdateManagedRuleSetVersionExpiryDateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateManagedRuleSetVersionExpiryDateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateManagedRuleSetVersionExpiryDateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateManagedRuleSetVersionExpiryDate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateManagedRuleSetVersionExpiryDateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateManagedRuleSetVersionExpiryDateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the specified <a>RegexPatternSet</a>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation completely replaces the mutable specifications that you already have for the regex pattern set
+     * with the ones that you provide to this call.
+     * </p>
+     * <p>
+     * To modify a regex pattern set, do the following:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Retrieve it by calling <a>GetRegexPatternSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Update its settings as needed
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provide the complete regex pattern set specification to this call
+     * </p>
+     * </li>
+     * </ol>
+     * </note>
+     * <p>
+     * <b>Temporary inconsistencies during updates</b>
+     * </p>
+     * <p>
+     * When you create or change a web ACL or other WAF resources, the changes take a small amount of time to propagate
+     * to all areas where the resources are stored. The propagation time can be from a few seconds to a number of
+     * minutes.
+     * </p>
+     * <p>
+     * The following are examples of the temporary inconsistencies that you might notice during change propagation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * After you create a web ACL, if you try to associate it with a resource, you might get an exception indicating
+     * that the web ACL is unavailable.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you add a rule group to a web ACL, the new rule group rules might be in effect in one area where the web
+     * ACL is used and not in another.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you change a rule action setting, you might see the old action in some places and the new action in others.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you add an IP address to an IP set that is in use in a blocking rule, the new address might be blocked in
+     * one area while still allowed in another.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateRegexPatternSetRequest
+     * @return Result of the UpdateRegexPatternSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFDuplicateItemException
+     *         WAF couldn’t perform the operation because the resource that you tried to save is a duplicate of an
+     *         existing one.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @sample AWSWAFV2.UpdateRegexPatternSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/UpdateRegexPatternSet" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateRegexPatternSetResult updateRegexPatternSet(UpdateRegexPatternSetRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateRegexPatternSet(request);
+    }
+
+    @SdkInternalApi
+    final UpdateRegexPatternSetResult executeUpdateRegexPatternSet(UpdateRegexPatternSetRequest updateRegexPatternSetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateRegexPatternSetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateRegexPatternSetRequest> request = null;
+        Response<UpdateRegexPatternSetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateRegexPatternSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRegexPatternSetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRegexPatternSet");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateRegexPatternSetResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new UpdateRegexPatternSetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the specified <a>RuleGroup</a>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation completely replaces the mutable specifications that you already have for the rule group with the
+     * ones that you provide to this call.
+     * </p>
+     * <p>
+     * To modify a rule group, do the following:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Retrieve it by calling <a>GetRuleGroup</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Update its settings as needed
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provide the complete rule group specification to this call
+     * </p>
+     * </li>
+     * </ol>
+     * </note>
+     * <p>
+     * A rule group defines a collection of rules to inspect and control web requests that you can use in a
+     * <a>WebACL</a>. When you create a rule group, you define an immutable capacity limit. If you update a rule group,
+     * you must stay within the capacity. This allows others to reuse the rule group with confidence in its capacity
+     * requirements.
+     * </p>
+     * <p>
+     * <b>Temporary inconsistencies during updates</b>
+     * </p>
+     * <p>
+     * When you create or change a web ACL or other WAF resources, the changes take a small amount of time to propagate
+     * to all areas where the resources are stored. The propagation time can be from a few seconds to a number of
+     * minutes.
+     * </p>
+     * <p>
+     * The following are examples of the temporary inconsistencies that you might notice during change propagation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * After you create a web ACL, if you try to associate it with a resource, you might get an exception indicating
+     * that the web ACL is unavailable.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you add a rule group to a web ACL, the new rule group rules might be in effect in one area where the web
+     * ACL is used and not in another.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you change a rule action setting, you might see the old action in some places and the new action in others.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you add an IP address to an IP set that is in use in a blocking rule, the new address might be blocked in
+     * one area while still allowed in another.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateRuleGroupRequest
+     * @return Result of the UpdateRuleGroup operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFDuplicateItemException
+     *         WAF couldn’t perform the operation because the resource that you tried to save is a duplicate of an
+     *         existing one.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @throws WAFUnavailableEntityException
+     *         WAF couldn’t retrieve a resource that you specified for this operation. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate. Verify the resources that you are specifying in
+     *         your request parameters and then retry the operation.
+     * @throws WAFSubscriptionNotFoundException
+     *         You tried to use a managed rule group that's available by subscription, but you aren't subscribed to it
+     *         yet.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @throws WAFConfigurationWarningException
+     *         The operation failed because you are inspecting the web request body, headers, or cookies without
+     *         specifying how to handle oversize components. Rules that inspect the body must either provide an
+     *         <code>OversizeHandling</code> configuration or they must be preceded by a
+     *         <code>SizeConstraintStatement</code> that blocks the body content from being too large. Rules that
+     *         inspect the headers or cookies must provide an <code>OversizeHandling</code> configuration. </p>
+     *         <p>
+     *         Provide the handling configuration and retry your operation.
+     *         </p>
+     *         <p>
+     *         Alternately, you can suppress this warning by adding the following tag to the resource that you provide
+     *         to this operation: <code>Tag</code> (key:<code>WAF:OversizeFieldsHandlingConstraintOptOut</code>, value:
+     *         <code>true</code>).
+     * @sample AWSWAFV2.UpdateRuleGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/UpdateRuleGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateRuleGroupResult updateRuleGroup(UpdateRuleGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateRuleGroup(request);
+    }
+
+    @SdkInternalApi
+    final UpdateRuleGroupResult executeUpdateRuleGroup(UpdateRuleGroupRequest updateRuleGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateRuleGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateRuleGroupRequest> request = null;
+        Response<UpdateRuleGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateRuleGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRuleGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRuleGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateRuleGroupResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateRuleGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the specified <a>WebACL</a>. While updating a web ACL, WAF provides continuous coverage to the resources
+     * that you have associated with the web ACL.
+     * </p>
+     * <note>
+     * <p>
+     * This operation completely replaces the mutable specifications that you already have for the web ACL with the ones
+     * that you provide to this call.
+     * </p>
+     * <p>
+     * To modify a web ACL, do the following:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Retrieve it by calling <a>GetWebACL</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Update its settings as needed
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provide the complete web ACL specification to this call
+     * </p>
+     * </li>
+     * </ol>
+     * </note>
+     * <p>
+     * A web ACL defines a collection of rules to use to inspect and control web requests. Each rule has a statement
+     * that defines what to look for in web requests and an action that WAF applies to requests that match the
+     * statement. In the web ACL, you assign a default action to take (allow, block) for any request that does not match
+     * any of the rules. The rules in a web ACL can be a combination of the types <a>Rule</a>, <a>RuleGroup</a>, and
+     * managed rule group. You can associate a web ACL with one or more Amazon Web Services resources to protect. The
+     * resources can be an Amazon CloudFront distribution, an Amazon API Gateway REST API, an Application Load Balancer,
+     * an AppSync GraphQL API, an Amazon Cognito user pool, an App Runner service, or an Amazon Web Services Verified
+     * Access instance.
+     * </p>
+     * <p>
+     * <b>Temporary inconsistencies during updates</b>
+     * </p>
+     * <p>
+     * When you create or change a web ACL or other WAF resources, the changes take a small amount of time to propagate
+     * to all areas where the resources are stored. The propagation time can be from a few seconds to a number of
+     * minutes.
+     * </p>
+     * <p>
+     * The following are examples of the temporary inconsistencies that you might notice during change propagation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * After you create a web ACL, if you try to associate it with a resource, you might get an exception indicating
+     * that the web ACL is unavailable.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you add a rule group to a web ACL, the new rule group rules might be in effect in one area where the web
+     * ACL is used and not in another.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you change a rule action setting, you might see the old action in some places and the new action in others.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you add an IP address to an IP set that is in use in a blocking rule, the new address might be blocked in
+     * one area while still allowed in another.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateWebACLRequest
+     * @return Result of the UpdateWebACL operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         Your request is valid, but WAF couldn’t perform the operation because of a system problem. Retry your
+     *         request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because WAF didn't recognize a parameter in the request. For example: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified a parameter name or value that isn't valid.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your nested statement isn't valid. You might have tried to nest a statement that can’t be nested.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>DefaultAction</code> that isn't among the types
+     *         available at <a>DefaultAction</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL can't
+     *         be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         WAF couldn’t perform the operation because your resource doesn't exist. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate.
+     * @throws WAFDuplicateItemException
+     *         WAF couldn’t perform the operation because the resource that you tried to save is a duplicate of an
+     *         existing one.
+     * @throws WAFOptimisticLockException
+     *         WAF couldn’t save your changes because you tried to update or delete a resource that has changed since
+     *         you last retrieved it. Get the resource again, make any changes you need to make to the new copy, and
+     *         retry your operation.
+     * @throws WAFLimitsExceededException
+     *         WAF couldn’t perform the operation because you exceeded your resource limit. For example, the maximum
+     *         number of <code>WebACL</code> objects that you can create for an Amazon Web Services account. For more
+     *         information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF
+     *         quotas</a> in the <i>WAF Developer Guide</i>.
+     * @throws WAFInvalidResourceException
+     *         WAF couldn’t perform the operation because the resource that you requested isn’t valid. Check the
+     *         resource, and try again.
+     * @throws WAFUnavailableEntityException
+     *         WAF couldn’t retrieve a resource that you specified for this operation. If you've just created a resource
+     *         that you're using in this operation, you might just need to wait a few minutes. It can take from a few
+     *         seconds to a number of minutes for changes to propagate. Verify the resources that you are specifying in
+     *         your request parameters and then retry the operation.
+     * @throws WAFSubscriptionNotFoundException
+     *         You tried to use a managed rule group that's available by subscription, but you aren't subscribed to it
+     *         yet.
+     * @throws WAFInvalidOperationException
+     *         The operation isn't valid.
+     * @throws WAFExpiredManagedRuleGroupVersionException
+     *         The operation failed because the specified version for the managed rule group has expired. You can
+     *         retrieve the available versions for the managed rule group by calling
+     *         <a>ListAvailableManagedRuleGroupVersions</a>.
+     * @throws WAFConfigurationWarningException
+     *         The operation failed because you are inspecting the web request body, headers, or cookies without
+     *         specifying how to handle oversize components. Rules that inspect the body must either provide an
+     *         <code>OversizeHandling</code> configuration or they must be preceded by a
+     *         <code>SizeConstraintStatement</code> that blocks the body content from being too large. Rules that
+     *         inspect the headers or cookies must provide an <code>OversizeHandling</code> configuration. </p>
+     *         <p>
+     *         Provide the handling configuration and retry your operation.
+     *         </p>
+     *         <p>
+     *         Alternately, you can suppress this warning by adding the following tag to the resource that you provide
+     *         to this operation: <code>Tag</code> (key:<code>WAF:OversizeFieldsHandlingConstraintOptOut</code>, value:
+     *         <code>true</code>).
+     * @sample AWSWAFV2.UpdateWebACL
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/UpdateWebACL" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateWebACLResult updateWebACL(UpdateWebACLRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateWebACL(request);
+    }
+
+    @SdkInternalApi
+    final UpdateWebACLResult executeUpdateWebACL(UpdateWebACLRequest updateWebACLRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateWebACLRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateWebACLRequest> request = null;
+        Response<UpdateWebACLResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateWebACLRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAFV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateWebACL");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateWebACLResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateWebACLResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Returns additional metadata for a previously executed successful, request, typically used for debugging issues
+     * where a service isn't acting as expected. This data isn't considered part of the result data returned by an
+     * operation, so it's available through this separate, diagnostic interface.
+     * <p>
+     * Response metadata is only cached for a limited period of time, so if you need to access this extra diagnostic
+     * information for an executed request, you should use this method to retrieve it as soon as possible after
+     * executing the request.
+     *
+     * @param request
+     *        The originally executed request
+     *
+     * @return The response metadata for the specified request, or null if none is available.
+     */
+    public ResponseMetadata getCachedResponseMetadata(AmazonWebServiceRequest request) {
+        return client.getResponseMetadataForRequest(request);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext) {
+
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
+        executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
+
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
+    }
+
+    /**
+     * Invoke with no authentication. Credentials are not required and any credentials set on the client or request will
+     * be ignored for this operation.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
+
+        return doInvoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Invoke the request using the http client. Assumes credentials (or lack thereof) have been configured in the
+     * ExecutionContext beforehand.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
+        request.setTimeOffset(timeOffset);
+
+        HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
+
+        return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
+    }
+
+}

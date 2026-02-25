@@ -1,0 +1,22 @@
+target
+.project
+.settings
+.classpath
+nbactions.xml
+nb-configuration.xml
+.DS_Store
+.metadata
+.recommenders
+
+# Intellij
+.idea/
+.run/
+*.iml
+*.iws
+*.ipr
+*~
+
+.vscode/
+.java-version
+/nifi-nar-bundles/nifi-py4j-bundle/nifi-python-extension-api/src/main/python/dist/
+__pycache__

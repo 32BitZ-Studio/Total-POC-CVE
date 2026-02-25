@@ -1,0 +1,257 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.networkmanager.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Describes a route table.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/networkmanager-2019-07-05/RouteTableIdentifier"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class RouteTableIdentifier implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The ARN of the transit gateway route table for the attachment request. For example,
+     * <code>"TransitGatewayRouteTableArn": "arn:aws:ec2:us-west-2:123456789012:transit-gateway-route-table/tgw-rtb-9876543210123456"</code>
+     * .
+     * </p>
+     */
+    private String transitGatewayRouteTableArn;
+    /**
+     * <p>
+     * The segment edge in a core network.
+     * </p>
+     */
+    private CoreNetworkSegmentEdgeIdentifier coreNetworkSegmentEdge;
+    /**
+     * <p>
+     * The route table identifier associated with the network function group.
+     * </p>
+     */
+    private CoreNetworkNetworkFunctionGroupIdentifier coreNetworkNetworkFunctionGroup;
+
+    /**
+     * <p>
+     * The ARN of the transit gateway route table for the attachment request. For example,
+     * <code>"TransitGatewayRouteTableArn": "arn:aws:ec2:us-west-2:123456789012:transit-gateway-route-table/tgw-rtb-9876543210123456"</code>
+     * .
+     * </p>
+     * 
+     * @param transitGatewayRouteTableArn
+     *        The ARN of the transit gateway route table for the attachment request. For example,
+     *        <code>"TransitGatewayRouteTableArn": "arn:aws:ec2:us-west-2:123456789012:transit-gateway-route-table/tgw-rtb-9876543210123456"</code>
+     *        .
+     */
+
+    public void setTransitGatewayRouteTableArn(String transitGatewayRouteTableArn) {
+        this.transitGatewayRouteTableArn = transitGatewayRouteTableArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the transit gateway route table for the attachment request. For example,
+     * <code>"TransitGatewayRouteTableArn": "arn:aws:ec2:us-west-2:123456789012:transit-gateway-route-table/tgw-rtb-9876543210123456"</code>
+     * .
+     * </p>
+     * 
+     * @return The ARN of the transit gateway route table for the attachment request. For example,
+     *         <code>"TransitGatewayRouteTableArn": "arn:aws:ec2:us-west-2:123456789012:transit-gateway-route-table/tgw-rtb-9876543210123456"</code>
+     *         .
+     */
+
+    public String getTransitGatewayRouteTableArn() {
+        return this.transitGatewayRouteTableArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the transit gateway route table for the attachment request. For example,
+     * <code>"TransitGatewayRouteTableArn": "arn:aws:ec2:us-west-2:123456789012:transit-gateway-route-table/tgw-rtb-9876543210123456"</code>
+     * .
+     * </p>
+     * 
+     * @param transitGatewayRouteTableArn
+     *        The ARN of the transit gateway route table for the attachment request. For example,
+     *        <code>"TransitGatewayRouteTableArn": "arn:aws:ec2:us-west-2:123456789012:transit-gateway-route-table/tgw-rtb-9876543210123456"</code>
+     *        .
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RouteTableIdentifier withTransitGatewayRouteTableArn(String transitGatewayRouteTableArn) {
+        setTransitGatewayRouteTableArn(transitGatewayRouteTableArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The segment edge in a core network.
+     * </p>
+     * 
+     * @param coreNetworkSegmentEdge
+     *        The segment edge in a core network.
+     */
+
+    public void setCoreNetworkSegmentEdge(CoreNetworkSegmentEdgeIdentifier coreNetworkSegmentEdge) {
+        this.coreNetworkSegmentEdge = coreNetworkSegmentEdge;
+    }
+
+    /**
+     * <p>
+     * The segment edge in a core network.
+     * </p>
+     * 
+     * @return The segment edge in a core network.
+     */
+
+    public CoreNetworkSegmentEdgeIdentifier getCoreNetworkSegmentEdge() {
+        return this.coreNetworkSegmentEdge;
+    }
+
+    /**
+     * <p>
+     * The segment edge in a core network.
+     * </p>
+     * 
+     * @param coreNetworkSegmentEdge
+     *        The segment edge in a core network.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RouteTableIdentifier withCoreNetworkSegmentEdge(CoreNetworkSegmentEdgeIdentifier coreNetworkSegmentEdge) {
+        setCoreNetworkSegmentEdge(coreNetworkSegmentEdge);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The route table identifier associated with the network function group.
+     * </p>
+     * 
+     * @param coreNetworkNetworkFunctionGroup
+     *        The route table identifier associated with the network function group.
+     */
+
+    public void setCoreNetworkNetworkFunctionGroup(CoreNetworkNetworkFunctionGroupIdentifier coreNetworkNetworkFunctionGroup) {
+        this.coreNetworkNetworkFunctionGroup = coreNetworkNetworkFunctionGroup;
+    }
+
+    /**
+     * <p>
+     * The route table identifier associated with the network function group.
+     * </p>
+     * 
+     * @return The route table identifier associated with the network function group.
+     */
+
+    public CoreNetworkNetworkFunctionGroupIdentifier getCoreNetworkNetworkFunctionGroup() {
+        return this.coreNetworkNetworkFunctionGroup;
+    }
+
+    /**
+     * <p>
+     * The route table identifier associated with the network function group.
+     * </p>
+     * 
+     * @param coreNetworkNetworkFunctionGroup
+     *        The route table identifier associated with the network function group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RouteTableIdentifier withCoreNetworkNetworkFunctionGroup(CoreNetworkNetworkFunctionGroupIdentifier coreNetworkNetworkFunctionGroup) {
+        setCoreNetworkNetworkFunctionGroup(coreNetworkNetworkFunctionGroup);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getTransitGatewayRouteTableArn() != null)
+            sb.append("TransitGatewayRouteTableArn: ").append(getTransitGatewayRouteTableArn()).append(",");
+        if (getCoreNetworkSegmentEdge() != null)
+            sb.append("CoreNetworkSegmentEdge: ").append(getCoreNetworkSegmentEdge()).append(",");
+        if (getCoreNetworkNetworkFunctionGroup() != null)
+            sb.append("CoreNetworkNetworkFunctionGroup: ").append(getCoreNetworkNetworkFunctionGroup());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof RouteTableIdentifier == false)
+            return false;
+        RouteTableIdentifier other = (RouteTableIdentifier) obj;
+        if (other.getTransitGatewayRouteTableArn() == null ^ this.getTransitGatewayRouteTableArn() == null)
+            return false;
+        if (other.getTransitGatewayRouteTableArn() != null && other.getTransitGatewayRouteTableArn().equals(this.getTransitGatewayRouteTableArn()) == false)
+            return false;
+        if (other.getCoreNetworkSegmentEdge() == null ^ this.getCoreNetworkSegmentEdge() == null)
+            return false;
+        if (other.getCoreNetworkSegmentEdge() != null && other.getCoreNetworkSegmentEdge().equals(this.getCoreNetworkSegmentEdge()) == false)
+            return false;
+        if (other.getCoreNetworkNetworkFunctionGroup() == null ^ this.getCoreNetworkNetworkFunctionGroup() == null)
+            return false;
+        if (other.getCoreNetworkNetworkFunctionGroup() != null
+                && other.getCoreNetworkNetworkFunctionGroup().equals(this.getCoreNetworkNetworkFunctionGroup()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getTransitGatewayRouteTableArn() == null) ? 0 : getTransitGatewayRouteTableArn().hashCode());
+        hashCode = prime * hashCode + ((getCoreNetworkSegmentEdge() == null) ? 0 : getCoreNetworkSegmentEdge().hashCode());
+        hashCode = prime * hashCode + ((getCoreNetworkNetworkFunctionGroup() == null) ? 0 : getCoreNetworkNetworkFunctionGroup().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public RouteTableIdentifier clone() {
+        try {
+            return (RouteTableIdentifier) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.networkmanager.model.transform.RouteTableIdentifierMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

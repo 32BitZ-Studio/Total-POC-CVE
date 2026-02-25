@@ -1,0 +1,410 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.mediatailor.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediatailor-2018-04-23/UpdateChannel" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The list of audiences defined in channel.
+     * </p>
+     */
+    private java.util.List<String> audiences;
+    /**
+     * <p>
+     * The name of the channel.
+     * </p>
+     */
+    private String channelName;
+    /**
+     * <p>
+     * The slate used to fill gaps between programs in the schedule. You must configure filler slate if your channel
+     * uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate for channels
+     * using the <code>LOOP</code> <code>PlaybackMode</code>.
+     * </p>
+     */
+    private SlateSource fillerSlate;
+    /**
+     * <p>
+     * The channel's output properties.
+     * </p>
+     */
+    private java.util.List<RequestOutputItem> outputs;
+    /**
+     * <p>
+     * The time-shifted viewing configuration you want to associate to the channel.
+     * </p>
+     */
+    private TimeShiftConfiguration timeShiftConfiguration;
+
+    /**
+     * <p>
+     * The list of audiences defined in channel.
+     * </p>
+     * 
+     * @return The list of audiences defined in channel.
+     */
+
+    public java.util.List<String> getAudiences() {
+        return audiences;
+    }
+
+    /**
+     * <p>
+     * The list of audiences defined in channel.
+     * </p>
+     * 
+     * @param audiences
+     *        The list of audiences defined in channel.
+     */
+
+    public void setAudiences(java.util.Collection<String> audiences) {
+        if (audiences == null) {
+            this.audiences = null;
+            return;
+        }
+
+        this.audiences = new java.util.ArrayList<String>(audiences);
+    }
+
+    /**
+     * <p>
+     * The list of audiences defined in channel.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAudiences(java.util.Collection)} or {@link #withAudiences(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param audiences
+     *        The list of audiences defined in channel.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateChannelRequest withAudiences(String... audiences) {
+        if (this.audiences == null) {
+            setAudiences(new java.util.ArrayList<String>(audiences.length));
+        }
+        for (String ele : audiences) {
+            this.audiences.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of audiences defined in channel.
+     * </p>
+     * 
+     * @param audiences
+     *        The list of audiences defined in channel.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateChannelRequest withAudiences(java.util.Collection<String> audiences) {
+        setAudiences(audiences);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the channel.
+     * </p>
+     * 
+     * @param channelName
+     *        The name of the channel.
+     */
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
+
+    /**
+     * <p>
+     * The name of the channel.
+     * </p>
+     * 
+     * @return The name of the channel.
+     */
+
+    public String getChannelName() {
+        return this.channelName;
+    }
+
+    /**
+     * <p>
+     * The name of the channel.
+     * </p>
+     * 
+     * @param channelName
+     *        The name of the channel.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateChannelRequest withChannelName(String channelName) {
+        setChannelName(channelName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The slate used to fill gaps between programs in the schedule. You must configure filler slate if your channel
+     * uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate for channels
+     * using the <code>LOOP</code> <code>PlaybackMode</code>.
+     * </p>
+     * 
+     * @param fillerSlate
+     *        The slate used to fill gaps between programs in the schedule. You must configure filler slate if your
+     *        channel uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate
+     *        for channels using the <code>LOOP</code> <code>PlaybackMode</code>.
+     */
+
+    public void setFillerSlate(SlateSource fillerSlate) {
+        this.fillerSlate = fillerSlate;
+    }
+
+    /**
+     * <p>
+     * The slate used to fill gaps between programs in the schedule. You must configure filler slate if your channel
+     * uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate for channels
+     * using the <code>LOOP</code> <code>PlaybackMode</code>.
+     * </p>
+     * 
+     * @return The slate used to fill gaps between programs in the schedule. You must configure filler slate if your
+     *         channel uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate
+     *         for channels using the <code>LOOP</code> <code>PlaybackMode</code>.
+     */
+
+    public SlateSource getFillerSlate() {
+        return this.fillerSlate;
+    }
+
+    /**
+     * <p>
+     * The slate used to fill gaps between programs in the schedule. You must configure filler slate if your channel
+     * uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate for channels
+     * using the <code>LOOP</code> <code>PlaybackMode</code>.
+     * </p>
+     * 
+     * @param fillerSlate
+     *        The slate used to fill gaps between programs in the schedule. You must configure filler slate if your
+     *        channel uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate
+     *        for channels using the <code>LOOP</code> <code>PlaybackMode</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateChannelRequest withFillerSlate(SlateSource fillerSlate) {
+        setFillerSlate(fillerSlate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The channel's output properties.
+     * </p>
+     * 
+     * @return The channel's output properties.
+     */
+
+    public java.util.List<RequestOutputItem> getOutputs() {
+        return outputs;
+    }
+
+    /**
+     * <p>
+     * The channel's output properties.
+     * </p>
+     * 
+     * @param outputs
+     *        The channel's output properties.
+     */
+
+    public void setOutputs(java.util.Collection<RequestOutputItem> outputs) {
+        if (outputs == null) {
+            this.outputs = null;
+            return;
+        }
+
+        this.outputs = new java.util.ArrayList<RequestOutputItem>(outputs);
+    }
+
+    /**
+     * <p>
+     * The channel's output properties.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setOutputs(java.util.Collection)} or {@link #withOutputs(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param outputs
+     *        The channel's output properties.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateChannelRequest withOutputs(RequestOutputItem... outputs) {
+        if (this.outputs == null) {
+            setOutputs(new java.util.ArrayList<RequestOutputItem>(outputs.length));
+        }
+        for (RequestOutputItem ele : outputs) {
+            this.outputs.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The channel's output properties.
+     * </p>
+     * 
+     * @param outputs
+     *        The channel's output properties.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateChannelRequest withOutputs(java.util.Collection<RequestOutputItem> outputs) {
+        setOutputs(outputs);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time-shifted viewing configuration you want to associate to the channel.
+     * </p>
+     * 
+     * @param timeShiftConfiguration
+     *        The time-shifted viewing configuration you want to associate to the channel.
+     */
+
+    public void setTimeShiftConfiguration(TimeShiftConfiguration timeShiftConfiguration) {
+        this.timeShiftConfiguration = timeShiftConfiguration;
+    }
+
+    /**
+     * <p>
+     * The time-shifted viewing configuration you want to associate to the channel.
+     * </p>
+     * 
+     * @return The time-shifted viewing configuration you want to associate to the channel.
+     */
+
+    public TimeShiftConfiguration getTimeShiftConfiguration() {
+        return this.timeShiftConfiguration;
+    }
+
+    /**
+     * <p>
+     * The time-shifted viewing configuration you want to associate to the channel.
+     * </p>
+     * 
+     * @param timeShiftConfiguration
+     *        The time-shifted viewing configuration you want to associate to the channel.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateChannelRequest withTimeShiftConfiguration(TimeShiftConfiguration timeShiftConfiguration) {
+        setTimeShiftConfiguration(timeShiftConfiguration);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getAudiences() != null)
+            sb.append("Audiences: ").append(getAudiences()).append(",");
+        if (getChannelName() != null)
+            sb.append("ChannelName: ").append(getChannelName()).append(",");
+        if (getFillerSlate() != null)
+            sb.append("FillerSlate: ").append(getFillerSlate()).append(",");
+        if (getOutputs() != null)
+            sb.append("Outputs: ").append(getOutputs()).append(",");
+        if (getTimeShiftConfiguration() != null)
+            sb.append("TimeShiftConfiguration: ").append(getTimeShiftConfiguration());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof UpdateChannelRequest == false)
+            return false;
+        UpdateChannelRequest other = (UpdateChannelRequest) obj;
+        if (other.getAudiences() == null ^ this.getAudiences() == null)
+            return false;
+        if (other.getAudiences() != null && other.getAudiences().equals(this.getAudiences()) == false)
+            return false;
+        if (other.getChannelName() == null ^ this.getChannelName() == null)
+            return false;
+        if (other.getChannelName() != null && other.getChannelName().equals(this.getChannelName()) == false)
+            return false;
+        if (other.getFillerSlate() == null ^ this.getFillerSlate() == null)
+            return false;
+        if (other.getFillerSlate() != null && other.getFillerSlate().equals(this.getFillerSlate()) == false)
+            return false;
+        if (other.getOutputs() == null ^ this.getOutputs() == null)
+            return false;
+        if (other.getOutputs() != null && other.getOutputs().equals(this.getOutputs()) == false)
+            return false;
+        if (other.getTimeShiftConfiguration() == null ^ this.getTimeShiftConfiguration() == null)
+            return false;
+        if (other.getTimeShiftConfiguration() != null && other.getTimeShiftConfiguration().equals(this.getTimeShiftConfiguration()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getAudiences() == null) ? 0 : getAudiences().hashCode());
+        hashCode = prime * hashCode + ((getChannelName() == null) ? 0 : getChannelName().hashCode());
+        hashCode = prime * hashCode + ((getFillerSlate() == null) ? 0 : getFillerSlate().hashCode());
+        hashCode = prime * hashCode + ((getOutputs() == null) ? 0 : getOutputs().hashCode());
+        hashCode = prime * hashCode + ((getTimeShiftConfiguration() == null) ? 0 : getTimeShiftConfiguration().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public UpdateChannelRequest clone() {
+        return (UpdateChannelRequest) super.clone();
+    }
+
+}

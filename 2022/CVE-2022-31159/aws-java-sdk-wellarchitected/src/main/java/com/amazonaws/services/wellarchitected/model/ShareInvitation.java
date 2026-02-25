@@ -1,0 +1,437 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.wellarchitected.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * The share invitation.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wellarchitected-2020-03-31/ShareInvitation" target="_top">AWS
+ *      API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class ShareInvitation implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The ID assigned to the share invitation.
+     * </p>
+     */
+    private String shareInvitationId;
+    /**
+     * <p>
+     * The resource type of the share invitation.
+     * </p>
+     */
+    private String shareResourceType;
+
+    private String workloadId;
+
+    private String lensAlias;
+    /**
+     * <p>
+     * The ARN for the lens.
+     * </p>
+     */
+    private String lensArn;
+    /**
+     * <p>
+     * The profile ARN.
+     * </p>
+     */
+    private String profileArn;
+    /**
+     * <p>
+     * The review template ARN.
+     * </p>
+     */
+    private String templateArn;
+
+    /**
+     * <p>
+     * The ID assigned to the share invitation.
+     * </p>
+     * 
+     * @param shareInvitationId
+     *        The ID assigned to the share invitation.
+     */
+
+    public void setShareInvitationId(String shareInvitationId) {
+        this.shareInvitationId = shareInvitationId;
+    }
+
+    /**
+     * <p>
+     * The ID assigned to the share invitation.
+     * </p>
+     * 
+     * @return The ID assigned to the share invitation.
+     */
+
+    public String getShareInvitationId() {
+        return this.shareInvitationId;
+    }
+
+    /**
+     * <p>
+     * The ID assigned to the share invitation.
+     * </p>
+     * 
+     * @param shareInvitationId
+     *        The ID assigned to the share invitation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ShareInvitation withShareInvitationId(String shareInvitationId) {
+        setShareInvitationId(shareInvitationId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The resource type of the share invitation.
+     * </p>
+     * 
+     * @param shareResourceType
+     *        The resource type of the share invitation.
+     * @see ShareResourceType
+     */
+
+    public void setShareResourceType(String shareResourceType) {
+        this.shareResourceType = shareResourceType;
+    }
+
+    /**
+     * <p>
+     * The resource type of the share invitation.
+     * </p>
+     * 
+     * @return The resource type of the share invitation.
+     * @see ShareResourceType
+     */
+
+    public String getShareResourceType() {
+        return this.shareResourceType;
+    }
+
+    /**
+     * <p>
+     * The resource type of the share invitation.
+     * </p>
+     * 
+     * @param shareResourceType
+     *        The resource type of the share invitation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ShareResourceType
+     */
+
+    public ShareInvitation withShareResourceType(String shareResourceType) {
+        setShareResourceType(shareResourceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The resource type of the share invitation.
+     * </p>
+     * 
+     * @param shareResourceType
+     *        The resource type of the share invitation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ShareResourceType
+     */
+
+    public ShareInvitation withShareResourceType(ShareResourceType shareResourceType) {
+        this.shareResourceType = shareResourceType.toString();
+        return this;
+    }
+
+    /**
+     * @param workloadId
+     */
+
+    public void setWorkloadId(String workloadId) {
+        this.workloadId = workloadId;
+    }
+
+    /**
+     * @return
+     */
+
+    public String getWorkloadId() {
+        return this.workloadId;
+    }
+
+    /**
+     * @param workloadId
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ShareInvitation withWorkloadId(String workloadId) {
+        setWorkloadId(workloadId);
+        return this;
+    }
+
+    /**
+     * @param lensAlias
+     */
+
+    public void setLensAlias(String lensAlias) {
+        this.lensAlias = lensAlias;
+    }
+
+    /**
+     * @return
+     */
+
+    public String getLensAlias() {
+        return this.lensAlias;
+    }
+
+    /**
+     * @param lensAlias
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ShareInvitation withLensAlias(String lensAlias) {
+        setLensAlias(lensAlias);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN for the lens.
+     * </p>
+     * 
+     * @param lensArn
+     *        The ARN for the lens.
+     */
+
+    public void setLensArn(String lensArn) {
+        this.lensArn = lensArn;
+    }
+
+    /**
+     * <p>
+     * The ARN for the lens.
+     * </p>
+     * 
+     * @return The ARN for the lens.
+     */
+
+    public String getLensArn() {
+        return this.lensArn;
+    }
+
+    /**
+     * <p>
+     * The ARN for the lens.
+     * </p>
+     * 
+     * @param lensArn
+     *        The ARN for the lens.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ShareInvitation withLensArn(String lensArn) {
+        setLensArn(lensArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The profile ARN.
+     * </p>
+     * 
+     * @param profileArn
+     *        The profile ARN.
+     */
+
+    public void setProfileArn(String profileArn) {
+        this.profileArn = profileArn;
+    }
+
+    /**
+     * <p>
+     * The profile ARN.
+     * </p>
+     * 
+     * @return The profile ARN.
+     */
+
+    public String getProfileArn() {
+        return this.profileArn;
+    }
+
+    /**
+     * <p>
+     * The profile ARN.
+     * </p>
+     * 
+     * @param profileArn
+     *        The profile ARN.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ShareInvitation withProfileArn(String profileArn) {
+        setProfileArn(profileArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The review template ARN.
+     * </p>
+     * 
+     * @param templateArn
+     *        The review template ARN.
+     */
+
+    public void setTemplateArn(String templateArn) {
+        this.templateArn = templateArn;
+    }
+
+    /**
+     * <p>
+     * The review template ARN.
+     * </p>
+     * 
+     * @return The review template ARN.
+     */
+
+    public String getTemplateArn() {
+        return this.templateArn;
+    }
+
+    /**
+     * <p>
+     * The review template ARN.
+     * </p>
+     * 
+     * @param templateArn
+     *        The review template ARN.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ShareInvitation withTemplateArn(String templateArn) {
+        setTemplateArn(templateArn);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getShareInvitationId() != null)
+            sb.append("ShareInvitationId: ").append(getShareInvitationId()).append(",");
+        if (getShareResourceType() != null)
+            sb.append("ShareResourceType: ").append(getShareResourceType()).append(",");
+        if (getWorkloadId() != null)
+            sb.append("WorkloadId: ").append(getWorkloadId()).append(",");
+        if (getLensAlias() != null)
+            sb.append("LensAlias: ").append(getLensAlias()).append(",");
+        if (getLensArn() != null)
+            sb.append("LensArn: ").append(getLensArn()).append(",");
+        if (getProfileArn() != null)
+            sb.append("ProfileArn: ").append(getProfileArn()).append(",");
+        if (getTemplateArn() != null)
+            sb.append("TemplateArn: ").append(getTemplateArn());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof ShareInvitation == false)
+            return false;
+        ShareInvitation other = (ShareInvitation) obj;
+        if (other.getShareInvitationId() == null ^ this.getShareInvitationId() == null)
+            return false;
+        if (other.getShareInvitationId() != null && other.getShareInvitationId().equals(this.getShareInvitationId()) == false)
+            return false;
+        if (other.getShareResourceType() == null ^ this.getShareResourceType() == null)
+            return false;
+        if (other.getShareResourceType() != null && other.getShareResourceType().equals(this.getShareResourceType()) == false)
+            return false;
+        if (other.getWorkloadId() == null ^ this.getWorkloadId() == null)
+            return false;
+        if (other.getWorkloadId() != null && other.getWorkloadId().equals(this.getWorkloadId()) == false)
+            return false;
+        if (other.getLensAlias() == null ^ this.getLensAlias() == null)
+            return false;
+        if (other.getLensAlias() != null && other.getLensAlias().equals(this.getLensAlias()) == false)
+            return false;
+        if (other.getLensArn() == null ^ this.getLensArn() == null)
+            return false;
+        if (other.getLensArn() != null && other.getLensArn().equals(this.getLensArn()) == false)
+            return false;
+        if (other.getProfileArn() == null ^ this.getProfileArn() == null)
+            return false;
+        if (other.getProfileArn() != null && other.getProfileArn().equals(this.getProfileArn()) == false)
+            return false;
+        if (other.getTemplateArn() == null ^ this.getTemplateArn() == null)
+            return false;
+        if (other.getTemplateArn() != null && other.getTemplateArn().equals(this.getTemplateArn()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getShareInvitationId() == null) ? 0 : getShareInvitationId().hashCode());
+        hashCode = prime * hashCode + ((getShareResourceType() == null) ? 0 : getShareResourceType().hashCode());
+        hashCode = prime * hashCode + ((getWorkloadId() == null) ? 0 : getWorkloadId().hashCode());
+        hashCode = prime * hashCode + ((getLensAlias() == null) ? 0 : getLensAlias().hashCode());
+        hashCode = prime * hashCode + ((getLensArn() == null) ? 0 : getLensArn().hashCode());
+        hashCode = prime * hashCode + ((getProfileArn() == null) ? 0 : getProfileArn().hashCode());
+        hashCode = prime * hashCode + ((getTemplateArn() == null) ? 0 : getTemplateArn().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public ShareInvitation clone() {
+        try {
+            return (ShareInvitation) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.wellarchitected.model.transform.ShareInvitationMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

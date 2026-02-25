@@ -1,0 +1,615 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.ssooidc;
+
+import org.w3c.dom.*;
+
+import java.net.*;
+import java.util.*;
+
+import javax.annotation.Generated;
+
+import org.apache.commons.logging.*;
+
+import com.amazonaws.*;
+import com.amazonaws.annotation.SdkInternalApi;
+import com.amazonaws.auth.*;
+
+import com.amazonaws.handlers.*;
+import com.amazonaws.http.*;
+import com.amazonaws.internal.*;
+import com.amazonaws.internal.auth.*;
+import com.amazonaws.metrics.*;
+import com.amazonaws.regions.*;
+import com.amazonaws.transform.*;
+import com.amazonaws.util.*;
+import com.amazonaws.protocol.json.*;
+import com.amazonaws.util.AWSRequestMetrics.Field;
+import com.amazonaws.annotation.ThreadSafe;
+import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
+import com.amazonaws.services.ssooidc.AWSSSOOIDCClientBuilder;
+
+import com.amazonaws.AmazonServiceException;
+
+import com.amazonaws.services.ssooidc.model.*;
+
+import com.amazonaws.services.ssooidc.model.transform.*;
+
+/**
+ * Client for accessing SSO OIDC. All service calls made using this client are blocking, and will not return until the
+ * service call completes.
+ * <p>
+ * <p>
+ * IAM Identity Center OpenID Connect (OIDC) is a web service that enables a client (such as CLI or a native
+ * application) to register with IAM Identity Center. The service also enables the client to fetch the user’s access
+ * token upon successful authentication and authorization with IAM Identity Center.
+ * </p>
+ * <note>
+ * <p>
+ * IAM Identity Center uses the <code>sso</code> and <code>identitystore</code> API namespaces.
+ * </p>
+ * </note>
+ * <p>
+ * <b>Considerations for Using This Guide</b>
+ * </p>
+ * <p>
+ * Before you begin using this guide, we recommend that you first review the following important information about how
+ * the IAM Identity Center OIDC service works.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * The IAM Identity Center OIDC service currently implements only the portions of the OAuth 2.0 Device Authorization
+ * Grant standard (<a href="https://tools.ietf.org/html/rfc8628">https://tools.ietf.org/html/rfc8628</a>) that are
+ * necessary to enable single sign-on authentication with the CLI.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * With older versions of the CLI, the service only emits OIDC access tokens, so to obtain a new token, users must
+ * explicitly re-authenticate. To access the OIDC flow that supports token refresh and doesn’t require
+ * re-authentication, update to the latest CLI version (1.27.10 for CLI V1 and 2.9.0 for CLI V2) with support for OIDC
+ * token refresh and configurable IAM Identity Center session durations. For more information, see <a
+ * href="https://docs.aws.amazon.com/singlesignon/latest/userguide/configure-user-session.html">Configure Amazon Web
+ * Services access portal session duration </a>.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * The access tokens provided by this service grant access to all Amazon Web Services account entitlements assigned to
+ * an IAM Identity Center user, not just a particular application.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * The documentation in this guide does not describe the mechanism to convert the access token into Amazon Web Services
+ * Auth (“sigv4”) credentials for use with IAM-protected Amazon Web Services service endpoints. For more information,
+ * see <a href="https://docs.aws.amazon.com/singlesignon/latest/PortalAPIReference/API_GetRoleCredentials.html">
+ * GetRoleCredentials</a> in the <i>IAM Identity Center Portal API Reference Guide</i>.
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * For general information about IAM Identity Center, see <a
+ * href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html">What is IAM Identity Center?</a> in the
+ * <i>IAM Identity Center User Guide</i>.
+ * </p>
+ */
+@ThreadSafe
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class AWSSSOOIDCClient extends AmazonWebServiceClient implements AWSSSOOIDC {
+
+    /** Provider for AWS credentials. */
+    private final AWSCredentialsProvider awsCredentialsProvider;
+
+    private static final Log log = LogFactory.getLog(AWSSSOOIDC.class);
+
+    /** Default signing name for the service. */
+    private static final String DEFAULT_SIGNING_NAME = "sso-oauth";
+
+    /** Client configuration factory providing ClientConfigurations tailored to this client */
+    protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
+
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+            new JsonClientMetadata()
+                    .withProtocolVersion("1.1")
+                    .withSupportsCbor(false)
+                    .withSupportsIon(false)
+                    .withContentTypeOverride("application/json")
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("SlowDownException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.SlowDownExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRedirectUriException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.InvalidRedirectUriExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ExpiredTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.ExpiredTokenExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.InternalServerExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidClientMetadataException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.InvalidClientMetadataExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidGrantException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.InvalidGrantExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedClientException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.UnauthorizedClientExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidClientException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.InvalidClientExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AuthorizationPendingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.AuthorizationPendingExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidScopeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.InvalidScopeExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedGrantTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.UnsupportedGrantTypeExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestRegionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ssooidc.model.transform.InvalidRequestRegionExceptionUnmarshaller.getInstance()))
+                    .withBaseServiceExceptionClass(com.amazonaws.services.ssooidc.model.AWSSSOOIDCException.class));
+
+    public static AWSSSOOIDCClientBuilder builder() {
+        return AWSSSOOIDCClientBuilder.standard();
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on SSO OIDC using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AWSSSOOIDCClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on SSO OIDC using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AWSSSOOIDCClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
+        super(clientParams);
+        this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
+        init();
+    }
+
+    private void init() {
+        setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(ENDPOINT_PREFIX);
+        // calling this.setEndPoint(...) will also modify the signer accordingly
+        setEndpoint("oidc.us-east-1.amazonaws.com");
+        HandlerChainFactory chainFactory = new HandlerChainFactory();
+        requestHandler2s.addAll(chainFactory.newRequestHandlerChain("/com/amazonaws/services/ssooidc/request.handlers"));
+        requestHandler2s.addAll(chainFactory.newRequestHandler2Chain("/com/amazonaws/services/ssooidc/request.handler2s"));
+        requestHandler2s.addAll(chainFactory.getGlobalHandlers());
+    }
+
+    /**
+     * <p>
+     * Creates and returns access and refresh tokens for clients that are authenticated using client secrets. The access
+     * token can be used to fetch short-term credentials for the assigned AWS accounts or to access application APIs
+     * using <code>bearer</code> authentication.
+     * </p>
+     * 
+     * @param createTokenRequest
+     * @return Result of the CreateToken operation returned by the service.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a required parameter might
+     *         be missing or out of range.
+     * @throws InvalidClientException
+     *         Indicates that the <code>clientId</code> or <code>clientSecret</code> in the request is invalid. For
+     *         example, this can occur when a client sends an incorrect <code>clientId</code> or an expired
+     *         <code>clientSecret</code>.
+     * @throws InvalidGrantException
+     *         Indicates that a request contains an invalid grant. This can occur if a client makes a <a>CreateToken</a>
+     *         request with an invalid grant type.
+     * @throws UnauthorizedClientException
+     *         Indicates that the client is not currently authorized to make the request. This can happen when a
+     *         <code>clientId</code> is not issued for a public client.
+     * @throws UnsupportedGrantTypeException
+     *         Indicates that the grant type in the request is not supported by the service.
+     * @throws InvalidScopeException
+     *         Indicates that the scope provided in the request is invalid.
+     * @throws AuthorizationPendingException
+     *         Indicates that a request to authorize a client with an access user session token is pending.
+     * @throws SlowDownException
+     *         Indicates that the client is making the request too frequently and is more than the service can handle.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws ExpiredTokenException
+     *         Indicates that the token issued by the service is expired and is no longer valid.
+     * @throws InternalServerException
+     *         Indicates that an error from the service occurred while trying to process a request.
+     * @sample AWSSSOOIDC.CreateToken
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sso-oidc-2019-06-10/CreateToken" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateTokenResult createToken(CreateTokenRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateToken(request);
+    }
+
+    @SdkInternalApi
+    final CreateTokenResult executeCreateToken(CreateTokenRequest createTokenRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createTokenRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateTokenRequest> request = null;
+        Response<CreateTokenResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateTokenRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createTokenRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSO OIDC");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateToken");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateTokenResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateTokenResultJsonUnmarshaller());
+            response = anonymousInvoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates and returns access and refresh tokens for clients and applications that are authenticated using IAM
+     * entities. The access token can be used to fetch short-term credentials for the assigned Amazon Web Services
+     * accounts or to access application APIs using <code>bearer</code> authentication.
+     * </p>
+     * 
+     * @param createTokenWithIAMRequest
+     * @return Result of the CreateTokenWithIAM operation returned by the service.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a required parameter might
+     *         be missing or out of range.
+     * @throws InvalidClientException
+     *         Indicates that the <code>clientId</code> or <code>clientSecret</code> in the request is invalid. For
+     *         example, this can occur when a client sends an incorrect <code>clientId</code> or an expired
+     *         <code>clientSecret</code>.
+     * @throws InvalidGrantException
+     *         Indicates that a request contains an invalid grant. This can occur if a client makes a <a>CreateToken</a>
+     *         request with an invalid grant type.
+     * @throws UnauthorizedClientException
+     *         Indicates that the client is not currently authorized to make the request. This can happen when a
+     *         <code>clientId</code> is not issued for a public client.
+     * @throws UnsupportedGrantTypeException
+     *         Indicates that the grant type in the request is not supported by the service.
+     * @throws InvalidScopeException
+     *         Indicates that the scope provided in the request is invalid.
+     * @throws AuthorizationPendingException
+     *         Indicates that a request to authorize a client with an access user session token is pending.
+     * @throws SlowDownException
+     *         Indicates that the client is making the request too frequently and is more than the service can handle.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws ExpiredTokenException
+     *         Indicates that the token issued by the service is expired and is no longer valid.
+     * @throws InternalServerException
+     *         Indicates that an error from the service occurred while trying to process a request.
+     * @throws InvalidRequestRegionException
+     *         Indicates that a token provided as input to the request was issued by and is only usable by calling IAM
+     *         Identity Center endpoints in another region.
+     * @sample AWSSSOOIDC.CreateTokenWithIAM
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sso-oidc-2019-06-10/CreateTokenWithIAM" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateTokenWithIAMResult createTokenWithIAM(CreateTokenWithIAMRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateTokenWithIAM(request);
+    }
+
+    @SdkInternalApi
+    final CreateTokenWithIAMResult executeCreateTokenWithIAM(CreateTokenWithIAMRequest createTokenWithIAMRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createTokenWithIAMRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateTokenWithIAMRequest> request = null;
+        Response<CreateTokenWithIAMResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateTokenWithIAMRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createTokenWithIAMRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSO OIDC");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTokenWithIAM");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateTokenWithIAMResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateTokenWithIAMResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Registers a client with IAM Identity Center. This allows clients to initiate device authorization. The output
+     * should be persisted for reuse through many authentication requests.
+     * </p>
+     * 
+     * @param registerClientRequest
+     * @return Result of the RegisterClient operation returned by the service.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a required parameter might
+     *         be missing or out of range.
+     * @throws InvalidScopeException
+     *         Indicates that the scope provided in the request is invalid.
+     * @throws InvalidClientMetadataException
+     *         Indicates that the client information sent in the request during registration is invalid.
+     * @throws InternalServerException
+     *         Indicates that an error from the service occurred while trying to process a request.
+     * @throws InvalidRedirectUriException
+     *         Indicates that one or more redirect URI in the request is not supported for this operation.
+     * @throws UnsupportedGrantTypeException
+     *         Indicates that the grant type in the request is not supported by the service.
+     * @sample AWSSSOOIDC.RegisterClient
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sso-oidc-2019-06-10/RegisterClient" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public RegisterClientResult registerClient(RegisterClientRequest request) {
+        request = beforeClientExecution(request);
+        return executeRegisterClient(request);
+    }
+
+    @SdkInternalApi
+    final RegisterClientResult executeRegisterClient(RegisterClientRequest registerClientRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(registerClientRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RegisterClientRequest> request = null;
+        Response<RegisterClientResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RegisterClientRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerClientRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSO OIDC");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterClient");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RegisterClientResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new RegisterClientResultJsonUnmarshaller());
+            response = anonymousInvoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Initiates device authorization by requesting a pair of verification codes from the authorization service.
+     * </p>
+     * 
+     * @param startDeviceAuthorizationRequest
+     * @return Result of the StartDeviceAuthorization operation returned by the service.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a required parameter might
+     *         be missing or out of range.
+     * @throws InvalidClientException
+     *         Indicates that the <code>clientId</code> or <code>clientSecret</code> in the request is invalid. For
+     *         example, this can occur when a client sends an incorrect <code>clientId</code> or an expired
+     *         <code>clientSecret</code>.
+     * @throws UnauthorizedClientException
+     *         Indicates that the client is not currently authorized to make the request. This can happen when a
+     *         <code>clientId</code> is not issued for a public client.
+     * @throws SlowDownException
+     *         Indicates that the client is making the request too frequently and is more than the service can handle.
+     * @throws InternalServerException
+     *         Indicates that an error from the service occurred while trying to process a request.
+     * @sample AWSSSOOIDC.StartDeviceAuthorization
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sso-oidc-2019-06-10/StartDeviceAuthorization"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StartDeviceAuthorizationResult startDeviceAuthorization(StartDeviceAuthorizationRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartDeviceAuthorization(request);
+    }
+
+    @SdkInternalApi
+    final StartDeviceAuthorizationResult executeStartDeviceAuthorization(StartDeviceAuthorizationRequest startDeviceAuthorizationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startDeviceAuthorizationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartDeviceAuthorizationRequest> request = null;
+        Response<StartDeviceAuthorizationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartDeviceAuthorizationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startDeviceAuthorizationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSO OIDC");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartDeviceAuthorization");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartDeviceAuthorizationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartDeviceAuthorizationResultJsonUnmarshaller());
+            response = anonymousInvoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Returns additional metadata for a previously executed successful, request, typically used for debugging issues
+     * where a service isn't acting as expected. This data isn't considered part of the result data returned by an
+     * operation, so it's available through this separate, diagnostic interface.
+     * <p>
+     * Response metadata is only cached for a limited period of time, so if you need to access this extra diagnostic
+     * information for an executed request, you should use this method to retrieve it as soon as possible after
+     * executing the request.
+     *
+     * @param request
+     *        The originally executed request
+     *
+     * @return The response metadata for the specified request, or null if none is available.
+     */
+    public ResponseMetadata getCachedResponseMetadata(AmazonWebServiceRequest request) {
+        return client.getResponseMetadataForRequest(request);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext) {
+
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
+        executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
+
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
+    }
+
+    /**
+     * Invoke with no authentication. Credentials are not required and any credentials set on the client or request will
+     * be ignored for this operation.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
+
+        return doInvoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Invoke the request using the http client. Assumes credentials (or lack thereof) have been configured in the
+     * ExecutionContext beforehand.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
+        request.setTimeOffset(timeOffset);
+
+        HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
+
+        return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
+    }
+
+}

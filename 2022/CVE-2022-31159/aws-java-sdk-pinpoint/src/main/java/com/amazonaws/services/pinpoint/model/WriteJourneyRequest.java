@@ -1,0 +1,1862 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.pinpoint.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Specifies the configuration and other settings for a journey.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/WriteJourneyRequest" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class WriteJourneyRequest implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * A map that contains a set of Activity objects, one object for each activity in the journey. For each Activity
+     * object, the key is the unique identifier (string) for an activity and the value is the settings for the activity.
+     * An activity identifier can contain a maximum of 100 characters. The characters must be alphanumeric characters.
+     * </p>
+     */
+    private java.util.Map<String, Activity> activities;
+    /**
+     * <p>
+     * The date, in ISO 8601 format, when the journey was created.
+     * </p>
+     */
+    private String creationDate;
+    /**
+     * <p>
+     * The date, in ISO 8601 format, when the journey was last modified.
+     * </p>
+     */
+    private String lastModifiedDate;
+    /**
+     * <p>
+     * The messaging and entry limits for the journey.
+     * </p>
+     */
+    private JourneyLimits limits;
+    /**
+     * <p>
+     * Specifies whether the journey's scheduled start and end times use each participant's local time. To base the
+     * schedule on each participant's local time, set this value to true.
+     * </p>
+     */
+    private Boolean localTime;
+    /**
+     * <p>
+     * The name of the journey. A journey name can contain a maximum of 150 characters. The characters can be
+     * alphanumeric characters or symbols, such as underscores (_) or hyphens (-). A journey name can't contain any
+     * spaces.
+     * </p>
+     */
+    private String name;
+    /**
+     * <p>
+     * The quiet time settings for the journey. Quiet time is a specific time range when a journey doesn't send messages
+     * to participants, if all the following conditions are met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The EndpointDemographic.Timezone property of the endpoint for the participant is set to a valid value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The current time in the participant's time zone is later than or equal to the time specified by the
+     * QuietTime.Start property for the journey.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The current time in the participant's time zone is earlier than or equal to the time specified by the
+     * QuietTime.End property for the journey.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If any of the preceding conditions isn't met, the participant will receive messages from the journey, even if
+     * quiet time is enabled.
+     * </p>
+     */
+    private QuietTime quietTime;
+    /**
+     * <p>
+     * The frequency with which Amazon Pinpoint evaluates segment and event data for the journey, as a duration in ISO
+     * 8601 format.
+     * </p>
+     */
+    private String refreshFrequency;
+    /**
+     * <p>
+     * The schedule settings for the journey.
+     * </p>
+     */
+    private JourneySchedule schedule;
+    /**
+     * <p>
+     * The unique identifier for the first activity in the journey. The identifier for this activity can contain a
+     * maximum of 128 characters. The characters must be alphanumeric characters.
+     * </p>
+     */
+    private String startActivity;
+    /**
+     * <p>
+     * The segment that defines which users are participants in the journey.
+     * </p>
+     */
+    private StartCondition startCondition;
+    /**
+     * <p>
+     * The status of the journey. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * DRAFT - Saves the journey and doesn't publish it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ACTIVE - Saves and publishes the journey. Depending on the journey's schedule, the journey starts running
+     * immediately or at the scheduled start time. If a journey's status is ACTIVE, you can't add, change, or remove
+     * activities from it.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * PAUSED, CANCELLED, COMPLETED, and CLOSED states are not supported in requests to create or update a journey. To
+     * cancel, pause, or resume a journey, use the <link linkend="apps-application-id-journeys-journey-id-state">Journey
+     * State</link> resource.
+     * </p>
+     */
+    private String state;
+    /**
+     * <p>
+     * Specifies whether endpoints in quiet hours should enter a wait till the end of their quiet hours.
+     * </p>
+     */
+    private Boolean waitForQuietTime;
+    /**
+     * <p>
+     * Indicates whether the journey participants should be refreshed when a segment is updated.
+     * </p>
+     */
+    private Boolean refreshOnSegmentUpdate;
+    /**
+     * <p>
+     * The channel-specific configurations for the journey.
+     * </p>
+     */
+    private JourneyChannelSettings journeyChannelSettings;
+    /**
+     * <p>
+     * Indicates if journey has Advance Quiet Time enabled. This flag should be set to true in order to allow using
+     * OpenHours and ClosedDays.
+     * </p>
+     */
+    private Boolean sendingSchedule;
+    /**
+     * <p>
+     * The time when journey allow to send messages. QuietTime should be configured first and SendingSchedule should be
+     * set to true.
+     * </p>
+     */
+    private OpenHours openHours;
+    /**
+     * <p>
+     * The time when journey will stop sending messages. QuietTime should be configured first and SendingSchedule should
+     * be set to true.
+     * </p>
+     */
+    private ClosedDays closedDays;
+    /**
+     * <p>
+     * An array of time zone estimation methods, if any, to use for determining an <a
+     * href="https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints-endpoint-id.html"
+     * >Endpoints</a> time zone if the Endpoint does not have a value for the Demographic.Timezone attribute.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * PHONE_NUMBER - A time zone is determined based on the Endpoint.Address and Endpoint.Location.Country.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * POSTAL_CODE - A time zone is determined based on the Endpoint.Location.PostalCode and Endpoint.Location.Country.
+     * </p>
+     * <note>
+     * <p>
+     * POSTAL_CODE detection is only supported in the United States, United Kingdom, Australia, New Zealand, Canada,
+     * France, Italy, Spain, Germany and in regions where Amazon Pinpoint is available.
+     * </p>
+     * </note></li>
+     * </ul>
+     */
+    private java.util.List<String> timezoneEstimationMethods;
+
+    /**
+     * <p>
+     * A map that contains a set of Activity objects, one object for each activity in the journey. For each Activity
+     * object, the key is the unique identifier (string) for an activity and the value is the settings for the activity.
+     * An activity identifier can contain a maximum of 100 characters. The characters must be alphanumeric characters.
+     * </p>
+     * 
+     * @return A map that contains a set of Activity objects, one object for each activity in the journey. For each
+     *         Activity object, the key is the unique identifier (string) for an activity and the value is the settings
+     *         for the activity. An activity identifier can contain a maximum of 100 characters. The characters must be
+     *         alphanumeric characters.
+     */
+
+    public java.util.Map<String, Activity> getActivities() {
+        return activities;
+    }
+
+    /**
+     * <p>
+     * A map that contains a set of Activity objects, one object for each activity in the journey. For each Activity
+     * object, the key is the unique identifier (string) for an activity and the value is the settings for the activity.
+     * An activity identifier can contain a maximum of 100 characters. The characters must be alphanumeric characters.
+     * </p>
+     * 
+     * @param activities
+     *        A map that contains a set of Activity objects, one object for each activity in the journey. For each
+     *        Activity object, the key is the unique identifier (string) for an activity and the value is the settings
+     *        for the activity. An activity identifier can contain a maximum of 100 characters. The characters must be
+     *        alphanumeric characters.
+     */
+
+    public void setActivities(java.util.Map<String, Activity> activities) {
+        this.activities = activities;
+    }
+
+    /**
+     * <p>
+     * A map that contains a set of Activity objects, one object for each activity in the journey. For each Activity
+     * object, the key is the unique identifier (string) for an activity and the value is the settings for the activity.
+     * An activity identifier can contain a maximum of 100 characters. The characters must be alphanumeric characters.
+     * </p>
+     * 
+     * @param activities
+     *        A map that contains a set of Activity objects, one object for each activity in the journey. For each
+     *        Activity object, the key is the unique identifier (string) for an activity and the value is the settings
+     *        for the activity. An activity identifier can contain a maximum of 100 characters. The characters must be
+     *        alphanumeric characters.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withActivities(java.util.Map<String, Activity> activities) {
+        setActivities(activities);
+        return this;
+    }
+
+    /**
+     * Add a single Activities entry
+     *
+     * @see WriteJourneyRequest#withActivities
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest addActivitiesEntry(String key, Activity value) {
+        if (null == this.activities) {
+            this.activities = new java.util.HashMap<String, Activity>();
+        }
+        if (this.activities.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.activities.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Activities.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest clearActivitiesEntries() {
+        this.activities = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date, in ISO 8601 format, when the journey was created.
+     * </p>
+     * 
+     * @param creationDate
+     *        The date, in ISO 8601 format, when the journey was created.
+     */
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    /**
+     * <p>
+     * The date, in ISO 8601 format, when the journey was created.
+     * </p>
+     * 
+     * @return The date, in ISO 8601 format, when the journey was created.
+     */
+
+    public String getCreationDate() {
+        return this.creationDate;
+    }
+
+    /**
+     * <p>
+     * The date, in ISO 8601 format, when the journey was created.
+     * </p>
+     * 
+     * @param creationDate
+     *        The date, in ISO 8601 format, when the journey was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withCreationDate(String creationDate) {
+        setCreationDate(creationDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date, in ISO 8601 format, when the journey was last modified.
+     * </p>
+     * 
+     * @param lastModifiedDate
+     *        The date, in ISO 8601 format, when the journey was last modified.
+     */
+
+    public void setLastModifiedDate(String lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    /**
+     * <p>
+     * The date, in ISO 8601 format, when the journey was last modified.
+     * </p>
+     * 
+     * @return The date, in ISO 8601 format, when the journey was last modified.
+     */
+
+    public String getLastModifiedDate() {
+        return this.lastModifiedDate;
+    }
+
+    /**
+     * <p>
+     * The date, in ISO 8601 format, when the journey was last modified.
+     * </p>
+     * 
+     * @param lastModifiedDate
+     *        The date, in ISO 8601 format, when the journey was last modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withLastModifiedDate(String lastModifiedDate) {
+        setLastModifiedDate(lastModifiedDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The messaging and entry limits for the journey.
+     * </p>
+     * 
+     * @param limits
+     *        The messaging and entry limits for the journey.
+     */
+
+    public void setLimits(JourneyLimits limits) {
+        this.limits = limits;
+    }
+
+    /**
+     * <p>
+     * The messaging and entry limits for the journey.
+     * </p>
+     * 
+     * @return The messaging and entry limits for the journey.
+     */
+
+    public JourneyLimits getLimits() {
+        return this.limits;
+    }
+
+    /**
+     * <p>
+     * The messaging and entry limits for the journey.
+     * </p>
+     * 
+     * @param limits
+     *        The messaging and entry limits for the journey.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withLimits(JourneyLimits limits) {
+        setLimits(limits);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the journey's scheduled start and end times use each participant's local time. To base the
+     * schedule on each participant's local time, set this value to true.
+     * </p>
+     * 
+     * @param localTime
+     *        Specifies whether the journey's scheduled start and end times use each participant's local time. To base
+     *        the schedule on each participant's local time, set this value to true.
+     */
+
+    public void setLocalTime(Boolean localTime) {
+        this.localTime = localTime;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the journey's scheduled start and end times use each participant's local time. To base the
+     * schedule on each participant's local time, set this value to true.
+     * </p>
+     * 
+     * @return Specifies whether the journey's scheduled start and end times use each participant's local time. To base
+     *         the schedule on each participant's local time, set this value to true.
+     */
+
+    public Boolean getLocalTime() {
+        return this.localTime;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the journey's scheduled start and end times use each participant's local time. To base the
+     * schedule on each participant's local time, set this value to true.
+     * </p>
+     * 
+     * @param localTime
+     *        Specifies whether the journey's scheduled start and end times use each participant's local time. To base
+     *        the schedule on each participant's local time, set this value to true.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withLocalTime(Boolean localTime) {
+        setLocalTime(localTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the journey's scheduled start and end times use each participant's local time. To base the
+     * schedule on each participant's local time, set this value to true.
+     * </p>
+     * 
+     * @return Specifies whether the journey's scheduled start and end times use each participant's local time. To base
+     *         the schedule on each participant's local time, set this value to true.
+     */
+
+    public Boolean isLocalTime() {
+        return this.localTime;
+    }
+
+    /**
+     * <p>
+     * The name of the journey. A journey name can contain a maximum of 150 characters. The characters can be
+     * alphanumeric characters or symbols, such as underscores (_) or hyphens (-). A journey name can't contain any
+     * spaces.
+     * </p>
+     * 
+     * @param name
+     *        The name of the journey. A journey name can contain a maximum of 150 characters. The characters can be
+     *        alphanumeric characters or symbols, such as underscores (_) or hyphens (-). A journey name can't contain
+     *        any spaces.
+     */
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * <p>
+     * The name of the journey. A journey name can contain a maximum of 150 characters. The characters can be
+     * alphanumeric characters or symbols, such as underscores (_) or hyphens (-). A journey name can't contain any
+     * spaces.
+     * </p>
+     * 
+     * @return The name of the journey. A journey name can contain a maximum of 150 characters. The characters can be
+     *         alphanumeric characters or symbols, such as underscores (_) or hyphens (-). A journey name can't contain
+     *         any spaces.
+     */
+
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * <p>
+     * The name of the journey. A journey name can contain a maximum of 150 characters. The characters can be
+     * alphanumeric characters or symbols, such as underscores (_) or hyphens (-). A journey name can't contain any
+     * spaces.
+     * </p>
+     * 
+     * @param name
+     *        The name of the journey. A journey name can contain a maximum of 150 characters. The characters can be
+     *        alphanumeric characters or symbols, such as underscores (_) or hyphens (-). A journey name can't contain
+     *        any spaces.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withName(String name) {
+        setName(name);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The quiet time settings for the journey. Quiet time is a specific time range when a journey doesn't send messages
+     * to participants, if all the following conditions are met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The EndpointDemographic.Timezone property of the endpoint for the participant is set to a valid value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The current time in the participant's time zone is later than or equal to the time specified by the
+     * QuietTime.Start property for the journey.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The current time in the participant's time zone is earlier than or equal to the time specified by the
+     * QuietTime.End property for the journey.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If any of the preceding conditions isn't met, the participant will receive messages from the journey, even if
+     * quiet time is enabled.
+     * </p>
+     * 
+     * @param quietTime
+     *        The quiet time settings for the journey. Quiet time is a specific time range when a journey doesn't send
+     *        messages to participants, if all the following conditions are met:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The EndpointDemographic.Timezone property of the endpoint for the participant is set to a valid value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The current time in the participant's time zone is later than or equal to the time specified by the
+     *        QuietTime.Start property for the journey.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The current time in the participant's time zone is earlier than or equal to the time specified by the
+     *        QuietTime.End property for the journey.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If any of the preceding conditions isn't met, the participant will receive messages from the journey, even
+     *        if quiet time is enabled.
+     */
+
+    public void setQuietTime(QuietTime quietTime) {
+        this.quietTime = quietTime;
+    }
+
+    /**
+     * <p>
+     * The quiet time settings for the journey. Quiet time is a specific time range when a journey doesn't send messages
+     * to participants, if all the following conditions are met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The EndpointDemographic.Timezone property of the endpoint for the participant is set to a valid value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The current time in the participant's time zone is later than or equal to the time specified by the
+     * QuietTime.Start property for the journey.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The current time in the participant's time zone is earlier than or equal to the time specified by the
+     * QuietTime.End property for the journey.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If any of the preceding conditions isn't met, the participant will receive messages from the journey, even if
+     * quiet time is enabled.
+     * </p>
+     * 
+     * @return The quiet time settings for the journey. Quiet time is a specific time range when a journey doesn't send
+     *         messages to participants, if all the following conditions are met:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The EndpointDemographic.Timezone property of the endpoint for the participant is set to a valid value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The current time in the participant's time zone is later than or equal to the time specified by the
+     *         QuietTime.Start property for the journey.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The current time in the participant's time zone is earlier than or equal to the time specified by the
+     *         QuietTime.End property for the journey.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If any of the preceding conditions isn't met, the participant will receive messages from the journey,
+     *         even if quiet time is enabled.
+     */
+
+    public QuietTime getQuietTime() {
+        return this.quietTime;
+    }
+
+    /**
+     * <p>
+     * The quiet time settings for the journey. Quiet time is a specific time range when a journey doesn't send messages
+     * to participants, if all the following conditions are met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The EndpointDemographic.Timezone property of the endpoint for the participant is set to a valid value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The current time in the participant's time zone is later than or equal to the time specified by the
+     * QuietTime.Start property for the journey.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The current time in the participant's time zone is earlier than or equal to the time specified by the
+     * QuietTime.End property for the journey.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If any of the preceding conditions isn't met, the participant will receive messages from the journey, even if
+     * quiet time is enabled.
+     * </p>
+     * 
+     * @param quietTime
+     *        The quiet time settings for the journey. Quiet time is a specific time range when a journey doesn't send
+     *        messages to participants, if all the following conditions are met:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The EndpointDemographic.Timezone property of the endpoint for the participant is set to a valid value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The current time in the participant's time zone is later than or equal to the time specified by the
+     *        QuietTime.Start property for the journey.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The current time in the participant's time zone is earlier than or equal to the time specified by the
+     *        QuietTime.End property for the journey.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If any of the preceding conditions isn't met, the participant will receive messages from the journey, even
+     *        if quiet time is enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withQuietTime(QuietTime quietTime) {
+        setQuietTime(quietTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The frequency with which Amazon Pinpoint evaluates segment and event data for the journey, as a duration in ISO
+     * 8601 format.
+     * </p>
+     * 
+     * @param refreshFrequency
+     *        The frequency with which Amazon Pinpoint evaluates segment and event data for the journey, as a duration
+     *        in ISO 8601 format.
+     */
+
+    public void setRefreshFrequency(String refreshFrequency) {
+        this.refreshFrequency = refreshFrequency;
+    }
+
+    /**
+     * <p>
+     * The frequency with which Amazon Pinpoint evaluates segment and event data for the journey, as a duration in ISO
+     * 8601 format.
+     * </p>
+     * 
+     * @return The frequency with which Amazon Pinpoint evaluates segment and event data for the journey, as a duration
+     *         in ISO 8601 format.
+     */
+
+    public String getRefreshFrequency() {
+        return this.refreshFrequency;
+    }
+
+    /**
+     * <p>
+     * The frequency with which Amazon Pinpoint evaluates segment and event data for the journey, as a duration in ISO
+     * 8601 format.
+     * </p>
+     * 
+     * @param refreshFrequency
+     *        The frequency with which Amazon Pinpoint evaluates segment and event data for the journey, as a duration
+     *        in ISO 8601 format.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withRefreshFrequency(String refreshFrequency) {
+        setRefreshFrequency(refreshFrequency);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The schedule settings for the journey.
+     * </p>
+     * 
+     * @param schedule
+     *        The schedule settings for the journey.
+     */
+
+    public void setSchedule(JourneySchedule schedule) {
+        this.schedule = schedule;
+    }
+
+    /**
+     * <p>
+     * The schedule settings for the journey.
+     * </p>
+     * 
+     * @return The schedule settings for the journey.
+     */
+
+    public JourneySchedule getSchedule() {
+        return this.schedule;
+    }
+
+    /**
+     * <p>
+     * The schedule settings for the journey.
+     * </p>
+     * 
+     * @param schedule
+     *        The schedule settings for the journey.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withSchedule(JourneySchedule schedule) {
+        setSchedule(schedule);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unique identifier for the first activity in the journey. The identifier for this activity can contain a
+     * maximum of 128 characters. The characters must be alphanumeric characters.
+     * </p>
+     * 
+     * @param startActivity
+     *        The unique identifier for the first activity in the journey. The identifier for this activity can contain
+     *        a maximum of 128 characters. The characters must be alphanumeric characters.
+     */
+
+    public void setStartActivity(String startActivity) {
+        this.startActivity = startActivity;
+    }
+
+    /**
+     * <p>
+     * The unique identifier for the first activity in the journey. The identifier for this activity can contain a
+     * maximum of 128 characters. The characters must be alphanumeric characters.
+     * </p>
+     * 
+     * @return The unique identifier for the first activity in the journey. The identifier for this activity can contain
+     *         a maximum of 128 characters. The characters must be alphanumeric characters.
+     */
+
+    public String getStartActivity() {
+        return this.startActivity;
+    }
+
+    /**
+     * <p>
+     * The unique identifier for the first activity in the journey. The identifier for this activity can contain a
+     * maximum of 128 characters. The characters must be alphanumeric characters.
+     * </p>
+     * 
+     * @param startActivity
+     *        The unique identifier for the first activity in the journey. The identifier for this activity can contain
+     *        a maximum of 128 characters. The characters must be alphanumeric characters.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withStartActivity(String startActivity) {
+        setStartActivity(startActivity);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The segment that defines which users are participants in the journey.
+     * </p>
+     * 
+     * @param startCondition
+     *        The segment that defines which users are participants in the journey.
+     */
+
+    public void setStartCondition(StartCondition startCondition) {
+        this.startCondition = startCondition;
+    }
+
+    /**
+     * <p>
+     * The segment that defines which users are participants in the journey.
+     * </p>
+     * 
+     * @return The segment that defines which users are participants in the journey.
+     */
+
+    public StartCondition getStartCondition() {
+        return this.startCondition;
+    }
+
+    /**
+     * <p>
+     * The segment that defines which users are participants in the journey.
+     * </p>
+     * 
+     * @param startCondition
+     *        The segment that defines which users are participants in the journey.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withStartCondition(StartCondition startCondition) {
+        setStartCondition(startCondition);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the journey. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * DRAFT - Saves the journey and doesn't publish it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ACTIVE - Saves and publishes the journey. Depending on the journey's schedule, the journey starts running
+     * immediately or at the scheduled start time. If a journey's status is ACTIVE, you can't add, change, or remove
+     * activities from it.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * PAUSED, CANCELLED, COMPLETED, and CLOSED states are not supported in requests to create or update a journey. To
+     * cancel, pause, or resume a journey, use the <link linkend="apps-application-id-journeys-journey-id-state">Journey
+     * State</link> resource.
+     * </p>
+     * 
+     * @param state
+     *        The status of the journey. Valid values are:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        DRAFT - Saves the journey and doesn't publish it.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ACTIVE - Saves and publishes the journey. Depending on the journey's schedule, the journey starts running
+     *        immediately or at the scheduled start time. If a journey's status is ACTIVE, you can't add, change, or
+     *        remove activities from it.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        PAUSED, CANCELLED, COMPLETED, and CLOSED states are not supported in requests to create or update a
+     *        journey. To cancel, pause, or resume a journey, use the <link
+     *        linkend="apps-application-id-journeys-journey-id-state">Journey State</link> resource.
+     * @see State
+     */
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    /**
+     * <p>
+     * The status of the journey. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * DRAFT - Saves the journey and doesn't publish it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ACTIVE - Saves and publishes the journey. Depending on the journey's schedule, the journey starts running
+     * immediately or at the scheduled start time. If a journey's status is ACTIVE, you can't add, change, or remove
+     * activities from it.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * PAUSED, CANCELLED, COMPLETED, and CLOSED states are not supported in requests to create or update a journey. To
+     * cancel, pause, or resume a journey, use the <link linkend="apps-application-id-journeys-journey-id-state">Journey
+     * State</link> resource.
+     * </p>
+     * 
+     * @return The status of the journey. Valid values are:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         DRAFT - Saves the journey and doesn't publish it.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         ACTIVE - Saves and publishes the journey. Depending on the journey's schedule, the journey starts running
+     *         immediately or at the scheduled start time. If a journey's status is ACTIVE, you can't add, change, or
+     *         remove activities from it.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         PAUSED, CANCELLED, COMPLETED, and CLOSED states are not supported in requests to create or update a
+     *         journey. To cancel, pause, or resume a journey, use the <link
+     *         linkend="apps-application-id-journeys-journey-id-state">Journey State</link> resource.
+     * @see State
+     */
+
+    public String getState() {
+        return this.state;
+    }
+
+    /**
+     * <p>
+     * The status of the journey. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * DRAFT - Saves the journey and doesn't publish it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ACTIVE - Saves and publishes the journey. Depending on the journey's schedule, the journey starts running
+     * immediately or at the scheduled start time. If a journey's status is ACTIVE, you can't add, change, or remove
+     * activities from it.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * PAUSED, CANCELLED, COMPLETED, and CLOSED states are not supported in requests to create or update a journey. To
+     * cancel, pause, or resume a journey, use the <link linkend="apps-application-id-journeys-journey-id-state">Journey
+     * State</link> resource.
+     * </p>
+     * 
+     * @param state
+     *        The status of the journey. Valid values are:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        DRAFT - Saves the journey and doesn't publish it.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ACTIVE - Saves and publishes the journey. Depending on the journey's schedule, the journey starts running
+     *        immediately or at the scheduled start time. If a journey's status is ACTIVE, you can't add, change, or
+     *        remove activities from it.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        PAUSED, CANCELLED, COMPLETED, and CLOSED states are not supported in requests to create or update a
+     *        journey. To cancel, pause, or resume a journey, use the <link
+     *        linkend="apps-application-id-journeys-journey-id-state">Journey State</link> resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see State
+     */
+
+    public WriteJourneyRequest withState(String state) {
+        setState(state);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the journey. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * DRAFT - Saves the journey and doesn't publish it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ACTIVE - Saves and publishes the journey. Depending on the journey's schedule, the journey starts running
+     * immediately or at the scheduled start time. If a journey's status is ACTIVE, you can't add, change, or remove
+     * activities from it.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * PAUSED, CANCELLED, COMPLETED, and CLOSED states are not supported in requests to create or update a journey. To
+     * cancel, pause, or resume a journey, use the <link linkend="apps-application-id-journeys-journey-id-state">Journey
+     * State</link> resource.
+     * </p>
+     * 
+     * @param state
+     *        The status of the journey. Valid values are:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        DRAFT - Saves the journey and doesn't publish it.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ACTIVE - Saves and publishes the journey. Depending on the journey's schedule, the journey starts running
+     *        immediately or at the scheduled start time. If a journey's status is ACTIVE, you can't add, change, or
+     *        remove activities from it.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        PAUSED, CANCELLED, COMPLETED, and CLOSED states are not supported in requests to create or update a
+     *        journey. To cancel, pause, or resume a journey, use the <link
+     *        linkend="apps-application-id-journeys-journey-id-state">Journey State</link> resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see State
+     */
+
+    public WriteJourneyRequest withState(State state) {
+        this.state = state.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether endpoints in quiet hours should enter a wait till the end of their quiet hours.
+     * </p>
+     * 
+     * @param waitForQuietTime
+     *        Specifies whether endpoints in quiet hours should enter a wait till the end of their quiet hours.
+     */
+
+    public void setWaitForQuietTime(Boolean waitForQuietTime) {
+        this.waitForQuietTime = waitForQuietTime;
+    }
+
+    /**
+     * <p>
+     * Specifies whether endpoints in quiet hours should enter a wait till the end of their quiet hours.
+     * </p>
+     * 
+     * @return Specifies whether endpoints in quiet hours should enter a wait till the end of their quiet hours.
+     */
+
+    public Boolean getWaitForQuietTime() {
+        return this.waitForQuietTime;
+    }
+
+    /**
+     * <p>
+     * Specifies whether endpoints in quiet hours should enter a wait till the end of their quiet hours.
+     * </p>
+     * 
+     * @param waitForQuietTime
+     *        Specifies whether endpoints in quiet hours should enter a wait till the end of their quiet hours.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withWaitForQuietTime(Boolean waitForQuietTime) {
+        setWaitForQuietTime(waitForQuietTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether endpoints in quiet hours should enter a wait till the end of their quiet hours.
+     * </p>
+     * 
+     * @return Specifies whether endpoints in quiet hours should enter a wait till the end of their quiet hours.
+     */
+
+    public Boolean isWaitForQuietTime() {
+        return this.waitForQuietTime;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the journey participants should be refreshed when a segment is updated.
+     * </p>
+     * 
+     * @param refreshOnSegmentUpdate
+     *        Indicates whether the journey participants should be refreshed when a segment is updated.
+     */
+
+    public void setRefreshOnSegmentUpdate(Boolean refreshOnSegmentUpdate) {
+        this.refreshOnSegmentUpdate = refreshOnSegmentUpdate;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the journey participants should be refreshed when a segment is updated.
+     * </p>
+     * 
+     * @return Indicates whether the journey participants should be refreshed when a segment is updated.
+     */
+
+    public Boolean getRefreshOnSegmentUpdate() {
+        return this.refreshOnSegmentUpdate;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the journey participants should be refreshed when a segment is updated.
+     * </p>
+     * 
+     * @param refreshOnSegmentUpdate
+     *        Indicates whether the journey participants should be refreshed when a segment is updated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withRefreshOnSegmentUpdate(Boolean refreshOnSegmentUpdate) {
+        setRefreshOnSegmentUpdate(refreshOnSegmentUpdate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the journey participants should be refreshed when a segment is updated.
+     * </p>
+     * 
+     * @return Indicates whether the journey participants should be refreshed when a segment is updated.
+     */
+
+    public Boolean isRefreshOnSegmentUpdate() {
+        return this.refreshOnSegmentUpdate;
+    }
+
+    /**
+     * <p>
+     * The channel-specific configurations for the journey.
+     * </p>
+     * 
+     * @param journeyChannelSettings
+     *        The channel-specific configurations for the journey.
+     */
+
+    public void setJourneyChannelSettings(JourneyChannelSettings journeyChannelSettings) {
+        this.journeyChannelSettings = journeyChannelSettings;
+    }
+
+    /**
+     * <p>
+     * The channel-specific configurations for the journey.
+     * </p>
+     * 
+     * @return The channel-specific configurations for the journey.
+     */
+
+    public JourneyChannelSettings getJourneyChannelSettings() {
+        return this.journeyChannelSettings;
+    }
+
+    /**
+     * <p>
+     * The channel-specific configurations for the journey.
+     * </p>
+     * 
+     * @param journeyChannelSettings
+     *        The channel-specific configurations for the journey.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withJourneyChannelSettings(JourneyChannelSettings journeyChannelSettings) {
+        setJourneyChannelSettings(journeyChannelSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if journey has Advance Quiet Time enabled. This flag should be set to true in order to allow using
+     * OpenHours and ClosedDays.
+     * </p>
+     * 
+     * @param sendingSchedule
+     *        Indicates if journey has Advance Quiet Time enabled. This flag should be set to true in order to allow
+     *        using OpenHours and ClosedDays.
+     */
+
+    public void setSendingSchedule(Boolean sendingSchedule) {
+        this.sendingSchedule = sendingSchedule;
+    }
+
+    /**
+     * <p>
+     * Indicates if journey has Advance Quiet Time enabled. This flag should be set to true in order to allow using
+     * OpenHours and ClosedDays.
+     * </p>
+     * 
+     * @return Indicates if journey has Advance Quiet Time enabled. This flag should be set to true in order to allow
+     *         using OpenHours and ClosedDays.
+     */
+
+    public Boolean getSendingSchedule() {
+        return this.sendingSchedule;
+    }
+
+    /**
+     * <p>
+     * Indicates if journey has Advance Quiet Time enabled. This flag should be set to true in order to allow using
+     * OpenHours and ClosedDays.
+     * </p>
+     * 
+     * @param sendingSchedule
+     *        Indicates if journey has Advance Quiet Time enabled. This flag should be set to true in order to allow
+     *        using OpenHours and ClosedDays.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withSendingSchedule(Boolean sendingSchedule) {
+        setSendingSchedule(sendingSchedule);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if journey has Advance Quiet Time enabled. This flag should be set to true in order to allow using
+     * OpenHours and ClosedDays.
+     * </p>
+     * 
+     * @return Indicates if journey has Advance Quiet Time enabled. This flag should be set to true in order to allow
+     *         using OpenHours and ClosedDays.
+     */
+
+    public Boolean isSendingSchedule() {
+        return this.sendingSchedule;
+    }
+
+    /**
+     * <p>
+     * The time when journey allow to send messages. QuietTime should be configured first and SendingSchedule should be
+     * set to true.
+     * </p>
+     * 
+     * @param openHours
+     *        The time when journey allow to send messages. QuietTime should be configured first and SendingSchedule
+     *        should be set to true.
+     */
+
+    public void setOpenHours(OpenHours openHours) {
+        this.openHours = openHours;
+    }
+
+    /**
+     * <p>
+     * The time when journey allow to send messages. QuietTime should be configured first and SendingSchedule should be
+     * set to true.
+     * </p>
+     * 
+     * @return The time when journey allow to send messages. QuietTime should be configured first and SendingSchedule
+     *         should be set to true.
+     */
+
+    public OpenHours getOpenHours() {
+        return this.openHours;
+    }
+
+    /**
+     * <p>
+     * The time when journey allow to send messages. QuietTime should be configured first and SendingSchedule should be
+     * set to true.
+     * </p>
+     * 
+     * @param openHours
+     *        The time when journey allow to send messages. QuietTime should be configured first and SendingSchedule
+     *        should be set to true.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withOpenHours(OpenHours openHours) {
+        setOpenHours(openHours);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time when journey will stop sending messages. QuietTime should be configured first and SendingSchedule should
+     * be set to true.
+     * </p>
+     * 
+     * @param closedDays
+     *        The time when journey will stop sending messages. QuietTime should be configured first and SendingSchedule
+     *        should be set to true.
+     */
+
+    public void setClosedDays(ClosedDays closedDays) {
+        this.closedDays = closedDays;
+    }
+
+    /**
+     * <p>
+     * The time when journey will stop sending messages. QuietTime should be configured first and SendingSchedule should
+     * be set to true.
+     * </p>
+     * 
+     * @return The time when journey will stop sending messages. QuietTime should be configured first and
+     *         SendingSchedule should be set to true.
+     */
+
+    public ClosedDays getClosedDays() {
+        return this.closedDays;
+    }
+
+    /**
+     * <p>
+     * The time when journey will stop sending messages. QuietTime should be configured first and SendingSchedule should
+     * be set to true.
+     * </p>
+     * 
+     * @param closedDays
+     *        The time when journey will stop sending messages. QuietTime should be configured first and SendingSchedule
+     *        should be set to true.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteJourneyRequest withClosedDays(ClosedDays closedDays) {
+        setClosedDays(closedDays);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of time zone estimation methods, if any, to use for determining an <a
+     * href="https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints-endpoint-id.html"
+     * >Endpoints</a> time zone if the Endpoint does not have a value for the Demographic.Timezone attribute.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * PHONE_NUMBER - A time zone is determined based on the Endpoint.Address and Endpoint.Location.Country.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * POSTAL_CODE - A time zone is determined based on the Endpoint.Location.PostalCode and Endpoint.Location.Country.
+     * </p>
+     * <note>
+     * <p>
+     * POSTAL_CODE detection is only supported in the United States, United Kingdom, Australia, New Zealand, Canada,
+     * France, Italy, Spain, Germany and in regions where Amazon Pinpoint is available.
+     * </p>
+     * </note></li>
+     * </ul>
+     * 
+     * @return An array of time zone estimation methods, if any, to use for determining an <a
+     *         href="https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints-endpoint-id.html"
+     *         >Endpoints</a> time zone if the Endpoint does not have a value for the Demographic.Timezone
+     *         attribute.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         PHONE_NUMBER - A time zone is determined based on the Endpoint.Address and Endpoint.Location.Country.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         POSTAL_CODE - A time zone is determined based on the Endpoint.Location.PostalCode and
+     *         Endpoint.Location.Country.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         POSTAL_CODE detection is only supported in the United States, United Kingdom, Australia, New Zealand,
+     *         Canada, France, Italy, Spain, Germany and in regions where Amazon Pinpoint is available.
+     *         </p>
+     *         </note></li>
+     * @see TimezoneEstimationMethodsElement
+     */
+
+    public java.util.List<String> getTimezoneEstimationMethods() {
+        return timezoneEstimationMethods;
+    }
+
+    /**
+     * <p>
+     * An array of time zone estimation methods, if any, to use for determining an <a
+     * href="https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints-endpoint-id.html"
+     * >Endpoints</a> time zone if the Endpoint does not have a value for the Demographic.Timezone attribute.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * PHONE_NUMBER - A time zone is determined based on the Endpoint.Address and Endpoint.Location.Country.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * POSTAL_CODE - A time zone is determined based on the Endpoint.Location.PostalCode and Endpoint.Location.Country.
+     * </p>
+     * <note>
+     * <p>
+     * POSTAL_CODE detection is only supported in the United States, United Kingdom, Australia, New Zealand, Canada,
+     * France, Italy, Spain, Germany and in regions where Amazon Pinpoint is available.
+     * </p>
+     * </note></li>
+     * </ul>
+     * 
+     * @param timezoneEstimationMethods
+     *        An array of time zone estimation methods, if any, to use for determining an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints-endpoint-id.html"
+     *        >Endpoints</a> time zone if the Endpoint does not have a value for the Demographic.Timezone attribute.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        PHONE_NUMBER - A time zone is determined based on the Endpoint.Address and Endpoint.Location.Country.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        POSTAL_CODE - A time zone is determined based on the Endpoint.Location.PostalCode and
+     *        Endpoint.Location.Country.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        POSTAL_CODE detection is only supported in the United States, United Kingdom, Australia, New Zealand,
+     *        Canada, France, Italy, Spain, Germany and in regions where Amazon Pinpoint is available.
+     *        </p>
+     *        </note></li>
+     * @see TimezoneEstimationMethodsElement
+     */
+
+    public void setTimezoneEstimationMethods(java.util.Collection<String> timezoneEstimationMethods) {
+        if (timezoneEstimationMethods == null) {
+            this.timezoneEstimationMethods = null;
+            return;
+        }
+
+        this.timezoneEstimationMethods = new java.util.ArrayList<String>(timezoneEstimationMethods);
+    }
+
+    /**
+     * <p>
+     * An array of time zone estimation methods, if any, to use for determining an <a
+     * href="https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints-endpoint-id.html"
+     * >Endpoints</a> time zone if the Endpoint does not have a value for the Demographic.Timezone attribute.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * PHONE_NUMBER - A time zone is determined based on the Endpoint.Address and Endpoint.Location.Country.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * POSTAL_CODE - A time zone is determined based on the Endpoint.Location.PostalCode and Endpoint.Location.Country.
+     * </p>
+     * <note>
+     * <p>
+     * POSTAL_CODE detection is only supported in the United States, United Kingdom, Australia, New Zealand, Canada,
+     * France, Italy, Spain, Germany and in regions where Amazon Pinpoint is available.
+     * </p>
+     * </note></li>
+     * </ul>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTimezoneEstimationMethods(java.util.Collection)} or
+     * {@link #withTimezoneEstimationMethods(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param timezoneEstimationMethods
+     *        An array of time zone estimation methods, if any, to use for determining an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints-endpoint-id.html"
+     *        >Endpoints</a> time zone if the Endpoint does not have a value for the Demographic.Timezone attribute.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        PHONE_NUMBER - A time zone is determined based on the Endpoint.Address and Endpoint.Location.Country.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        POSTAL_CODE - A time zone is determined based on the Endpoint.Location.PostalCode and
+     *        Endpoint.Location.Country.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        POSTAL_CODE detection is only supported in the United States, United Kingdom, Australia, New Zealand,
+     *        Canada, France, Italy, Spain, Germany and in regions where Amazon Pinpoint is available.
+     *        </p>
+     *        </note></li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TimezoneEstimationMethodsElement
+     */
+
+    public WriteJourneyRequest withTimezoneEstimationMethods(String... timezoneEstimationMethods) {
+        if (this.timezoneEstimationMethods == null) {
+            setTimezoneEstimationMethods(new java.util.ArrayList<String>(timezoneEstimationMethods.length));
+        }
+        for (String ele : timezoneEstimationMethods) {
+            this.timezoneEstimationMethods.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of time zone estimation methods, if any, to use for determining an <a
+     * href="https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints-endpoint-id.html"
+     * >Endpoints</a> time zone if the Endpoint does not have a value for the Demographic.Timezone attribute.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * PHONE_NUMBER - A time zone is determined based on the Endpoint.Address and Endpoint.Location.Country.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * POSTAL_CODE - A time zone is determined based on the Endpoint.Location.PostalCode and Endpoint.Location.Country.
+     * </p>
+     * <note>
+     * <p>
+     * POSTAL_CODE detection is only supported in the United States, United Kingdom, Australia, New Zealand, Canada,
+     * France, Italy, Spain, Germany and in regions where Amazon Pinpoint is available.
+     * </p>
+     * </note></li>
+     * </ul>
+     * 
+     * @param timezoneEstimationMethods
+     *        An array of time zone estimation methods, if any, to use for determining an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints-endpoint-id.html"
+     *        >Endpoints</a> time zone if the Endpoint does not have a value for the Demographic.Timezone attribute.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        PHONE_NUMBER - A time zone is determined based on the Endpoint.Address and Endpoint.Location.Country.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        POSTAL_CODE - A time zone is determined based on the Endpoint.Location.PostalCode and
+     *        Endpoint.Location.Country.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        POSTAL_CODE detection is only supported in the United States, United Kingdom, Australia, New Zealand,
+     *        Canada, France, Italy, Spain, Germany and in regions where Amazon Pinpoint is available.
+     *        </p>
+     *        </note></li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TimezoneEstimationMethodsElement
+     */
+
+    public WriteJourneyRequest withTimezoneEstimationMethods(java.util.Collection<String> timezoneEstimationMethods) {
+        setTimezoneEstimationMethods(timezoneEstimationMethods);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of time zone estimation methods, if any, to use for determining an <a
+     * href="https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints-endpoint-id.html"
+     * >Endpoints</a> time zone if the Endpoint does not have a value for the Demographic.Timezone attribute.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * PHONE_NUMBER - A time zone is determined based on the Endpoint.Address and Endpoint.Location.Country.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * POSTAL_CODE - A time zone is determined based on the Endpoint.Location.PostalCode and Endpoint.Location.Country.
+     * </p>
+     * <note>
+     * <p>
+     * POSTAL_CODE detection is only supported in the United States, United Kingdom, Australia, New Zealand, Canada,
+     * France, Italy, Spain, Germany and in regions where Amazon Pinpoint is available.
+     * </p>
+     * </note></li>
+     * </ul>
+     * 
+     * @param timezoneEstimationMethods
+     *        An array of time zone estimation methods, if any, to use for determining an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints-endpoint-id.html"
+     *        >Endpoints</a> time zone if the Endpoint does not have a value for the Demographic.Timezone attribute.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        PHONE_NUMBER - A time zone is determined based on the Endpoint.Address and Endpoint.Location.Country.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        POSTAL_CODE - A time zone is determined based on the Endpoint.Location.PostalCode and
+     *        Endpoint.Location.Country.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        POSTAL_CODE detection is only supported in the United States, United Kingdom, Australia, New Zealand,
+     *        Canada, France, Italy, Spain, Germany and in regions where Amazon Pinpoint is available.
+     *        </p>
+     *        </note></li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TimezoneEstimationMethodsElement
+     */
+
+    public WriteJourneyRequest withTimezoneEstimationMethods(TimezoneEstimationMethodsElement... timezoneEstimationMethods) {
+        java.util.ArrayList<String> timezoneEstimationMethodsCopy = new java.util.ArrayList<String>(timezoneEstimationMethods.length);
+        for (TimezoneEstimationMethodsElement value : timezoneEstimationMethods) {
+            timezoneEstimationMethodsCopy.add(value.toString());
+        }
+        if (getTimezoneEstimationMethods() == null) {
+            setTimezoneEstimationMethods(timezoneEstimationMethodsCopy);
+        } else {
+            getTimezoneEstimationMethods().addAll(timezoneEstimationMethodsCopy);
+        }
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getActivities() != null)
+            sb.append("Activities: ").append(getActivities()).append(",");
+        if (getCreationDate() != null)
+            sb.append("CreationDate: ").append(getCreationDate()).append(",");
+        if (getLastModifiedDate() != null)
+            sb.append("LastModifiedDate: ").append(getLastModifiedDate()).append(",");
+        if (getLimits() != null)
+            sb.append("Limits: ").append(getLimits()).append(",");
+        if (getLocalTime() != null)
+            sb.append("LocalTime: ").append(getLocalTime()).append(",");
+        if (getName() != null)
+            sb.append("Name: ").append(getName()).append(",");
+        if (getQuietTime() != null)
+            sb.append("QuietTime: ").append(getQuietTime()).append(",");
+        if (getRefreshFrequency() != null)
+            sb.append("RefreshFrequency: ").append(getRefreshFrequency()).append(",");
+        if (getSchedule() != null)
+            sb.append("Schedule: ").append(getSchedule()).append(",");
+        if (getStartActivity() != null)
+            sb.append("StartActivity: ").append(getStartActivity()).append(",");
+        if (getStartCondition() != null)
+            sb.append("StartCondition: ").append(getStartCondition()).append(",");
+        if (getState() != null)
+            sb.append("State: ").append(getState()).append(",");
+        if (getWaitForQuietTime() != null)
+            sb.append("WaitForQuietTime: ").append(getWaitForQuietTime()).append(",");
+        if (getRefreshOnSegmentUpdate() != null)
+            sb.append("RefreshOnSegmentUpdate: ").append(getRefreshOnSegmentUpdate()).append(",");
+        if (getJourneyChannelSettings() != null)
+            sb.append("JourneyChannelSettings: ").append(getJourneyChannelSettings()).append(",");
+        if (getSendingSchedule() != null)
+            sb.append("SendingSchedule: ").append(getSendingSchedule()).append(",");
+        if (getOpenHours() != null)
+            sb.append("OpenHours: ").append(getOpenHours()).append(",");
+        if (getClosedDays() != null)
+            sb.append("ClosedDays: ").append(getClosedDays()).append(",");
+        if (getTimezoneEstimationMethods() != null)
+            sb.append("TimezoneEstimationMethods: ").append(getTimezoneEstimationMethods());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof WriteJourneyRequest == false)
+            return false;
+        WriteJourneyRequest other = (WriteJourneyRequest) obj;
+        if (other.getActivities() == null ^ this.getActivities() == null)
+            return false;
+        if (other.getActivities() != null && other.getActivities().equals(this.getActivities()) == false)
+            return false;
+        if (other.getCreationDate() == null ^ this.getCreationDate() == null)
+            return false;
+        if (other.getCreationDate() != null && other.getCreationDate().equals(this.getCreationDate()) == false)
+            return false;
+        if (other.getLastModifiedDate() == null ^ this.getLastModifiedDate() == null)
+            return false;
+        if (other.getLastModifiedDate() != null && other.getLastModifiedDate().equals(this.getLastModifiedDate()) == false)
+            return false;
+        if (other.getLimits() == null ^ this.getLimits() == null)
+            return false;
+        if (other.getLimits() != null && other.getLimits().equals(this.getLimits()) == false)
+            return false;
+        if (other.getLocalTime() == null ^ this.getLocalTime() == null)
+            return false;
+        if (other.getLocalTime() != null && other.getLocalTime().equals(this.getLocalTime()) == false)
+            return false;
+        if (other.getName() == null ^ this.getName() == null)
+            return false;
+        if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getQuietTime() == null ^ this.getQuietTime() == null)
+            return false;
+        if (other.getQuietTime() != null && other.getQuietTime().equals(this.getQuietTime()) == false)
+            return false;
+        if (other.getRefreshFrequency() == null ^ this.getRefreshFrequency() == null)
+            return false;
+        if (other.getRefreshFrequency() != null && other.getRefreshFrequency().equals(this.getRefreshFrequency()) == false)
+            return false;
+        if (other.getSchedule() == null ^ this.getSchedule() == null)
+            return false;
+        if (other.getSchedule() != null && other.getSchedule().equals(this.getSchedule()) == false)
+            return false;
+        if (other.getStartActivity() == null ^ this.getStartActivity() == null)
+            return false;
+        if (other.getStartActivity() != null && other.getStartActivity().equals(this.getStartActivity()) == false)
+            return false;
+        if (other.getStartCondition() == null ^ this.getStartCondition() == null)
+            return false;
+        if (other.getStartCondition() != null && other.getStartCondition().equals(this.getStartCondition()) == false)
+            return false;
+        if (other.getState() == null ^ this.getState() == null)
+            return false;
+        if (other.getState() != null && other.getState().equals(this.getState()) == false)
+            return false;
+        if (other.getWaitForQuietTime() == null ^ this.getWaitForQuietTime() == null)
+            return false;
+        if (other.getWaitForQuietTime() != null && other.getWaitForQuietTime().equals(this.getWaitForQuietTime()) == false)
+            return false;
+        if (other.getRefreshOnSegmentUpdate() == null ^ this.getRefreshOnSegmentUpdate() == null)
+            return false;
+        if (other.getRefreshOnSegmentUpdate() != null && other.getRefreshOnSegmentUpdate().equals(this.getRefreshOnSegmentUpdate()) == false)
+            return false;
+        if (other.getJourneyChannelSettings() == null ^ this.getJourneyChannelSettings() == null)
+            return false;
+        if (other.getJourneyChannelSettings() != null && other.getJourneyChannelSettings().equals(this.getJourneyChannelSettings()) == false)
+            return false;
+        if (other.getSendingSchedule() == null ^ this.getSendingSchedule() == null)
+            return false;
+        if (other.getSendingSchedule() != null && other.getSendingSchedule().equals(this.getSendingSchedule()) == false)
+            return false;
+        if (other.getOpenHours() == null ^ this.getOpenHours() == null)
+            return false;
+        if (other.getOpenHours() != null && other.getOpenHours().equals(this.getOpenHours()) == false)
+            return false;
+        if (other.getClosedDays() == null ^ this.getClosedDays() == null)
+            return false;
+        if (other.getClosedDays() != null && other.getClosedDays().equals(this.getClosedDays()) == false)
+            return false;
+        if (other.getTimezoneEstimationMethods() == null ^ this.getTimezoneEstimationMethods() == null)
+            return false;
+        if (other.getTimezoneEstimationMethods() != null && other.getTimezoneEstimationMethods().equals(this.getTimezoneEstimationMethods()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getActivities() == null) ? 0 : getActivities().hashCode());
+        hashCode = prime * hashCode + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
+        hashCode = prime * hashCode + ((getLastModifiedDate() == null) ? 0 : getLastModifiedDate().hashCode());
+        hashCode = prime * hashCode + ((getLimits() == null) ? 0 : getLimits().hashCode());
+        hashCode = prime * hashCode + ((getLocalTime() == null) ? 0 : getLocalTime().hashCode());
+        hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getQuietTime() == null) ? 0 : getQuietTime().hashCode());
+        hashCode = prime * hashCode + ((getRefreshFrequency() == null) ? 0 : getRefreshFrequency().hashCode());
+        hashCode = prime * hashCode + ((getSchedule() == null) ? 0 : getSchedule().hashCode());
+        hashCode = prime * hashCode + ((getStartActivity() == null) ? 0 : getStartActivity().hashCode());
+        hashCode = prime * hashCode + ((getStartCondition() == null) ? 0 : getStartCondition().hashCode());
+        hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
+        hashCode = prime * hashCode + ((getWaitForQuietTime() == null) ? 0 : getWaitForQuietTime().hashCode());
+        hashCode = prime * hashCode + ((getRefreshOnSegmentUpdate() == null) ? 0 : getRefreshOnSegmentUpdate().hashCode());
+        hashCode = prime * hashCode + ((getJourneyChannelSettings() == null) ? 0 : getJourneyChannelSettings().hashCode());
+        hashCode = prime * hashCode + ((getSendingSchedule() == null) ? 0 : getSendingSchedule().hashCode());
+        hashCode = prime * hashCode + ((getOpenHours() == null) ? 0 : getOpenHours().hashCode());
+        hashCode = prime * hashCode + ((getClosedDays() == null) ? 0 : getClosedDays().hashCode());
+        hashCode = prime * hashCode + ((getTimezoneEstimationMethods() == null) ? 0 : getTimezoneEstimationMethods().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public WriteJourneyRequest clone() {
+        try {
+            return (WriteJourneyRequest) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.pinpoint.model.transform.WriteJourneyRequestMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

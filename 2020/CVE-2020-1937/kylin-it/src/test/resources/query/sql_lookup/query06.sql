@@ -1,1 +1,0 @@
-select max(cal_dt) as x from edw.test_cal_dt

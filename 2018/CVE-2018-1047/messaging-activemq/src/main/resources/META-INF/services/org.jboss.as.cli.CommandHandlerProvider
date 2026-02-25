@@ -1,5 +1,0 @@
-org.wildfly.extension.messaging.activemq.jms.cli.ConnectionFactoryHandlerProvider
-org.wildfly.extension.messaging.activemq.jms.cli.CreateJMSResourceHandlerProvider
-org.wildfly.extension.messaging.activemq.jms.cli.DeleteJMSResourceHandlerProvider
-org.wildfly.extension.messaging.activemq.jms.cli.JMSQueueHandlerProvider
-org.wildfly.extension.messaging.activemq.jms.cli.JMSTopicHandlerProvider

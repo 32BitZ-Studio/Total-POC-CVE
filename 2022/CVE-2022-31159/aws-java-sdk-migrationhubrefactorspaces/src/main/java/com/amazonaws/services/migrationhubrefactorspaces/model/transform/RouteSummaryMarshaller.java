@@ -1,0 +1,108 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.migrationhubrefactorspaces.model.transform;
+
+import java.util.Map;
+import java.util.List;
+import javax.annotation.Generated;
+
+import com.amazonaws.SdkClientException;
+import com.amazonaws.services.migrationhubrefactorspaces.model.*;
+
+import com.amazonaws.protocol.*;
+import com.amazonaws.annotation.SdkInternalApi;
+
+/**
+ * RouteSummaryMarshaller
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+@SdkInternalApi
+public class RouteSummaryMarshaller {
+
+    private static final MarshallingInfo<Boolean> APPENDSOURCEPATH_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AppendSourcePath").build();
+    private static final MarshallingInfo<String> APPLICATIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ApplicationId").build();
+    private static final MarshallingInfo<String> ARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Arn").build();
+    private static final MarshallingInfo<String> CREATEDBYACCOUNTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreatedByAccountId").build();
+    private static final MarshallingInfo<java.util.Date> CREATEDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreatedTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> ENVIRONMENTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EnvironmentId").build();
+    private static final MarshallingInfo<StructuredPojo> ERROR_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Error").build();
+    private static final MarshallingInfo<Boolean> INCLUDECHILDPATHS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IncludeChildPaths").build();
+    private static final MarshallingInfo<java.util.Date> LASTUPDATEDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastUpdatedTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<List> METHODS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Methods").build();
+    private static final MarshallingInfo<String> OWNERACCOUNTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OwnerAccountId").build();
+    private static final MarshallingInfo<Map> PATHRESOURCETOID_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PathResourceToId").build();
+    private static final MarshallingInfo<String> ROUTEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("RouteId").build();
+    private static final MarshallingInfo<String> ROUTETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("RouteType").build();
+    private static final MarshallingInfo<String> SERVICEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("ServiceId").build();
+    private static final MarshallingInfo<String> SOURCEPATH_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SourcePath").build();
+    private static final MarshallingInfo<String> STATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("State").build();
+    private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tags").build();
+
+    private static final RouteSummaryMarshaller instance = new RouteSummaryMarshaller();
+
+    public static RouteSummaryMarshaller getInstance() {
+        return instance;
+    }
+
+    /**
+     * Marshall the given parameter object.
+     */
+    public void marshall(RouteSummary routeSummary, ProtocolMarshaller protocolMarshaller) {
+
+        if (routeSummary == null) {
+            throw new SdkClientException("Invalid argument passed to marshall(...)");
+        }
+
+        try {
+            protocolMarshaller.marshall(routeSummary.getAppendSourcePath(), APPENDSOURCEPATH_BINDING);
+            protocolMarshaller.marshall(routeSummary.getApplicationId(), APPLICATIONID_BINDING);
+            protocolMarshaller.marshall(routeSummary.getArn(), ARN_BINDING);
+            protocolMarshaller.marshall(routeSummary.getCreatedByAccountId(), CREATEDBYACCOUNTID_BINDING);
+            protocolMarshaller.marshall(routeSummary.getCreatedTime(), CREATEDTIME_BINDING);
+            protocolMarshaller.marshall(routeSummary.getEnvironmentId(), ENVIRONMENTID_BINDING);
+            protocolMarshaller.marshall(routeSummary.getError(), ERROR_BINDING);
+            protocolMarshaller.marshall(routeSummary.getIncludeChildPaths(), INCLUDECHILDPATHS_BINDING);
+            protocolMarshaller.marshall(routeSummary.getLastUpdatedTime(), LASTUPDATEDTIME_BINDING);
+            protocolMarshaller.marshall(routeSummary.getMethods(), METHODS_BINDING);
+            protocolMarshaller.marshall(routeSummary.getOwnerAccountId(), OWNERACCOUNTID_BINDING);
+            protocolMarshaller.marshall(routeSummary.getPathResourceToId(), PATHRESOURCETOID_BINDING);
+            protocolMarshaller.marshall(routeSummary.getRouteId(), ROUTEID_BINDING);
+            protocolMarshaller.marshall(routeSummary.getRouteType(), ROUTETYPE_BINDING);
+            protocolMarshaller.marshall(routeSummary.getServiceId(), SERVICEID_BINDING);
+            protocolMarshaller.marshall(routeSummary.getSourcePath(), SOURCEPATH_BINDING);
+            protocolMarshaller.marshall(routeSummary.getState(), STATE_BINDING);
+            protocolMarshaller.marshall(routeSummary.getTags(), TAGS_BINDING);
+        } catch (Exception e) {
+            throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
+        }
+    }
+
+}

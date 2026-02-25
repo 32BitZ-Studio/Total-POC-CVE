@@ -1,0 +1,729 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.s3control.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/s3control-2018-08-20/GetAccessPoint" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class GetAccessPointResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.services.s3control.S3ControlResponseMetadata> implements
+        Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The name of the specified access point.
+     * </p>
+     */
+    private String name;
+    /**
+     * <p>
+     * The name of the bucket associated with the specified access point.
+     * </p>
+     */
+    private String bucket;
+    /**
+     * <p>
+     * Indicates whether this access point allows access from the public internet. If <code>VpcConfiguration</code> is
+     * specified for this access point, then <code>NetworkOrigin</code> is <code>VPC</code>, and the access point
+     * doesn't allow access from the public internet. Otherwise, <code>NetworkOrigin</code> is <code>Internet</code>,
+     * and the access point allows access from the public internet, subject to the access point and bucket access
+     * policies.
+     * </p>
+     * <p>
+     * This will always be true for an Amazon S3 on Outposts access point
+     * </p>
+     */
+    private String networkOrigin;
+    /**
+     * <p>
+     * Contains the virtual private cloud (VPC) configuration for the specified access point.
+     * </p>
+     * <note>
+     * <p>
+     * This element is empty if this access point is an Amazon S3 on Outposts access point that is used by other Amazon
+     * Web Services.
+     * </p>
+     * </note>
+     */
+    private VpcConfiguration vpcConfiguration;
+
+    private PublicAccessBlockConfiguration publicAccessBlockConfiguration;
+    /**
+     * <p>
+     * The date and time when the specified access point was created.
+     * </p>
+     */
+    private java.util.Date creationDate;
+    /**
+     * <p>
+     * The name or alias of the access point.
+     * </p>
+     */
+    private String alias;
+    /**
+     * <p>
+     * The ARN of the access point.
+     * </p>
+     */
+    private String accessPointArn;
+    /**
+     * <p>
+     * The VPC endpoint for the access point.
+     * </p>
+     */
+    private java.util.Map<String, String> endpoints;
+    /**
+     * <p>
+     * The Amazon Web Services account ID associated with the S3 bucket associated with this access point.
+     * </p>
+     */
+    private String bucketAccountId;
+
+    /**
+     * <p>
+     * The name of the specified access point.
+     * </p>
+     * 
+     * @param name
+     *        The name of the specified access point.
+     */
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * <p>
+     * The name of the specified access point.
+     * </p>
+     * 
+     * @return The name of the specified access point.
+     */
+
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * <p>
+     * The name of the specified access point.
+     * </p>
+     * 
+     * @param name
+     *        The name of the specified access point.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetAccessPointResult withName(String name) {
+        setName(name);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the bucket associated with the specified access point.
+     * </p>
+     * 
+     * @param bucket
+     *        The name of the bucket associated with the specified access point.
+     */
+
+    public void setBucket(String bucket) {
+        this.bucket = bucket;
+    }
+
+    /**
+     * <p>
+     * The name of the bucket associated with the specified access point.
+     * </p>
+     * 
+     * @return The name of the bucket associated with the specified access point.
+     */
+
+    public String getBucket() {
+        return this.bucket;
+    }
+
+    /**
+     * <p>
+     * The name of the bucket associated with the specified access point.
+     * </p>
+     * 
+     * @param bucket
+     *        The name of the bucket associated with the specified access point.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetAccessPointResult withBucket(String bucket) {
+        setBucket(bucket);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this access point allows access from the public internet. If <code>VpcConfiguration</code> is
+     * specified for this access point, then <code>NetworkOrigin</code> is <code>VPC</code>, and the access point
+     * doesn't allow access from the public internet. Otherwise, <code>NetworkOrigin</code> is <code>Internet</code>,
+     * and the access point allows access from the public internet, subject to the access point and bucket access
+     * policies.
+     * </p>
+     * <p>
+     * This will always be true for an Amazon S3 on Outposts access point
+     * </p>
+     * 
+     * @param networkOrigin
+     *        Indicates whether this access point allows access from the public internet. If
+     *        <code>VpcConfiguration</code> is specified for this access point, then <code>NetworkOrigin</code> is
+     *        <code>VPC</code>, and the access point doesn't allow access from the public internet. Otherwise,
+     *        <code>NetworkOrigin</code> is <code>Internet</code>, and the access point allows access from the public
+     *        internet, subject to the access point and bucket access policies.</p>
+     *        <p>
+     *        This will always be true for an Amazon S3 on Outposts access point
+     * @see NetworkOrigin
+     */
+
+    public void setNetworkOrigin(String networkOrigin) {
+        this.networkOrigin = networkOrigin;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this access point allows access from the public internet. If <code>VpcConfiguration</code> is
+     * specified for this access point, then <code>NetworkOrigin</code> is <code>VPC</code>, and the access point
+     * doesn't allow access from the public internet. Otherwise, <code>NetworkOrigin</code> is <code>Internet</code>,
+     * and the access point allows access from the public internet, subject to the access point and bucket access
+     * policies.
+     * </p>
+     * <p>
+     * This will always be true for an Amazon S3 on Outposts access point
+     * </p>
+     * 
+     * @return Indicates whether this access point allows access from the public internet. If
+     *         <code>VpcConfiguration</code> is specified for this access point, then <code>NetworkOrigin</code> is
+     *         <code>VPC</code>, and the access point doesn't allow access from the public internet. Otherwise,
+     *         <code>NetworkOrigin</code> is <code>Internet</code>, and the access point allows access from the public
+     *         internet, subject to the access point and bucket access policies.</p>
+     *         <p>
+     *         This will always be true for an Amazon S3 on Outposts access point
+     * @see NetworkOrigin
+     */
+
+    public String getNetworkOrigin() {
+        return this.networkOrigin;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this access point allows access from the public internet. If <code>VpcConfiguration</code> is
+     * specified for this access point, then <code>NetworkOrigin</code> is <code>VPC</code>, and the access point
+     * doesn't allow access from the public internet. Otherwise, <code>NetworkOrigin</code> is <code>Internet</code>,
+     * and the access point allows access from the public internet, subject to the access point and bucket access
+     * policies.
+     * </p>
+     * <p>
+     * This will always be true for an Amazon S3 on Outposts access point
+     * </p>
+     * 
+     * @param networkOrigin
+     *        Indicates whether this access point allows access from the public internet. If
+     *        <code>VpcConfiguration</code> is specified for this access point, then <code>NetworkOrigin</code> is
+     *        <code>VPC</code>, and the access point doesn't allow access from the public internet. Otherwise,
+     *        <code>NetworkOrigin</code> is <code>Internet</code>, and the access point allows access from the public
+     *        internet, subject to the access point and bucket access policies.</p>
+     *        <p>
+     *        This will always be true for an Amazon S3 on Outposts access point
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see NetworkOrigin
+     */
+
+    public GetAccessPointResult withNetworkOrigin(String networkOrigin) {
+        setNetworkOrigin(networkOrigin);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this access point allows access from the public internet. If <code>VpcConfiguration</code> is
+     * specified for this access point, then <code>NetworkOrigin</code> is <code>VPC</code>, and the access point
+     * doesn't allow access from the public internet. Otherwise, <code>NetworkOrigin</code> is <code>Internet</code>,
+     * and the access point allows access from the public internet, subject to the access point and bucket access
+     * policies.
+     * </p>
+     * <p>
+     * This will always be true for an Amazon S3 on Outposts access point
+     * </p>
+     * 
+     * @param networkOrigin
+     *        Indicates whether this access point allows access from the public internet. If
+     *        <code>VpcConfiguration</code> is specified for this access point, then <code>NetworkOrigin</code> is
+     *        <code>VPC</code>, and the access point doesn't allow access from the public internet. Otherwise,
+     *        <code>NetworkOrigin</code> is <code>Internet</code>, and the access point allows access from the public
+     *        internet, subject to the access point and bucket access policies.</p>
+     *        <p>
+     *        This will always be true for an Amazon S3 on Outposts access point
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see NetworkOrigin
+     */
+
+    public GetAccessPointResult withNetworkOrigin(NetworkOrigin networkOrigin) {
+        this.networkOrigin = networkOrigin.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains the virtual private cloud (VPC) configuration for the specified access point.
+     * </p>
+     * <note>
+     * <p>
+     * This element is empty if this access point is an Amazon S3 on Outposts access point that is used by other Amazon
+     * Web Services.
+     * </p>
+     * </note>
+     * 
+     * @param vpcConfiguration
+     *        Contains the virtual private cloud (VPC) configuration for the specified access point.</p> <note>
+     *        <p>
+     *        This element is empty if this access point is an Amazon S3 on Outposts access point that is used by other
+     *        Amazon Web Services.
+     *        </p>
+     */
+
+    public void setVpcConfiguration(VpcConfiguration vpcConfiguration) {
+        this.vpcConfiguration = vpcConfiguration;
+    }
+
+    /**
+     * <p>
+     * Contains the virtual private cloud (VPC) configuration for the specified access point.
+     * </p>
+     * <note>
+     * <p>
+     * This element is empty if this access point is an Amazon S3 on Outposts access point that is used by other Amazon
+     * Web Services.
+     * </p>
+     * </note>
+     * 
+     * @return Contains the virtual private cloud (VPC) configuration for the specified access point.</p> <note>
+     *         <p>
+     *         This element is empty if this access point is an Amazon S3 on Outposts access point that is used by other
+     *         Amazon Web Services.
+     *         </p>
+     */
+
+    public VpcConfiguration getVpcConfiguration() {
+        return this.vpcConfiguration;
+    }
+
+    /**
+     * <p>
+     * Contains the virtual private cloud (VPC) configuration for the specified access point.
+     * </p>
+     * <note>
+     * <p>
+     * This element is empty if this access point is an Amazon S3 on Outposts access point that is used by other Amazon
+     * Web Services.
+     * </p>
+     * </note>
+     * 
+     * @param vpcConfiguration
+     *        Contains the virtual private cloud (VPC) configuration for the specified access point.</p> <note>
+     *        <p>
+     *        This element is empty if this access point is an Amazon S3 on Outposts access point that is used by other
+     *        Amazon Web Services.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetAccessPointResult withVpcConfiguration(VpcConfiguration vpcConfiguration) {
+        setVpcConfiguration(vpcConfiguration);
+        return this;
+    }
+
+    /**
+     * @param publicAccessBlockConfiguration
+     */
+
+    public void setPublicAccessBlockConfiguration(PublicAccessBlockConfiguration publicAccessBlockConfiguration) {
+        this.publicAccessBlockConfiguration = publicAccessBlockConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public PublicAccessBlockConfiguration getPublicAccessBlockConfiguration() {
+        return this.publicAccessBlockConfiguration;
+    }
+
+    /**
+     * @param publicAccessBlockConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetAccessPointResult withPublicAccessBlockConfiguration(PublicAccessBlockConfiguration publicAccessBlockConfiguration) {
+        setPublicAccessBlockConfiguration(publicAccessBlockConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time when the specified access point was created.
+     * </p>
+     * 
+     * @param creationDate
+     *        The date and time when the specified access point was created.
+     */
+
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    /**
+     * <p>
+     * The date and time when the specified access point was created.
+     * </p>
+     * 
+     * @return The date and time when the specified access point was created.
+     */
+
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    /**
+     * <p>
+     * The date and time when the specified access point was created.
+     * </p>
+     * 
+     * @param creationDate
+     *        The date and time when the specified access point was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetAccessPointResult withCreationDate(java.util.Date creationDate) {
+        setCreationDate(creationDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name or alias of the access point.
+     * </p>
+     * 
+     * @param alias
+     *        The name or alias of the access point.
+     */
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    /**
+     * <p>
+     * The name or alias of the access point.
+     * </p>
+     * 
+     * @return The name or alias of the access point.
+     */
+
+    public String getAlias() {
+        return this.alias;
+    }
+
+    /**
+     * <p>
+     * The name or alias of the access point.
+     * </p>
+     * 
+     * @param alias
+     *        The name or alias of the access point.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetAccessPointResult withAlias(String alias) {
+        setAlias(alias);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the access point.
+     * </p>
+     * 
+     * @param accessPointArn
+     *        The ARN of the access point.
+     */
+
+    public void setAccessPointArn(String accessPointArn) {
+        this.accessPointArn = accessPointArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the access point.
+     * </p>
+     * 
+     * @return The ARN of the access point.
+     */
+
+    public String getAccessPointArn() {
+        return this.accessPointArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the access point.
+     * </p>
+     * 
+     * @param accessPointArn
+     *        The ARN of the access point.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetAccessPointResult withAccessPointArn(String accessPointArn) {
+        setAccessPointArn(accessPointArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The VPC endpoint for the access point.
+     * </p>
+     * 
+     * @return The VPC endpoint for the access point.
+     */
+
+    public java.util.Map<String, String> getEndpoints() {
+        return endpoints;
+    }
+
+    /**
+     * <p>
+     * The VPC endpoint for the access point.
+     * </p>
+     * 
+     * @param endpoints
+     *        The VPC endpoint for the access point.
+     */
+
+    public void setEndpoints(java.util.Map<String, String> endpoints) {
+        this.endpoints = endpoints;
+    }
+
+    /**
+     * <p>
+     * The VPC endpoint for the access point.
+     * </p>
+     * 
+     * @param endpoints
+     *        The VPC endpoint for the access point.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetAccessPointResult withEndpoints(java.util.Map<String, String> endpoints) {
+        setEndpoints(endpoints);
+        return this;
+    }
+
+    /**
+     * Add a single Endpoints entry
+     *
+     * @see GetAccessPointResult#withEndpoints
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetAccessPointResult addEndpointsEntry(String key, String value) {
+        if (null == this.endpoints) {
+            this.endpoints = new java.util.HashMap<String, String>();
+        }
+        if (this.endpoints.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.endpoints.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Endpoints.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetAccessPointResult clearEndpointsEntries() {
+        this.endpoints = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services account ID associated with the S3 bucket associated with this access point.
+     * </p>
+     * 
+     * @param bucketAccountId
+     *        The Amazon Web Services account ID associated with the S3 bucket associated with this access point.
+     */
+
+    public void setBucketAccountId(String bucketAccountId) {
+        this.bucketAccountId = bucketAccountId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services account ID associated with the S3 bucket associated with this access point.
+     * </p>
+     * 
+     * @return The Amazon Web Services account ID associated with the S3 bucket associated with this access point.
+     */
+
+    public String getBucketAccountId() {
+        return this.bucketAccountId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services account ID associated with the S3 bucket associated with this access point.
+     * </p>
+     * 
+     * @param bucketAccountId
+     *        The Amazon Web Services account ID associated with the S3 bucket associated with this access point.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetAccessPointResult withBucketAccountId(String bucketAccountId) {
+        setBucketAccountId(bucketAccountId);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getName() != null)
+            sb.append("Name: ").append(getName()).append(",");
+        if (getBucket() != null)
+            sb.append("Bucket: ").append(getBucket()).append(",");
+        if (getNetworkOrigin() != null)
+            sb.append("NetworkOrigin: ").append(getNetworkOrigin()).append(",");
+        if (getVpcConfiguration() != null)
+            sb.append("VpcConfiguration: ").append(getVpcConfiguration()).append(",");
+        if (getPublicAccessBlockConfiguration() != null)
+            sb.append("PublicAccessBlockConfiguration: ").append(getPublicAccessBlockConfiguration()).append(",");
+        if (getCreationDate() != null)
+            sb.append("CreationDate: ").append(getCreationDate()).append(",");
+        if (getAlias() != null)
+            sb.append("Alias: ").append(getAlias()).append(",");
+        if (getAccessPointArn() != null)
+            sb.append("AccessPointArn: ").append(getAccessPointArn()).append(",");
+        if (getEndpoints() != null)
+            sb.append("Endpoints: ").append(getEndpoints()).append(",");
+        if (getBucketAccountId() != null)
+            sb.append("BucketAccountId: ").append(getBucketAccountId());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof GetAccessPointResult == false)
+            return false;
+        GetAccessPointResult other = (GetAccessPointResult) obj;
+        if (other.getName() == null ^ this.getName() == null)
+            return false;
+        if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getBucket() == null ^ this.getBucket() == null)
+            return false;
+        if (other.getBucket() != null && other.getBucket().equals(this.getBucket()) == false)
+            return false;
+        if (other.getNetworkOrigin() == null ^ this.getNetworkOrigin() == null)
+            return false;
+        if (other.getNetworkOrigin() != null && other.getNetworkOrigin().equals(this.getNetworkOrigin()) == false)
+            return false;
+        if (other.getVpcConfiguration() == null ^ this.getVpcConfiguration() == null)
+            return false;
+        if (other.getVpcConfiguration() != null && other.getVpcConfiguration().equals(this.getVpcConfiguration()) == false)
+            return false;
+        if (other.getPublicAccessBlockConfiguration() == null ^ this.getPublicAccessBlockConfiguration() == null)
+            return false;
+        if (other.getPublicAccessBlockConfiguration() != null
+                && other.getPublicAccessBlockConfiguration().equals(this.getPublicAccessBlockConfiguration()) == false)
+            return false;
+        if (other.getCreationDate() == null ^ this.getCreationDate() == null)
+            return false;
+        if (other.getCreationDate() != null && other.getCreationDate().equals(this.getCreationDate()) == false)
+            return false;
+        if (other.getAlias() == null ^ this.getAlias() == null)
+            return false;
+        if (other.getAlias() != null && other.getAlias().equals(this.getAlias()) == false)
+            return false;
+        if (other.getAccessPointArn() == null ^ this.getAccessPointArn() == null)
+            return false;
+        if (other.getAccessPointArn() != null && other.getAccessPointArn().equals(this.getAccessPointArn()) == false)
+            return false;
+        if (other.getEndpoints() == null ^ this.getEndpoints() == null)
+            return false;
+        if (other.getEndpoints() != null && other.getEndpoints().equals(this.getEndpoints()) == false)
+            return false;
+        if (other.getBucketAccountId() == null ^ this.getBucketAccountId() == null)
+            return false;
+        if (other.getBucketAccountId() != null && other.getBucketAccountId().equals(this.getBucketAccountId()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getBucket() == null) ? 0 : getBucket().hashCode());
+        hashCode = prime * hashCode + ((getNetworkOrigin() == null) ? 0 : getNetworkOrigin().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfiguration() == null) ? 0 : getVpcConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getPublicAccessBlockConfiguration() == null) ? 0 : getPublicAccessBlockConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
+        hashCode = prime * hashCode + ((getAlias() == null) ? 0 : getAlias().hashCode());
+        hashCode = prime * hashCode + ((getAccessPointArn() == null) ? 0 : getAccessPointArn().hashCode());
+        hashCode = prime * hashCode + ((getEndpoints() == null) ? 0 : getEndpoints().hashCode());
+        hashCode = prime * hashCode + ((getBucketAccountId() == null) ? 0 : getBucketAccountId().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public GetAccessPointResult clone() {
+        try {
+            return (GetAccessPointResult) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+}

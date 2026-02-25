@@ -1,0 +1,357 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.route53resolver.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53resolver-2018-04-01/UpdateResolverConfig"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class UpdateResolverConfigRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * Resource ID of the Amazon VPC that you want to update the Resolver configuration for.
+     * </p>
+     */
+    private String resourceId;
+    /**
+     * <p>
+     * Indicates whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is enabled by
+     * default. Disabling this option will also affect EC2-Classic instances using ClassicLink. For more information,
+     * see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html">ClassicLink</a> in the
+     * <i>Amazon EC2 guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * We are retiring EC2-Classic on August 15, 2022. We recommend that you migrate from EC2-Classic to a VPC. For more
+     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from
+     * EC2-Classic to a VPC</a> in the <i>Amazon EC2 guide</i> and the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>.
+     * </p>
+     * </important> <note>
+     * <p>
+     * It can take some time for the status change to be completed.
+     * </p>
+     * </note>
+     * <p/>
+     */
+    private String autodefinedReverseFlag;
+
+    /**
+     * <p>
+     * Resource ID of the Amazon VPC that you want to update the Resolver configuration for.
+     * </p>
+     * 
+     * @param resourceId
+     *        Resource ID of the Amazon VPC that you want to update the Resolver configuration for.
+     */
+
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    /**
+     * <p>
+     * Resource ID of the Amazon VPC that you want to update the Resolver configuration for.
+     * </p>
+     * 
+     * @return Resource ID of the Amazon VPC that you want to update the Resolver configuration for.
+     */
+
+    public String getResourceId() {
+        return this.resourceId;
+    }
+
+    /**
+     * <p>
+     * Resource ID of the Amazon VPC that you want to update the Resolver configuration for.
+     * </p>
+     * 
+     * @param resourceId
+     *        Resource ID of the Amazon VPC that you want to update the Resolver configuration for.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateResolverConfigRequest withResourceId(String resourceId) {
+        setResourceId(resourceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is enabled by
+     * default. Disabling this option will also affect EC2-Classic instances using ClassicLink. For more information,
+     * see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html">ClassicLink</a> in the
+     * <i>Amazon EC2 guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * We are retiring EC2-Classic on August 15, 2022. We recommend that you migrate from EC2-Classic to a VPC. For more
+     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from
+     * EC2-Classic to a VPC</a> in the <i>Amazon EC2 guide</i> and the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>.
+     * </p>
+     * </important> <note>
+     * <p>
+     * It can take some time for the status change to be completed.
+     * </p>
+     * </note>
+     * <p/>
+     * 
+     * @param autodefinedReverseFlag
+     *        Indicates whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is
+     *        enabled by default. Disabling this option will also affect EC2-Classic instances using ClassicLink. For
+     *        more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html">ClassicLink</a> in the
+     *        <i>Amazon EC2 guide</i>.
+     *        </p>
+     *        <important>
+     *        <p>
+     *        We are retiring EC2-Classic on August 15, 2022. We recommend that you migrate from EC2-Classic to a VPC.
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a
+     *        VPC</a> in the <i>Amazon EC2 guide</i> and the blog <a
+     *        href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic
+     *        Networking is Retiring – Here’s How to Prepare</a>.
+     *        </p>
+     *        </important> <note>
+     *        <p>
+     *        It can take some time for the status change to be completed.
+     *        </p>
+     *        </note>
+     * @see AutodefinedReverseFlag
+     */
+
+    public void setAutodefinedReverseFlag(String autodefinedReverseFlag) {
+        this.autodefinedReverseFlag = autodefinedReverseFlag;
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is enabled by
+     * default. Disabling this option will also affect EC2-Classic instances using ClassicLink. For more information,
+     * see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html">ClassicLink</a> in the
+     * <i>Amazon EC2 guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * We are retiring EC2-Classic on August 15, 2022. We recommend that you migrate from EC2-Classic to a VPC. For more
+     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from
+     * EC2-Classic to a VPC</a> in the <i>Amazon EC2 guide</i> and the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>.
+     * </p>
+     * </important> <note>
+     * <p>
+     * It can take some time for the status change to be completed.
+     * </p>
+     * </note>
+     * <p/>
+     * 
+     * @return Indicates whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is
+     *         enabled by default. Disabling this option will also affect EC2-Classic instances using ClassicLink. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html">ClassicLink</a> in the
+     *         <i>Amazon EC2 guide</i>.
+     *         </p>
+     *         <important>
+     *         <p>
+     *         We are retiring EC2-Classic on August 15, 2022. We recommend that you migrate from EC2-Classic to a VPC.
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a
+     *         VPC</a> in the <i>Amazon EC2 guide</i> and the blog <a
+     *         href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic
+     *         Networking is Retiring – Here’s How to Prepare</a>.
+     *         </p>
+     *         </important> <note>
+     *         <p>
+     *         It can take some time for the status change to be completed.
+     *         </p>
+     *         </note>
+     * @see AutodefinedReverseFlag
+     */
+
+    public String getAutodefinedReverseFlag() {
+        return this.autodefinedReverseFlag;
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is enabled by
+     * default. Disabling this option will also affect EC2-Classic instances using ClassicLink. For more information,
+     * see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html">ClassicLink</a> in the
+     * <i>Amazon EC2 guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * We are retiring EC2-Classic on August 15, 2022. We recommend that you migrate from EC2-Classic to a VPC. For more
+     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from
+     * EC2-Classic to a VPC</a> in the <i>Amazon EC2 guide</i> and the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>.
+     * </p>
+     * </important> <note>
+     * <p>
+     * It can take some time for the status change to be completed.
+     * </p>
+     * </note>
+     * <p/>
+     * 
+     * @param autodefinedReverseFlag
+     *        Indicates whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is
+     *        enabled by default. Disabling this option will also affect EC2-Classic instances using ClassicLink. For
+     *        more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html">ClassicLink</a> in the
+     *        <i>Amazon EC2 guide</i>.
+     *        </p>
+     *        <important>
+     *        <p>
+     *        We are retiring EC2-Classic on August 15, 2022. We recommend that you migrate from EC2-Classic to a VPC.
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a
+     *        VPC</a> in the <i>Amazon EC2 guide</i> and the blog <a
+     *        href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic
+     *        Networking is Retiring – Here’s How to Prepare</a>.
+     *        </p>
+     *        </important> <note>
+     *        <p>
+     *        It can take some time for the status change to be completed.
+     *        </p>
+     *        </note>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutodefinedReverseFlag
+     */
+
+    public UpdateResolverConfigRequest withAutodefinedReverseFlag(String autodefinedReverseFlag) {
+        setAutodefinedReverseFlag(autodefinedReverseFlag);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is enabled by
+     * default. Disabling this option will also affect EC2-Classic instances using ClassicLink. For more information,
+     * see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html">ClassicLink</a> in the
+     * <i>Amazon EC2 guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * We are retiring EC2-Classic on August 15, 2022. We recommend that you migrate from EC2-Classic to a VPC. For more
+     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from
+     * EC2-Classic to a VPC</a> in the <i>Amazon EC2 guide</i> and the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>.
+     * </p>
+     * </important> <note>
+     * <p>
+     * It can take some time for the status change to be completed.
+     * </p>
+     * </note>
+     * <p/>
+     * 
+     * @param autodefinedReverseFlag
+     *        Indicates whether or not the Resolver will create autodefined rules for reverse DNS lookups. This is
+     *        enabled by default. Disabling this option will also affect EC2-Classic instances using ClassicLink. For
+     *        more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html">ClassicLink</a> in the
+     *        <i>Amazon EC2 guide</i>.
+     *        </p>
+     *        <important>
+     *        <p>
+     *        We are retiring EC2-Classic on August 15, 2022. We recommend that you migrate from EC2-Classic to a VPC.
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a
+     *        VPC</a> in the <i>Amazon EC2 guide</i> and the blog <a
+     *        href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic
+     *        Networking is Retiring – Here’s How to Prepare</a>.
+     *        </p>
+     *        </important> <note>
+     *        <p>
+     *        It can take some time for the status change to be completed.
+     *        </p>
+     *        </note>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutodefinedReverseFlag
+     */
+
+    public UpdateResolverConfigRequest withAutodefinedReverseFlag(AutodefinedReverseFlag autodefinedReverseFlag) {
+        this.autodefinedReverseFlag = autodefinedReverseFlag.toString();
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getResourceId() != null)
+            sb.append("ResourceId: ").append(getResourceId()).append(",");
+        if (getAutodefinedReverseFlag() != null)
+            sb.append("AutodefinedReverseFlag: ").append(getAutodefinedReverseFlag());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof UpdateResolverConfigRequest == false)
+            return false;
+        UpdateResolverConfigRequest other = (UpdateResolverConfigRequest) obj;
+        if (other.getResourceId() == null ^ this.getResourceId() == null)
+            return false;
+        if (other.getResourceId() != null && other.getResourceId().equals(this.getResourceId()) == false)
+            return false;
+        if (other.getAutodefinedReverseFlag() == null ^ this.getAutodefinedReverseFlag() == null)
+            return false;
+        if (other.getAutodefinedReverseFlag() != null && other.getAutodefinedReverseFlag().equals(this.getAutodefinedReverseFlag()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getResourceId() == null) ? 0 : getResourceId().hashCode());
+        hashCode = prime * hashCode + ((getAutodefinedReverseFlag() == null) ? 0 : getAutodefinedReverseFlag().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public UpdateResolverConfigRequest clone() {
+        return (UpdateResolverConfigRequest) super.clone();
+    }
+
+}

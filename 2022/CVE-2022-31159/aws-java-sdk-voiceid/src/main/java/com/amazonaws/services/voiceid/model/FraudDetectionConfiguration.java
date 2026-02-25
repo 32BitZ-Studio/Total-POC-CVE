@@ -1,0 +1,196 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.voiceid.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * The configuration used for performing fraud detection over a speaker during a session.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/voice-id-2021-09-27/FraudDetectionConfiguration"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class FraudDetectionConfiguration implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * Threshold value for determining whether the speaker is a fraudster. If the detected risk score calculated by
+     * Voice ID is higher than the threshold, the speaker is considered a fraudster.
+     * </p>
+     */
+    private Integer riskThreshold;
+    /**
+     * <p>
+     * The identifier of the watchlist against which fraud detection is performed.
+     * </p>
+     */
+    private String watchlistId;
+
+    /**
+     * <p>
+     * Threshold value for determining whether the speaker is a fraudster. If the detected risk score calculated by
+     * Voice ID is higher than the threshold, the speaker is considered a fraudster.
+     * </p>
+     * 
+     * @param riskThreshold
+     *        Threshold value for determining whether the speaker is a fraudster. If the detected risk score calculated
+     *        by Voice ID is higher than the threshold, the speaker is considered a fraudster.
+     */
+
+    public void setRiskThreshold(Integer riskThreshold) {
+        this.riskThreshold = riskThreshold;
+    }
+
+    /**
+     * <p>
+     * Threshold value for determining whether the speaker is a fraudster. If the detected risk score calculated by
+     * Voice ID is higher than the threshold, the speaker is considered a fraudster.
+     * </p>
+     * 
+     * @return Threshold value for determining whether the speaker is a fraudster. If the detected risk score calculated
+     *         by Voice ID is higher than the threshold, the speaker is considered a fraudster.
+     */
+
+    public Integer getRiskThreshold() {
+        return this.riskThreshold;
+    }
+
+    /**
+     * <p>
+     * Threshold value for determining whether the speaker is a fraudster. If the detected risk score calculated by
+     * Voice ID is higher than the threshold, the speaker is considered a fraudster.
+     * </p>
+     * 
+     * @param riskThreshold
+     *        Threshold value for determining whether the speaker is a fraudster. If the detected risk score calculated
+     *        by Voice ID is higher than the threshold, the speaker is considered a fraudster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FraudDetectionConfiguration withRiskThreshold(Integer riskThreshold) {
+        setRiskThreshold(riskThreshold);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifier of the watchlist against which fraud detection is performed.
+     * </p>
+     * 
+     * @param watchlistId
+     *        The identifier of the watchlist against which fraud detection is performed.
+     */
+
+    public void setWatchlistId(String watchlistId) {
+        this.watchlistId = watchlistId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the watchlist against which fraud detection is performed.
+     * </p>
+     * 
+     * @return The identifier of the watchlist against which fraud detection is performed.
+     */
+
+    public String getWatchlistId() {
+        return this.watchlistId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the watchlist against which fraud detection is performed.
+     * </p>
+     * 
+     * @param watchlistId
+     *        The identifier of the watchlist against which fraud detection is performed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FraudDetectionConfiguration withWatchlistId(String watchlistId) {
+        setWatchlistId(watchlistId);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getRiskThreshold() != null)
+            sb.append("RiskThreshold: ").append(getRiskThreshold()).append(",");
+        if (getWatchlistId() != null)
+            sb.append("WatchlistId: ").append(getWatchlistId());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof FraudDetectionConfiguration == false)
+            return false;
+        FraudDetectionConfiguration other = (FraudDetectionConfiguration) obj;
+        if (other.getRiskThreshold() == null ^ this.getRiskThreshold() == null)
+            return false;
+        if (other.getRiskThreshold() != null && other.getRiskThreshold().equals(this.getRiskThreshold()) == false)
+            return false;
+        if (other.getWatchlistId() == null ^ this.getWatchlistId() == null)
+            return false;
+        if (other.getWatchlistId() != null && other.getWatchlistId().equals(this.getWatchlistId()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getRiskThreshold() == null) ? 0 : getRiskThreshold().hashCode());
+        hashCode = prime * hashCode + ((getWatchlistId() == null) ? 0 : getWatchlistId().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public FraudDetectionConfiguration clone() {
+        try {
+            return (FraudDetectionConfiguration) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.voiceid.model.transform.FraudDetectionConfigurationMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

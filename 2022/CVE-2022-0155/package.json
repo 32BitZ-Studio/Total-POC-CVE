@@ -1,0 +1,12 @@
+{
+  "name": "CVE-2022-0155-PoC",
+  "version": "1.0.0",
+  "description": "CVE-2022-0155 PoC",
+  "main": "client.js",
+  "author": "Martin Torp",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "express": "^4.19.2"
+  }
+}

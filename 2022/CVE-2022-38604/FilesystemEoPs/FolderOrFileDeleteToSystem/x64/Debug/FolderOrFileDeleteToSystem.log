@@ -1,0 +1,56 @@
+﻿  FolderOrFileDeleteToSystem.cpp
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.h(325): warning C4091: 'static ': ignorato a sinistra di 'OpsMaster::FileOpLock' quando non si dichiara alcuna variabile
+  Win-Ops-Master.cpp
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.h(325): warning C4091: 'static ': ignorato a sinistra di 'OpsMaster::FileOpLock' quando non si dichiara alcuna variabile
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(134,50): warning C4267: '=': conversione da 'size_t' a 'DWORD'. Possibile perdita di dati.
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(138,86): warning C4267: 'argomento': conversione da 'size_t' a 'DWORD'. Possibile perdita di dati.
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(281,31): warning C4244: '=': conversione da 'ULONG_PTR' a 'DWORD'. Possibile perdita di dati.
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(290,28): warning C4244: '=': conversione da 'LONGLONG' a 'DWORD'. Possibile perdita di dati.
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(306,28): warning C4244: '=': conversione da 'ULONG_PTR' a 'DWORD'. Possibile perdita di dati.
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(312,37): warning C4312: 'cast di tipo': conversione da 'DWORD' a 'HANDLE', di dimensioni maggiori
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(389,58): warning C4267: '=': conversione da 'size_t' a 'ULONG'. Possibile perdita di dati.
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(394,148): warning C4267: 'argomento': conversione da 'size_t' a 'ULONG'. Possibile perdita di dati.
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(450,94): warning C4267: 'argomento': conversione da 'size_t' a 'DWORD'. Possibile perdita di dati.
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(742,13): warning C4244: 'argomento': conversione da 'time_t' a 'unsigned int'. Possibile perdita di dati.
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(804,8): warning C4101: 'bytesReturned': variabile locale senza riferimenti
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\xstring(2468,23): warning C4244: 'argomento': conversione da 'wchar_t' a 'const _Elem'. Possibile perdita di dati.
+          with
+          [
+              _Elem=char
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\xstring(2479): message : vedere il riferimento all'istanza 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(_Iter,const _Iter,std::input_iterator_tag)' della funzione modello di cui è in corso la compilazione
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\xstring(2479): message : vedere il riferimento all'istanza 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(_Iter,const _Iter,std::input_iterator_tag)' della funzione modello di cui è in corso la compilazione
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\xstring(2459): message : vedere il riferimento all'istanza 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(const _Iter,const _Iter,std::forward_iterator_tag)' della funzione modello di cui è in corso la compilazione
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\xstring(2459): message : vedere il riferimento all'istanza 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(const _Iter,const _Iter,std::forward_iterator_tag)' della funzione modello di cui è in corso la compilazione
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(515): message : vedere il riferimento all'istanza 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' della funzione modello di cui è in corso la compilazione
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
+C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\FolderOrFileDeleteToSystem\Win-Ops-Master.cpp(515): message : vedere il riferimento all'istanza 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' della funzione modello di cui è in corso la compilazione
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
+  Generazione del codice in corso...
+  FolderOrFileDeleteToSystem.vcxproj -> C:\Users\Utente\Desktop\Merda2\FilesystemEoPs\x64\Debug\FolderOrFileDeleteToSystem.exe

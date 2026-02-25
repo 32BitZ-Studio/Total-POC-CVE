@@ -1,0 +1,775 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.ssmincidents.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Basic details used in creating a response plan. The response plan is then used to create an incident record.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-incidents-2018-05-10/IncidentTemplate" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class IncidentTemplate implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The string Incident Manager uses to prevent the same root cause from creating multiple incidents in the same
+     * account.
+     * </p>
+     * <p>
+     * A deduplication string is a term or phrase the system uses to check for duplicate incidents. If you specify a
+     * deduplication string, Incident Manager searches for open incidents that contain the same string in the
+     * <code>dedupeString</code> field when it creates the incident. If a duplicate is detected, Incident Manager
+     * deduplicates the newer incident into the existing incident.
+     * </p>
+     * <note>
+     * <p>
+     * By default, Incident Manager automatically deduplicates multiple incidents created by the same Amazon CloudWatch
+     * alarm or Amazon EventBridge event. You don't have to enter your own deduplication string to prevent duplication
+     * for these resource types.
+     * </p>
+     * </note>
+     */
+    private String dedupeString;
+    /**
+     * <p>
+     * The impact of the incident on your customers and applications.
+     * </p>
+     * <p class="title">
+     * <b>Supported impact codes</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>1</code> - Critical
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2</code> - High
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>3</code> - Medium
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>4</code> - Low
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>5</code> - No Impact
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Integer impact;
+    /**
+     * <p>
+     * Tags to assign to the template. When the <code>StartIncident</code> API action is called, Incident Manager
+     * assigns the tags specified in the template to the incident.
+     * </p>
+     */
+    private java.util.Map<String, String> incidentTags;
+    /**
+     * <p>
+     * The Amazon SNS targets that are notified when updates are made to an incident.
+     * </p>
+     */
+    private java.util.List<NotificationTargetItem> notificationTargets;
+    /**
+     * <p>
+     * The summary of the incident. The summary is a brief synopsis of what occurred, what's currently happening, and
+     * context.
+     * </p>
+     */
+    private String summary;
+    /**
+     * <p>
+     * The title of the incident.
+     * </p>
+     */
+    private String title;
+
+    /**
+     * <p>
+     * The string Incident Manager uses to prevent the same root cause from creating multiple incidents in the same
+     * account.
+     * </p>
+     * <p>
+     * A deduplication string is a term or phrase the system uses to check for duplicate incidents. If you specify a
+     * deduplication string, Incident Manager searches for open incidents that contain the same string in the
+     * <code>dedupeString</code> field when it creates the incident. If a duplicate is detected, Incident Manager
+     * deduplicates the newer incident into the existing incident.
+     * </p>
+     * <note>
+     * <p>
+     * By default, Incident Manager automatically deduplicates multiple incidents created by the same Amazon CloudWatch
+     * alarm or Amazon EventBridge event. You don't have to enter your own deduplication string to prevent duplication
+     * for these resource types.
+     * </p>
+     * </note>
+     * 
+     * @param dedupeString
+     *        The string Incident Manager uses to prevent the same root cause from creating multiple incidents in the
+     *        same account.</p>
+     *        <p>
+     *        A deduplication string is a term or phrase the system uses to check for duplicate incidents. If you
+     *        specify a deduplication string, Incident Manager searches for open incidents that contain the same string
+     *        in the <code>dedupeString</code> field when it creates the incident. If a duplicate is detected, Incident
+     *        Manager deduplicates the newer incident into the existing incident.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        By default, Incident Manager automatically deduplicates multiple incidents created by the same Amazon
+     *        CloudWatch alarm or Amazon EventBridge event. You don't have to enter your own deduplication string to
+     *        prevent duplication for these resource types.
+     *        </p>
+     */
+
+    public void setDedupeString(String dedupeString) {
+        this.dedupeString = dedupeString;
+    }
+
+    /**
+     * <p>
+     * The string Incident Manager uses to prevent the same root cause from creating multiple incidents in the same
+     * account.
+     * </p>
+     * <p>
+     * A deduplication string is a term or phrase the system uses to check for duplicate incidents. If you specify a
+     * deduplication string, Incident Manager searches for open incidents that contain the same string in the
+     * <code>dedupeString</code> field when it creates the incident. If a duplicate is detected, Incident Manager
+     * deduplicates the newer incident into the existing incident.
+     * </p>
+     * <note>
+     * <p>
+     * By default, Incident Manager automatically deduplicates multiple incidents created by the same Amazon CloudWatch
+     * alarm or Amazon EventBridge event. You don't have to enter your own deduplication string to prevent duplication
+     * for these resource types.
+     * </p>
+     * </note>
+     * 
+     * @return The string Incident Manager uses to prevent the same root cause from creating multiple incidents in the
+     *         same account.</p>
+     *         <p>
+     *         A deduplication string is a term or phrase the system uses to check for duplicate incidents. If you
+     *         specify a deduplication string, Incident Manager searches for open incidents that contain the same string
+     *         in the <code>dedupeString</code> field when it creates the incident. If a duplicate is detected, Incident
+     *         Manager deduplicates the newer incident into the existing incident.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         By default, Incident Manager automatically deduplicates multiple incidents created by the same Amazon
+     *         CloudWatch alarm or Amazon EventBridge event. You don't have to enter your own deduplication string to
+     *         prevent duplication for these resource types.
+     *         </p>
+     */
+
+    public String getDedupeString() {
+        return this.dedupeString;
+    }
+
+    /**
+     * <p>
+     * The string Incident Manager uses to prevent the same root cause from creating multiple incidents in the same
+     * account.
+     * </p>
+     * <p>
+     * A deduplication string is a term or phrase the system uses to check for duplicate incidents. If you specify a
+     * deduplication string, Incident Manager searches for open incidents that contain the same string in the
+     * <code>dedupeString</code> field when it creates the incident. If a duplicate is detected, Incident Manager
+     * deduplicates the newer incident into the existing incident.
+     * </p>
+     * <note>
+     * <p>
+     * By default, Incident Manager automatically deduplicates multiple incidents created by the same Amazon CloudWatch
+     * alarm or Amazon EventBridge event. You don't have to enter your own deduplication string to prevent duplication
+     * for these resource types.
+     * </p>
+     * </note>
+     * 
+     * @param dedupeString
+     *        The string Incident Manager uses to prevent the same root cause from creating multiple incidents in the
+     *        same account.</p>
+     *        <p>
+     *        A deduplication string is a term or phrase the system uses to check for duplicate incidents. If you
+     *        specify a deduplication string, Incident Manager searches for open incidents that contain the same string
+     *        in the <code>dedupeString</code> field when it creates the incident. If a duplicate is detected, Incident
+     *        Manager deduplicates the newer incident into the existing incident.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        By default, Incident Manager automatically deduplicates multiple incidents created by the same Amazon
+     *        CloudWatch alarm or Amazon EventBridge event. You don't have to enter your own deduplication string to
+     *        prevent duplication for these resource types.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IncidentTemplate withDedupeString(String dedupeString) {
+        setDedupeString(dedupeString);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The impact of the incident on your customers and applications.
+     * </p>
+     * <p class="title">
+     * <b>Supported impact codes</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>1</code> - Critical
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2</code> - High
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>3</code> - Medium
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>4</code> - Low
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>5</code> - No Impact
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param impact
+     *        The impact of the incident on your customers and applications.</p>
+     *        <p class="title">
+     *        <b>Supported impact codes</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>1</code> - Critical
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>2</code> - High
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>3</code> - Medium
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>4</code> - Low
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>5</code> - No Impact
+     *        </p>
+     *        </li>
+     */
+
+    public void setImpact(Integer impact) {
+        this.impact = impact;
+    }
+
+    /**
+     * <p>
+     * The impact of the incident on your customers and applications.
+     * </p>
+     * <p class="title">
+     * <b>Supported impact codes</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>1</code> - Critical
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2</code> - High
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>3</code> - Medium
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>4</code> - Low
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>5</code> - No Impact
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The impact of the incident on your customers and applications.</p>
+     *         <p class="title">
+     *         <b>Supported impact codes</b>
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>1</code> - Critical
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>2</code> - High
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>3</code> - Medium
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>4</code> - Low
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>5</code> - No Impact
+     *         </p>
+     *         </li>
+     */
+
+    public Integer getImpact() {
+        return this.impact;
+    }
+
+    /**
+     * <p>
+     * The impact of the incident on your customers and applications.
+     * </p>
+     * <p class="title">
+     * <b>Supported impact codes</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>1</code> - Critical
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2</code> - High
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>3</code> - Medium
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>4</code> - Low
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>5</code> - No Impact
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param impact
+     *        The impact of the incident on your customers and applications.</p>
+     *        <p class="title">
+     *        <b>Supported impact codes</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>1</code> - Critical
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>2</code> - High
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>3</code> - Medium
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>4</code> - Low
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>5</code> - No Impact
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IncidentTemplate withImpact(Integer impact) {
+        setImpact(impact);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Tags to assign to the template. When the <code>StartIncident</code> API action is called, Incident Manager
+     * assigns the tags specified in the template to the incident.
+     * </p>
+     * 
+     * @return Tags to assign to the template. When the <code>StartIncident</code> API action is called, Incident
+     *         Manager assigns the tags specified in the template to the incident.
+     */
+
+    public java.util.Map<String, String> getIncidentTags() {
+        return incidentTags;
+    }
+
+    /**
+     * <p>
+     * Tags to assign to the template. When the <code>StartIncident</code> API action is called, Incident Manager
+     * assigns the tags specified in the template to the incident.
+     * </p>
+     * 
+     * @param incidentTags
+     *        Tags to assign to the template. When the <code>StartIncident</code> API action is called, Incident Manager
+     *        assigns the tags specified in the template to the incident.
+     */
+
+    public void setIncidentTags(java.util.Map<String, String> incidentTags) {
+        this.incidentTags = incidentTags;
+    }
+
+    /**
+     * <p>
+     * Tags to assign to the template. When the <code>StartIncident</code> API action is called, Incident Manager
+     * assigns the tags specified in the template to the incident.
+     * </p>
+     * 
+     * @param incidentTags
+     *        Tags to assign to the template. When the <code>StartIncident</code> API action is called, Incident Manager
+     *        assigns the tags specified in the template to the incident.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IncidentTemplate withIncidentTags(java.util.Map<String, String> incidentTags) {
+        setIncidentTags(incidentTags);
+        return this;
+    }
+
+    /**
+     * Add a single IncidentTags entry
+     *
+     * @see IncidentTemplate#withIncidentTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IncidentTemplate addIncidentTagsEntry(String key, String value) {
+        if (null == this.incidentTags) {
+            this.incidentTags = new java.util.HashMap<String, String>();
+        }
+        if (this.incidentTags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.incidentTags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into IncidentTags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IncidentTemplate clearIncidentTagsEntries() {
+        this.incidentTags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon SNS targets that are notified when updates are made to an incident.
+     * </p>
+     * 
+     * @return The Amazon SNS targets that are notified when updates are made to an incident.
+     */
+
+    public java.util.List<NotificationTargetItem> getNotificationTargets() {
+        return notificationTargets;
+    }
+
+    /**
+     * <p>
+     * The Amazon SNS targets that are notified when updates are made to an incident.
+     * </p>
+     * 
+     * @param notificationTargets
+     *        The Amazon SNS targets that are notified when updates are made to an incident.
+     */
+
+    public void setNotificationTargets(java.util.Collection<NotificationTargetItem> notificationTargets) {
+        if (notificationTargets == null) {
+            this.notificationTargets = null;
+            return;
+        }
+
+        this.notificationTargets = new java.util.ArrayList<NotificationTargetItem>(notificationTargets);
+    }
+
+    /**
+     * <p>
+     * The Amazon SNS targets that are notified when updates are made to an incident.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setNotificationTargets(java.util.Collection)} or {@link #withNotificationTargets(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param notificationTargets
+     *        The Amazon SNS targets that are notified when updates are made to an incident.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IncidentTemplate withNotificationTargets(NotificationTargetItem... notificationTargets) {
+        if (this.notificationTargets == null) {
+            setNotificationTargets(new java.util.ArrayList<NotificationTargetItem>(notificationTargets.length));
+        }
+        for (NotificationTargetItem ele : notificationTargets) {
+            this.notificationTargets.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon SNS targets that are notified when updates are made to an incident.
+     * </p>
+     * 
+     * @param notificationTargets
+     *        The Amazon SNS targets that are notified when updates are made to an incident.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IncidentTemplate withNotificationTargets(java.util.Collection<NotificationTargetItem> notificationTargets) {
+        setNotificationTargets(notificationTargets);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The summary of the incident. The summary is a brief synopsis of what occurred, what's currently happening, and
+     * context.
+     * </p>
+     * 
+     * @param summary
+     *        The summary of the incident. The summary is a brief synopsis of what occurred, what's currently happening,
+     *        and context.
+     */
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    /**
+     * <p>
+     * The summary of the incident. The summary is a brief synopsis of what occurred, what's currently happening, and
+     * context.
+     * </p>
+     * 
+     * @return The summary of the incident. The summary is a brief synopsis of what occurred, what's currently
+     *         happening, and context.
+     */
+
+    public String getSummary() {
+        return this.summary;
+    }
+
+    /**
+     * <p>
+     * The summary of the incident. The summary is a brief synopsis of what occurred, what's currently happening, and
+     * context.
+     * </p>
+     * 
+     * @param summary
+     *        The summary of the incident. The summary is a brief synopsis of what occurred, what's currently happening,
+     *        and context.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IncidentTemplate withSummary(String summary) {
+        setSummary(summary);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The title of the incident.
+     * </p>
+     * 
+     * @param title
+     *        The title of the incident.
+     */
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * <p>
+     * The title of the incident.
+     * </p>
+     * 
+     * @return The title of the incident.
+     */
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    /**
+     * <p>
+     * The title of the incident.
+     * </p>
+     * 
+     * @param title
+     *        The title of the incident.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IncidentTemplate withTitle(String title) {
+        setTitle(title);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getDedupeString() != null)
+            sb.append("DedupeString: ").append(getDedupeString()).append(",");
+        if (getImpact() != null)
+            sb.append("Impact: ").append(getImpact()).append(",");
+        if (getIncidentTags() != null)
+            sb.append("IncidentTags: ").append(getIncidentTags()).append(",");
+        if (getNotificationTargets() != null)
+            sb.append("NotificationTargets: ").append(getNotificationTargets()).append(",");
+        if (getSummary() != null)
+            sb.append("Summary: ").append(getSummary()).append(",");
+        if (getTitle() != null)
+            sb.append("Title: ").append(getTitle());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof IncidentTemplate == false)
+            return false;
+        IncidentTemplate other = (IncidentTemplate) obj;
+        if (other.getDedupeString() == null ^ this.getDedupeString() == null)
+            return false;
+        if (other.getDedupeString() != null && other.getDedupeString().equals(this.getDedupeString()) == false)
+            return false;
+        if (other.getImpact() == null ^ this.getImpact() == null)
+            return false;
+        if (other.getImpact() != null && other.getImpact().equals(this.getImpact()) == false)
+            return false;
+        if (other.getIncidentTags() == null ^ this.getIncidentTags() == null)
+            return false;
+        if (other.getIncidentTags() != null && other.getIncidentTags().equals(this.getIncidentTags()) == false)
+            return false;
+        if (other.getNotificationTargets() == null ^ this.getNotificationTargets() == null)
+            return false;
+        if (other.getNotificationTargets() != null && other.getNotificationTargets().equals(this.getNotificationTargets()) == false)
+            return false;
+        if (other.getSummary() == null ^ this.getSummary() == null)
+            return false;
+        if (other.getSummary() != null && other.getSummary().equals(this.getSummary()) == false)
+            return false;
+        if (other.getTitle() == null ^ this.getTitle() == null)
+            return false;
+        if (other.getTitle() != null && other.getTitle().equals(this.getTitle()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getDedupeString() == null) ? 0 : getDedupeString().hashCode());
+        hashCode = prime * hashCode + ((getImpact() == null) ? 0 : getImpact().hashCode());
+        hashCode = prime * hashCode + ((getIncidentTags() == null) ? 0 : getIncidentTags().hashCode());
+        hashCode = prime * hashCode + ((getNotificationTargets() == null) ? 0 : getNotificationTargets().hashCode());
+        hashCode = prime * hashCode + ((getSummary() == null) ? 0 : getSummary().hashCode());
+        hashCode = prime * hashCode + ((getTitle() == null) ? 0 : getTitle().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public IncidentTemplate clone() {
+        try {
+            return (IncidentTemplate) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.ssmincidents.model.transform.IncidentTemplateMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

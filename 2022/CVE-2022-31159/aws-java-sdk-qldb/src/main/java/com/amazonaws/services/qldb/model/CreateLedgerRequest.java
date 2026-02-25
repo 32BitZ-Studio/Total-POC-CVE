@@ -1,0 +1,1227 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.qldb.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/qldb-2019-01-02/CreateLedger" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class CreateLedgerRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The name of the ledger that you want to create. The name must be unique among all of the ledgers in your Amazon
+     * Web Services account in the current Region.
+     * </p>
+     * <p>
+     * Naming constraints for ledger names are defined in <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/limits.html#limits.naming">Quotas in Amazon QLDB</a>
+     * in the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     */
+    private String name;
+    /**
+     * <p>
+     * The key-value pairs to add as tags to the ledger that you want to create. Tag keys are case sensitive. Tag values
+     * are case sensitive and can be null.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * The permissions mode to assign to the ledger that you want to create. This parameter can have one of the
+     * following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ALLOW_ALL</code>: A legacy permissions mode that enables access control with API-level granularity for
+     * ledgers.
+     * </p>
+     * <p>
+     * This mode allows users who have the <code>SendCommand</code> API permission for this ledger to run all PartiQL
+     * commands (hence, <code>ALLOW_ALL</code>) on any tables in the specified ledger. This mode disregards any
+     * table-level or command-level IAM permissions policies that you create for the ledger.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STANDARD</code>: (<i>Recommended</i>) A permissions mode that enables access control with finer granularity
+     * for ledgers, tables, and PartiQL commands.
+     * </p>
+     * <p>
+     * By default, this mode denies all user requests to run any PartiQL commands on any tables in this ledger. To allow
+     * PartiQL commands to run, you must create IAM permissions policies for specific table resources and PartiQL
+     * actions, in addition to the <code>SendCommand</code> API permission for the ledger. For information, see <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-standard-mode.html">Getting started
+     * with the standard permissions mode</a> in the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * We strongly recommend using the <code>STANDARD</code> permissions mode to maximize the security of your ledger
+     * data.
+     * </p>
+     * </note>
+     */
+    private String permissionsMode;
+    /**
+     * <p>
+     * Specifies whether the ledger is protected from being deleted by any user. If not defined during ledger creation,
+     * this feature is enabled (<code>true</code>) by default.
+     * </p>
+     * <p>
+     * If deletion protection is enabled, you must first disable it before you can delete the ledger. You can disable it
+     * by calling the <code>UpdateLedger</code> operation to set this parameter to <code>false</code>.
+     * </p>
+     */
+    private Boolean deletionProtection;
+    /**
+     * <p>
+     * The key in Key Management Service (KMS) to use for encryption of data at rest in the ledger. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/encryption-at-rest.html">Encryption at rest</a> in
+     * the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * <p>
+     * Use one of the following options to specify this parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AWS_OWNED_KMS_KEY</code>: Use an KMS key that is owned and managed by Amazon Web Services on your behalf.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Undefined</b>: By default, use an Amazon Web Services owned KMS key.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>A valid symmetric customer managed KMS key</b>: Use the specified symmetric encryption KMS key in your account
+     * that you create, own, and manage.
+     * </p>
+     * <p>
+     * Amazon QLDB does not support asymmetric keys. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using symmetric and
+     * asymmetric keys</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To specify a customer managed KMS key, you can use its key ID, Amazon Resource Name (ARN), alias name, or alias
+     * ARN. When using an alias name, prefix it with <code>"alias/"</code>. To specify a key in a different Amazon Web
+     * Services account, you must use the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name: <code>alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id">Key identifiers (KeyId)</a> in
+     * the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     */
+    private String kmsKey;
+
+    /**
+     * <p>
+     * The name of the ledger that you want to create. The name must be unique among all of the ledgers in your Amazon
+     * Web Services account in the current Region.
+     * </p>
+     * <p>
+     * Naming constraints for ledger names are defined in <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/limits.html#limits.naming">Quotas in Amazon QLDB</a>
+     * in the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * 
+     * @param name
+     *        The name of the ledger that you want to create. The name must be unique among all of the ledgers in your
+     *        Amazon Web Services account in the current Region.</p>
+     *        <p>
+     *        Naming constraints for ledger names are defined in <a
+     *        href="https://docs.aws.amazon.com/qldb/latest/developerguide/limits.html#limits.naming">Quotas in Amazon
+     *        QLDB</a> in the <i>Amazon QLDB Developer Guide</i>.
+     */
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * <p>
+     * The name of the ledger that you want to create. The name must be unique among all of the ledgers in your Amazon
+     * Web Services account in the current Region.
+     * </p>
+     * <p>
+     * Naming constraints for ledger names are defined in <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/limits.html#limits.naming">Quotas in Amazon QLDB</a>
+     * in the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * 
+     * @return The name of the ledger that you want to create. The name must be unique among all of the ledgers in your
+     *         Amazon Web Services account in the current Region.</p>
+     *         <p>
+     *         Naming constraints for ledger names are defined in <a
+     *         href="https://docs.aws.amazon.com/qldb/latest/developerguide/limits.html#limits.naming">Quotas in Amazon
+     *         QLDB</a> in the <i>Amazon QLDB Developer Guide</i>.
+     */
+
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * <p>
+     * The name of the ledger that you want to create. The name must be unique among all of the ledgers in your Amazon
+     * Web Services account in the current Region.
+     * </p>
+     * <p>
+     * Naming constraints for ledger names are defined in <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/limits.html#limits.naming">Quotas in Amazon QLDB</a>
+     * in the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * 
+     * @param name
+     *        The name of the ledger that you want to create. The name must be unique among all of the ledgers in your
+     *        Amazon Web Services account in the current Region.</p>
+     *        <p>
+     *        Naming constraints for ledger names are defined in <a
+     *        href="https://docs.aws.amazon.com/qldb/latest/developerguide/limits.html#limits.naming">Quotas in Amazon
+     *        QLDB</a> in the <i>Amazon QLDB Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateLedgerRequest withName(String name) {
+        setName(name);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The key-value pairs to add as tags to the ledger that you want to create. Tag keys are case sensitive. Tag values
+     * are case sensitive and can be null.
+     * </p>
+     * 
+     * @return The key-value pairs to add as tags to the ledger that you want to create. Tag keys are case sensitive.
+     *         Tag values are case sensitive and can be null.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The key-value pairs to add as tags to the ledger that you want to create. Tag keys are case sensitive. Tag values
+     * are case sensitive and can be null.
+     * </p>
+     * 
+     * @param tags
+     *        The key-value pairs to add as tags to the ledger that you want to create. Tag keys are case sensitive. Tag
+     *        values are case sensitive and can be null.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * The key-value pairs to add as tags to the ledger that you want to create. Tag keys are case sensitive. Tag values
+     * are case sensitive and can be null.
+     * </p>
+     * 
+     * @param tags
+     *        The key-value pairs to add as tags to the ledger that you want to create. Tag keys are case sensitive. Tag
+     *        values are case sensitive and can be null.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateLedgerRequest withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateLedgerRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateLedgerRequest addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateLedgerRequest clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The permissions mode to assign to the ledger that you want to create. This parameter can have one of the
+     * following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ALLOW_ALL</code>: A legacy permissions mode that enables access control with API-level granularity for
+     * ledgers.
+     * </p>
+     * <p>
+     * This mode allows users who have the <code>SendCommand</code> API permission for this ledger to run all PartiQL
+     * commands (hence, <code>ALLOW_ALL</code>) on any tables in the specified ledger. This mode disregards any
+     * table-level or command-level IAM permissions policies that you create for the ledger.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STANDARD</code>: (<i>Recommended</i>) A permissions mode that enables access control with finer granularity
+     * for ledgers, tables, and PartiQL commands.
+     * </p>
+     * <p>
+     * By default, this mode denies all user requests to run any PartiQL commands on any tables in this ledger. To allow
+     * PartiQL commands to run, you must create IAM permissions policies for specific table resources and PartiQL
+     * actions, in addition to the <code>SendCommand</code> API permission for the ledger. For information, see <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-standard-mode.html">Getting started
+     * with the standard permissions mode</a> in the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * We strongly recommend using the <code>STANDARD</code> permissions mode to maximize the security of your ledger
+     * data.
+     * </p>
+     * </note>
+     * 
+     * @param permissionsMode
+     *        The permissions mode to assign to the ledger that you want to create. This parameter can have one of the
+     *        following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ALLOW_ALL</code>: A legacy permissions mode that enables access control with API-level granularity
+     *        for ledgers.
+     *        </p>
+     *        <p>
+     *        This mode allows users who have the <code>SendCommand</code> API permission for this ledger to run all
+     *        PartiQL commands (hence, <code>ALLOW_ALL</code>) on any tables in the specified ledger. This mode
+     *        disregards any table-level or command-level IAM permissions policies that you create for the ledger.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STANDARD</code>: (<i>Recommended</i>) A permissions mode that enables access control with finer
+     *        granularity for ledgers, tables, and PartiQL commands.
+     *        </p>
+     *        <p>
+     *        By default, this mode denies all user requests to run any PartiQL commands on any tables in this ledger.
+     *        To allow PartiQL commands to run, you must create IAM permissions policies for specific table resources
+     *        and PartiQL actions, in addition to the <code>SendCommand</code> API permission for the ledger. For
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-standard-mode.html">Getting
+     *        started with the standard permissions mode</a> in the <i>Amazon QLDB Developer Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        We strongly recommend using the <code>STANDARD</code> permissions mode to maximize the security of your
+     *        ledger data.
+     *        </p>
+     * @see PermissionsMode
+     */
+
+    public void setPermissionsMode(String permissionsMode) {
+        this.permissionsMode = permissionsMode;
+    }
+
+    /**
+     * <p>
+     * The permissions mode to assign to the ledger that you want to create. This parameter can have one of the
+     * following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ALLOW_ALL</code>: A legacy permissions mode that enables access control with API-level granularity for
+     * ledgers.
+     * </p>
+     * <p>
+     * This mode allows users who have the <code>SendCommand</code> API permission for this ledger to run all PartiQL
+     * commands (hence, <code>ALLOW_ALL</code>) on any tables in the specified ledger. This mode disregards any
+     * table-level or command-level IAM permissions policies that you create for the ledger.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STANDARD</code>: (<i>Recommended</i>) A permissions mode that enables access control with finer granularity
+     * for ledgers, tables, and PartiQL commands.
+     * </p>
+     * <p>
+     * By default, this mode denies all user requests to run any PartiQL commands on any tables in this ledger. To allow
+     * PartiQL commands to run, you must create IAM permissions policies for specific table resources and PartiQL
+     * actions, in addition to the <code>SendCommand</code> API permission for the ledger. For information, see <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-standard-mode.html">Getting started
+     * with the standard permissions mode</a> in the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * We strongly recommend using the <code>STANDARD</code> permissions mode to maximize the security of your ledger
+     * data.
+     * </p>
+     * </note>
+     * 
+     * @return The permissions mode to assign to the ledger that you want to create. This parameter can have one of the
+     *         following values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>ALLOW_ALL</code>: A legacy permissions mode that enables access control with API-level granularity
+     *         for ledgers.
+     *         </p>
+     *         <p>
+     *         This mode allows users who have the <code>SendCommand</code> API permission for this ledger to run all
+     *         PartiQL commands (hence, <code>ALLOW_ALL</code>) on any tables in the specified ledger. This mode
+     *         disregards any table-level or command-level IAM permissions policies that you create for the ledger.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>STANDARD</code>: (<i>Recommended</i>) A permissions mode that enables access control with finer
+     *         granularity for ledgers, tables, and PartiQL commands.
+     *         </p>
+     *         <p>
+     *         By default, this mode denies all user requests to run any PartiQL commands on any tables in this ledger.
+     *         To allow PartiQL commands to run, you must create IAM permissions policies for specific table resources
+     *         and PartiQL actions, in addition to the <code>SendCommand</code> API permission for the ledger. For
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-standard-mode.html">Getting
+     *         started with the standard permissions mode</a> in the <i>Amazon QLDB Developer Guide</i>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         We strongly recommend using the <code>STANDARD</code> permissions mode to maximize the security of your
+     *         ledger data.
+     *         </p>
+     * @see PermissionsMode
+     */
+
+    public String getPermissionsMode() {
+        return this.permissionsMode;
+    }
+
+    /**
+     * <p>
+     * The permissions mode to assign to the ledger that you want to create. This parameter can have one of the
+     * following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ALLOW_ALL</code>: A legacy permissions mode that enables access control with API-level granularity for
+     * ledgers.
+     * </p>
+     * <p>
+     * This mode allows users who have the <code>SendCommand</code> API permission for this ledger to run all PartiQL
+     * commands (hence, <code>ALLOW_ALL</code>) on any tables in the specified ledger. This mode disregards any
+     * table-level or command-level IAM permissions policies that you create for the ledger.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STANDARD</code>: (<i>Recommended</i>) A permissions mode that enables access control with finer granularity
+     * for ledgers, tables, and PartiQL commands.
+     * </p>
+     * <p>
+     * By default, this mode denies all user requests to run any PartiQL commands on any tables in this ledger. To allow
+     * PartiQL commands to run, you must create IAM permissions policies for specific table resources and PartiQL
+     * actions, in addition to the <code>SendCommand</code> API permission for the ledger. For information, see <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-standard-mode.html">Getting started
+     * with the standard permissions mode</a> in the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * We strongly recommend using the <code>STANDARD</code> permissions mode to maximize the security of your ledger
+     * data.
+     * </p>
+     * </note>
+     * 
+     * @param permissionsMode
+     *        The permissions mode to assign to the ledger that you want to create. This parameter can have one of the
+     *        following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ALLOW_ALL</code>: A legacy permissions mode that enables access control with API-level granularity
+     *        for ledgers.
+     *        </p>
+     *        <p>
+     *        This mode allows users who have the <code>SendCommand</code> API permission for this ledger to run all
+     *        PartiQL commands (hence, <code>ALLOW_ALL</code>) on any tables in the specified ledger. This mode
+     *        disregards any table-level or command-level IAM permissions policies that you create for the ledger.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STANDARD</code>: (<i>Recommended</i>) A permissions mode that enables access control with finer
+     *        granularity for ledgers, tables, and PartiQL commands.
+     *        </p>
+     *        <p>
+     *        By default, this mode denies all user requests to run any PartiQL commands on any tables in this ledger.
+     *        To allow PartiQL commands to run, you must create IAM permissions policies for specific table resources
+     *        and PartiQL actions, in addition to the <code>SendCommand</code> API permission for the ledger. For
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-standard-mode.html">Getting
+     *        started with the standard permissions mode</a> in the <i>Amazon QLDB Developer Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        We strongly recommend using the <code>STANDARD</code> permissions mode to maximize the security of your
+     *        ledger data.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PermissionsMode
+     */
+
+    public CreateLedgerRequest withPermissionsMode(String permissionsMode) {
+        setPermissionsMode(permissionsMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The permissions mode to assign to the ledger that you want to create. This parameter can have one of the
+     * following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ALLOW_ALL</code>: A legacy permissions mode that enables access control with API-level granularity for
+     * ledgers.
+     * </p>
+     * <p>
+     * This mode allows users who have the <code>SendCommand</code> API permission for this ledger to run all PartiQL
+     * commands (hence, <code>ALLOW_ALL</code>) on any tables in the specified ledger. This mode disregards any
+     * table-level or command-level IAM permissions policies that you create for the ledger.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STANDARD</code>: (<i>Recommended</i>) A permissions mode that enables access control with finer granularity
+     * for ledgers, tables, and PartiQL commands.
+     * </p>
+     * <p>
+     * By default, this mode denies all user requests to run any PartiQL commands on any tables in this ledger. To allow
+     * PartiQL commands to run, you must create IAM permissions policies for specific table resources and PartiQL
+     * actions, in addition to the <code>SendCommand</code> API permission for the ledger. For information, see <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-standard-mode.html">Getting started
+     * with the standard permissions mode</a> in the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * We strongly recommend using the <code>STANDARD</code> permissions mode to maximize the security of your ledger
+     * data.
+     * </p>
+     * </note>
+     * 
+     * @param permissionsMode
+     *        The permissions mode to assign to the ledger that you want to create. This parameter can have one of the
+     *        following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ALLOW_ALL</code>: A legacy permissions mode that enables access control with API-level granularity
+     *        for ledgers.
+     *        </p>
+     *        <p>
+     *        This mode allows users who have the <code>SendCommand</code> API permission for this ledger to run all
+     *        PartiQL commands (hence, <code>ALLOW_ALL</code>) on any tables in the specified ledger. This mode
+     *        disregards any table-level or command-level IAM permissions policies that you create for the ledger.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STANDARD</code>: (<i>Recommended</i>) A permissions mode that enables access control with finer
+     *        granularity for ledgers, tables, and PartiQL commands.
+     *        </p>
+     *        <p>
+     *        By default, this mode denies all user requests to run any PartiQL commands on any tables in this ledger.
+     *        To allow PartiQL commands to run, you must create IAM permissions policies for specific table resources
+     *        and PartiQL actions, in addition to the <code>SendCommand</code> API permission for the ledger. For
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-standard-mode.html">Getting
+     *        started with the standard permissions mode</a> in the <i>Amazon QLDB Developer Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        We strongly recommend using the <code>STANDARD</code> permissions mode to maximize the security of your
+     *        ledger data.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PermissionsMode
+     */
+
+    public CreateLedgerRequest withPermissionsMode(PermissionsMode permissionsMode) {
+        this.permissionsMode = permissionsMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the ledger is protected from being deleted by any user. If not defined during ledger creation,
+     * this feature is enabled (<code>true</code>) by default.
+     * </p>
+     * <p>
+     * If deletion protection is enabled, you must first disable it before you can delete the ledger. You can disable it
+     * by calling the <code>UpdateLedger</code> operation to set this parameter to <code>false</code>.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        Specifies whether the ledger is protected from being deleted by any user. If not defined during ledger
+     *        creation, this feature is enabled (<code>true</code>) by default.</p>
+     *        <p>
+     *        If deletion protection is enabled, you must first disable it before you can delete the ledger. You can
+     *        disable it by calling the <code>UpdateLedger</code> operation to set this parameter to <code>false</code>.
+     */
+
+    public void setDeletionProtection(Boolean deletionProtection) {
+        this.deletionProtection = deletionProtection;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the ledger is protected from being deleted by any user. If not defined during ledger creation,
+     * this feature is enabled (<code>true</code>) by default.
+     * </p>
+     * <p>
+     * If deletion protection is enabled, you must first disable it before you can delete the ledger. You can disable it
+     * by calling the <code>UpdateLedger</code> operation to set this parameter to <code>false</code>.
+     * </p>
+     * 
+     * @return Specifies whether the ledger is protected from being deleted by any user. If not defined during ledger
+     *         creation, this feature is enabled (<code>true</code>) by default.</p>
+     *         <p>
+     *         If deletion protection is enabled, you must first disable it before you can delete the ledger. You can
+     *         disable it by calling the <code>UpdateLedger</code> operation to set this parameter to <code>false</code>.
+     */
+
+    public Boolean getDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the ledger is protected from being deleted by any user. If not defined during ledger creation,
+     * this feature is enabled (<code>true</code>) by default.
+     * </p>
+     * <p>
+     * If deletion protection is enabled, you must first disable it before you can delete the ledger. You can disable it
+     * by calling the <code>UpdateLedger</code> operation to set this parameter to <code>false</code>.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        Specifies whether the ledger is protected from being deleted by any user. If not defined during ledger
+     *        creation, this feature is enabled (<code>true</code>) by default.</p>
+     *        <p>
+     *        If deletion protection is enabled, you must first disable it before you can delete the ledger. You can
+     *        disable it by calling the <code>UpdateLedger</code> operation to set this parameter to <code>false</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateLedgerRequest withDeletionProtection(Boolean deletionProtection) {
+        setDeletionProtection(deletionProtection);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the ledger is protected from being deleted by any user. If not defined during ledger creation,
+     * this feature is enabled (<code>true</code>) by default.
+     * </p>
+     * <p>
+     * If deletion protection is enabled, you must first disable it before you can delete the ledger. You can disable it
+     * by calling the <code>UpdateLedger</code> operation to set this parameter to <code>false</code>.
+     * </p>
+     * 
+     * @return Specifies whether the ledger is protected from being deleted by any user. If not defined during ledger
+     *         creation, this feature is enabled (<code>true</code>) by default.</p>
+     *         <p>
+     *         If deletion protection is enabled, you must first disable it before you can delete the ledger. You can
+     *         disable it by calling the <code>UpdateLedger</code> operation to set this parameter to <code>false</code>.
+     */
+
+    public Boolean isDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * The key in Key Management Service (KMS) to use for encryption of data at rest in the ledger. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/encryption-at-rest.html">Encryption at rest</a> in
+     * the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * <p>
+     * Use one of the following options to specify this parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AWS_OWNED_KMS_KEY</code>: Use an KMS key that is owned and managed by Amazon Web Services on your behalf.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Undefined</b>: By default, use an Amazon Web Services owned KMS key.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>A valid symmetric customer managed KMS key</b>: Use the specified symmetric encryption KMS key in your account
+     * that you create, own, and manage.
+     * </p>
+     * <p>
+     * Amazon QLDB does not support asymmetric keys. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using symmetric and
+     * asymmetric keys</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To specify a customer managed KMS key, you can use its key ID, Amazon Resource Name (ARN), alias name, or alias
+     * ARN. When using an alias name, prefix it with <code>"alias/"</code>. To specify a key in a different Amazon Web
+     * Services account, you must use the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name: <code>alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id">Key identifiers (KeyId)</a> in
+     * the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param kmsKey
+     *        The key in Key Management Service (KMS) to use for encryption of data at rest in the ledger. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/qldb/latest/developerguide/encryption-at-rest.html">Encryption at
+     *        rest</a> in the <i>Amazon QLDB Developer Guide</i>.</p>
+     *        <p>
+     *        Use one of the following options to specify this parameter:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>AWS_OWNED_KMS_KEY</code>: Use an KMS key that is owned and managed by Amazon Web Services on your
+     *        behalf.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>Undefined</b>: By default, use an Amazon Web Services owned KMS key.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>A valid symmetric customer managed KMS key</b>: Use the specified symmetric encryption KMS key in your
+     *        account that you create, own, and manage.
+     *        </p>
+     *        <p>
+     *        Amazon QLDB does not support asymmetric keys. For more information, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using symmetric and
+     *        asymmetric keys</a> in the <i>Key Management Service Developer Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To specify a customer managed KMS key, you can use its key ID, Amazon Resource Name (ARN), alias name, or
+     *        alias ARN. When using an alias name, prefix it with <code>"alias/"</code>. To specify a key in a different
+     *        Amazon Web Services account, you must use the key ARN or alias ARN.
+     *        </p>
+     *        <p>
+     *        For example:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Alias name: <code>alias/ExampleAlias</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id">Key identifiers
+     *        (KeyId)</a> in the <i>Key Management Service Developer Guide</i>.
+     */
+
+    public void setKmsKey(String kmsKey) {
+        this.kmsKey = kmsKey;
+    }
+
+    /**
+     * <p>
+     * The key in Key Management Service (KMS) to use for encryption of data at rest in the ledger. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/encryption-at-rest.html">Encryption at rest</a> in
+     * the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * <p>
+     * Use one of the following options to specify this parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AWS_OWNED_KMS_KEY</code>: Use an KMS key that is owned and managed by Amazon Web Services on your behalf.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Undefined</b>: By default, use an Amazon Web Services owned KMS key.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>A valid symmetric customer managed KMS key</b>: Use the specified symmetric encryption KMS key in your account
+     * that you create, own, and manage.
+     * </p>
+     * <p>
+     * Amazon QLDB does not support asymmetric keys. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using symmetric and
+     * asymmetric keys</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To specify a customer managed KMS key, you can use its key ID, Amazon Resource Name (ARN), alias name, or alias
+     * ARN. When using an alias name, prefix it with <code>"alias/"</code>. To specify a key in a different Amazon Web
+     * Services account, you must use the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name: <code>alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id">Key identifiers (KeyId)</a> in
+     * the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * 
+     * @return The key in Key Management Service (KMS) to use for encryption of data at rest in the ledger. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/qldb/latest/developerguide/encryption-at-rest.html">Encryption at
+     *         rest</a> in the <i>Amazon QLDB Developer Guide</i>.</p>
+     *         <p>
+     *         Use one of the following options to specify this parameter:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>AWS_OWNED_KMS_KEY</code>: Use an KMS key that is owned and managed by Amazon Web Services on your
+     *         behalf.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>Undefined</b>: By default, use an Amazon Web Services owned KMS key.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>A valid symmetric customer managed KMS key</b>: Use the specified symmetric encryption KMS key in your
+     *         account that you create, own, and manage.
+     *         </p>
+     *         <p>
+     *         Amazon QLDB does not support asymmetric keys. For more information, see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using symmetric
+     *         and asymmetric keys</a> in the <i>Key Management Service Developer Guide</i>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         To specify a customer managed KMS key, you can use its key ID, Amazon Resource Name (ARN), alias name, or
+     *         alias ARN. When using an alias name, prefix it with <code>"alias/"</code>. To specify a key in a
+     *         different Amazon Web Services account, you must use the key ARN or alias ARN.
+     *         </p>
+     *         <p>
+     *         For example:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Alias name: <code>alias/ExampleAlias</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id">Key identifiers
+     *         (KeyId)</a> in the <i>Key Management Service Developer Guide</i>.
+     */
+
+    public String getKmsKey() {
+        return this.kmsKey;
+    }
+
+    /**
+     * <p>
+     * The key in Key Management Service (KMS) to use for encryption of data at rest in the ledger. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/qldb/latest/developerguide/encryption-at-rest.html">Encryption at rest</a> in
+     * the <i>Amazon QLDB Developer Guide</i>.
+     * </p>
+     * <p>
+     * Use one of the following options to specify this parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AWS_OWNED_KMS_KEY</code>: Use an KMS key that is owned and managed by Amazon Web Services on your behalf.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Undefined</b>: By default, use an Amazon Web Services owned KMS key.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>A valid symmetric customer managed KMS key</b>: Use the specified symmetric encryption KMS key in your account
+     * that you create, own, and manage.
+     * </p>
+     * <p>
+     * Amazon QLDB does not support asymmetric keys. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using symmetric and
+     * asymmetric keys</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To specify a customer managed KMS key, you can use its key ID, Amazon Resource Name (ARN), alias name, or alias
+     * ARN. When using an alias name, prefix it with <code>"alias/"</code>. To specify a key in a different Amazon Web
+     * Services account, you must use the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name: <code>alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id">Key identifiers (KeyId)</a> in
+     * the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param kmsKey
+     *        The key in Key Management Service (KMS) to use for encryption of data at rest in the ledger. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/qldb/latest/developerguide/encryption-at-rest.html">Encryption at
+     *        rest</a> in the <i>Amazon QLDB Developer Guide</i>.</p>
+     *        <p>
+     *        Use one of the following options to specify this parameter:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>AWS_OWNED_KMS_KEY</code>: Use an KMS key that is owned and managed by Amazon Web Services on your
+     *        behalf.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>Undefined</b>: By default, use an Amazon Web Services owned KMS key.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>A valid symmetric customer managed KMS key</b>: Use the specified symmetric encryption KMS key in your
+     *        account that you create, own, and manage.
+     *        </p>
+     *        <p>
+     *        Amazon QLDB does not support asymmetric keys. For more information, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using symmetric and
+     *        asymmetric keys</a> in the <i>Key Management Service Developer Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To specify a customer managed KMS key, you can use its key ID, Amazon Resource Name (ARN), alias name, or
+     *        alias ARN. When using an alias name, prefix it with <code>"alias/"</code>. To specify a key in a different
+     *        Amazon Web Services account, you must use the key ARN or alias ARN.
+     *        </p>
+     *        <p>
+     *        For example:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Alias name: <code>alias/ExampleAlias</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id">Key identifiers
+     *        (KeyId)</a> in the <i>Key Management Service Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateLedgerRequest withKmsKey(String kmsKey) {
+        setKmsKey(kmsKey);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getName() != null)
+            sb.append("Name: ").append(getName()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getPermissionsMode() != null)
+            sb.append("PermissionsMode: ").append(getPermissionsMode()).append(",");
+        if (getDeletionProtection() != null)
+            sb.append("DeletionProtection: ").append(getDeletionProtection()).append(",");
+        if (getKmsKey() != null)
+            sb.append("KmsKey: ").append(getKmsKey());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof CreateLedgerRequest == false)
+            return false;
+        CreateLedgerRequest other = (CreateLedgerRequest) obj;
+        if (other.getName() == null ^ this.getName() == null)
+            return false;
+        if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getPermissionsMode() == null ^ this.getPermissionsMode() == null)
+            return false;
+        if (other.getPermissionsMode() != null && other.getPermissionsMode().equals(this.getPermissionsMode()) == false)
+            return false;
+        if (other.getDeletionProtection() == null ^ this.getDeletionProtection() == null)
+            return false;
+        if (other.getDeletionProtection() != null && other.getDeletionProtection().equals(this.getDeletionProtection()) == false)
+            return false;
+        if (other.getKmsKey() == null ^ this.getKmsKey() == null)
+            return false;
+        if (other.getKmsKey() != null && other.getKmsKey().equals(this.getKmsKey()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getPermissionsMode() == null) ? 0 : getPermissionsMode().hashCode());
+        hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
+        hashCode = prime * hashCode + ((getKmsKey() == null) ? 0 : getKmsKey().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public CreateLedgerRequest clone() {
+        return (CreateLedgerRequest) super.clone();
+    }
+
+}

@@ -1,0 +1,189 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.migrationhubstrategyrecommendations.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Contains the S3 bucket name and the Amazon S3 key name.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/migrationhubstrategy-2020-02-19/S3Object" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class S3Object implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The S3 bucket name.
+     * </p>
+     */
+    private String s3Bucket;
+    /**
+     * <p>
+     * The Amazon S3 key name.
+     * </p>
+     */
+    private String s3key;
+
+    /**
+     * <p>
+     * The S3 bucket name.
+     * </p>
+     * 
+     * @param s3Bucket
+     *        The S3 bucket name.
+     */
+
+    public void setS3Bucket(String s3Bucket) {
+        this.s3Bucket = s3Bucket;
+    }
+
+    /**
+     * <p>
+     * The S3 bucket name.
+     * </p>
+     * 
+     * @return The S3 bucket name.
+     */
+
+    public String getS3Bucket() {
+        return this.s3Bucket;
+    }
+
+    /**
+     * <p>
+     * The S3 bucket name.
+     * </p>
+     * 
+     * @param s3Bucket
+     *        The S3 bucket name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public S3Object withS3Bucket(String s3Bucket) {
+        setS3Bucket(s3Bucket);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon S3 key name.
+     * </p>
+     * 
+     * @param s3key
+     *        The Amazon S3 key name.
+     */
+
+    public void setS3key(String s3key) {
+        this.s3key = s3key;
+    }
+
+    /**
+     * <p>
+     * The Amazon S3 key name.
+     * </p>
+     * 
+     * @return The Amazon S3 key name.
+     */
+
+    public String getS3key() {
+        return this.s3key;
+    }
+
+    /**
+     * <p>
+     * The Amazon S3 key name.
+     * </p>
+     * 
+     * @param s3key
+     *        The Amazon S3 key name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public S3Object withS3key(String s3key) {
+        setS3key(s3key);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getS3Bucket() != null)
+            sb.append("S3Bucket: ").append(getS3Bucket()).append(",");
+        if (getS3key() != null)
+            sb.append("S3key: ").append(getS3key());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof S3Object == false)
+            return false;
+        S3Object other = (S3Object) obj;
+        if (other.getS3Bucket() == null ^ this.getS3Bucket() == null)
+            return false;
+        if (other.getS3Bucket() != null && other.getS3Bucket().equals(this.getS3Bucket()) == false)
+            return false;
+        if (other.getS3key() == null ^ this.getS3key() == null)
+            return false;
+        if (other.getS3key() != null && other.getS3key().equals(this.getS3key()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getS3Bucket() == null) ? 0 : getS3Bucket().hashCode());
+        hashCode = prime * hashCode + ((getS3key() == null) ? 0 : getS3key().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public S3Object clone() {
+        try {
+            return (S3Object) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.migrationhubstrategyrecommendations.model.transform.S3ObjectMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

@@ -1,0 +1,115 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.securityhub.model.transform;
+
+import java.math.*;
+
+import javax.annotation.Generated;
+
+import com.amazonaws.services.securityhub.model.*;
+import com.amazonaws.transform.SimpleTypeJsonUnmarshallers.*;
+import com.amazonaws.transform.*;
+
+import com.fasterxml.jackson.core.JsonToken;
+import static com.fasterxml.jackson.core.JsonToken.*;
+
+/**
+ * AwsAutoScalingAutoScalingGroupDetails JSON Unmarshaller
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class AwsAutoScalingAutoScalingGroupDetailsJsonUnmarshaller implements Unmarshaller<AwsAutoScalingAutoScalingGroupDetails, JsonUnmarshallerContext> {
+
+    public AwsAutoScalingAutoScalingGroupDetails unmarshall(JsonUnmarshallerContext context) throws Exception {
+        AwsAutoScalingAutoScalingGroupDetails awsAutoScalingAutoScalingGroupDetails = new AwsAutoScalingAutoScalingGroupDetails();
+
+        int originalDepth = context.getCurrentDepth();
+        String currentParentElement = context.getCurrentParentElement();
+        int targetDepth = originalDepth + 1;
+
+        JsonToken token = context.getCurrentToken();
+        if (token == null)
+            token = context.nextToken();
+        if (token == VALUE_NULL) {
+            return null;
+        }
+
+        while (true) {
+            if (token == null)
+                break;
+
+            if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("LaunchConfigurationName", targetDepth)) {
+                    context.nextToken();
+                    awsAutoScalingAutoScalingGroupDetails.setLaunchConfigurationName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LoadBalancerNames", targetDepth)) {
+                    context.nextToken();
+                    awsAutoScalingAutoScalingGroupDetails.setLoadBalancerNames(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("HealthCheckType", targetDepth)) {
+                    context.nextToken();
+                    awsAutoScalingAutoScalingGroupDetails.setHealthCheckType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("HealthCheckGracePeriod", targetDepth)) {
+                    context.nextToken();
+                    awsAutoScalingAutoScalingGroupDetails.setHealthCheckGracePeriod(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("CreatedTime", targetDepth)) {
+                    context.nextToken();
+                    awsAutoScalingAutoScalingGroupDetails.setCreatedTime(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("MixedInstancesPolicy", targetDepth)) {
+                    context.nextToken();
+                    awsAutoScalingAutoScalingGroupDetails.setMixedInstancesPolicy(AwsAutoScalingAutoScalingGroupMixedInstancesPolicyDetailsJsonUnmarshaller
+                            .getInstance().unmarshall(context));
+                }
+                if (context.testExpression("AvailabilityZones", targetDepth)) {
+                    context.nextToken();
+                    awsAutoScalingAutoScalingGroupDetails
+                            .setAvailabilityZones(new ListUnmarshaller<AwsAutoScalingAutoScalingGroupAvailabilityZonesListDetails>(
+                                    AwsAutoScalingAutoScalingGroupAvailabilityZonesListDetailsJsonUnmarshaller.getInstance())
+
+                            .unmarshall(context));
+                }
+                if (context.testExpression("LaunchTemplate", targetDepth)) {
+                    context.nextToken();
+                    awsAutoScalingAutoScalingGroupDetails
+                            .setLaunchTemplate(AwsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecificationJsonUnmarshaller.getInstance()
+                                    .unmarshall(context));
+                }
+                if (context.testExpression("CapacityRebalance", targetDepth)) {
+                    context.nextToken();
+                    awsAutoScalingAutoScalingGroupDetails.setCapacityRebalance(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+            } else if (token == END_ARRAY || token == END_OBJECT) {
+                if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {
+                    if (context.getCurrentDepth() <= originalDepth)
+                        break;
+                }
+            }
+            token = context.nextToken();
+        }
+
+        return awsAutoScalingAutoScalingGroupDetails;
+    }
+
+    private static AwsAutoScalingAutoScalingGroupDetailsJsonUnmarshaller instance;
+
+    public static AwsAutoScalingAutoScalingGroupDetailsJsonUnmarshaller getInstance() {
+        if (instance == null)
+            instance = new AwsAutoScalingAutoScalingGroupDetailsJsonUnmarshaller();
+        return instance;
+    }
+}

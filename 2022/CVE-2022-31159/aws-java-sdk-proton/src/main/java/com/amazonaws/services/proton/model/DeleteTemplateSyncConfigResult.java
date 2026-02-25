@@ -1,0 +1,126 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.proton.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/proton-2020-07-20/DeleteTemplateSyncConfig" target="_top">AWS
+ *      API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class DeleteTemplateSyncConfigResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The template sync configuration detail data that's returned by Proton.
+     * </p>
+     */
+    private TemplateSyncConfig templateSyncConfig;
+
+    /**
+     * <p>
+     * The template sync configuration detail data that's returned by Proton.
+     * </p>
+     * 
+     * @param templateSyncConfig
+     *        The template sync configuration detail data that's returned by Proton.
+     */
+
+    public void setTemplateSyncConfig(TemplateSyncConfig templateSyncConfig) {
+        this.templateSyncConfig = templateSyncConfig;
+    }
+
+    /**
+     * <p>
+     * The template sync configuration detail data that's returned by Proton.
+     * </p>
+     * 
+     * @return The template sync configuration detail data that's returned by Proton.
+     */
+
+    public TemplateSyncConfig getTemplateSyncConfig() {
+        return this.templateSyncConfig;
+    }
+
+    /**
+     * <p>
+     * The template sync configuration detail data that's returned by Proton.
+     * </p>
+     * 
+     * @param templateSyncConfig
+     *        The template sync configuration detail data that's returned by Proton.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeleteTemplateSyncConfigResult withTemplateSyncConfig(TemplateSyncConfig templateSyncConfig) {
+        setTemplateSyncConfig(templateSyncConfig);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getTemplateSyncConfig() != null)
+            sb.append("TemplateSyncConfig: ").append(getTemplateSyncConfig());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof DeleteTemplateSyncConfigResult == false)
+            return false;
+        DeleteTemplateSyncConfigResult other = (DeleteTemplateSyncConfigResult) obj;
+        if (other.getTemplateSyncConfig() == null ^ this.getTemplateSyncConfig() == null)
+            return false;
+        if (other.getTemplateSyncConfig() != null && other.getTemplateSyncConfig().equals(this.getTemplateSyncConfig()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getTemplateSyncConfig() == null) ? 0 : getTemplateSyncConfig().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public DeleteTemplateSyncConfigResult clone() {
+        try {
+            return (DeleteTemplateSyncConfigResult) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+}

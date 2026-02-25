@@ -1,0 +1,91 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.sagemaker.model.transform;
+
+import javax.annotation.Generated;
+
+import com.amazonaws.SdkClientException;
+import com.amazonaws.services.sagemaker.model.*;
+
+import com.amazonaws.protocol.*;
+import com.amazonaws.annotation.SdkInternalApi;
+
+/**
+ * InferenceRecommendationsJobMarshaller
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+@SdkInternalApi
+public class InferenceRecommendationsJobMarshaller {
+
+    private static final MarshallingInfo<String> JOBNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("JobName").build();
+    private static final MarshallingInfo<String> JOBDESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("JobDescription").build();
+    private static final MarshallingInfo<String> JOBTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("JobType").build();
+    private static final MarshallingInfo<String> JOBARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("JobArn").build();
+    private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Status").build();
+    private static final MarshallingInfo<java.util.Date> CREATIONTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreationTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<java.util.Date> COMPLETIONTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CompletionTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> ROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("RoleArn").build();
+    private static final MarshallingInfo<java.util.Date> LASTMODIFIEDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastModifiedTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> FAILUREREASON_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FailureReason").build();
+    private static final MarshallingInfo<String> MODELNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("ModelName").build();
+    private static final MarshallingInfo<String> SAMPLEPAYLOADURL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SamplePayloadUrl").build();
+    private static final MarshallingInfo<String> MODELPACKAGEVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ModelPackageVersionArn").build();
+
+    private static final InferenceRecommendationsJobMarshaller instance = new InferenceRecommendationsJobMarshaller();
+
+    public static InferenceRecommendationsJobMarshaller getInstance() {
+        return instance;
+    }
+
+    /**
+     * Marshall the given parameter object.
+     */
+    public void marshall(InferenceRecommendationsJob inferenceRecommendationsJob, ProtocolMarshaller protocolMarshaller) {
+
+        if (inferenceRecommendationsJob == null) {
+            throw new SdkClientException("Invalid argument passed to marshall(...)");
+        }
+
+        try {
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getJobName(), JOBNAME_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getJobDescription(), JOBDESCRIPTION_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getJobType(), JOBTYPE_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getJobArn(), JOBARN_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getStatus(), STATUS_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getCreationTime(), CREATIONTIME_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getCompletionTime(), COMPLETIONTIME_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getRoleArn(), ROLEARN_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getLastModifiedTime(), LASTMODIFIEDTIME_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getFailureReason(), FAILUREREASON_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getModelName(), MODELNAME_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getSamplePayloadUrl(), SAMPLEPAYLOADURL_BINDING);
+            protocolMarshaller.marshall(inferenceRecommendationsJob.getModelPackageVersionArn(), MODELPACKAGEVERSIONARN_BINDING);
+        } catch (Exception e) {
+            throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
+        }
+    }
+
+}

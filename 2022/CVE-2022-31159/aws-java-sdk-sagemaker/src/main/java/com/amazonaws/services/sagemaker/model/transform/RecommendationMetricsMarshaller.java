@@ -1,0 +1,73 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.sagemaker.model.transform;
+
+import javax.annotation.Generated;
+
+import com.amazonaws.SdkClientException;
+import com.amazonaws.services.sagemaker.model.*;
+
+import com.amazonaws.protocol.*;
+import com.amazonaws.annotation.SdkInternalApi;
+
+/**
+ * RecommendationMetricsMarshaller
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+@SdkInternalApi
+public class RecommendationMetricsMarshaller {
+
+    private static final MarshallingInfo<Float> COSTPERHOUR_BINDING = MarshallingInfo.builder(MarshallingType.FLOAT).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("CostPerHour").build();
+    private static final MarshallingInfo<Float> COSTPERINFERENCE_BINDING = MarshallingInfo.builder(MarshallingType.FLOAT)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CostPerInference").build();
+    private static final MarshallingInfo<Integer> MAXINVOCATIONS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxInvocations").build();
+    private static final MarshallingInfo<Integer> MODELLATENCY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ModelLatency").build();
+    private static final MarshallingInfo<Float> CPUUTILIZATION_BINDING = MarshallingInfo.builder(MarshallingType.FLOAT)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CpuUtilization").build();
+    private static final MarshallingInfo<Float> MEMORYUTILIZATION_BINDING = MarshallingInfo.builder(MarshallingType.FLOAT)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MemoryUtilization").build();
+    private static final MarshallingInfo<Integer> MODELSETUPTIME_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ModelSetupTime").build();
+
+    private static final RecommendationMetricsMarshaller instance = new RecommendationMetricsMarshaller();
+
+    public static RecommendationMetricsMarshaller getInstance() {
+        return instance;
+    }
+
+    /**
+     * Marshall the given parameter object.
+     */
+    public void marshall(RecommendationMetrics recommendationMetrics, ProtocolMarshaller protocolMarshaller) {
+
+        if (recommendationMetrics == null) {
+            throw new SdkClientException("Invalid argument passed to marshall(...)");
+        }
+
+        try {
+            protocolMarshaller.marshall(recommendationMetrics.getCostPerHour(), COSTPERHOUR_BINDING);
+            protocolMarshaller.marshall(recommendationMetrics.getCostPerInference(), COSTPERINFERENCE_BINDING);
+            protocolMarshaller.marshall(recommendationMetrics.getMaxInvocations(), MAXINVOCATIONS_BINDING);
+            protocolMarshaller.marshall(recommendationMetrics.getModelLatency(), MODELLATENCY_BINDING);
+            protocolMarshaller.marshall(recommendationMetrics.getCpuUtilization(), CPUUTILIZATION_BINDING);
+            protocolMarshaller.marshall(recommendationMetrics.getMemoryUtilization(), MEMORYUTILIZATION_BINDING);
+            protocolMarshaller.marshall(recommendationMetrics.getModelSetupTime(), MODELSETUPTIME_BINDING);
+        } catch (Exception e) {
+            throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
+        }
+    }
+
+}

@@ -1,0 +1,32 @@
+# CVE-2022-38691/38692
+
+persistently boot FDL1/SPL without signature
+
+NOTE: 
+
+first remove sign check of Boot Chain images in FDL1/SPL
+
+​	[fdl1] use gen_fdl1-dl ([source_code](https://raw.githubusercontent.com/TomKing062/CVE-2022-38694_unlock_bootloader/info/gen_fdl1-dl.c))
+
+​	[spl] android 9/10, use gen_spl-unlock-legacy ([source_code](https://raw.githubusercontent.com/TomKing062/CVE-2022-38694_unlock_bootloader/info/gen_spl-unlock-legacy.c))
+
+​	[spl] android 11(+), use gen_spl-unlock ([source_code](https://raw.githubusercontent.com/TomKing062/CVE-2022-38694_unlock_bootloader/info/gen_spl-unlock.c))
+
+​	windows prebuilt tools can be found [here](https://github.com/TomKing062/spreadtrum_flash/releases/latest)
+
+then
+```
+patcher <cfg> <unsigned_fdl1_spl>
+```
+
+| soc             | status                                                       |
+| --------------- | ------------------------------------------------------------ |
+| sc9820e/sc9832e | affected but code has not been written yet                   |
+| sc9863a         | affected but code has not been written yet                   |
+| ud710           | working                                                      |
+| udx710          | affected but can't be supported (stack is at 0x3010-0x4000, g_n is at 0x28004898, g_sig is at 0x280049A8) |
+| ums312          | working                                                      |
+| ums512          | working                                                      |
+| ums9230         | unaffected                                                   |
+| ums9620         | unaffected                                                   |
+| ums9621         | unaffected                                                   |

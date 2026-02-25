@@ -1,7 +1,0 @@
-cxf:
-  path: /api
-  jaxrs:
-    component-scan: true
-  metrics:
-    jaxws:
-      enabled: false

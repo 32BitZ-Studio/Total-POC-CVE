@@ -1,2 +1,0 @@
-org.apache.cxf.transport.http_jetty.JettyDestinationFactory::true
-org.apache.cxf.transport.http_jetty.JettyHTTPServerEngineFactory::true

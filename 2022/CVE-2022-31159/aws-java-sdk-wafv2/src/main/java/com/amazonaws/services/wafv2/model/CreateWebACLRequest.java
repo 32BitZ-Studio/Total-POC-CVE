@@ -1,0 +1,1319 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.wafv2.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/CreateWebACL" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class CreateWebACLRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The name of the web ACL. You cannot change the name of a web ACL after you create it.
+     * </p>
+     */
+    private String name;
+    /**
+     * <p>
+     * Specifies whether this is for an Amazon CloudFront distribution or for a regional application. A regional
+     * application can be an Application Load Balancer (ALB), an Amazon API Gateway REST API, an AppSync GraphQL API, an
+     * Amazon Cognito user pool, an App Runner service, or an Amazon Web Services Verified Access instance.
+     * </p>
+     * <p>
+     * To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * CLI - Specify the Region when you use the CloudFront scope: <code>--scope=CLOUDFRONT --region=us-east-1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * API and SDKs - For all calls, use the Region endpoint us-east-1.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String scope;
+    /**
+     * <p>
+     * The action to perform if none of the <code>Rules</code> contained in the <code>WebACL</code> match.
+     * </p>
+     */
+    private DefaultAction defaultAction;
+    /**
+     * <p>
+     * A description of the web ACL that helps with identification.
+     * </p>
+     */
+    private String description;
+    /**
+     * <p>
+     * The <a>Rule</a> statements used to identify the web requests that you want to manage. Each rule includes one
+     * top-level statement that WAF uses to identify matching web requests, and parameters that govern how WAF handles
+     * them.
+     * </p>
+     */
+    private java.util.List<Rule> rules;
+    /**
+     * <p>
+     * Defines and enables Amazon CloudWatch metrics and web request sample collection.
+     * </p>
+     */
+    private VisibilityConfig visibilityConfig;
+    /**
+     * <p>
+     * An array of key:value pairs to associate with the resource.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * A map of custom response keys and content bodies. When you create a rule with a block action, you can send a
+     * custom response to the web request. You define these for the web ACL, and then use them in the rules and default
+     * actions that you define in the web ACL.
+     * </p>
+     * <p>
+     * For information about customizing web requests and responses, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-custom-request-response.html">Customizing web
+     * requests and responses in WAF</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * <p>
+     * For information about the limits on count and size for custom request and response settings, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF quotas</a> in the <i>WAF Developer
+     * Guide</i>.
+     * </p>
+     */
+    private java.util.Map<String, CustomResponseBody> customResponseBodies;
+    /**
+     * <p>
+     * Specifies how WAF should handle <code>CAPTCHA</code> evaluations for rules that don't have their own
+     * <code>CaptchaConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     * <code>CaptchaConfig</code>.
+     * </p>
+     */
+    private CaptchaConfig captchaConfig;
+    /**
+     * <p>
+     * Specifies how WAF should handle challenge evaluations for rules that don't have their own
+     * <code>ChallengeConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     * <code>ChallengeConfig</code>.
+     * </p>
+     */
+    private ChallengeConfig challengeConfig;
+    /**
+     * <p>
+     * Specifies the domains that WAF should accept in a web request token. This enables the use of tokens across
+     * multiple protected websites. When WAF provides a token, it uses the domain of the Amazon Web Services resource
+     * that the web ACL is protecting. If you don't specify a list of token domains, WAF accepts tokens only for the
+     * domain of the protected resource. With a token domain list, WAF accepts the resource's host domain plus all
+     * domains in the token domain list, including their prefixed subdomains.
+     * </p>
+     * <p>
+     * Example JSON: <code>"TokenDomains": { "mywebsite.com", "myotherwebsite.com" }</code>
+     * </p>
+     * <p>
+     * Public suffixes aren't allowed. For example, you can't use <code>gov.au</code> or <code>co.uk</code> as token
+     * domains.
+     * </p>
+     */
+    private java.util.List<String> tokenDomains;
+    /**
+     * <p>
+     * Specifies custom configurations for the associations between the web ACL and protected resources.
+     * </p>
+     * <p>
+     * Use this to customize the maximum size of the request body that your protected resources forward to WAF for
+     * inspection. You can customize this setting for CloudFront, API Gateway, Amazon Cognito, App Runner, or Verified
+     * Access resources. The default setting is 16 KB (16,384 bytes).
+     * </p>
+     * <note>
+     * <p>
+     * You are charged additional fees when your protected resources forward body sizes that are larger than the
+     * default. For more information, see <a href="http://aws.amazon.com/waf/pricing/">WAF Pricing</a>.
+     * </p>
+     * </note>
+     * <p>
+     * For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     * </p>
+     */
+    private AssociationConfig associationConfig;
+
+    /**
+     * <p>
+     * The name of the web ACL. You cannot change the name of a web ACL after you create it.
+     * </p>
+     * 
+     * @param name
+     *        The name of the web ACL. You cannot change the name of a web ACL after you create it.
+     */
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * <p>
+     * The name of the web ACL. You cannot change the name of a web ACL after you create it.
+     * </p>
+     * 
+     * @return The name of the web ACL. You cannot change the name of a web ACL after you create it.
+     */
+
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * <p>
+     * The name of the web ACL. You cannot change the name of a web ACL after you create it.
+     * </p>
+     * 
+     * @param name
+     *        The name of the web ACL. You cannot change the name of a web ACL after you create it.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withName(String name) {
+        setName(name);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether this is for an Amazon CloudFront distribution or for a regional application. A regional
+     * application can be an Application Load Balancer (ALB), an Amazon API Gateway REST API, an AppSync GraphQL API, an
+     * Amazon Cognito user pool, an App Runner service, or an Amazon Web Services Verified Access instance.
+     * </p>
+     * <p>
+     * To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * CLI - Specify the Region when you use the CloudFront scope: <code>--scope=CLOUDFRONT --region=us-east-1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * API and SDKs - For all calls, use the Region endpoint us-east-1.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param scope
+     *        Specifies whether this is for an Amazon CloudFront distribution or for a regional application. A regional
+     *        application can be an Application Load Balancer (ALB), an Amazon API Gateway REST API, an AppSync GraphQL
+     *        API, an Amazon Cognito user pool, an App Runner service, or an Amazon Web Services Verified Access
+     *        instance. </p>
+     *        <p>
+     *        To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        CLI - Specify the Region when you use the CloudFront scope:
+     *        <code>--scope=CLOUDFRONT --region=us-east-1</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        API and SDKs - For all calls, use the Region endpoint us-east-1.
+     *        </p>
+     *        </li>
+     * @see Scope
+     */
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    /**
+     * <p>
+     * Specifies whether this is for an Amazon CloudFront distribution or for a regional application. A regional
+     * application can be an Application Load Balancer (ALB), an Amazon API Gateway REST API, an AppSync GraphQL API, an
+     * Amazon Cognito user pool, an App Runner service, or an Amazon Web Services Verified Access instance.
+     * </p>
+     * <p>
+     * To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * CLI - Specify the Region when you use the CloudFront scope: <code>--scope=CLOUDFRONT --region=us-east-1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * API and SDKs - For all calls, use the Region endpoint us-east-1.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies whether this is for an Amazon CloudFront distribution or for a regional application. A regional
+     *         application can be an Application Load Balancer (ALB), an Amazon API Gateway REST API, an AppSync GraphQL
+     *         API, an Amazon Cognito user pool, an App Runner service, or an Amazon Web Services Verified Access
+     *         instance. </p>
+     *         <p>
+     *         To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         CLI - Specify the Region when you use the CloudFront scope:
+     *         <code>--scope=CLOUDFRONT --region=us-east-1</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         API and SDKs - For all calls, use the Region endpoint us-east-1.
+     *         </p>
+     *         </li>
+     * @see Scope
+     */
+
+    public String getScope() {
+        return this.scope;
+    }
+
+    /**
+     * <p>
+     * Specifies whether this is for an Amazon CloudFront distribution or for a regional application. A regional
+     * application can be an Application Load Balancer (ALB), an Amazon API Gateway REST API, an AppSync GraphQL API, an
+     * Amazon Cognito user pool, an App Runner service, or an Amazon Web Services Verified Access instance.
+     * </p>
+     * <p>
+     * To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * CLI - Specify the Region when you use the CloudFront scope: <code>--scope=CLOUDFRONT --region=us-east-1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * API and SDKs - For all calls, use the Region endpoint us-east-1.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param scope
+     *        Specifies whether this is for an Amazon CloudFront distribution or for a regional application. A regional
+     *        application can be an Application Load Balancer (ALB), an Amazon API Gateway REST API, an AppSync GraphQL
+     *        API, an Amazon Cognito user pool, an App Runner service, or an Amazon Web Services Verified Access
+     *        instance. </p>
+     *        <p>
+     *        To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        CLI - Specify the Region when you use the CloudFront scope:
+     *        <code>--scope=CLOUDFRONT --region=us-east-1</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        API and SDKs - For all calls, use the Region endpoint us-east-1.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Scope
+     */
+
+    public CreateWebACLRequest withScope(String scope) {
+        setScope(scope);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether this is for an Amazon CloudFront distribution or for a regional application. A regional
+     * application can be an Application Load Balancer (ALB), an Amazon API Gateway REST API, an AppSync GraphQL API, an
+     * Amazon Cognito user pool, an App Runner service, or an Amazon Web Services Verified Access instance.
+     * </p>
+     * <p>
+     * To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * CLI - Specify the Region when you use the CloudFront scope: <code>--scope=CLOUDFRONT --region=us-east-1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * API and SDKs - For all calls, use the Region endpoint us-east-1.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param scope
+     *        Specifies whether this is for an Amazon CloudFront distribution or for a regional application. A regional
+     *        application can be an Application Load Balancer (ALB), an Amazon API Gateway REST API, an AppSync GraphQL
+     *        API, an Amazon Cognito user pool, an App Runner service, or an Amazon Web Services Verified Access
+     *        instance. </p>
+     *        <p>
+     *        To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        CLI - Specify the Region when you use the CloudFront scope:
+     *        <code>--scope=CLOUDFRONT --region=us-east-1</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        API and SDKs - For all calls, use the Region endpoint us-east-1.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Scope
+     */
+
+    public CreateWebACLRequest withScope(Scope scope) {
+        this.scope = scope.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The action to perform if none of the <code>Rules</code> contained in the <code>WebACL</code> match.
+     * </p>
+     * 
+     * @param defaultAction
+     *        The action to perform if none of the <code>Rules</code> contained in the <code>WebACL</code> match.
+     */
+
+    public void setDefaultAction(DefaultAction defaultAction) {
+        this.defaultAction = defaultAction;
+    }
+
+    /**
+     * <p>
+     * The action to perform if none of the <code>Rules</code> contained in the <code>WebACL</code> match.
+     * </p>
+     * 
+     * @return The action to perform if none of the <code>Rules</code> contained in the <code>WebACL</code> match.
+     */
+
+    public DefaultAction getDefaultAction() {
+        return this.defaultAction;
+    }
+
+    /**
+     * <p>
+     * The action to perform if none of the <code>Rules</code> contained in the <code>WebACL</code> match.
+     * </p>
+     * 
+     * @param defaultAction
+     *        The action to perform if none of the <code>Rules</code> contained in the <code>WebACL</code> match.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withDefaultAction(DefaultAction defaultAction) {
+        setDefaultAction(defaultAction);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A description of the web ACL that helps with identification.
+     * </p>
+     * 
+     * @param description
+     *        A description of the web ACL that helps with identification.
+     */
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * <p>
+     * A description of the web ACL that helps with identification.
+     * </p>
+     * 
+     * @return A description of the web ACL that helps with identification.
+     */
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * <p>
+     * A description of the web ACL that helps with identification.
+     * </p>
+     * 
+     * @param description
+     *        A description of the web ACL that helps with identification.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withDescription(String description) {
+        setDescription(description);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The <a>Rule</a> statements used to identify the web requests that you want to manage. Each rule includes one
+     * top-level statement that WAF uses to identify matching web requests, and parameters that govern how WAF handles
+     * them.
+     * </p>
+     * 
+     * @return The <a>Rule</a> statements used to identify the web requests that you want to manage. Each rule includes
+     *         one top-level statement that WAF uses to identify matching web requests, and parameters that govern how
+     *         WAF handles them.
+     */
+
+    public java.util.List<Rule> getRules() {
+        return rules;
+    }
+
+    /**
+     * <p>
+     * The <a>Rule</a> statements used to identify the web requests that you want to manage. Each rule includes one
+     * top-level statement that WAF uses to identify matching web requests, and parameters that govern how WAF handles
+     * them.
+     * </p>
+     * 
+     * @param rules
+     *        The <a>Rule</a> statements used to identify the web requests that you want to manage. Each rule includes
+     *        one top-level statement that WAF uses to identify matching web requests, and parameters that govern how
+     *        WAF handles them.
+     */
+
+    public void setRules(java.util.Collection<Rule> rules) {
+        if (rules == null) {
+            this.rules = null;
+            return;
+        }
+
+        this.rules = new java.util.ArrayList<Rule>(rules);
+    }
+
+    /**
+     * <p>
+     * The <a>Rule</a> statements used to identify the web requests that you want to manage. Each rule includes one
+     * top-level statement that WAF uses to identify matching web requests, and parameters that govern how WAF handles
+     * them.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRules(java.util.Collection)} or {@link #withRules(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param rules
+     *        The <a>Rule</a> statements used to identify the web requests that you want to manage. Each rule includes
+     *        one top-level statement that WAF uses to identify matching web requests, and parameters that govern how
+     *        WAF handles them.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withRules(Rule... rules) {
+        if (this.rules == null) {
+            setRules(new java.util.ArrayList<Rule>(rules.length));
+        }
+        for (Rule ele : rules) {
+            this.rules.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The <a>Rule</a> statements used to identify the web requests that you want to manage. Each rule includes one
+     * top-level statement that WAF uses to identify matching web requests, and parameters that govern how WAF handles
+     * them.
+     * </p>
+     * 
+     * @param rules
+     *        The <a>Rule</a> statements used to identify the web requests that you want to manage. Each rule includes
+     *        one top-level statement that WAF uses to identify matching web requests, and parameters that govern how
+     *        WAF handles them.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withRules(java.util.Collection<Rule> rules) {
+        setRules(rules);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Defines and enables Amazon CloudWatch metrics and web request sample collection.
+     * </p>
+     * 
+     * @param visibilityConfig
+     *        Defines and enables Amazon CloudWatch metrics and web request sample collection.
+     */
+
+    public void setVisibilityConfig(VisibilityConfig visibilityConfig) {
+        this.visibilityConfig = visibilityConfig;
+    }
+
+    /**
+     * <p>
+     * Defines and enables Amazon CloudWatch metrics and web request sample collection.
+     * </p>
+     * 
+     * @return Defines and enables Amazon CloudWatch metrics and web request sample collection.
+     */
+
+    public VisibilityConfig getVisibilityConfig() {
+        return this.visibilityConfig;
+    }
+
+    /**
+     * <p>
+     * Defines and enables Amazon CloudWatch metrics and web request sample collection.
+     * </p>
+     * 
+     * @param visibilityConfig
+     *        Defines and enables Amazon CloudWatch metrics and web request sample collection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withVisibilityConfig(VisibilityConfig visibilityConfig) {
+        setVisibilityConfig(visibilityConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of key:value pairs to associate with the resource.
+     * </p>
+     * 
+     * @return An array of key:value pairs to associate with the resource.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * An array of key:value pairs to associate with the resource.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key:value pairs to associate with the resource.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * An array of key:value pairs to associate with the resource.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key:value pairs to associate with the resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of key:value pairs to associate with the resource.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key:value pairs to associate with the resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A map of custom response keys and content bodies. When you create a rule with a block action, you can send a
+     * custom response to the web request. You define these for the web ACL, and then use them in the rules and default
+     * actions that you define in the web ACL.
+     * </p>
+     * <p>
+     * For information about customizing web requests and responses, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-custom-request-response.html">Customizing web
+     * requests and responses in WAF</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * <p>
+     * For information about the limits on count and size for custom request and response settings, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF quotas</a> in the <i>WAF Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @return A map of custom response keys and content bodies. When you create a rule with a block action, you can
+     *         send a custom response to the web request. You define these for the web ACL, and then use them in the
+     *         rules and default actions that you define in the web ACL. </p>
+     *         <p>
+     *         For information about customizing web requests and responses, see <a
+     *         href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-custom-request-response.html">Customizing
+     *         web requests and responses in WAF</a> in the <i>WAF Developer Guide</i>.
+     *         </p>
+     *         <p>
+     *         For information about the limits on count and size for custom request and response settings, see <a
+     *         href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF quotas</a> in the <i>WAF
+     *         Developer Guide</i>.
+     */
+
+    public java.util.Map<String, CustomResponseBody> getCustomResponseBodies() {
+        return customResponseBodies;
+    }
+
+    /**
+     * <p>
+     * A map of custom response keys and content bodies. When you create a rule with a block action, you can send a
+     * custom response to the web request. You define these for the web ACL, and then use them in the rules and default
+     * actions that you define in the web ACL.
+     * </p>
+     * <p>
+     * For information about customizing web requests and responses, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-custom-request-response.html">Customizing web
+     * requests and responses in WAF</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * <p>
+     * For information about the limits on count and size for custom request and response settings, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF quotas</a> in the <i>WAF Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @param customResponseBodies
+     *        A map of custom response keys and content bodies. When you create a rule with a block action, you can send
+     *        a custom response to the web request. You define these for the web ACL, and then use them in the rules and
+     *        default actions that you define in the web ACL. </p>
+     *        <p>
+     *        For information about customizing web requests and responses, see <a
+     *        href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-custom-request-response.html">Customizing
+     *        web requests and responses in WAF</a> in the <i>WAF Developer Guide</i>.
+     *        </p>
+     *        <p>
+     *        For information about the limits on count and size for custom request and response settings, see <a
+     *        href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF quotas</a> in the <i>WAF
+     *        Developer Guide</i>.
+     */
+
+    public void setCustomResponseBodies(java.util.Map<String, CustomResponseBody> customResponseBodies) {
+        this.customResponseBodies = customResponseBodies;
+    }
+
+    /**
+     * <p>
+     * A map of custom response keys and content bodies. When you create a rule with a block action, you can send a
+     * custom response to the web request. You define these for the web ACL, and then use them in the rules and default
+     * actions that you define in the web ACL.
+     * </p>
+     * <p>
+     * For information about customizing web requests and responses, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-custom-request-response.html">Customizing web
+     * requests and responses in WAF</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * <p>
+     * For information about the limits on count and size for custom request and response settings, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF quotas</a> in the <i>WAF Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @param customResponseBodies
+     *        A map of custom response keys and content bodies. When you create a rule with a block action, you can send
+     *        a custom response to the web request. You define these for the web ACL, and then use them in the rules and
+     *        default actions that you define in the web ACL. </p>
+     *        <p>
+     *        For information about customizing web requests and responses, see <a
+     *        href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-custom-request-response.html">Customizing
+     *        web requests and responses in WAF</a> in the <i>WAF Developer Guide</i>.
+     *        </p>
+     *        <p>
+     *        For information about the limits on count and size for custom request and response settings, see <a
+     *        href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF quotas</a> in the <i>WAF
+     *        Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withCustomResponseBodies(java.util.Map<String, CustomResponseBody> customResponseBodies) {
+        setCustomResponseBodies(customResponseBodies);
+        return this;
+    }
+
+    /**
+     * Add a single CustomResponseBodies entry
+     *
+     * @see CreateWebACLRequest#withCustomResponseBodies
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest addCustomResponseBodiesEntry(String key, CustomResponseBody value) {
+        if (null == this.customResponseBodies) {
+            this.customResponseBodies = new java.util.HashMap<String, CustomResponseBody>();
+        }
+        if (this.customResponseBodies.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.customResponseBodies.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into CustomResponseBodies.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest clearCustomResponseBodiesEntries() {
+        this.customResponseBodies = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies how WAF should handle <code>CAPTCHA</code> evaluations for rules that don't have their own
+     * <code>CaptchaConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     * <code>CaptchaConfig</code>.
+     * </p>
+     * 
+     * @param captchaConfig
+     *        Specifies how WAF should handle <code>CAPTCHA</code> evaluations for rules that don't have their own
+     *        <code>CaptchaConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     *        <code>CaptchaConfig</code>.
+     */
+
+    public void setCaptchaConfig(CaptchaConfig captchaConfig) {
+        this.captchaConfig = captchaConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies how WAF should handle <code>CAPTCHA</code> evaluations for rules that don't have their own
+     * <code>CaptchaConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     * <code>CaptchaConfig</code>.
+     * </p>
+     * 
+     * @return Specifies how WAF should handle <code>CAPTCHA</code> evaluations for rules that don't have their own
+     *         <code>CaptchaConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     *         <code>CaptchaConfig</code>.
+     */
+
+    public CaptchaConfig getCaptchaConfig() {
+        return this.captchaConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies how WAF should handle <code>CAPTCHA</code> evaluations for rules that don't have their own
+     * <code>CaptchaConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     * <code>CaptchaConfig</code>.
+     * </p>
+     * 
+     * @param captchaConfig
+     *        Specifies how WAF should handle <code>CAPTCHA</code> evaluations for rules that don't have their own
+     *        <code>CaptchaConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     *        <code>CaptchaConfig</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withCaptchaConfig(CaptchaConfig captchaConfig) {
+        setCaptchaConfig(captchaConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies how WAF should handle challenge evaluations for rules that don't have their own
+     * <code>ChallengeConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     * <code>ChallengeConfig</code>.
+     * </p>
+     * 
+     * @param challengeConfig
+     *        Specifies how WAF should handle challenge evaluations for rules that don't have their own
+     *        <code>ChallengeConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     *        <code>ChallengeConfig</code>.
+     */
+
+    public void setChallengeConfig(ChallengeConfig challengeConfig) {
+        this.challengeConfig = challengeConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies how WAF should handle challenge evaluations for rules that don't have their own
+     * <code>ChallengeConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     * <code>ChallengeConfig</code>.
+     * </p>
+     * 
+     * @return Specifies how WAF should handle challenge evaluations for rules that don't have their own
+     *         <code>ChallengeConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     *         <code>ChallengeConfig</code>.
+     */
+
+    public ChallengeConfig getChallengeConfig() {
+        return this.challengeConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies how WAF should handle challenge evaluations for rules that don't have their own
+     * <code>ChallengeConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     * <code>ChallengeConfig</code>.
+     * </p>
+     * 
+     * @param challengeConfig
+     *        Specifies how WAF should handle challenge evaluations for rules that don't have their own
+     *        <code>ChallengeConfig</code> settings. If you don't specify this, WAF uses its default settings for
+     *        <code>ChallengeConfig</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withChallengeConfig(ChallengeConfig challengeConfig) {
+        setChallengeConfig(challengeConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the domains that WAF should accept in a web request token. This enables the use of tokens across
+     * multiple protected websites. When WAF provides a token, it uses the domain of the Amazon Web Services resource
+     * that the web ACL is protecting. If you don't specify a list of token domains, WAF accepts tokens only for the
+     * domain of the protected resource. With a token domain list, WAF accepts the resource's host domain plus all
+     * domains in the token domain list, including their prefixed subdomains.
+     * </p>
+     * <p>
+     * Example JSON: <code>"TokenDomains": { "mywebsite.com", "myotherwebsite.com" }</code>
+     * </p>
+     * <p>
+     * Public suffixes aren't allowed. For example, you can't use <code>gov.au</code> or <code>co.uk</code> as token
+     * domains.
+     * </p>
+     * 
+     * @return Specifies the domains that WAF should accept in a web request token. This enables the use of tokens
+     *         across multiple protected websites. When WAF provides a token, it uses the domain of the Amazon Web
+     *         Services resource that the web ACL is protecting. If you don't specify a list of token domains, WAF
+     *         accepts tokens only for the domain of the protected resource. With a token domain list, WAF accepts the
+     *         resource's host domain plus all domains in the token domain list, including their prefixed
+     *         subdomains.</p>
+     *         <p>
+     *         Example JSON: <code>"TokenDomains": { "mywebsite.com", "myotherwebsite.com" }</code>
+     *         </p>
+     *         <p>
+     *         Public suffixes aren't allowed. For example, you can't use <code>gov.au</code> or <code>co.uk</code> as
+     *         token domains.
+     */
+
+    public java.util.List<String> getTokenDomains() {
+        return tokenDomains;
+    }
+
+    /**
+     * <p>
+     * Specifies the domains that WAF should accept in a web request token. This enables the use of tokens across
+     * multiple protected websites. When WAF provides a token, it uses the domain of the Amazon Web Services resource
+     * that the web ACL is protecting. If you don't specify a list of token domains, WAF accepts tokens only for the
+     * domain of the protected resource. With a token domain list, WAF accepts the resource's host domain plus all
+     * domains in the token domain list, including their prefixed subdomains.
+     * </p>
+     * <p>
+     * Example JSON: <code>"TokenDomains": { "mywebsite.com", "myotherwebsite.com" }</code>
+     * </p>
+     * <p>
+     * Public suffixes aren't allowed. For example, you can't use <code>gov.au</code> or <code>co.uk</code> as token
+     * domains.
+     * </p>
+     * 
+     * @param tokenDomains
+     *        Specifies the domains that WAF should accept in a web request token. This enables the use of tokens across
+     *        multiple protected websites. When WAF provides a token, it uses the domain of the Amazon Web Services
+     *        resource that the web ACL is protecting. If you don't specify a list of token domains, WAF accepts tokens
+     *        only for the domain of the protected resource. With a token domain list, WAF accepts the resource's host
+     *        domain plus all domains in the token domain list, including their prefixed subdomains.</p>
+     *        <p>
+     *        Example JSON: <code>"TokenDomains": { "mywebsite.com", "myotherwebsite.com" }</code>
+     *        </p>
+     *        <p>
+     *        Public suffixes aren't allowed. For example, you can't use <code>gov.au</code> or <code>co.uk</code> as
+     *        token domains.
+     */
+
+    public void setTokenDomains(java.util.Collection<String> tokenDomains) {
+        if (tokenDomains == null) {
+            this.tokenDomains = null;
+            return;
+        }
+
+        this.tokenDomains = new java.util.ArrayList<String>(tokenDomains);
+    }
+
+    /**
+     * <p>
+     * Specifies the domains that WAF should accept in a web request token. This enables the use of tokens across
+     * multiple protected websites. When WAF provides a token, it uses the domain of the Amazon Web Services resource
+     * that the web ACL is protecting. If you don't specify a list of token domains, WAF accepts tokens only for the
+     * domain of the protected resource. With a token domain list, WAF accepts the resource's host domain plus all
+     * domains in the token domain list, including their prefixed subdomains.
+     * </p>
+     * <p>
+     * Example JSON: <code>"TokenDomains": { "mywebsite.com", "myotherwebsite.com" }</code>
+     * </p>
+     * <p>
+     * Public suffixes aren't allowed. For example, you can't use <code>gov.au</code> or <code>co.uk</code> as token
+     * domains.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTokenDomains(java.util.Collection)} or {@link #withTokenDomains(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param tokenDomains
+     *        Specifies the domains that WAF should accept in a web request token. This enables the use of tokens across
+     *        multiple protected websites. When WAF provides a token, it uses the domain of the Amazon Web Services
+     *        resource that the web ACL is protecting. If you don't specify a list of token domains, WAF accepts tokens
+     *        only for the domain of the protected resource. With a token domain list, WAF accepts the resource's host
+     *        domain plus all domains in the token domain list, including their prefixed subdomains.</p>
+     *        <p>
+     *        Example JSON: <code>"TokenDomains": { "mywebsite.com", "myotherwebsite.com" }</code>
+     *        </p>
+     *        <p>
+     *        Public suffixes aren't allowed. For example, you can't use <code>gov.au</code> or <code>co.uk</code> as
+     *        token domains.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withTokenDomains(String... tokenDomains) {
+        if (this.tokenDomains == null) {
+            setTokenDomains(new java.util.ArrayList<String>(tokenDomains.length));
+        }
+        for (String ele : tokenDomains) {
+            this.tokenDomains.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the domains that WAF should accept in a web request token. This enables the use of tokens across
+     * multiple protected websites. When WAF provides a token, it uses the domain of the Amazon Web Services resource
+     * that the web ACL is protecting. If you don't specify a list of token domains, WAF accepts tokens only for the
+     * domain of the protected resource. With a token domain list, WAF accepts the resource's host domain plus all
+     * domains in the token domain list, including their prefixed subdomains.
+     * </p>
+     * <p>
+     * Example JSON: <code>"TokenDomains": { "mywebsite.com", "myotherwebsite.com" }</code>
+     * </p>
+     * <p>
+     * Public suffixes aren't allowed. For example, you can't use <code>gov.au</code> or <code>co.uk</code> as token
+     * domains.
+     * </p>
+     * 
+     * @param tokenDomains
+     *        Specifies the domains that WAF should accept in a web request token. This enables the use of tokens across
+     *        multiple protected websites. When WAF provides a token, it uses the domain of the Amazon Web Services
+     *        resource that the web ACL is protecting. If you don't specify a list of token domains, WAF accepts tokens
+     *        only for the domain of the protected resource. With a token domain list, WAF accepts the resource's host
+     *        domain plus all domains in the token domain list, including their prefixed subdomains.</p>
+     *        <p>
+     *        Example JSON: <code>"TokenDomains": { "mywebsite.com", "myotherwebsite.com" }</code>
+     *        </p>
+     *        <p>
+     *        Public suffixes aren't allowed. For example, you can't use <code>gov.au</code> or <code>co.uk</code> as
+     *        token domains.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withTokenDomains(java.util.Collection<String> tokenDomains) {
+        setTokenDomains(tokenDomains);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies custom configurations for the associations between the web ACL and protected resources.
+     * </p>
+     * <p>
+     * Use this to customize the maximum size of the request body that your protected resources forward to WAF for
+     * inspection. You can customize this setting for CloudFront, API Gateway, Amazon Cognito, App Runner, or Verified
+     * Access resources. The default setting is 16 KB (16,384 bytes).
+     * </p>
+     * <note>
+     * <p>
+     * You are charged additional fees when your protected resources forward body sizes that are larger than the
+     * default. For more information, see <a href="http://aws.amazon.com/waf/pricing/">WAF Pricing</a>.
+     * </p>
+     * </note>
+     * <p>
+     * For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     * </p>
+     * 
+     * @param associationConfig
+     *        Specifies custom configurations for the associations between the web ACL and protected resources. </p>
+     *        <p>
+     *        Use this to customize the maximum size of the request body that your protected resources forward to WAF
+     *        for inspection. You can customize this setting for CloudFront, API Gateway, Amazon Cognito, App Runner, or
+     *        Verified Access resources. The default setting is 16 KB (16,384 bytes).
+     *        </p>
+     *        <note>
+     *        <p>
+     *        You are charged additional fees when your protected resources forward body sizes that are larger than the
+     *        default. For more information, see <a href="http://aws.amazon.com/waf/pricing/">WAF Pricing</a>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     */
+
+    public void setAssociationConfig(AssociationConfig associationConfig) {
+        this.associationConfig = associationConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies custom configurations for the associations between the web ACL and protected resources.
+     * </p>
+     * <p>
+     * Use this to customize the maximum size of the request body that your protected resources forward to WAF for
+     * inspection. You can customize this setting for CloudFront, API Gateway, Amazon Cognito, App Runner, or Verified
+     * Access resources. The default setting is 16 KB (16,384 bytes).
+     * </p>
+     * <note>
+     * <p>
+     * You are charged additional fees when your protected resources forward body sizes that are larger than the
+     * default. For more information, see <a href="http://aws.amazon.com/waf/pricing/">WAF Pricing</a>.
+     * </p>
+     * </note>
+     * <p>
+     * For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     * </p>
+     * 
+     * @return Specifies custom configurations for the associations between the web ACL and protected resources. </p>
+     *         <p>
+     *         Use this to customize the maximum size of the request body that your protected resources forward to WAF
+     *         for inspection. You can customize this setting for CloudFront, API Gateway, Amazon Cognito, App Runner,
+     *         or Verified Access resources. The default setting is 16 KB (16,384 bytes).
+     *         </p>
+     *         <note>
+     *         <p>
+     *         You are charged additional fees when your protected resources forward body sizes that are larger than the
+     *         default. For more information, see <a href="http://aws.amazon.com/waf/pricing/">WAF Pricing</a>.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     */
+
+    public AssociationConfig getAssociationConfig() {
+        return this.associationConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies custom configurations for the associations between the web ACL and protected resources.
+     * </p>
+     * <p>
+     * Use this to customize the maximum size of the request body that your protected resources forward to WAF for
+     * inspection. You can customize this setting for CloudFront, API Gateway, Amazon Cognito, App Runner, or Verified
+     * Access resources. The default setting is 16 KB (16,384 bytes).
+     * </p>
+     * <note>
+     * <p>
+     * You are charged additional fees when your protected resources forward body sizes that are larger than the
+     * default. For more information, see <a href="http://aws.amazon.com/waf/pricing/">WAF Pricing</a>.
+     * </p>
+     * </note>
+     * <p>
+     * For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     * </p>
+     * 
+     * @param associationConfig
+     *        Specifies custom configurations for the associations between the web ACL and protected resources. </p>
+     *        <p>
+     *        Use this to customize the maximum size of the request body that your protected resources forward to WAF
+     *        for inspection. You can customize this setting for CloudFront, API Gateway, Amazon Cognito, App Runner, or
+     *        Verified Access resources. The default setting is 16 KB (16,384 bytes).
+     *        </p>
+     *        <note>
+     *        <p>
+     *        You are charged additional fees when your protected resources forward body sizes that are larger than the
+     *        default. For more information, see <a href="http://aws.amazon.com/waf/pricing/">WAF Pricing</a>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWebACLRequest withAssociationConfig(AssociationConfig associationConfig) {
+        setAssociationConfig(associationConfig);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getName() != null)
+            sb.append("Name: ").append(getName()).append(",");
+        if (getScope() != null)
+            sb.append("Scope: ").append(getScope()).append(",");
+        if (getDefaultAction() != null)
+            sb.append("DefaultAction: ").append(getDefaultAction()).append(",");
+        if (getDescription() != null)
+            sb.append("Description: ").append(getDescription()).append(",");
+        if (getRules() != null)
+            sb.append("Rules: ").append(getRules()).append(",");
+        if (getVisibilityConfig() != null)
+            sb.append("VisibilityConfig: ").append(getVisibilityConfig()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getCustomResponseBodies() != null)
+            sb.append("CustomResponseBodies: ").append(getCustomResponseBodies()).append(",");
+        if (getCaptchaConfig() != null)
+            sb.append("CaptchaConfig: ").append(getCaptchaConfig()).append(",");
+        if (getChallengeConfig() != null)
+            sb.append("ChallengeConfig: ").append(getChallengeConfig()).append(",");
+        if (getTokenDomains() != null)
+            sb.append("TokenDomains: ").append(getTokenDomains()).append(",");
+        if (getAssociationConfig() != null)
+            sb.append("AssociationConfig: ").append(getAssociationConfig());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof CreateWebACLRequest == false)
+            return false;
+        CreateWebACLRequest other = (CreateWebACLRequest) obj;
+        if (other.getName() == null ^ this.getName() == null)
+            return false;
+        if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getScope() == null ^ this.getScope() == null)
+            return false;
+        if (other.getScope() != null && other.getScope().equals(this.getScope()) == false)
+            return false;
+        if (other.getDefaultAction() == null ^ this.getDefaultAction() == null)
+            return false;
+        if (other.getDefaultAction() != null && other.getDefaultAction().equals(this.getDefaultAction()) == false)
+            return false;
+        if (other.getDescription() == null ^ this.getDescription() == null)
+            return false;
+        if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
+            return false;
+        if (other.getRules() == null ^ this.getRules() == null)
+            return false;
+        if (other.getRules() != null && other.getRules().equals(this.getRules()) == false)
+            return false;
+        if (other.getVisibilityConfig() == null ^ this.getVisibilityConfig() == null)
+            return false;
+        if (other.getVisibilityConfig() != null && other.getVisibilityConfig().equals(this.getVisibilityConfig()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getCustomResponseBodies() == null ^ this.getCustomResponseBodies() == null)
+            return false;
+        if (other.getCustomResponseBodies() != null && other.getCustomResponseBodies().equals(this.getCustomResponseBodies()) == false)
+            return false;
+        if (other.getCaptchaConfig() == null ^ this.getCaptchaConfig() == null)
+            return false;
+        if (other.getCaptchaConfig() != null && other.getCaptchaConfig().equals(this.getCaptchaConfig()) == false)
+            return false;
+        if (other.getChallengeConfig() == null ^ this.getChallengeConfig() == null)
+            return false;
+        if (other.getChallengeConfig() != null && other.getChallengeConfig().equals(this.getChallengeConfig()) == false)
+            return false;
+        if (other.getTokenDomains() == null ^ this.getTokenDomains() == null)
+            return false;
+        if (other.getTokenDomains() != null && other.getTokenDomains().equals(this.getTokenDomains()) == false)
+            return false;
+        if (other.getAssociationConfig() == null ^ this.getAssociationConfig() == null)
+            return false;
+        if (other.getAssociationConfig() != null && other.getAssociationConfig().equals(this.getAssociationConfig()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getScope() == null) ? 0 : getScope().hashCode());
+        hashCode = prime * hashCode + ((getDefaultAction() == null) ? 0 : getDefaultAction().hashCode());
+        hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getRules() == null) ? 0 : getRules().hashCode());
+        hashCode = prime * hashCode + ((getVisibilityConfig() == null) ? 0 : getVisibilityConfig().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getCustomResponseBodies() == null) ? 0 : getCustomResponseBodies().hashCode());
+        hashCode = prime * hashCode + ((getCaptchaConfig() == null) ? 0 : getCaptchaConfig().hashCode());
+        hashCode = prime * hashCode + ((getChallengeConfig() == null) ? 0 : getChallengeConfig().hashCode());
+        hashCode = prime * hashCode + ((getTokenDomains() == null) ? 0 : getTokenDomains().hashCode());
+        hashCode = prime * hashCode + ((getAssociationConfig() == null) ? 0 : getAssociationConfig().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public CreateWebACLRequest clone() {
+        return (CreateWebACLRequest) super.clone();
+    }
+
+}

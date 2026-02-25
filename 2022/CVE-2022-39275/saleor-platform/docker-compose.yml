@@ -1,0 +1,163 @@
+version: "3.4"
+
+services:
+  api:
+    ports:
+      - 8000:8000
+    build:
+      context: ./saleor
+      dockerfile: ./Dockerfile
+      args:
+        STATIC_URL: "/static/"
+    restart: unless-stopped
+    networks:
+      - saleor-backend-tier
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+      - redis
+      - jaeger
+    volumes:
+      - ./saleor/saleor/:/app/saleor:Z
+      - ./saleor/templates/:/app/templates:Z
+      - ./saleor/tests/:/app/tests
+      # shared volume between worker and api for media
+      - saleor-media:/app/media
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file:
+      - common.env
+      - backend.env
+    environment:
+      - JAEGER_AGENT_HOST=jaeger
+      - STOREFRONT_URL=http://localhost:3000/
+      - DASHBOARD_URL=http://localhost:9000/
+      - ALLOWED_HOSTS=localhost,api
+
+  react-storefront:
+    build:
+      context: ./react-storefront
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    networks:
+      - saleor-backend-tier
+    depends_on:
+      - api
+    volumes:
+      - ./react-storefront/:/app:cached
+      # do not share node_modules/ between host and containers (pnpm dependencies were download when image was built)
+      - /app/node_modules/
+      - /app/apps/checkout/node_modules/
+      - /app/apps/saleor-app-checkout/node_modules/
+      - /app/apps/storefront/node_modules/
+      - /app/packages/checkout-common/node_modules/
+      - /app/packages/checkout-storefront/node_modules/
+      - /app/packages/env-vars/node_modules/
+      - /app/packages/eslint-config-checkout/node_modules/
+      - /app/packages/eslint-config-storefront/node_modules/
+      - /app/packages/tsconfig/node_modules/
+      - /app/packages/ui-kit/node_modules/
+      # turborepo relies on git to calculate global hash, but because here react-storefront is a submodule
+      # so we cannot rely on git (because main repo .git directory is not available from docker container)
+      # therefore we hide .git file before container and turborepo fallback to (less effective) hasing mechanism
+      # without involvment of git
+      - /dev/null:/app/.git
+    # Nginx is used to proxy SSR requests thru docker networking
+    command: sh -c '(nginx &) && pnpm turbo run dev --parallel --cache-dir=.turbo'
+    environment:
+      - NEXT_PUBLIC_API_URI=http://localhost:8000/graphql/
+      - NEXT_PUBLIC_HOMEPAGE_MENU=navbar
+
+  dashboard:
+    build:
+      context: ./saleor-dashboard
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - 9000:9000
+    restart: unless-stopped
+    volumes:
+      - ./saleor-dashboard/:/app:cached
+      - /app/node_modules/
+    command: npm start -- --host 0.0.0.0
+
+  db:
+    image: library/postgres:13-alpine
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    networks:
+      - saleor-backend-tier
+    volumes:
+      - saleor-db:/var/lib/postgresql/data
+      - ./replica_user.sql:/docker-entrypoint-initdb.d/replica_user.sql
+    environment:
+      - POSTGRES_USER=saleor
+      - POSTGRES_PASSWORD=saleor
+
+  redis:
+    image: library/redis:5.0-alpine
+    ports:
+      - 6379:6379
+    restart: unless-stopped
+    networks:
+      - saleor-backend-tier
+    volumes:
+      - saleor-redis:/data
+
+  worker:
+    build:
+      context: ./saleor
+      dockerfile: ./Dockerfile
+      args:
+        STATIC_URL: "/static/"
+    command: celery -A saleor --app=saleor.celeryconf:app worker --loglevel=info -B
+    restart: unless-stopped
+    networks:
+      - saleor-backend-tier
+    env_file:
+      - common.env
+      - backend.env
+    depends_on:
+      - redis
+      - mailhog
+    volumes:
+      - ./saleor/saleor/:/app/saleor:Z,cached
+      - ./saleor/templates/:/app/templates:Z,cached
+      # shared volume between worker and api for media
+      - saleor-media:/app/media
+
+  jaeger:
+    image: jaegertracing/all-in-one
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
+      - "9411:9411"
+    restart: unless-stopped
+    networks:
+      - saleor-backend-tier
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui. Visit http://localhost:8025/ to check emails
+    restart: unless-stopped
+    networks:
+      - saleor-backend-tier
+
+volumes:
+  saleor-db:
+    driver: local
+  saleor-redis:
+    driver: local
+  saleor-media:
+
+networks:
+  saleor-backend-tier:
+    driver: bridge

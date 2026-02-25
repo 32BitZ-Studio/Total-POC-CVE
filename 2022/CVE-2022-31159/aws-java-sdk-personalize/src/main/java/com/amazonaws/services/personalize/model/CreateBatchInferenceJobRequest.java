@@ -1,0 +1,796 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.personalize.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateBatchInferenceJob"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class CreateBatchInferenceJobRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The name of the batch inference job to create.
+     * </p>
+     */
+    private String jobName;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the solution version that will be used to generate the batch inference
+     * recommendations.
+     * </p>
+     */
+    private String solutionVersionArn;
+    /**
+     * <p>
+     * The ARN of the filter to apply to the batch inference job. For more information on using filters, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/filter-batch.html">Filtering batch recommendations</a>.
+     * </p>
+     */
+    private String filterArn;
+    /**
+     * <p>
+     * The number of recommendations to retrieve.
+     * </p>
+     */
+    private Integer numResults;
+    /**
+     * <p>
+     * The Amazon S3 path that leads to the input file to base your recommendations on. The input material must be in
+     * JSON format.
+     * </p>
+     */
+    private BatchInferenceJobInput jobInput;
+    /**
+     * <p>
+     * The path to the Amazon S3 bucket where the job's output will be stored.
+     * </p>
+     */
+    private BatchInferenceJobOutput jobOutput;
+    /**
+     * <p>
+     * The ARN of the Amazon Identity and Access Management role that has permissions to read and write to your input
+     * and output Amazon S3 buckets respectively.
+     * </p>
+     */
+    private String roleArn;
+    /**
+     * <p>
+     * The configuration details of a batch inference job.
+     * </p>
+     */
+    private BatchInferenceJobConfig batchInferenceJobConfig;
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the batch inference job.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * The mode of the batch inference job. To generate descriptive themes for groups of similar items, set the job mode
+     * to <code>THEME_GENERATION</code>. If you don't want to generate themes, use the default
+     * <code>BATCH_INFERENCE</code>.
+     * </p>
+     * <p>
+     * When you get batch recommendations with themes, you will incur additional costs. For more information, see <a
+     * href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize pricing</a>.
+     * </p>
+     */
+    private String batchInferenceJobMode;
+    /**
+     * <p>
+     * For theme generation jobs, specify the name of the column in your Items dataset that contains each item's name.
+     * </p>
+     */
+    private ThemeGenerationConfig themeGenerationConfig;
+
+    /**
+     * <p>
+     * The name of the batch inference job to create.
+     * </p>
+     * 
+     * @param jobName
+     *        The name of the batch inference job to create.
+     */
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
+    }
+
+    /**
+     * <p>
+     * The name of the batch inference job to create.
+     * </p>
+     * 
+     * @return The name of the batch inference job to create.
+     */
+
+    public String getJobName() {
+        return this.jobName;
+    }
+
+    /**
+     * <p>
+     * The name of the batch inference job to create.
+     * </p>
+     * 
+     * @param jobName
+     *        The name of the batch inference job to create.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBatchInferenceJobRequest withJobName(String jobName) {
+        setJobName(jobName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the solution version that will be used to generate the batch inference
+     * recommendations.
+     * </p>
+     * 
+     * @param solutionVersionArn
+     *        The Amazon Resource Name (ARN) of the solution version that will be used to generate the batch inference
+     *        recommendations.
+     */
+
+    public void setSolutionVersionArn(String solutionVersionArn) {
+        this.solutionVersionArn = solutionVersionArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the solution version that will be used to generate the batch inference
+     * recommendations.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the solution version that will be used to generate the batch inference
+     *         recommendations.
+     */
+
+    public String getSolutionVersionArn() {
+        return this.solutionVersionArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the solution version that will be used to generate the batch inference
+     * recommendations.
+     * </p>
+     * 
+     * @param solutionVersionArn
+     *        The Amazon Resource Name (ARN) of the solution version that will be used to generate the batch inference
+     *        recommendations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBatchInferenceJobRequest withSolutionVersionArn(String solutionVersionArn) {
+        setSolutionVersionArn(solutionVersionArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the filter to apply to the batch inference job. For more information on using filters, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/filter-batch.html">Filtering batch recommendations</a>.
+     * </p>
+     * 
+     * @param filterArn
+     *        The ARN of the filter to apply to the batch inference job. For more information on using filters, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/filter-batch.html">Filtering batch
+     *        recommendations</a>.
+     */
+
+    public void setFilterArn(String filterArn) {
+        this.filterArn = filterArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the filter to apply to the batch inference job. For more information on using filters, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/filter-batch.html">Filtering batch recommendations</a>.
+     * </p>
+     * 
+     * @return The ARN of the filter to apply to the batch inference job. For more information on using filters, see <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/filter-batch.html">Filtering batch
+     *         recommendations</a>.
+     */
+
+    public String getFilterArn() {
+        return this.filterArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the filter to apply to the batch inference job. For more information on using filters, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/filter-batch.html">Filtering batch recommendations</a>.
+     * </p>
+     * 
+     * @param filterArn
+     *        The ARN of the filter to apply to the batch inference job. For more information on using filters, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/filter-batch.html">Filtering batch
+     *        recommendations</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBatchInferenceJobRequest withFilterArn(String filterArn) {
+        setFilterArn(filterArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of recommendations to retrieve.
+     * </p>
+     * 
+     * @param numResults
+     *        The number of recommendations to retrieve.
+     */
+
+    public void setNumResults(Integer numResults) {
+        this.numResults = numResults;
+    }
+
+    /**
+     * <p>
+     * The number of recommendations to retrieve.
+     * </p>
+     * 
+     * @return The number of recommendations to retrieve.
+     */
+
+    public Integer getNumResults() {
+        return this.numResults;
+    }
+
+    /**
+     * <p>
+     * The number of recommendations to retrieve.
+     * </p>
+     * 
+     * @param numResults
+     *        The number of recommendations to retrieve.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBatchInferenceJobRequest withNumResults(Integer numResults) {
+        setNumResults(numResults);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon S3 path that leads to the input file to base your recommendations on. The input material must be in
+     * JSON format.
+     * </p>
+     * 
+     * @param jobInput
+     *        The Amazon S3 path that leads to the input file to base your recommendations on. The input material must
+     *        be in JSON format.
+     */
+
+    public void setJobInput(BatchInferenceJobInput jobInput) {
+        this.jobInput = jobInput;
+    }
+
+    /**
+     * <p>
+     * The Amazon S3 path that leads to the input file to base your recommendations on. The input material must be in
+     * JSON format.
+     * </p>
+     * 
+     * @return The Amazon S3 path that leads to the input file to base your recommendations on. The input material must
+     *         be in JSON format.
+     */
+
+    public BatchInferenceJobInput getJobInput() {
+        return this.jobInput;
+    }
+
+    /**
+     * <p>
+     * The Amazon S3 path that leads to the input file to base your recommendations on. The input material must be in
+     * JSON format.
+     * </p>
+     * 
+     * @param jobInput
+     *        The Amazon S3 path that leads to the input file to base your recommendations on. The input material must
+     *        be in JSON format.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBatchInferenceJobRequest withJobInput(BatchInferenceJobInput jobInput) {
+        setJobInput(jobInput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The path to the Amazon S3 bucket where the job's output will be stored.
+     * </p>
+     * 
+     * @param jobOutput
+     *        The path to the Amazon S3 bucket where the job's output will be stored.
+     */
+
+    public void setJobOutput(BatchInferenceJobOutput jobOutput) {
+        this.jobOutput = jobOutput;
+    }
+
+    /**
+     * <p>
+     * The path to the Amazon S3 bucket where the job's output will be stored.
+     * </p>
+     * 
+     * @return The path to the Amazon S3 bucket where the job's output will be stored.
+     */
+
+    public BatchInferenceJobOutput getJobOutput() {
+        return this.jobOutput;
+    }
+
+    /**
+     * <p>
+     * The path to the Amazon S3 bucket where the job's output will be stored.
+     * </p>
+     * 
+     * @param jobOutput
+     *        The path to the Amazon S3 bucket where the job's output will be stored.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBatchInferenceJobRequest withJobOutput(BatchInferenceJobOutput jobOutput) {
+        setJobOutput(jobOutput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the Amazon Identity and Access Management role that has permissions to read and write to your input
+     * and output Amazon S3 buckets respectively.
+     * </p>
+     * 
+     * @param roleArn
+     *        The ARN of the Amazon Identity and Access Management role that has permissions to read and write to your
+     *        input and output Amazon S3 buckets respectively.
+     */
+
+    public void setRoleArn(String roleArn) {
+        this.roleArn = roleArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the Amazon Identity and Access Management role that has permissions to read and write to your input
+     * and output Amazon S3 buckets respectively.
+     * </p>
+     * 
+     * @return The ARN of the Amazon Identity and Access Management role that has permissions to read and write to your
+     *         input and output Amazon S3 buckets respectively.
+     */
+
+    public String getRoleArn() {
+        return this.roleArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the Amazon Identity and Access Management role that has permissions to read and write to your input
+     * and output Amazon S3 buckets respectively.
+     * </p>
+     * 
+     * @param roleArn
+     *        The ARN of the Amazon Identity and Access Management role that has permissions to read and write to your
+     *        input and output Amazon S3 buckets respectively.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBatchInferenceJobRequest withRoleArn(String roleArn) {
+        setRoleArn(roleArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration details of a batch inference job.
+     * </p>
+     * 
+     * @param batchInferenceJobConfig
+     *        The configuration details of a batch inference job.
+     */
+
+    public void setBatchInferenceJobConfig(BatchInferenceJobConfig batchInferenceJobConfig) {
+        this.batchInferenceJobConfig = batchInferenceJobConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration details of a batch inference job.
+     * </p>
+     * 
+     * @return The configuration details of a batch inference job.
+     */
+
+    public BatchInferenceJobConfig getBatchInferenceJobConfig() {
+        return this.batchInferenceJobConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration details of a batch inference job.
+     * </p>
+     * 
+     * @param batchInferenceJobConfig
+     *        The configuration details of a batch inference job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBatchInferenceJobRequest withBatchInferenceJobConfig(BatchInferenceJobConfig batchInferenceJobConfig) {
+        setBatchInferenceJobConfig(batchInferenceJobConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the batch inference job.
+     * </p>
+     * 
+     * @return A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *         apply to the batch inference job.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the batch inference job.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the batch inference job.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the batch inference job.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the batch inference job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBatchInferenceJobRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the batch inference job.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the batch inference job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBatchInferenceJobRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode of the batch inference job. To generate descriptive themes for groups of similar items, set the job mode
+     * to <code>THEME_GENERATION</code>. If you don't want to generate themes, use the default
+     * <code>BATCH_INFERENCE</code>.
+     * </p>
+     * <p>
+     * When you get batch recommendations with themes, you will incur additional costs. For more information, see <a
+     * href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize pricing</a>.
+     * </p>
+     * 
+     * @param batchInferenceJobMode
+     *        The mode of the batch inference job. To generate descriptive themes for groups of similar items, set the
+     *        job mode to <code>THEME_GENERATION</code>. If you don't want to generate themes, use the default
+     *        <code>BATCH_INFERENCE</code>.</p>
+     *        <p>
+     *        When you get batch recommendations with themes, you will incur additional costs. For more information, see
+     *        <a href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize pricing</a>.
+     * @see BatchInferenceJobMode
+     */
+
+    public void setBatchInferenceJobMode(String batchInferenceJobMode) {
+        this.batchInferenceJobMode = batchInferenceJobMode;
+    }
+
+    /**
+     * <p>
+     * The mode of the batch inference job. To generate descriptive themes for groups of similar items, set the job mode
+     * to <code>THEME_GENERATION</code>. If you don't want to generate themes, use the default
+     * <code>BATCH_INFERENCE</code>.
+     * </p>
+     * <p>
+     * When you get batch recommendations with themes, you will incur additional costs. For more information, see <a
+     * href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize pricing</a>.
+     * </p>
+     * 
+     * @return The mode of the batch inference job. To generate descriptive themes for groups of similar items, set the
+     *         job mode to <code>THEME_GENERATION</code>. If you don't want to generate themes, use the default
+     *         <code>BATCH_INFERENCE</code>.</p>
+     *         <p>
+     *         When you get batch recommendations with themes, you will incur additional costs. For more information,
+     *         see <a href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize pricing</a>.
+     * @see BatchInferenceJobMode
+     */
+
+    public String getBatchInferenceJobMode() {
+        return this.batchInferenceJobMode;
+    }
+
+    /**
+     * <p>
+     * The mode of the batch inference job. To generate descriptive themes for groups of similar items, set the job mode
+     * to <code>THEME_GENERATION</code>. If you don't want to generate themes, use the default
+     * <code>BATCH_INFERENCE</code>.
+     * </p>
+     * <p>
+     * When you get batch recommendations with themes, you will incur additional costs. For more information, see <a
+     * href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize pricing</a>.
+     * </p>
+     * 
+     * @param batchInferenceJobMode
+     *        The mode of the batch inference job. To generate descriptive themes for groups of similar items, set the
+     *        job mode to <code>THEME_GENERATION</code>. If you don't want to generate themes, use the default
+     *        <code>BATCH_INFERENCE</code>.</p>
+     *        <p>
+     *        When you get batch recommendations with themes, you will incur additional costs. For more information, see
+     *        <a href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize pricing</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BatchInferenceJobMode
+     */
+
+    public CreateBatchInferenceJobRequest withBatchInferenceJobMode(String batchInferenceJobMode) {
+        setBatchInferenceJobMode(batchInferenceJobMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode of the batch inference job. To generate descriptive themes for groups of similar items, set the job mode
+     * to <code>THEME_GENERATION</code>. If you don't want to generate themes, use the default
+     * <code>BATCH_INFERENCE</code>.
+     * </p>
+     * <p>
+     * When you get batch recommendations with themes, you will incur additional costs. For more information, see <a
+     * href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize pricing</a>.
+     * </p>
+     * 
+     * @param batchInferenceJobMode
+     *        The mode of the batch inference job. To generate descriptive themes for groups of similar items, set the
+     *        job mode to <code>THEME_GENERATION</code>. If you don't want to generate themes, use the default
+     *        <code>BATCH_INFERENCE</code>.</p>
+     *        <p>
+     *        When you get batch recommendations with themes, you will incur additional costs. For more information, see
+     *        <a href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize pricing</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BatchInferenceJobMode
+     */
+
+    public CreateBatchInferenceJobRequest withBatchInferenceJobMode(BatchInferenceJobMode batchInferenceJobMode) {
+        this.batchInferenceJobMode = batchInferenceJobMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * For theme generation jobs, specify the name of the column in your Items dataset that contains each item's name.
+     * </p>
+     * 
+     * @param themeGenerationConfig
+     *        For theme generation jobs, specify the name of the column in your Items dataset that contains each item's
+     *        name.
+     */
+
+    public void setThemeGenerationConfig(ThemeGenerationConfig themeGenerationConfig) {
+        this.themeGenerationConfig = themeGenerationConfig;
+    }
+
+    /**
+     * <p>
+     * For theme generation jobs, specify the name of the column in your Items dataset that contains each item's name.
+     * </p>
+     * 
+     * @return For theme generation jobs, specify the name of the column in your Items dataset that contains each item's
+     *         name.
+     */
+
+    public ThemeGenerationConfig getThemeGenerationConfig() {
+        return this.themeGenerationConfig;
+    }
+
+    /**
+     * <p>
+     * For theme generation jobs, specify the name of the column in your Items dataset that contains each item's name.
+     * </p>
+     * 
+     * @param themeGenerationConfig
+     *        For theme generation jobs, specify the name of the column in your Items dataset that contains each item's
+     *        name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBatchInferenceJobRequest withThemeGenerationConfig(ThemeGenerationConfig themeGenerationConfig) {
+        setThemeGenerationConfig(themeGenerationConfig);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getJobName() != null)
+            sb.append("JobName: ").append(getJobName()).append(",");
+        if (getSolutionVersionArn() != null)
+            sb.append("SolutionVersionArn: ").append(getSolutionVersionArn()).append(",");
+        if (getFilterArn() != null)
+            sb.append("FilterArn: ").append(getFilterArn()).append(",");
+        if (getNumResults() != null)
+            sb.append("NumResults: ").append(getNumResults()).append(",");
+        if (getJobInput() != null)
+            sb.append("JobInput: ").append(getJobInput()).append(",");
+        if (getJobOutput() != null)
+            sb.append("JobOutput: ").append(getJobOutput()).append(",");
+        if (getRoleArn() != null)
+            sb.append("RoleArn: ").append(getRoleArn()).append(",");
+        if (getBatchInferenceJobConfig() != null)
+            sb.append("BatchInferenceJobConfig: ").append(getBatchInferenceJobConfig()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getBatchInferenceJobMode() != null)
+            sb.append("BatchInferenceJobMode: ").append(getBatchInferenceJobMode()).append(",");
+        if (getThemeGenerationConfig() != null)
+            sb.append("ThemeGenerationConfig: ").append(getThemeGenerationConfig());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof CreateBatchInferenceJobRequest == false)
+            return false;
+        CreateBatchInferenceJobRequest other = (CreateBatchInferenceJobRequest) obj;
+        if (other.getJobName() == null ^ this.getJobName() == null)
+            return false;
+        if (other.getJobName() != null && other.getJobName().equals(this.getJobName()) == false)
+            return false;
+        if (other.getSolutionVersionArn() == null ^ this.getSolutionVersionArn() == null)
+            return false;
+        if (other.getSolutionVersionArn() != null && other.getSolutionVersionArn().equals(this.getSolutionVersionArn()) == false)
+            return false;
+        if (other.getFilterArn() == null ^ this.getFilterArn() == null)
+            return false;
+        if (other.getFilterArn() != null && other.getFilterArn().equals(this.getFilterArn()) == false)
+            return false;
+        if (other.getNumResults() == null ^ this.getNumResults() == null)
+            return false;
+        if (other.getNumResults() != null && other.getNumResults().equals(this.getNumResults()) == false)
+            return false;
+        if (other.getJobInput() == null ^ this.getJobInput() == null)
+            return false;
+        if (other.getJobInput() != null && other.getJobInput().equals(this.getJobInput()) == false)
+            return false;
+        if (other.getJobOutput() == null ^ this.getJobOutput() == null)
+            return false;
+        if (other.getJobOutput() != null && other.getJobOutput().equals(this.getJobOutput()) == false)
+            return false;
+        if (other.getRoleArn() == null ^ this.getRoleArn() == null)
+            return false;
+        if (other.getRoleArn() != null && other.getRoleArn().equals(this.getRoleArn()) == false)
+            return false;
+        if (other.getBatchInferenceJobConfig() == null ^ this.getBatchInferenceJobConfig() == null)
+            return false;
+        if (other.getBatchInferenceJobConfig() != null && other.getBatchInferenceJobConfig().equals(this.getBatchInferenceJobConfig()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getBatchInferenceJobMode() == null ^ this.getBatchInferenceJobMode() == null)
+            return false;
+        if (other.getBatchInferenceJobMode() != null && other.getBatchInferenceJobMode().equals(this.getBatchInferenceJobMode()) == false)
+            return false;
+        if (other.getThemeGenerationConfig() == null ^ this.getThemeGenerationConfig() == null)
+            return false;
+        if (other.getThemeGenerationConfig() != null && other.getThemeGenerationConfig().equals(this.getThemeGenerationConfig()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getJobName() == null) ? 0 : getJobName().hashCode());
+        hashCode = prime * hashCode + ((getSolutionVersionArn() == null) ? 0 : getSolutionVersionArn().hashCode());
+        hashCode = prime * hashCode + ((getFilterArn() == null) ? 0 : getFilterArn().hashCode());
+        hashCode = prime * hashCode + ((getNumResults() == null) ? 0 : getNumResults().hashCode());
+        hashCode = prime * hashCode + ((getJobInput() == null) ? 0 : getJobInput().hashCode());
+        hashCode = prime * hashCode + ((getJobOutput() == null) ? 0 : getJobOutput().hashCode());
+        hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getBatchInferenceJobConfig() == null) ? 0 : getBatchInferenceJobConfig().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getBatchInferenceJobMode() == null) ? 0 : getBatchInferenceJobMode().hashCode());
+        hashCode = prime * hashCode + ((getThemeGenerationConfig() == null) ? 0 : getThemeGenerationConfig().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public CreateBatchInferenceJobRequest clone() {
+        return (CreateBatchInferenceJobRequest) super.clone();
+    }
+
+}

@@ -1,0 +1,1131 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.wafv2.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Inspect the body of the web request as JSON. The body immediately follows the request headers.
+ * </p>
+ * <p>
+ * This is used to indicate the web request component to inspect, in the <a>FieldToMatch</a> specification.
+ * </p>
+ * <p>
+ * Use the specifications in this object to indicate which parts of the JSON body to inspect using the rule's inspection
+ * criteria. WAF inspects only the parts of the JSON that result from the matches that you indicate.
+ * </p>
+ * <p>
+ * Example JSON: <code>"JsonBody": { "MatchPattern": { "All": {} }, "MatchScope": "ALL" }</code>
+ * </p>
+ * <p>
+ * For additional information about this request component option, see <a href=
+ * "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-fields-list.html#waf-rule-statement-request-component-json-body"
+ * >JSON body</a> in the <i>WAF Developer Guide</i>.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/JsonBody" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class JsonBody implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The patterns to look for in the JSON body. WAF inspects the results of these pattern matches against the rule
+     * inspection criteria.
+     * </p>
+     */
+    private JsonMatchPattern matchPattern;
+    /**
+     * <p>
+     * The parts of the JSON to match against using the <code>MatchPattern</code>. If you specify <code>ALL</code>, WAF
+     * matches against keys and values.
+     * </p>
+     * <p>
+     * <code>All</code> does not require a match to be found in the keys and a match to be found in the values. It
+     * requires a match to be found in the keys or the values or both. To require a match in the keys and in the values,
+     * use a logical <code>AND</code> statement to combine two match rules, one that inspects the keys and another that
+     * inspects the values.
+     * </p>
+     */
+    private String matchScope;
+    /**
+     * <p>
+     * What WAF should do if it fails to completely parse the JSON body. The options are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>EVALUATE_AS_STRING</code> - Inspect the body as plain text. WAF applies the text transformations and
+     * inspection criteria that you defined for the JSON inspection to the body text string.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to the
+     * request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't provide this setting, WAF parses and evaluates the content only up to the first parsing failure that
+     * it encounters.
+     * </p>
+     * <note>
+     * <p>
+     * WAF parsing doesn't fully validate the input JSON string, so parsing can succeed even for invalid JSON. When
+     * parsing succeeds, WAF doesn't apply the fallback behavior. For more information, see <a href=
+     * "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-fields-list.html#waf-rule-statement-request-component-json-body"
+     * >JSON body</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * </note>
+     */
+    private String invalidFallbackBehavior;
+    /**
+     * <p>
+     * What WAF should do if the body is larger than WAF can inspect.
+     * </p>
+     * <p>
+     * WAF does not support inspecting the entire contents of the web request body if the body exceeds the limit for the
+     * resource type. When a web request body is larger than the limit, the underlying host service only forwards the
+     * contents that are within the limit to WAF for inspection.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For CloudFront, API Gateway, Amazon Cognito, App Runner, and Verified Access, the default limit is 16 KB (16,384
+     * bytes), and you can increase the limit for each resource type in the web ACL <code>AssociationConfig</code>, for
+     * additional processing fees.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The options for oversize handling are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CONTINUE</code> - Inspect the available body contents normally, according to the rule inspection criteria.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to the
+     * request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can combine the <code>MATCH</code> or <code>NO_MATCH</code> settings for oversize handling with your rule and
+     * web ACL action settings, so that you block any request whose body is over the limit.
+     * </p>
+     * <p>
+     * Default: <code>CONTINUE</code>
+     * </p>
+     */
+    private String oversizeHandling;
+
+    /**
+     * <p>
+     * The patterns to look for in the JSON body. WAF inspects the results of these pattern matches against the rule
+     * inspection criteria.
+     * </p>
+     * 
+     * @param matchPattern
+     *        The patterns to look for in the JSON body. WAF inspects the results of these pattern matches against the
+     *        rule inspection criteria.
+     */
+
+    public void setMatchPattern(JsonMatchPattern matchPattern) {
+        this.matchPattern = matchPattern;
+    }
+
+    /**
+     * <p>
+     * The patterns to look for in the JSON body. WAF inspects the results of these pattern matches against the rule
+     * inspection criteria.
+     * </p>
+     * 
+     * @return The patterns to look for in the JSON body. WAF inspects the results of these pattern matches against the
+     *         rule inspection criteria.
+     */
+
+    public JsonMatchPattern getMatchPattern() {
+        return this.matchPattern;
+    }
+
+    /**
+     * <p>
+     * The patterns to look for in the JSON body. WAF inspects the results of these pattern matches against the rule
+     * inspection criteria.
+     * </p>
+     * 
+     * @param matchPattern
+     *        The patterns to look for in the JSON body. WAF inspects the results of these pattern matches against the
+     *        rule inspection criteria.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JsonBody withMatchPattern(JsonMatchPattern matchPattern) {
+        setMatchPattern(matchPattern);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The parts of the JSON to match against using the <code>MatchPattern</code>. If you specify <code>ALL</code>, WAF
+     * matches against keys and values.
+     * </p>
+     * <p>
+     * <code>All</code> does not require a match to be found in the keys and a match to be found in the values. It
+     * requires a match to be found in the keys or the values or both. To require a match in the keys and in the values,
+     * use a logical <code>AND</code> statement to combine two match rules, one that inspects the keys and another that
+     * inspects the values.
+     * </p>
+     * 
+     * @param matchScope
+     *        The parts of the JSON to match against using the <code>MatchPattern</code>. If you specify
+     *        <code>ALL</code>, WAF matches against keys and values. </p>
+     *        <p>
+     *        <code>All</code> does not require a match to be found in the keys and a match to be found in the values.
+     *        It requires a match to be found in the keys or the values or both. To require a match in the keys and in
+     *        the values, use a logical <code>AND</code> statement to combine two match rules, one that inspects the
+     *        keys and another that inspects the values.
+     * @see JsonMatchScope
+     */
+
+    public void setMatchScope(String matchScope) {
+        this.matchScope = matchScope;
+    }
+
+    /**
+     * <p>
+     * The parts of the JSON to match against using the <code>MatchPattern</code>. If you specify <code>ALL</code>, WAF
+     * matches against keys and values.
+     * </p>
+     * <p>
+     * <code>All</code> does not require a match to be found in the keys and a match to be found in the values. It
+     * requires a match to be found in the keys or the values or both. To require a match in the keys and in the values,
+     * use a logical <code>AND</code> statement to combine two match rules, one that inspects the keys and another that
+     * inspects the values.
+     * </p>
+     * 
+     * @return The parts of the JSON to match against using the <code>MatchPattern</code>. If you specify
+     *         <code>ALL</code>, WAF matches against keys and values. </p>
+     *         <p>
+     *         <code>All</code> does not require a match to be found in the keys and a match to be found in the values.
+     *         It requires a match to be found in the keys or the values or both. To require a match in the keys and in
+     *         the values, use a logical <code>AND</code> statement to combine two match rules, one that inspects the
+     *         keys and another that inspects the values.
+     * @see JsonMatchScope
+     */
+
+    public String getMatchScope() {
+        return this.matchScope;
+    }
+
+    /**
+     * <p>
+     * The parts of the JSON to match against using the <code>MatchPattern</code>. If you specify <code>ALL</code>, WAF
+     * matches against keys and values.
+     * </p>
+     * <p>
+     * <code>All</code> does not require a match to be found in the keys and a match to be found in the values. It
+     * requires a match to be found in the keys or the values or both. To require a match in the keys and in the values,
+     * use a logical <code>AND</code> statement to combine two match rules, one that inspects the keys and another that
+     * inspects the values.
+     * </p>
+     * 
+     * @param matchScope
+     *        The parts of the JSON to match against using the <code>MatchPattern</code>. If you specify
+     *        <code>ALL</code>, WAF matches against keys and values. </p>
+     *        <p>
+     *        <code>All</code> does not require a match to be found in the keys and a match to be found in the values.
+     *        It requires a match to be found in the keys or the values or both. To require a match in the keys and in
+     *        the values, use a logical <code>AND</code> statement to combine two match rules, one that inspects the
+     *        keys and another that inspects the values.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see JsonMatchScope
+     */
+
+    public JsonBody withMatchScope(String matchScope) {
+        setMatchScope(matchScope);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The parts of the JSON to match against using the <code>MatchPattern</code>. If you specify <code>ALL</code>, WAF
+     * matches against keys and values.
+     * </p>
+     * <p>
+     * <code>All</code> does not require a match to be found in the keys and a match to be found in the values. It
+     * requires a match to be found in the keys or the values or both. To require a match in the keys and in the values,
+     * use a logical <code>AND</code> statement to combine two match rules, one that inspects the keys and another that
+     * inspects the values.
+     * </p>
+     * 
+     * @param matchScope
+     *        The parts of the JSON to match against using the <code>MatchPattern</code>. If you specify
+     *        <code>ALL</code>, WAF matches against keys and values. </p>
+     *        <p>
+     *        <code>All</code> does not require a match to be found in the keys and a match to be found in the values.
+     *        It requires a match to be found in the keys or the values or both. To require a match in the keys and in
+     *        the values, use a logical <code>AND</code> statement to combine two match rules, one that inspects the
+     *        keys and another that inspects the values.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see JsonMatchScope
+     */
+
+    public JsonBody withMatchScope(JsonMatchScope matchScope) {
+        this.matchScope = matchScope.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * What WAF should do if it fails to completely parse the JSON body. The options are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>EVALUATE_AS_STRING</code> - Inspect the body as plain text. WAF applies the text transformations and
+     * inspection criteria that you defined for the JSON inspection to the body text string.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to the
+     * request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't provide this setting, WAF parses and evaluates the content only up to the first parsing failure that
+     * it encounters.
+     * </p>
+     * <note>
+     * <p>
+     * WAF parsing doesn't fully validate the input JSON string, so parsing can succeed even for invalid JSON. When
+     * parsing succeeds, WAF doesn't apply the fallback behavior. For more information, see <a href=
+     * "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-fields-list.html#waf-rule-statement-request-component-json-body"
+     * >JSON body</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @param invalidFallbackBehavior
+     *        What WAF should do if it fails to completely parse the JSON body. The options are the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>EVALUATE_AS_STRING</code> - Inspect the body as plain text. WAF applies the text transformations and
+     *        inspection criteria that you defined for the JSON inspection to the body text string.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to
+     *        the request.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you don't provide this setting, WAF parses and evaluates the content only up to the first parsing
+     *        failure that it encounters.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        WAF parsing doesn't fully validate the input JSON string, so parsing can succeed even for invalid JSON.
+     *        When parsing succeeds, WAF doesn't apply the fallback behavior. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-fields-list.html#waf-rule-statement-request-component-json-body"
+     *        >JSON body</a> in the <i>WAF Developer Guide</i>.
+     *        </p>
+     * @see BodyParsingFallbackBehavior
+     */
+
+    public void setInvalidFallbackBehavior(String invalidFallbackBehavior) {
+        this.invalidFallbackBehavior = invalidFallbackBehavior;
+    }
+
+    /**
+     * <p>
+     * What WAF should do if it fails to completely parse the JSON body. The options are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>EVALUATE_AS_STRING</code> - Inspect the body as plain text. WAF applies the text transformations and
+     * inspection criteria that you defined for the JSON inspection to the body text string.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to the
+     * request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't provide this setting, WAF parses and evaluates the content only up to the first parsing failure that
+     * it encounters.
+     * </p>
+     * <note>
+     * <p>
+     * WAF parsing doesn't fully validate the input JSON string, so parsing can succeed even for invalid JSON. When
+     * parsing succeeds, WAF doesn't apply the fallback behavior. For more information, see <a href=
+     * "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-fields-list.html#waf-rule-statement-request-component-json-body"
+     * >JSON body</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @return What WAF should do if it fails to completely parse the JSON body. The options are the following:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>EVALUATE_AS_STRING</code> - Inspect the body as plain text. WAF applies the text transformations
+     *         and inspection criteria that you defined for the JSON inspection to the body text string.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to
+     *         the request.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you don't provide this setting, WAF parses and evaluates the content only up to the first parsing
+     *         failure that it encounters.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         WAF parsing doesn't fully validate the input JSON string, so parsing can succeed even for invalid JSON.
+     *         When parsing succeeds, WAF doesn't apply the fallback behavior. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-fields-list.html#waf-rule-statement-request-component-json-body"
+     *         >JSON body</a> in the <i>WAF Developer Guide</i>.
+     *         </p>
+     * @see BodyParsingFallbackBehavior
+     */
+
+    public String getInvalidFallbackBehavior() {
+        return this.invalidFallbackBehavior;
+    }
+
+    /**
+     * <p>
+     * What WAF should do if it fails to completely parse the JSON body. The options are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>EVALUATE_AS_STRING</code> - Inspect the body as plain text. WAF applies the text transformations and
+     * inspection criteria that you defined for the JSON inspection to the body text string.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to the
+     * request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't provide this setting, WAF parses and evaluates the content only up to the first parsing failure that
+     * it encounters.
+     * </p>
+     * <note>
+     * <p>
+     * WAF parsing doesn't fully validate the input JSON string, so parsing can succeed even for invalid JSON. When
+     * parsing succeeds, WAF doesn't apply the fallback behavior. For more information, see <a href=
+     * "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-fields-list.html#waf-rule-statement-request-component-json-body"
+     * >JSON body</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @param invalidFallbackBehavior
+     *        What WAF should do if it fails to completely parse the JSON body. The options are the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>EVALUATE_AS_STRING</code> - Inspect the body as plain text. WAF applies the text transformations and
+     *        inspection criteria that you defined for the JSON inspection to the body text string.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to
+     *        the request.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you don't provide this setting, WAF parses and evaluates the content only up to the first parsing
+     *        failure that it encounters.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        WAF parsing doesn't fully validate the input JSON string, so parsing can succeed even for invalid JSON.
+     *        When parsing succeeds, WAF doesn't apply the fallback behavior. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-fields-list.html#waf-rule-statement-request-component-json-body"
+     *        >JSON body</a> in the <i>WAF Developer Guide</i>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BodyParsingFallbackBehavior
+     */
+
+    public JsonBody withInvalidFallbackBehavior(String invalidFallbackBehavior) {
+        setInvalidFallbackBehavior(invalidFallbackBehavior);
+        return this;
+    }
+
+    /**
+     * <p>
+     * What WAF should do if it fails to completely parse the JSON body. The options are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>EVALUATE_AS_STRING</code> - Inspect the body as plain text. WAF applies the text transformations and
+     * inspection criteria that you defined for the JSON inspection to the body text string.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to the
+     * request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't provide this setting, WAF parses and evaluates the content only up to the first parsing failure that
+     * it encounters.
+     * </p>
+     * <note>
+     * <p>
+     * WAF parsing doesn't fully validate the input JSON string, so parsing can succeed even for invalid JSON. When
+     * parsing succeeds, WAF doesn't apply the fallback behavior. For more information, see <a href=
+     * "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-fields-list.html#waf-rule-statement-request-component-json-body"
+     * >JSON body</a> in the <i>WAF Developer Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @param invalidFallbackBehavior
+     *        What WAF should do if it fails to completely parse the JSON body. The options are the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>EVALUATE_AS_STRING</code> - Inspect the body as plain text. WAF applies the text transformations and
+     *        inspection criteria that you defined for the JSON inspection to the body text string.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to
+     *        the request.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you don't provide this setting, WAF parses and evaluates the content only up to the first parsing
+     *        failure that it encounters.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        WAF parsing doesn't fully validate the input JSON string, so parsing can succeed even for invalid JSON.
+     *        When parsing succeeds, WAF doesn't apply the fallback behavior. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-fields-list.html#waf-rule-statement-request-component-json-body"
+     *        >JSON body</a> in the <i>WAF Developer Guide</i>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BodyParsingFallbackBehavior
+     */
+
+    public JsonBody withInvalidFallbackBehavior(BodyParsingFallbackBehavior invalidFallbackBehavior) {
+        this.invalidFallbackBehavior = invalidFallbackBehavior.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * What WAF should do if the body is larger than WAF can inspect.
+     * </p>
+     * <p>
+     * WAF does not support inspecting the entire contents of the web request body if the body exceeds the limit for the
+     * resource type. When a web request body is larger than the limit, the underlying host service only forwards the
+     * contents that are within the limit to WAF for inspection.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For CloudFront, API Gateway, Amazon Cognito, App Runner, and Verified Access, the default limit is 16 KB (16,384
+     * bytes), and you can increase the limit for each resource type in the web ACL <code>AssociationConfig</code>, for
+     * additional processing fees.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The options for oversize handling are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CONTINUE</code> - Inspect the available body contents normally, according to the rule inspection criteria.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to the
+     * request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can combine the <code>MATCH</code> or <code>NO_MATCH</code> settings for oversize handling with your rule and
+     * web ACL action settings, so that you block any request whose body is over the limit.
+     * </p>
+     * <p>
+     * Default: <code>CONTINUE</code>
+     * </p>
+     * 
+     * @param oversizeHandling
+     *        What WAF should do if the body is larger than WAF can inspect. </p>
+     *        <p>
+     *        WAF does not support inspecting the entire contents of the web request body if the body exceeds the limit
+     *        for the resource type. When a web request body is larger than the limit, the underlying host service only
+     *        forwards the contents that are within the limit to WAF for inspection.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For CloudFront, API Gateway, Amazon Cognito, App Runner, and Verified Access, the default limit is 16 KB
+     *        (16,384 bytes), and you can increase the limit for each resource type in the web ACL
+     *        <code>AssociationConfig</code>, for additional processing fees.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The options for oversize handling are the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>CONTINUE</code> - Inspect the available body contents normally, according to the rule inspection
+     *        criteria.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to
+     *        the request.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        You can combine the <code>MATCH</code> or <code>NO_MATCH</code> settings for oversize handling with your
+     *        rule and web ACL action settings, so that you block any request whose body is over the limit.
+     *        </p>
+     *        <p>
+     *        Default: <code>CONTINUE</code>
+     * @see OversizeHandling
+     */
+
+    public void setOversizeHandling(String oversizeHandling) {
+        this.oversizeHandling = oversizeHandling;
+    }
+
+    /**
+     * <p>
+     * What WAF should do if the body is larger than WAF can inspect.
+     * </p>
+     * <p>
+     * WAF does not support inspecting the entire contents of the web request body if the body exceeds the limit for the
+     * resource type. When a web request body is larger than the limit, the underlying host service only forwards the
+     * contents that are within the limit to WAF for inspection.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For CloudFront, API Gateway, Amazon Cognito, App Runner, and Verified Access, the default limit is 16 KB (16,384
+     * bytes), and you can increase the limit for each resource type in the web ACL <code>AssociationConfig</code>, for
+     * additional processing fees.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The options for oversize handling are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CONTINUE</code> - Inspect the available body contents normally, according to the rule inspection criteria.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to the
+     * request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can combine the <code>MATCH</code> or <code>NO_MATCH</code> settings for oversize handling with your rule and
+     * web ACL action settings, so that you block any request whose body is over the limit.
+     * </p>
+     * <p>
+     * Default: <code>CONTINUE</code>
+     * </p>
+     * 
+     * @return What WAF should do if the body is larger than WAF can inspect. </p>
+     *         <p>
+     *         WAF does not support inspecting the entire contents of the web request body if the body exceeds the limit
+     *         for the resource type. When a web request body is larger than the limit, the underlying host service only
+     *         forwards the contents that are within the limit to WAF for inspection.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For CloudFront, API Gateway, Amazon Cognito, App Runner, and Verified Access, the default limit is 16 KB
+     *         (16,384 bytes), and you can increase the limit for each resource type in the web ACL
+     *         <code>AssociationConfig</code>, for additional processing fees.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The options for oversize handling are the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>CONTINUE</code> - Inspect the available body contents normally, according to the rule inspection
+     *         criteria.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to
+     *         the request.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         You can combine the <code>MATCH</code> or <code>NO_MATCH</code> settings for oversize handling with your
+     *         rule and web ACL action settings, so that you block any request whose body is over the limit.
+     *         </p>
+     *         <p>
+     *         Default: <code>CONTINUE</code>
+     * @see OversizeHandling
+     */
+
+    public String getOversizeHandling() {
+        return this.oversizeHandling;
+    }
+
+    /**
+     * <p>
+     * What WAF should do if the body is larger than WAF can inspect.
+     * </p>
+     * <p>
+     * WAF does not support inspecting the entire contents of the web request body if the body exceeds the limit for the
+     * resource type. When a web request body is larger than the limit, the underlying host service only forwards the
+     * contents that are within the limit to WAF for inspection.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For CloudFront, API Gateway, Amazon Cognito, App Runner, and Verified Access, the default limit is 16 KB (16,384
+     * bytes), and you can increase the limit for each resource type in the web ACL <code>AssociationConfig</code>, for
+     * additional processing fees.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The options for oversize handling are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CONTINUE</code> - Inspect the available body contents normally, according to the rule inspection criteria.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to the
+     * request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can combine the <code>MATCH</code> or <code>NO_MATCH</code> settings for oversize handling with your rule and
+     * web ACL action settings, so that you block any request whose body is over the limit.
+     * </p>
+     * <p>
+     * Default: <code>CONTINUE</code>
+     * </p>
+     * 
+     * @param oversizeHandling
+     *        What WAF should do if the body is larger than WAF can inspect. </p>
+     *        <p>
+     *        WAF does not support inspecting the entire contents of the web request body if the body exceeds the limit
+     *        for the resource type. When a web request body is larger than the limit, the underlying host service only
+     *        forwards the contents that are within the limit to WAF for inspection.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For CloudFront, API Gateway, Amazon Cognito, App Runner, and Verified Access, the default limit is 16 KB
+     *        (16,384 bytes), and you can increase the limit for each resource type in the web ACL
+     *        <code>AssociationConfig</code>, for additional processing fees.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The options for oversize handling are the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>CONTINUE</code> - Inspect the available body contents normally, according to the rule inspection
+     *        criteria.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to
+     *        the request.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        You can combine the <code>MATCH</code> or <code>NO_MATCH</code> settings for oversize handling with your
+     *        rule and web ACL action settings, so that you block any request whose body is over the limit.
+     *        </p>
+     *        <p>
+     *        Default: <code>CONTINUE</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OversizeHandling
+     */
+
+    public JsonBody withOversizeHandling(String oversizeHandling) {
+        setOversizeHandling(oversizeHandling);
+        return this;
+    }
+
+    /**
+     * <p>
+     * What WAF should do if the body is larger than WAF can inspect.
+     * </p>
+     * <p>
+     * WAF does not support inspecting the entire contents of the web request body if the body exceeds the limit for the
+     * resource type. When a web request body is larger than the limit, the underlying host service only forwards the
+     * contents that are within the limit to WAF for inspection.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For CloudFront, API Gateway, Amazon Cognito, App Runner, and Verified Access, the default limit is 16 KB (16,384
+     * bytes), and you can increase the limit for each resource type in the web ACL <code>AssociationConfig</code>, for
+     * additional processing fees.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The options for oversize handling are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CONTINUE</code> - Inspect the available body contents normally, according to the rule inspection criteria.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to the
+     * request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can combine the <code>MATCH</code> or <code>NO_MATCH</code> settings for oversize handling with your rule and
+     * web ACL action settings, so that you block any request whose body is over the limit.
+     * </p>
+     * <p>
+     * Default: <code>CONTINUE</code>
+     * </p>
+     * 
+     * @param oversizeHandling
+     *        What WAF should do if the body is larger than WAF can inspect. </p>
+     *        <p>
+     *        WAF does not support inspecting the entire contents of the web request body if the body exceeds the limit
+     *        for the resource type. When a web request body is larger than the limit, the underlying host service only
+     *        forwards the contents that are within the limit to WAF for inspection.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For Application Load Balancer and AppSync, the limit is fixed at 8 KB (8,192 bytes).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For CloudFront, API Gateway, Amazon Cognito, App Runner, and Verified Access, the default limit is 16 KB
+     *        (16,384 bytes), and you can increase the limit for each resource type in the web ACL
+     *        <code>AssociationConfig</code>, for additional processing fees.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The options for oversize handling are the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>CONTINUE</code> - Inspect the available body contents normally, according to the rule inspection
+     *        criteria.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MATCH</code> - Treat the web request as matching the rule statement. WAF applies the rule action to
+     *        the request.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NO_MATCH</code> - Treat the web request as not matching the rule statement.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        You can combine the <code>MATCH</code> or <code>NO_MATCH</code> settings for oversize handling with your
+     *        rule and web ACL action settings, so that you block any request whose body is over the limit.
+     *        </p>
+     *        <p>
+     *        Default: <code>CONTINUE</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OversizeHandling
+     */
+
+    public JsonBody withOversizeHandling(OversizeHandling oversizeHandling) {
+        this.oversizeHandling = oversizeHandling.toString();
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getMatchPattern() != null)
+            sb.append("MatchPattern: ").append(getMatchPattern()).append(",");
+        if (getMatchScope() != null)
+            sb.append("MatchScope: ").append(getMatchScope()).append(",");
+        if (getInvalidFallbackBehavior() != null)
+            sb.append("InvalidFallbackBehavior: ").append(getInvalidFallbackBehavior()).append(",");
+        if (getOversizeHandling() != null)
+            sb.append("OversizeHandling: ").append(getOversizeHandling());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof JsonBody == false)
+            return false;
+        JsonBody other = (JsonBody) obj;
+        if (other.getMatchPattern() == null ^ this.getMatchPattern() == null)
+            return false;
+        if (other.getMatchPattern() != null && other.getMatchPattern().equals(this.getMatchPattern()) == false)
+            return false;
+        if (other.getMatchScope() == null ^ this.getMatchScope() == null)
+            return false;
+        if (other.getMatchScope() != null && other.getMatchScope().equals(this.getMatchScope()) == false)
+            return false;
+        if (other.getInvalidFallbackBehavior() == null ^ this.getInvalidFallbackBehavior() == null)
+            return false;
+        if (other.getInvalidFallbackBehavior() != null && other.getInvalidFallbackBehavior().equals(this.getInvalidFallbackBehavior()) == false)
+            return false;
+        if (other.getOversizeHandling() == null ^ this.getOversizeHandling() == null)
+            return false;
+        if (other.getOversizeHandling() != null && other.getOversizeHandling().equals(this.getOversizeHandling()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getMatchPattern() == null) ? 0 : getMatchPattern().hashCode());
+        hashCode = prime * hashCode + ((getMatchScope() == null) ? 0 : getMatchScope().hashCode());
+        hashCode = prime * hashCode + ((getInvalidFallbackBehavior() == null) ? 0 : getInvalidFallbackBehavior().hashCode());
+        hashCode = prime * hashCode + ((getOversizeHandling() == null) ? 0 : getOversizeHandling().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public JsonBody clone() {
+        try {
+            return (JsonBody) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.wafv2.model.transform.JsonBodyMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

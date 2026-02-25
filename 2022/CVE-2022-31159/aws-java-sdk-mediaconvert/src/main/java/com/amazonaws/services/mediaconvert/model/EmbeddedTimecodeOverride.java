@@ -1,0 +1,62 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.mediaconvert.model;
+
+import javax.annotation.Generated;
+
+/**
+ * Set Embedded timecode override to Use MDPM when your AVCHD input contains timecode tag data in the Modified Digital
+ * Video Pack Metadata. When you do, we recommend you also set Timecode source to Embedded. Leave Embedded timecode
+ * override blank, or set to None, when your input does not contain MDPM timecode.
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public enum EmbeddedTimecodeOverride {
+
+    NONE("NONE"),
+    USE_MDPM("USE_MDPM");
+
+    private String value;
+
+    private EmbeddedTimecodeOverride(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return this.value;
+    }
+
+    /**
+     * Use this in place of valueOf.
+     *
+     * @param value
+     *        real value
+     * @return EmbeddedTimecodeOverride corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
+     */
+    public static EmbeddedTimecodeOverride fromValue(String value) {
+        if (value == null || "".equals(value)) {
+            throw new IllegalArgumentException("Value cannot be null or empty!");
+        }
+
+        for (EmbeddedTimecodeOverride enumEntry : EmbeddedTimecodeOverride.values()) {
+            if (enumEntry.toString().equals(value)) {
+                return enumEntry;
+            }
+        }
+
+        throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+    }
+}

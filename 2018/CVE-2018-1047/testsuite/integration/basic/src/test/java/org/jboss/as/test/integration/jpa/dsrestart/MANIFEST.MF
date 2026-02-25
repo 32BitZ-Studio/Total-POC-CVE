@@ -1,2 +1,0 @@
-Manifest-Version: 1.0
-Dependencies: org.jboss.dmr,org.jboss.as.server,org.jboss.as.controller,org.jboss.as.controller-client

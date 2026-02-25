@@ -1,0 +1,470 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.opensearch.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Specifies details about an outbound cross-cluster connection.
+ * </p>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class OutboundConnection implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * Information about the source (local) domain.
+     * </p>
+     */
+    private DomainInformationContainer localDomainInfo;
+    /**
+     * <p>
+     * Information about the destination (remote) domain.
+     * </p>
+     */
+    private DomainInformationContainer remoteDomainInfo;
+    /**
+     * <p>
+     * Unique identifier of the connection.
+     * </p>
+     */
+    private String connectionId;
+    /**
+     * <p>
+     * Name of the connection.
+     * </p>
+     */
+    private String connectionAlias;
+    /**
+     * <p>
+     * Status of the connection.
+     * </p>
+     */
+    private OutboundConnectionStatus connectionStatus;
+    /**
+     * <p>
+     * The connection mode.
+     * </p>
+     */
+    private String connectionMode;
+    /**
+     * <p>
+     * Properties for the outbound connection.
+     * </p>
+     */
+    private ConnectionProperties connectionProperties;
+
+    /**
+     * <p>
+     * Information about the source (local) domain.
+     * </p>
+     * 
+     * @param localDomainInfo
+     *        Information about the source (local) domain.
+     */
+
+    public void setLocalDomainInfo(DomainInformationContainer localDomainInfo) {
+        this.localDomainInfo = localDomainInfo;
+    }
+
+    /**
+     * <p>
+     * Information about the source (local) domain.
+     * </p>
+     * 
+     * @return Information about the source (local) domain.
+     */
+
+    public DomainInformationContainer getLocalDomainInfo() {
+        return this.localDomainInfo;
+    }
+
+    /**
+     * <p>
+     * Information about the source (local) domain.
+     * </p>
+     * 
+     * @param localDomainInfo
+     *        Information about the source (local) domain.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OutboundConnection withLocalDomainInfo(DomainInformationContainer localDomainInfo) {
+        setLocalDomainInfo(localDomainInfo);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the destination (remote) domain.
+     * </p>
+     * 
+     * @param remoteDomainInfo
+     *        Information about the destination (remote) domain.
+     */
+
+    public void setRemoteDomainInfo(DomainInformationContainer remoteDomainInfo) {
+        this.remoteDomainInfo = remoteDomainInfo;
+    }
+
+    /**
+     * <p>
+     * Information about the destination (remote) domain.
+     * </p>
+     * 
+     * @return Information about the destination (remote) domain.
+     */
+
+    public DomainInformationContainer getRemoteDomainInfo() {
+        return this.remoteDomainInfo;
+    }
+
+    /**
+     * <p>
+     * Information about the destination (remote) domain.
+     * </p>
+     * 
+     * @param remoteDomainInfo
+     *        Information about the destination (remote) domain.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OutboundConnection withRemoteDomainInfo(DomainInformationContainer remoteDomainInfo) {
+        setRemoteDomainInfo(remoteDomainInfo);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Unique identifier of the connection.
+     * </p>
+     * 
+     * @param connectionId
+     *        Unique identifier of the connection.
+     */
+
+    public void setConnectionId(String connectionId) {
+        this.connectionId = connectionId;
+    }
+
+    /**
+     * <p>
+     * Unique identifier of the connection.
+     * </p>
+     * 
+     * @return Unique identifier of the connection.
+     */
+
+    public String getConnectionId() {
+        return this.connectionId;
+    }
+
+    /**
+     * <p>
+     * Unique identifier of the connection.
+     * </p>
+     * 
+     * @param connectionId
+     *        Unique identifier of the connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OutboundConnection withConnectionId(String connectionId) {
+        setConnectionId(connectionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Name of the connection.
+     * </p>
+     * 
+     * @param connectionAlias
+     *        Name of the connection.
+     */
+
+    public void setConnectionAlias(String connectionAlias) {
+        this.connectionAlias = connectionAlias;
+    }
+
+    /**
+     * <p>
+     * Name of the connection.
+     * </p>
+     * 
+     * @return Name of the connection.
+     */
+
+    public String getConnectionAlias() {
+        return this.connectionAlias;
+    }
+
+    /**
+     * <p>
+     * Name of the connection.
+     * </p>
+     * 
+     * @param connectionAlias
+     *        Name of the connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OutboundConnection withConnectionAlias(String connectionAlias) {
+        setConnectionAlias(connectionAlias);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Status of the connection.
+     * </p>
+     * 
+     * @param connectionStatus
+     *        Status of the connection.
+     */
+
+    public void setConnectionStatus(OutboundConnectionStatus connectionStatus) {
+        this.connectionStatus = connectionStatus;
+    }
+
+    /**
+     * <p>
+     * Status of the connection.
+     * </p>
+     * 
+     * @return Status of the connection.
+     */
+
+    public OutboundConnectionStatus getConnectionStatus() {
+        return this.connectionStatus;
+    }
+
+    /**
+     * <p>
+     * Status of the connection.
+     * </p>
+     * 
+     * @param connectionStatus
+     *        Status of the connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OutboundConnection withConnectionStatus(OutboundConnectionStatus connectionStatus) {
+        setConnectionStatus(connectionStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The connection mode.
+     * </p>
+     * 
+     * @param connectionMode
+     *        The connection mode.
+     * @see ConnectionMode
+     */
+
+    public void setConnectionMode(String connectionMode) {
+        this.connectionMode = connectionMode;
+    }
+
+    /**
+     * <p>
+     * The connection mode.
+     * </p>
+     * 
+     * @return The connection mode.
+     * @see ConnectionMode
+     */
+
+    public String getConnectionMode() {
+        return this.connectionMode;
+    }
+
+    /**
+     * <p>
+     * The connection mode.
+     * </p>
+     * 
+     * @param connectionMode
+     *        The connection mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ConnectionMode
+     */
+
+    public OutboundConnection withConnectionMode(String connectionMode) {
+        setConnectionMode(connectionMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The connection mode.
+     * </p>
+     * 
+     * @param connectionMode
+     *        The connection mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ConnectionMode
+     */
+
+    public OutboundConnection withConnectionMode(ConnectionMode connectionMode) {
+        this.connectionMode = connectionMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Properties for the outbound connection.
+     * </p>
+     * 
+     * @param connectionProperties
+     *        Properties for the outbound connection.
+     */
+
+    public void setConnectionProperties(ConnectionProperties connectionProperties) {
+        this.connectionProperties = connectionProperties;
+    }
+
+    /**
+     * <p>
+     * Properties for the outbound connection.
+     * </p>
+     * 
+     * @return Properties for the outbound connection.
+     */
+
+    public ConnectionProperties getConnectionProperties() {
+        return this.connectionProperties;
+    }
+
+    /**
+     * <p>
+     * Properties for the outbound connection.
+     * </p>
+     * 
+     * @param connectionProperties
+     *        Properties for the outbound connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OutboundConnection withConnectionProperties(ConnectionProperties connectionProperties) {
+        setConnectionProperties(connectionProperties);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getLocalDomainInfo() != null)
+            sb.append("LocalDomainInfo: ").append(getLocalDomainInfo()).append(",");
+        if (getRemoteDomainInfo() != null)
+            sb.append("RemoteDomainInfo: ").append(getRemoteDomainInfo()).append(",");
+        if (getConnectionId() != null)
+            sb.append("ConnectionId: ").append(getConnectionId()).append(",");
+        if (getConnectionAlias() != null)
+            sb.append("ConnectionAlias: ").append(getConnectionAlias()).append(",");
+        if (getConnectionStatus() != null)
+            sb.append("ConnectionStatus: ").append(getConnectionStatus()).append(",");
+        if (getConnectionMode() != null)
+            sb.append("ConnectionMode: ").append(getConnectionMode()).append(",");
+        if (getConnectionProperties() != null)
+            sb.append("ConnectionProperties: ").append(getConnectionProperties());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof OutboundConnection == false)
+            return false;
+        OutboundConnection other = (OutboundConnection) obj;
+        if (other.getLocalDomainInfo() == null ^ this.getLocalDomainInfo() == null)
+            return false;
+        if (other.getLocalDomainInfo() != null && other.getLocalDomainInfo().equals(this.getLocalDomainInfo()) == false)
+            return false;
+        if (other.getRemoteDomainInfo() == null ^ this.getRemoteDomainInfo() == null)
+            return false;
+        if (other.getRemoteDomainInfo() != null && other.getRemoteDomainInfo().equals(this.getRemoteDomainInfo()) == false)
+            return false;
+        if (other.getConnectionId() == null ^ this.getConnectionId() == null)
+            return false;
+        if (other.getConnectionId() != null && other.getConnectionId().equals(this.getConnectionId()) == false)
+            return false;
+        if (other.getConnectionAlias() == null ^ this.getConnectionAlias() == null)
+            return false;
+        if (other.getConnectionAlias() != null && other.getConnectionAlias().equals(this.getConnectionAlias()) == false)
+            return false;
+        if (other.getConnectionStatus() == null ^ this.getConnectionStatus() == null)
+            return false;
+        if (other.getConnectionStatus() != null && other.getConnectionStatus().equals(this.getConnectionStatus()) == false)
+            return false;
+        if (other.getConnectionMode() == null ^ this.getConnectionMode() == null)
+            return false;
+        if (other.getConnectionMode() != null && other.getConnectionMode().equals(this.getConnectionMode()) == false)
+            return false;
+        if (other.getConnectionProperties() == null ^ this.getConnectionProperties() == null)
+            return false;
+        if (other.getConnectionProperties() != null && other.getConnectionProperties().equals(this.getConnectionProperties()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getLocalDomainInfo() == null) ? 0 : getLocalDomainInfo().hashCode());
+        hashCode = prime * hashCode + ((getRemoteDomainInfo() == null) ? 0 : getRemoteDomainInfo().hashCode());
+        hashCode = prime * hashCode + ((getConnectionId() == null) ? 0 : getConnectionId().hashCode());
+        hashCode = prime * hashCode + ((getConnectionAlias() == null) ? 0 : getConnectionAlias().hashCode());
+        hashCode = prime * hashCode + ((getConnectionStatus() == null) ? 0 : getConnectionStatus().hashCode());
+        hashCode = prime * hashCode + ((getConnectionMode() == null) ? 0 : getConnectionMode().hashCode());
+        hashCode = prime * hashCode + ((getConnectionProperties() == null) ? 0 : getConnectionProperties().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public OutboundConnection clone() {
+        try {
+            return (OutboundConnection) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.opensearch.model.transform.OutboundConnectionMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

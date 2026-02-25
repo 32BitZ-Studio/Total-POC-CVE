@@ -1,0 +1,469 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.resiliencehub.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/resiliencehub-2020-04-30/ImportResourcesToDraftAppVersion"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class ImportResourcesToDraftAppVersionRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * Amazon Resource Name (ARN) of the Resilience Hub application. The format for this ARN is: arn:
+     * <code>partition</code>:resiliencehub:<code>region</code>:<code>account</code>:app/<code>app-id</code>. For more
+     * information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">
+     * Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.
+     * </p>
+     */
+    private String appArn;
+    /**
+     * <p>
+     * The input sources of the Amazon Elastic Kubernetes Service resources you need to import.
+     * </p>
+     */
+    private java.util.List<EksSource> eksSources;
+    /**
+     * <p>
+     * The import strategy you would like to set to import resources into Resilience Hub application.
+     * </p>
+     */
+    private String importStrategy;
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) for the resources.
+     * </p>
+     */
+    private java.util.List<String> sourceArns;
+    /**
+     * <p>
+     * A list of terraform file s3 URLs you need to import.
+     * </p>
+     */
+    private java.util.List<TerraformSource> terraformSources;
+
+    /**
+     * <p>
+     * Amazon Resource Name (ARN) of the Resilience Hub application. The format for this ARN is: arn:
+     * <code>partition</code>:resiliencehub:<code>region</code>:<code>account</code>:app/<code>app-id</code>. For more
+     * information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">
+     * Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.
+     * </p>
+     * 
+     * @param appArn
+     *        Amazon Resource Name (ARN) of the Resilience Hub application. The format for this ARN is: arn:
+     *        <code>partition</code>:resiliencehub:<code>region</code>:<code>account</code>:app/<code>app-id</code>. For
+     *        more information about ARNs, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"> Amazon Resource Names
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.
+     */
+
+    public void setAppArn(String appArn) {
+        this.appArn = appArn;
+    }
+
+    /**
+     * <p>
+     * Amazon Resource Name (ARN) of the Resilience Hub application. The format for this ARN is: arn:
+     * <code>partition</code>:resiliencehub:<code>region</code>:<code>account</code>:app/<code>app-id</code>. For more
+     * information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">
+     * Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.
+     * </p>
+     * 
+     * @return Amazon Resource Name (ARN) of the Resilience Hub application. The format for this ARN is: arn:
+     *         <code>partition</code>:resiliencehub:<code>region</code>:<code>account</code>:app/<code>app-id</code>.
+     *         For more information about ARNs, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"> Amazon Resource Names
+     *         (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.
+     */
+
+    public String getAppArn() {
+        return this.appArn;
+    }
+
+    /**
+     * <p>
+     * Amazon Resource Name (ARN) of the Resilience Hub application. The format for this ARN is: arn:
+     * <code>partition</code>:resiliencehub:<code>region</code>:<code>account</code>:app/<code>app-id</code>. For more
+     * information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">
+     * Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.
+     * </p>
+     * 
+     * @param appArn
+     *        Amazon Resource Name (ARN) of the Resilience Hub application. The format for this ARN is: arn:
+     *        <code>partition</code>:resiliencehub:<code>region</code>:<code>account</code>:app/<code>app-id</code>. For
+     *        more information about ARNs, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"> Amazon Resource Names
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportResourcesToDraftAppVersionRequest withAppArn(String appArn) {
+        setAppArn(appArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The input sources of the Amazon Elastic Kubernetes Service resources you need to import.
+     * </p>
+     * 
+     * @return The input sources of the Amazon Elastic Kubernetes Service resources you need to import.
+     */
+
+    public java.util.List<EksSource> getEksSources() {
+        return eksSources;
+    }
+
+    /**
+     * <p>
+     * The input sources of the Amazon Elastic Kubernetes Service resources you need to import.
+     * </p>
+     * 
+     * @param eksSources
+     *        The input sources of the Amazon Elastic Kubernetes Service resources you need to import.
+     */
+
+    public void setEksSources(java.util.Collection<EksSource> eksSources) {
+        if (eksSources == null) {
+            this.eksSources = null;
+            return;
+        }
+
+        this.eksSources = new java.util.ArrayList<EksSource>(eksSources);
+    }
+
+    /**
+     * <p>
+     * The input sources of the Amazon Elastic Kubernetes Service resources you need to import.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setEksSources(java.util.Collection)} or {@link #withEksSources(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param eksSources
+     *        The input sources of the Amazon Elastic Kubernetes Service resources you need to import.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportResourcesToDraftAppVersionRequest withEksSources(EksSource... eksSources) {
+        if (this.eksSources == null) {
+            setEksSources(new java.util.ArrayList<EksSource>(eksSources.length));
+        }
+        for (EksSource ele : eksSources) {
+            this.eksSources.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The input sources of the Amazon Elastic Kubernetes Service resources you need to import.
+     * </p>
+     * 
+     * @param eksSources
+     *        The input sources of the Amazon Elastic Kubernetes Service resources you need to import.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportResourcesToDraftAppVersionRequest withEksSources(java.util.Collection<EksSource> eksSources) {
+        setEksSources(eksSources);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The import strategy you would like to set to import resources into Resilience Hub application.
+     * </p>
+     * 
+     * @param importStrategy
+     *        The import strategy you would like to set to import resources into Resilience Hub application.
+     * @see ResourceImportStrategyType
+     */
+
+    public void setImportStrategy(String importStrategy) {
+        this.importStrategy = importStrategy;
+    }
+
+    /**
+     * <p>
+     * The import strategy you would like to set to import resources into Resilience Hub application.
+     * </p>
+     * 
+     * @return The import strategy you would like to set to import resources into Resilience Hub application.
+     * @see ResourceImportStrategyType
+     */
+
+    public String getImportStrategy() {
+        return this.importStrategy;
+    }
+
+    /**
+     * <p>
+     * The import strategy you would like to set to import resources into Resilience Hub application.
+     * </p>
+     * 
+     * @param importStrategy
+     *        The import strategy you would like to set to import resources into Resilience Hub application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResourceImportStrategyType
+     */
+
+    public ImportResourcesToDraftAppVersionRequest withImportStrategy(String importStrategy) {
+        setImportStrategy(importStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The import strategy you would like to set to import resources into Resilience Hub application.
+     * </p>
+     * 
+     * @param importStrategy
+     *        The import strategy you would like to set to import resources into Resilience Hub application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResourceImportStrategyType
+     */
+
+    public ImportResourcesToDraftAppVersionRequest withImportStrategy(ResourceImportStrategyType importStrategy) {
+        this.importStrategy = importStrategy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) for the resources.
+     * </p>
+     * 
+     * @return The Amazon Resource Names (ARNs) for the resources.
+     */
+
+    public java.util.List<String> getSourceArns() {
+        return sourceArns;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) for the resources.
+     * </p>
+     * 
+     * @param sourceArns
+     *        The Amazon Resource Names (ARNs) for the resources.
+     */
+
+    public void setSourceArns(java.util.Collection<String> sourceArns) {
+        if (sourceArns == null) {
+            this.sourceArns = null;
+            return;
+        }
+
+        this.sourceArns = new java.util.ArrayList<String>(sourceArns);
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) for the resources.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSourceArns(java.util.Collection)} or {@link #withSourceArns(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param sourceArns
+     *        The Amazon Resource Names (ARNs) for the resources.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportResourcesToDraftAppVersionRequest withSourceArns(String... sourceArns) {
+        if (this.sourceArns == null) {
+            setSourceArns(new java.util.ArrayList<String>(sourceArns.length));
+        }
+        for (String ele : sourceArns) {
+            this.sourceArns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) for the resources.
+     * </p>
+     * 
+     * @param sourceArns
+     *        The Amazon Resource Names (ARNs) for the resources.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportResourcesToDraftAppVersionRequest withSourceArns(java.util.Collection<String> sourceArns) {
+        setSourceArns(sourceArns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of terraform file s3 URLs you need to import.
+     * </p>
+     * 
+     * @return A list of terraform file s3 URLs you need to import.
+     */
+
+    public java.util.List<TerraformSource> getTerraformSources() {
+        return terraformSources;
+    }
+
+    /**
+     * <p>
+     * A list of terraform file s3 URLs you need to import.
+     * </p>
+     * 
+     * @param terraformSources
+     *        A list of terraform file s3 URLs you need to import.
+     */
+
+    public void setTerraformSources(java.util.Collection<TerraformSource> terraformSources) {
+        if (terraformSources == null) {
+            this.terraformSources = null;
+            return;
+        }
+
+        this.terraformSources = new java.util.ArrayList<TerraformSource>(terraformSources);
+    }
+
+    /**
+     * <p>
+     * A list of terraform file s3 URLs you need to import.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTerraformSources(java.util.Collection)} or {@link #withTerraformSources(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param terraformSources
+     *        A list of terraform file s3 URLs you need to import.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportResourcesToDraftAppVersionRequest withTerraformSources(TerraformSource... terraformSources) {
+        if (this.terraformSources == null) {
+            setTerraformSources(new java.util.ArrayList<TerraformSource>(terraformSources.length));
+        }
+        for (TerraformSource ele : terraformSources) {
+            this.terraformSources.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of terraform file s3 URLs you need to import.
+     * </p>
+     * 
+     * @param terraformSources
+     *        A list of terraform file s3 URLs you need to import.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportResourcesToDraftAppVersionRequest withTerraformSources(java.util.Collection<TerraformSource> terraformSources) {
+        setTerraformSources(terraformSources);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getAppArn() != null)
+            sb.append("AppArn: ").append(getAppArn()).append(",");
+        if (getEksSources() != null)
+            sb.append("EksSources: ").append(getEksSources()).append(",");
+        if (getImportStrategy() != null)
+            sb.append("ImportStrategy: ").append(getImportStrategy()).append(",");
+        if (getSourceArns() != null)
+            sb.append("SourceArns: ").append(getSourceArns()).append(",");
+        if (getTerraformSources() != null)
+            sb.append("TerraformSources: ").append(getTerraformSources());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof ImportResourcesToDraftAppVersionRequest == false)
+            return false;
+        ImportResourcesToDraftAppVersionRequest other = (ImportResourcesToDraftAppVersionRequest) obj;
+        if (other.getAppArn() == null ^ this.getAppArn() == null)
+            return false;
+        if (other.getAppArn() != null && other.getAppArn().equals(this.getAppArn()) == false)
+            return false;
+        if (other.getEksSources() == null ^ this.getEksSources() == null)
+            return false;
+        if (other.getEksSources() != null && other.getEksSources().equals(this.getEksSources()) == false)
+            return false;
+        if (other.getImportStrategy() == null ^ this.getImportStrategy() == null)
+            return false;
+        if (other.getImportStrategy() != null && other.getImportStrategy().equals(this.getImportStrategy()) == false)
+            return false;
+        if (other.getSourceArns() == null ^ this.getSourceArns() == null)
+            return false;
+        if (other.getSourceArns() != null && other.getSourceArns().equals(this.getSourceArns()) == false)
+            return false;
+        if (other.getTerraformSources() == null ^ this.getTerraformSources() == null)
+            return false;
+        if (other.getTerraformSources() != null && other.getTerraformSources().equals(this.getTerraformSources()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getAppArn() == null) ? 0 : getAppArn().hashCode());
+        hashCode = prime * hashCode + ((getEksSources() == null) ? 0 : getEksSources().hashCode());
+        hashCode = prime * hashCode + ((getImportStrategy() == null) ? 0 : getImportStrategy().hashCode());
+        hashCode = prime * hashCode + ((getSourceArns() == null) ? 0 : getSourceArns().hashCode());
+        hashCode = prime * hashCode + ((getTerraformSources() == null) ? 0 : getTerraformSources().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public ImportResourcesToDraftAppVersionRequest clone() {
+        return (ImportResourcesToDraftAppVersionRequest) super.clone();
+    }
+
+}

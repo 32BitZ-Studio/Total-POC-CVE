@@ -1,0 +1,483 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.securityhub.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * The Linux capabilities for the container that are added to or dropped from the default configuration provided by
+ * Docker.
+ * </p>
+ * 
+ * @see <a
+ *      href="http://docs.aws.amazon.com/goto/WebAPI/securityhub-2018-10-26/AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The Linux capabilities for the container that are added to the default configuration provided by Docker. Valid
+     * values are as follows:
+     * </p>
+     * <p>
+     * Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     * <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     * <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     * <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     * <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     * <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> | <code>"SETFCAP"</code>
+     * | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> |
+     * <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> |
+     * <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     * <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * </p>
+     */
+    private java.util.List<String> add;
+    /**
+     * <p>
+     * The Linux capabilities for the container that are dropped from the default configuration provided by Docker.
+     * </p>
+     * <p>
+     * Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     * <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     * <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     * <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     * <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     * <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> | <code>"SETFCAP"</code>
+     * | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> |
+     * <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> |
+     * <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     * <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * </p>
+     */
+    private java.util.List<String> drop;
+
+    /**
+     * <p>
+     * The Linux capabilities for the container that are added to the default configuration provided by Docker. Valid
+     * values are as follows:
+     * </p>
+     * <p>
+     * Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     * <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     * <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     * <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     * <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     * <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> | <code>"SETFCAP"</code>
+     * | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> |
+     * <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> |
+     * <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     * <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * </p>
+     * 
+     * @return The Linux capabilities for the container that are added to the default configuration provided by Docker.
+     *         Valid values are as follows:</p>
+     *         <p>
+     *         Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     *         <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     *         <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code>
+     *         | <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code>
+     *         | <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> |
+     *         <code>"NET_ADMIN"</code> | <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> |
+     *         <code>"NET_RAW"</code> | <code>"SETFCAP"</code> | <code>"SETGID"</code> | <code>"SETPCAP"</code> |
+     *         <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> | <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> |
+     *         <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> | <code>"SYS_PACCT"</code> |
+     *         <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     *         <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> |
+     *         <code>"WAKE_ALARM"</code>
+     */
+
+    public java.util.List<String> getAdd() {
+        return add;
+    }
+
+    /**
+     * <p>
+     * The Linux capabilities for the container that are added to the default configuration provided by Docker. Valid
+     * values are as follows:
+     * </p>
+     * <p>
+     * Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     * <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     * <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     * <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     * <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     * <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> | <code>"SETFCAP"</code>
+     * | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> |
+     * <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> |
+     * <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     * <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * </p>
+     * 
+     * @param add
+     *        The Linux capabilities for the container that are added to the default configuration provided by Docker.
+     *        Valid values are as follows:</p>
+     *        <p>
+     *        Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     *        <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     *        <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     *        <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     *        <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     *        <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> |
+     *        <code>"SETFCAP"</code> | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> |
+     *        <code>"SYS_ADMIN"</code> | <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code>
+     *        | <code>"SYS_NICE"</code> | <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> |
+     *        <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> | <code>"SYS_TIME"</code> |
+     *        <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     */
+
+    public void setAdd(java.util.Collection<String> add) {
+        if (add == null) {
+            this.add = null;
+            return;
+        }
+
+        this.add = new java.util.ArrayList<String>(add);
+    }
+
+    /**
+     * <p>
+     * The Linux capabilities for the container that are added to the default configuration provided by Docker. Valid
+     * values are as follows:
+     * </p>
+     * <p>
+     * Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     * <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     * <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     * <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     * <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     * <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> | <code>"SETFCAP"</code>
+     * | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> |
+     * <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> |
+     * <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     * <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAdd(java.util.Collection)} or {@link #withAdd(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param add
+     *        The Linux capabilities for the container that are added to the default configuration provided by Docker.
+     *        Valid values are as follows:</p>
+     *        <p>
+     *        Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     *        <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     *        <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     *        <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     *        <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     *        <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> |
+     *        <code>"SETFCAP"</code> | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> |
+     *        <code>"SYS_ADMIN"</code> | <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code>
+     *        | <code>"SYS_NICE"</code> | <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> |
+     *        <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> | <code>"SYS_TIME"</code> |
+     *        <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails withAdd(String... add) {
+        if (this.add == null) {
+            setAdd(new java.util.ArrayList<String>(add.length));
+        }
+        for (String ele : add) {
+            this.add.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Linux capabilities for the container that are added to the default configuration provided by Docker. Valid
+     * values are as follows:
+     * </p>
+     * <p>
+     * Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     * <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     * <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     * <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     * <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     * <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> | <code>"SETFCAP"</code>
+     * | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> |
+     * <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> |
+     * <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     * <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * </p>
+     * 
+     * @param add
+     *        The Linux capabilities for the container that are added to the default configuration provided by Docker.
+     *        Valid values are as follows:</p>
+     *        <p>
+     *        Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     *        <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     *        <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     *        <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     *        <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     *        <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> |
+     *        <code>"SETFCAP"</code> | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> |
+     *        <code>"SYS_ADMIN"</code> | <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code>
+     *        | <code>"SYS_NICE"</code> | <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> |
+     *        <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> | <code>"SYS_TIME"</code> |
+     *        <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails withAdd(java.util.Collection<String> add) {
+        setAdd(add);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Linux capabilities for the container that are dropped from the default configuration provided by Docker.
+     * </p>
+     * <p>
+     * Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     * <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     * <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     * <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     * <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     * <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> | <code>"SETFCAP"</code>
+     * | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> |
+     * <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> |
+     * <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     * <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * </p>
+     * 
+     * @return The Linux capabilities for the container that are dropped from the default configuration provided by
+     *         Docker.</p>
+     *         <p>
+     *         Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     *         <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     *         <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code>
+     *         | <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code>
+     *         | <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> |
+     *         <code>"NET_ADMIN"</code> | <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> |
+     *         <code>"NET_RAW"</code> | <code>"SETFCAP"</code> | <code>"SETGID"</code> | <code>"SETPCAP"</code> |
+     *         <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> | <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> |
+     *         <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> | <code>"SYS_PACCT"</code> |
+     *         <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     *         <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> |
+     *         <code>"WAKE_ALARM"</code>
+     */
+
+    public java.util.List<String> getDrop() {
+        return drop;
+    }
+
+    /**
+     * <p>
+     * The Linux capabilities for the container that are dropped from the default configuration provided by Docker.
+     * </p>
+     * <p>
+     * Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     * <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     * <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     * <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     * <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     * <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> | <code>"SETFCAP"</code>
+     * | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> |
+     * <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> |
+     * <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     * <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * </p>
+     * 
+     * @param drop
+     *        The Linux capabilities for the container that are dropped from the default configuration provided by
+     *        Docker.</p>
+     *        <p>
+     *        Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     *        <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     *        <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     *        <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     *        <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     *        <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> |
+     *        <code>"SETFCAP"</code> | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> |
+     *        <code>"SYS_ADMIN"</code> | <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code>
+     *        | <code>"SYS_NICE"</code> | <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> |
+     *        <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> | <code>"SYS_TIME"</code> |
+     *        <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     */
+
+    public void setDrop(java.util.Collection<String> drop) {
+        if (drop == null) {
+            this.drop = null;
+            return;
+        }
+
+        this.drop = new java.util.ArrayList<String>(drop);
+    }
+
+    /**
+     * <p>
+     * The Linux capabilities for the container that are dropped from the default configuration provided by Docker.
+     * </p>
+     * <p>
+     * Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     * <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     * <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     * <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     * <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     * <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> | <code>"SETFCAP"</code>
+     * | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> |
+     * <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> |
+     * <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     * <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setDrop(java.util.Collection)} or {@link #withDrop(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param drop
+     *        The Linux capabilities for the container that are dropped from the default configuration provided by
+     *        Docker.</p>
+     *        <p>
+     *        Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     *        <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     *        <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     *        <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     *        <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     *        <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> |
+     *        <code>"SETFCAP"</code> | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> |
+     *        <code>"SYS_ADMIN"</code> | <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code>
+     *        | <code>"SYS_NICE"</code> | <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> |
+     *        <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> | <code>"SYS_TIME"</code> |
+     *        <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails withDrop(String... drop) {
+        if (this.drop == null) {
+            setDrop(new java.util.ArrayList<String>(drop.length));
+        }
+        for (String ele : drop) {
+            this.drop.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Linux capabilities for the container that are dropped from the default configuration provided by Docker.
+     * </p>
+     * <p>
+     * Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     * <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     * <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     * <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     * <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     * <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> | <code>"SETFCAP"</code>
+     * | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> | <code>"SYS_ADMIN"</code> |
+     * <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code> | <code>"SYS_NICE"</code> |
+     * <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> | <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> |
+     * <code>"SYS_TIME"</code> | <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * </p>
+     * 
+     * @param drop
+     *        The Linux capabilities for the container that are dropped from the default configuration provided by
+     *        Docker.</p>
+     *        <p>
+     *        Valid values: <code>"ALL"</code> | <code>"AUDIT_CONTROL"</code> |<code> "AUDIT_WRITE"</code> |
+     *        <code>"BLOCK_SUSPEND"</code> | <code>"CHOWN"</code> | <code>"DAC_OVERRIDE"</code> |
+     *        <code>"DAC_READ_SEARCH"</code> | <code>"FOWNER"</code> | <code>"FSETID"</code> | <code>"IPC_LOCK"</code> |
+     *        <code>"IPC_OWNER"</code> | <code>"KILL"</code> | <code>"LEASE"</code> | <code>"LINUX_IMMUTABLE"</code> |
+     *        <code>"MAC_ADMIN"</code> |<code> "MAC_OVERRIDE"</code> | <code>"MKNOD"</code> | <code>"NET_ADMIN"</code> |
+     *        <code>"NET_BIND_SERVICE"</code> | <code>"NET_BROADCAST"</code> | <code>"NET_RAW"</code> |
+     *        <code>"SETFCAP"</code> | <code>"SETGID"</code> | <code>"SETPCAP"</code> | <code>"SETUID"</code> |
+     *        <code>"SYS_ADMIN"</code> | <code>"SYS_BOOT"</code> | <code>"SYS_CHROOT"</code> | <code>"SYS_MODULE"</code>
+     *        | <code>"SYS_NICE"</code> | <code>"SYS_PACCT"</code> | <code>"SYS_PTRACE"</code> |
+     *        <code>"SYS_RAWIO"</code> | <code>"SYS_RESOURCE"</code> | <code>"SYS_TIME"</code> |
+     *        <code>"SYS_TTY_CONFIG"</code> | <code>"SYSLOG"</code> | <code>"WAKE_ALARM"</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails withDrop(java.util.Collection<String> drop) {
+        setDrop(drop);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getAdd() != null)
+            sb.append("Add: ").append(getAdd()).append(",");
+        if (getDrop() != null)
+            sb.append("Drop: ").append(getDrop());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails == false)
+            return false;
+        AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails other = (AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails) obj;
+        if (other.getAdd() == null ^ this.getAdd() == null)
+            return false;
+        if (other.getAdd() != null && other.getAdd().equals(this.getAdd()) == false)
+            return false;
+        if (other.getDrop() == null ^ this.getDrop() == null)
+            return false;
+        if (other.getDrop() != null && other.getDrop().equals(this.getDrop()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getAdd() == null) ? 0 : getAdd().hashCode());
+        hashCode = prime * hashCode + ((getDrop() == null) ? 0 : getDrop().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails clone() {
+        try {
+            return (AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.securityhub.model.transform.AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetailsMarshaller.getInstance()
+                .marshall(this, protocolMarshaller);
+    }
+}

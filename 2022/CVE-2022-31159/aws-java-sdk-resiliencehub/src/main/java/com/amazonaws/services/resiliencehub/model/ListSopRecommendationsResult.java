@@ -1,0 +1,209 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.resiliencehub.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/resiliencehub-2020-04-30/ListSopRecommendations"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class ListSopRecommendationsResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * Token for the next set of results, or null if there are no more results.
+     * </p>
+     */
+    private String nextToken;
+    /**
+     * <p>
+     * The standard operating procedure (SOP) recommendations for the Resilience Hub applications.
+     * </p>
+     */
+    private java.util.List<SopRecommendation> sopRecommendations;
+
+    /**
+     * <p>
+     * Token for the next set of results, or null if there are no more results.
+     * </p>
+     * 
+     * @param nextToken
+     *        Token for the next set of results, or null if there are no more results.
+     */
+
+    public void setNextToken(String nextToken) {
+        this.nextToken = nextToken;
+    }
+
+    /**
+     * <p>
+     * Token for the next set of results, or null if there are no more results.
+     * </p>
+     * 
+     * @return Token for the next set of results, or null if there are no more results.
+     */
+
+    public String getNextToken() {
+        return this.nextToken;
+    }
+
+    /**
+     * <p>
+     * Token for the next set of results, or null if there are no more results.
+     * </p>
+     * 
+     * @param nextToken
+     *        Token for the next set of results, or null if there are no more results.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListSopRecommendationsResult withNextToken(String nextToken) {
+        setNextToken(nextToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The standard operating procedure (SOP) recommendations for the Resilience Hub applications.
+     * </p>
+     * 
+     * @return The standard operating procedure (SOP) recommendations for the Resilience Hub applications.
+     */
+
+    public java.util.List<SopRecommendation> getSopRecommendations() {
+        return sopRecommendations;
+    }
+
+    /**
+     * <p>
+     * The standard operating procedure (SOP) recommendations for the Resilience Hub applications.
+     * </p>
+     * 
+     * @param sopRecommendations
+     *        The standard operating procedure (SOP) recommendations for the Resilience Hub applications.
+     */
+
+    public void setSopRecommendations(java.util.Collection<SopRecommendation> sopRecommendations) {
+        if (sopRecommendations == null) {
+            this.sopRecommendations = null;
+            return;
+        }
+
+        this.sopRecommendations = new java.util.ArrayList<SopRecommendation>(sopRecommendations);
+    }
+
+    /**
+     * <p>
+     * The standard operating procedure (SOP) recommendations for the Resilience Hub applications.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSopRecommendations(java.util.Collection)} or {@link #withSopRecommendations(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param sopRecommendations
+     *        The standard operating procedure (SOP) recommendations for the Resilience Hub applications.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListSopRecommendationsResult withSopRecommendations(SopRecommendation... sopRecommendations) {
+        if (this.sopRecommendations == null) {
+            setSopRecommendations(new java.util.ArrayList<SopRecommendation>(sopRecommendations.length));
+        }
+        for (SopRecommendation ele : sopRecommendations) {
+            this.sopRecommendations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The standard operating procedure (SOP) recommendations for the Resilience Hub applications.
+     * </p>
+     * 
+     * @param sopRecommendations
+     *        The standard operating procedure (SOP) recommendations for the Resilience Hub applications.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListSopRecommendationsResult withSopRecommendations(java.util.Collection<SopRecommendation> sopRecommendations) {
+        setSopRecommendations(sopRecommendations);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getNextToken() != null)
+            sb.append("NextToken: ").append(getNextToken()).append(",");
+        if (getSopRecommendations() != null)
+            sb.append("SopRecommendations: ").append(getSopRecommendations());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof ListSopRecommendationsResult == false)
+            return false;
+        ListSopRecommendationsResult other = (ListSopRecommendationsResult) obj;
+        if (other.getNextToken() == null ^ this.getNextToken() == null)
+            return false;
+        if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
+            return false;
+        if (other.getSopRecommendations() == null ^ this.getSopRecommendations() == null)
+            return false;
+        if (other.getSopRecommendations() != null && other.getSopRecommendations().equals(this.getSopRecommendations()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getSopRecommendations() == null) ? 0 : getSopRecommendations().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public ListSopRecommendationsResult clone() {
+        try {
+            return (ListSopRecommendationsResult) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+}

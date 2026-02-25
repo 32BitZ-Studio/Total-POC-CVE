@@ -1,0 +1,441 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.sagemakerfeaturestoreruntime.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-featurestore-runtime-2020-07-01/DeleteRecord"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class DeleteRecordRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The name or Amazon Resource Name (ARN) of the feature group to delete the record from.
+     * </p>
+     */
+    private String featureGroupName;
+    /**
+     * <p>
+     * The value for the <code>RecordIdentifier</code> that uniquely identifies the record, in string format.
+     * </p>
+     */
+    private String recordIdentifierValueAsString;
+    /**
+     * <p>
+     * Timestamp indicating when the deletion event occurred. <code>EventTime</code> can be used to query data at a
+     * certain point in time.
+     * </p>
+     */
+    private String eventTime;
+    /**
+     * <p>
+     * A list of stores from which you're deleting the record. By default, Feature Store deletes the record from all of
+     * the stores that you're using for the <code>FeatureGroup</code>.
+     * </p>
+     */
+    private java.util.List<String> targetStores;
+    /**
+     * <p>
+     * The name of the deletion mode for deleting the record. By default, the deletion mode is set to
+     * <code>SoftDelete</code>.
+     * </p>
+     */
+    private String deletionMode;
+
+    /**
+     * <p>
+     * The name or Amazon Resource Name (ARN) of the feature group to delete the record from.
+     * </p>
+     * 
+     * @param featureGroupName
+     *        The name or Amazon Resource Name (ARN) of the feature group to delete the record from.
+     */
+
+    public void setFeatureGroupName(String featureGroupName) {
+        this.featureGroupName = featureGroupName;
+    }
+
+    /**
+     * <p>
+     * The name or Amazon Resource Name (ARN) of the feature group to delete the record from.
+     * </p>
+     * 
+     * @return The name or Amazon Resource Name (ARN) of the feature group to delete the record from.
+     */
+
+    public String getFeatureGroupName() {
+        return this.featureGroupName;
+    }
+
+    /**
+     * <p>
+     * The name or Amazon Resource Name (ARN) of the feature group to delete the record from.
+     * </p>
+     * 
+     * @param featureGroupName
+     *        The name or Amazon Resource Name (ARN) of the feature group to delete the record from.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeleteRecordRequest withFeatureGroupName(String featureGroupName) {
+        setFeatureGroupName(featureGroupName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The value for the <code>RecordIdentifier</code> that uniquely identifies the record, in string format.
+     * </p>
+     * 
+     * @param recordIdentifierValueAsString
+     *        The value for the <code>RecordIdentifier</code> that uniquely identifies the record, in string format.
+     */
+
+    public void setRecordIdentifierValueAsString(String recordIdentifierValueAsString) {
+        this.recordIdentifierValueAsString = recordIdentifierValueAsString;
+    }
+
+    /**
+     * <p>
+     * The value for the <code>RecordIdentifier</code> that uniquely identifies the record, in string format.
+     * </p>
+     * 
+     * @return The value for the <code>RecordIdentifier</code> that uniquely identifies the record, in string format.
+     */
+
+    public String getRecordIdentifierValueAsString() {
+        return this.recordIdentifierValueAsString;
+    }
+
+    /**
+     * <p>
+     * The value for the <code>RecordIdentifier</code> that uniquely identifies the record, in string format.
+     * </p>
+     * 
+     * @param recordIdentifierValueAsString
+     *        The value for the <code>RecordIdentifier</code> that uniquely identifies the record, in string format.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeleteRecordRequest withRecordIdentifierValueAsString(String recordIdentifierValueAsString) {
+        setRecordIdentifierValueAsString(recordIdentifierValueAsString);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Timestamp indicating when the deletion event occurred. <code>EventTime</code> can be used to query data at a
+     * certain point in time.
+     * </p>
+     * 
+     * @param eventTime
+     *        Timestamp indicating when the deletion event occurred. <code>EventTime</code> can be used to query data at
+     *        a certain point in time.
+     */
+
+    public void setEventTime(String eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    /**
+     * <p>
+     * Timestamp indicating when the deletion event occurred. <code>EventTime</code> can be used to query data at a
+     * certain point in time.
+     * </p>
+     * 
+     * @return Timestamp indicating when the deletion event occurred. <code>EventTime</code> can be used to query data
+     *         at a certain point in time.
+     */
+
+    public String getEventTime() {
+        return this.eventTime;
+    }
+
+    /**
+     * <p>
+     * Timestamp indicating when the deletion event occurred. <code>EventTime</code> can be used to query data at a
+     * certain point in time.
+     * </p>
+     * 
+     * @param eventTime
+     *        Timestamp indicating when the deletion event occurred. <code>EventTime</code> can be used to query data at
+     *        a certain point in time.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeleteRecordRequest withEventTime(String eventTime) {
+        setEventTime(eventTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of stores from which you're deleting the record. By default, Feature Store deletes the record from all of
+     * the stores that you're using for the <code>FeatureGroup</code>.
+     * </p>
+     * 
+     * @return A list of stores from which you're deleting the record. By default, Feature Store deletes the record from
+     *         all of the stores that you're using for the <code>FeatureGroup</code>.
+     * @see TargetStore
+     */
+
+    public java.util.List<String> getTargetStores() {
+        return targetStores;
+    }
+
+    /**
+     * <p>
+     * A list of stores from which you're deleting the record. By default, Feature Store deletes the record from all of
+     * the stores that you're using for the <code>FeatureGroup</code>.
+     * </p>
+     * 
+     * @param targetStores
+     *        A list of stores from which you're deleting the record. By default, Feature Store deletes the record from
+     *        all of the stores that you're using for the <code>FeatureGroup</code>.
+     * @see TargetStore
+     */
+
+    public void setTargetStores(java.util.Collection<String> targetStores) {
+        if (targetStores == null) {
+            this.targetStores = null;
+            return;
+        }
+
+        this.targetStores = new java.util.ArrayList<String>(targetStores);
+    }
+
+    /**
+     * <p>
+     * A list of stores from which you're deleting the record. By default, Feature Store deletes the record from all of
+     * the stores that you're using for the <code>FeatureGroup</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTargetStores(java.util.Collection)} or {@link #withTargetStores(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param targetStores
+     *        A list of stores from which you're deleting the record. By default, Feature Store deletes the record from
+     *        all of the stores that you're using for the <code>FeatureGroup</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TargetStore
+     */
+
+    public DeleteRecordRequest withTargetStores(String... targetStores) {
+        if (this.targetStores == null) {
+            setTargetStores(new java.util.ArrayList<String>(targetStores.length));
+        }
+        for (String ele : targetStores) {
+            this.targetStores.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of stores from which you're deleting the record. By default, Feature Store deletes the record from all of
+     * the stores that you're using for the <code>FeatureGroup</code>.
+     * </p>
+     * 
+     * @param targetStores
+     *        A list of stores from which you're deleting the record. By default, Feature Store deletes the record from
+     *        all of the stores that you're using for the <code>FeatureGroup</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TargetStore
+     */
+
+    public DeleteRecordRequest withTargetStores(java.util.Collection<String> targetStores) {
+        setTargetStores(targetStores);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of stores from which you're deleting the record. By default, Feature Store deletes the record from all of
+     * the stores that you're using for the <code>FeatureGroup</code>.
+     * </p>
+     * 
+     * @param targetStores
+     *        A list of stores from which you're deleting the record. By default, Feature Store deletes the record from
+     *        all of the stores that you're using for the <code>FeatureGroup</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TargetStore
+     */
+
+    public DeleteRecordRequest withTargetStores(TargetStore... targetStores) {
+        java.util.ArrayList<String> targetStoresCopy = new java.util.ArrayList<String>(targetStores.length);
+        for (TargetStore value : targetStores) {
+            targetStoresCopy.add(value.toString());
+        }
+        if (getTargetStores() == null) {
+            setTargetStores(targetStoresCopy);
+        } else {
+            getTargetStores().addAll(targetStoresCopy);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the deletion mode for deleting the record. By default, the deletion mode is set to
+     * <code>SoftDelete</code>.
+     * </p>
+     * 
+     * @param deletionMode
+     *        The name of the deletion mode for deleting the record. By default, the deletion mode is set to
+     *        <code>SoftDelete</code>.
+     * @see DeletionMode
+     */
+
+    public void setDeletionMode(String deletionMode) {
+        this.deletionMode = deletionMode;
+    }
+
+    /**
+     * <p>
+     * The name of the deletion mode for deleting the record. By default, the deletion mode is set to
+     * <code>SoftDelete</code>.
+     * </p>
+     * 
+     * @return The name of the deletion mode for deleting the record. By default, the deletion mode is set to
+     *         <code>SoftDelete</code>.
+     * @see DeletionMode
+     */
+
+    public String getDeletionMode() {
+        return this.deletionMode;
+    }
+
+    /**
+     * <p>
+     * The name of the deletion mode for deleting the record. By default, the deletion mode is set to
+     * <code>SoftDelete</code>.
+     * </p>
+     * 
+     * @param deletionMode
+     *        The name of the deletion mode for deleting the record. By default, the deletion mode is set to
+     *        <code>SoftDelete</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeletionMode
+     */
+
+    public DeleteRecordRequest withDeletionMode(String deletionMode) {
+        setDeletionMode(deletionMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the deletion mode for deleting the record. By default, the deletion mode is set to
+     * <code>SoftDelete</code>.
+     * </p>
+     * 
+     * @param deletionMode
+     *        The name of the deletion mode for deleting the record. By default, the deletion mode is set to
+     *        <code>SoftDelete</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeletionMode
+     */
+
+    public DeleteRecordRequest withDeletionMode(DeletionMode deletionMode) {
+        this.deletionMode = deletionMode.toString();
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getFeatureGroupName() != null)
+            sb.append("FeatureGroupName: ").append(getFeatureGroupName()).append(",");
+        if (getRecordIdentifierValueAsString() != null)
+            sb.append("RecordIdentifierValueAsString: ").append(getRecordIdentifierValueAsString()).append(",");
+        if (getEventTime() != null)
+            sb.append("EventTime: ").append(getEventTime()).append(",");
+        if (getTargetStores() != null)
+            sb.append("TargetStores: ").append(getTargetStores()).append(",");
+        if (getDeletionMode() != null)
+            sb.append("DeletionMode: ").append(getDeletionMode());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof DeleteRecordRequest == false)
+            return false;
+        DeleteRecordRequest other = (DeleteRecordRequest) obj;
+        if (other.getFeatureGroupName() == null ^ this.getFeatureGroupName() == null)
+            return false;
+        if (other.getFeatureGroupName() != null && other.getFeatureGroupName().equals(this.getFeatureGroupName()) == false)
+            return false;
+        if (other.getRecordIdentifierValueAsString() == null ^ this.getRecordIdentifierValueAsString() == null)
+            return false;
+        if (other.getRecordIdentifierValueAsString() != null
+                && other.getRecordIdentifierValueAsString().equals(this.getRecordIdentifierValueAsString()) == false)
+            return false;
+        if (other.getEventTime() == null ^ this.getEventTime() == null)
+            return false;
+        if (other.getEventTime() != null && other.getEventTime().equals(this.getEventTime()) == false)
+            return false;
+        if (other.getTargetStores() == null ^ this.getTargetStores() == null)
+            return false;
+        if (other.getTargetStores() != null && other.getTargetStores().equals(this.getTargetStores()) == false)
+            return false;
+        if (other.getDeletionMode() == null ^ this.getDeletionMode() == null)
+            return false;
+        if (other.getDeletionMode() != null && other.getDeletionMode().equals(this.getDeletionMode()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getFeatureGroupName() == null) ? 0 : getFeatureGroupName().hashCode());
+        hashCode = prime * hashCode + ((getRecordIdentifierValueAsString() == null) ? 0 : getRecordIdentifierValueAsString().hashCode());
+        hashCode = prime * hashCode + ((getEventTime() == null) ? 0 : getEventTime().hashCode());
+        hashCode = prime * hashCode + ((getTargetStores() == null) ? 0 : getTargetStores().hashCode());
+        hashCode = prime * hashCode + ((getDeletionMode() == null) ? 0 : getDeletionMode().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public DeleteRecordRequest clone() {
+        return (DeleteRecordRequest) super.clone();
+    }
+
+}

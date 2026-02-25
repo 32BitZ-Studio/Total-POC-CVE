@@ -1,0 +1,13 @@
+Start+R
+devmgmt.msc
+Find your device
+Right click on it
+Select "Properties"
+Go to "Details" tab
+Select "Hardware IDs" from the drop-down
+You will find an entry of a form: HID\VID_046D&PID_C05A
+In my case is: USB\VID_056A&PID_0376
+Extract the Vendoir ID and the Product ID.
+
+VID: 0x056A
+PID: 0x0376

@@ -1,0 +1,1845 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.timestreamwrite;
+
+import org.w3c.dom.*;
+
+import java.net.*;
+import java.util.*;
+
+import javax.annotation.Generated;
+
+import org.apache.commons.logging.*;
+
+import com.amazonaws.services.timestreamwrite.endpointdiscovery.AmazonTimestreamWriteEndpointCache;
+import com.amazonaws.*;
+import com.amazonaws.annotation.SdkInternalApi;
+import com.amazonaws.auth.*;
+
+import com.amazonaws.handlers.*;
+import com.amazonaws.http.*;
+import com.amazonaws.internal.*;
+import com.amazonaws.internal.auth.*;
+import com.amazonaws.metrics.*;
+import com.amazonaws.regions.*;
+import com.amazonaws.transform.*;
+import com.amazonaws.util.*;
+import com.amazonaws.protocol.json.*;
+import com.amazonaws.util.AWSRequestMetrics.Field;
+import com.amazonaws.annotation.ThreadSafe;
+import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
+import com.amazonaws.services.timestreamwrite.AmazonTimestreamWriteClientBuilder;
+
+import com.amazonaws.AmazonServiceException;
+
+import com.amazonaws.services.timestreamwrite.model.*;
+
+import com.amazonaws.services.timestreamwrite.model.transform.*;
+
+/**
+ * Client for accessing Timestream Write. All service calls made using this client are blocking, and will not return
+ * until the service call completes.
+ * <p>
+ * <fullname>Amazon Timestream Write</fullname>
+ * <p>
+ * Amazon Timestream is a fast, scalable, fully managed time-series database service that makes it easy to store and
+ * analyze trillions of time-series data points per day. With Timestream, you can easily store and analyze IoT sensor
+ * data to derive insights from your IoT applications. You can analyze industrial telemetry to streamline equipment
+ * management and maintenance. You can also store and analyze log data and metrics to improve the performance and
+ * availability of your applications.
+ * </p>
+ * <p>
+ * Timestream is built from the ground up to effectively ingest, process, and store time-series data. It organizes data
+ * to optimize query processing. It automatically scales based on the volume of data ingested and on the query volume to
+ * ensure you receive optimal performance while inserting and querying data. As your data grows over time, Timestream’s
+ * adaptive query processing engine spans across storage tiers to provide fast analysis while reducing costs.
+ * </p>
+ */
+@ThreadSafe
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class AmazonTimestreamWriteClient extends AmazonWebServiceClient implements AmazonTimestreamWrite {
+
+    protected AmazonTimestreamWriteEndpointCache cache;
+
+    private final boolean endpointDiscoveryEnabled;
+    /** Provider for AWS credentials. */
+    private final AWSCredentialsProvider awsCredentialsProvider;
+
+    private static final Log log = LogFactory.getLog(AmazonTimestreamWrite.class);
+
+    /** Default signing name for the service. */
+    private static final String DEFAULT_SIGNING_NAME = "timestream";
+
+    /** Client configuration factory providing ClientConfigurations tailored to this client */
+    protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
+
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+            new JsonClientMetadata()
+                    .withProtocolVersion("1.0")
+                    .withSupportsCbor(false)
+                    .withSupportsIon(false)
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.timestreamwrite.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.timestreamwrite.model.transform.ConflictExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidEndpointException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.timestreamwrite.model.transform.InvalidEndpointExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.timestreamwrite.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.timestreamwrite.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.timestreamwrite.model.transform.ValidationExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceQuotaExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.timestreamwrite.model.transform.ServiceQuotaExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.timestreamwrite.model.transform.InternalServerExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("RejectedRecordsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.timestreamwrite.model.transform.RejectedRecordsExceptionUnmarshaller.getInstance()))
+                    .withBaseServiceExceptionClass(com.amazonaws.services.timestreamwrite.model.AmazonTimestreamWriteException.class));
+
+    public static AmazonTimestreamWriteClientBuilder builder() {
+        return AmazonTimestreamWriteClientBuilder.standard();
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on Timestream Write using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AmazonTimestreamWriteClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on Timestream Write using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AmazonTimestreamWriteClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
+        super(clientParams);
+        this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.endpointDiscoveryEnabled = endpointDiscoveryEnabled;
+        this.advancedConfig = clientParams.getAdvancedConfig();
+        init();
+    }
+
+    private void init() {
+        if (endpointDiscoveryEnabled) {
+            cache = new AmazonTimestreamWriteEndpointCache(this);
+        }
+        setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(ENDPOINT_PREFIX);
+        // calling this.setEndPoint(...) will also modify the signer accordingly
+        setEndpoint("ingest.timestream.us-east-1.amazonaws.com");
+        HandlerChainFactory chainFactory = new HandlerChainFactory();
+        requestHandler2s.addAll(chainFactory.newRequestHandlerChain("/com/amazonaws/services/timestreamwrite/request.handlers"));
+        requestHandler2s.addAll(chainFactory.newRequestHandler2Chain("/com/amazonaws/services/timestreamwrite/request.handler2s"));
+        requestHandler2s.addAll(chainFactory.getGlobalHandlers());
+    }
+
+    /**
+     * <p>
+     * Creates a new Timestream batch load task. A batch load task processes data from a CSV source in an S3 location
+     * and writes to a Timestream table. A mapping from source to target is defined in a batch load task. Errors and
+     * events are written to a report at an S3 location. For the report, if the KMS key is not specified, the report
+     * will be encrypted with an S3 managed key when <code>SSE_S3</code> is the option. Otherwise an error is thrown.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk">Amazon Web Services
+     * managed keys</a>. <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html">Service
+     * quotas apply</a>. For details, see <a
+     * href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.create-batch-load.html">code
+     * sample</a>.
+     * </p>
+     * 
+     * @param createBatchLoadTaskRequest
+     * @return Result of the CreateBatchLoadTask operation returned by the service.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws ConflictException
+     *         Timestream was unable to process this request because it contains resource that already exists.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws ServiceQuotaExceededException
+     *         The instance quota of resource exceeded for this account.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.CreateBatchLoadTask
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/CreateBatchLoadTask"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateBatchLoadTaskResult createBatchLoadTask(CreateBatchLoadTaskRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateBatchLoadTask(request);
+    }
+
+    @SdkInternalApi
+    final CreateBatchLoadTaskResult executeCreateBatchLoadTask(CreateBatchLoadTaskRequest createBatchLoadTaskRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createBatchLoadTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateBatchLoadTaskRequest> request = null;
+        Response<CreateBatchLoadTaskResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateBatchLoadTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBatchLoadTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBatchLoadTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateBatchLoadTaskResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateBatchLoadTaskResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new Timestream database. If the KMS key is not specified, the database will be encrypted with a
+     * Timestream managed KMS key located in your account. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk">Amazon Web Services
+     * managed keys</a>. <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html">Service
+     * quotas apply</a>. For details, see <a
+     * href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.create-db.html">code sample</a>.
+     * </p>
+     * 
+     * @param createDatabaseRequest
+     * @return Result of the CreateDatabase operation returned by the service.
+     * @throws ConflictException
+     *         Timestream was unable to process this request because it contains resource that already exists.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws ServiceQuotaExceededException
+     *         The instance quota of resource exceeded for this account.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.CreateDatabase
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/CreateDatabase"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateDatabaseResult createDatabase(CreateDatabaseRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateDatabase(request);
+    }
+
+    @SdkInternalApi
+    final CreateDatabaseResult executeCreateDatabase(CreateDatabaseRequest createDatabaseRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createDatabaseRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateDatabaseRequest> request = null;
+        Response<CreateDatabaseResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDatabaseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDatabaseRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDatabase");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateDatabaseResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateDatabaseResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds a new table to an existing database in your account. In an Amazon Web Services account, table names must be
+     * at least unique within each Region if they are in the same database. You might have identical table names in the
+     * same Region if the tables are in separate databases. While creating the table, you must specify the table name,
+     * database name, and the retention properties. <a
+     * href="https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html">Service quotas apply</a>. See
+     * <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.create-table.html">code
+     * sample</a> for details.
+     * </p>
+     * 
+     * @param createTableRequest
+     * @return Result of the CreateTable operation returned by the service.
+     * @throws ConflictException
+     *         Timestream was unable to process this request because it contains resource that already exists.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws ServiceQuotaExceededException
+     *         The instance quota of resource exceeded for this account.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.CreateTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/CreateTable" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateTableResult createTable(CreateTableRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateTable(request);
+    }
+
+    @SdkInternalApi
+    final CreateTableResult executeCreateTable(CreateTableRequest createTableRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createTableRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateTableRequest> request = null;
+        Response<CreateTableResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateTableRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createTableRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTable");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateTableResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateTableResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a given Timestream database. <i>This is an irreversible operation. After a database is deleted, the
+     * time-series data from its tables cannot be recovered.</i>
+     * </p>
+     * <note>
+     * <p>
+     * All tables in the database must be deleted first, or a ValidationException error will be thrown.
+     * </p>
+     * <p>
+     * Due to the nature of distributed retries, the operation can return either success or a ResourceNotFoundException.
+     * Clients should consider them equivalent.
+     * </p>
+     * </note>
+     * <p>
+     * See <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.delete-db.html">code
+     * sample</a> for details.
+     * </p>
+     * 
+     * @param deleteDatabaseRequest
+     * @return Result of the DeleteDatabase operation returned by the service.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.DeleteDatabase
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/DeleteDatabase"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteDatabaseResult deleteDatabase(DeleteDatabaseRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteDatabase(request);
+    }
+
+    @SdkInternalApi
+    final DeleteDatabaseResult executeDeleteDatabase(DeleteDatabaseRequest deleteDatabaseRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteDatabaseRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteDatabaseRequest> request = null;
+        Response<DeleteDatabaseResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteDatabaseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDatabaseRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDatabase");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteDatabaseResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteDatabaseResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a given Timestream table. This is an irreversible operation. After a Timestream database table is
+     * deleted, the time-series data stored in the table cannot be recovered.
+     * </p>
+     * <note>
+     * <p>
+     * Due to the nature of distributed retries, the operation can return either success or a ResourceNotFoundException.
+     * Clients should consider them equivalent.
+     * </p>
+     * </note>
+     * <p>
+     * See <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.delete-table.html">code
+     * sample</a> for details.
+     * </p>
+     * 
+     * @param deleteTableRequest
+     * @return Result of the DeleteTable operation returned by the service.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.DeleteTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/DeleteTable" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteTableResult deleteTable(DeleteTableRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteTable(request);
+    }
+
+    @SdkInternalApi
+    final DeleteTableResult executeDeleteTable(DeleteTableRequest deleteTableRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteTableRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteTableRequest> request = null;
+        Response<DeleteTableResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteTableRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteTableRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTable");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteTableResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteTableResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about the batch load task, including configurations, mappings, progress, and other details.
+     * <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html">Service quotas apply</a>.
+     * See <a
+     * href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.describe-batch-load.html">code
+     * sample</a> for details.
+     * </p>
+     * 
+     * @param describeBatchLoadTaskRequest
+     * @return Result of the DescribeBatchLoadTask operation returned by the service.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.DescribeBatchLoadTask
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/DescribeBatchLoadTask"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeBatchLoadTaskResult describeBatchLoadTask(DescribeBatchLoadTaskRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeBatchLoadTask(request);
+    }
+
+    @SdkInternalApi
+    final DescribeBatchLoadTaskResult executeDescribeBatchLoadTask(DescribeBatchLoadTaskRequest describeBatchLoadTaskRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeBatchLoadTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeBatchLoadTaskRequest> request = null;
+        Response<DescribeBatchLoadTaskResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeBatchLoadTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeBatchLoadTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBatchLoadTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeBatchLoadTaskResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DescribeBatchLoadTaskResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about the database, including the database name, time that the database was created, and the
+     * total number of tables found within the database. <a
+     * href="https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html">Service quotas apply</a>. See
+     * <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.describe-db.html">code
+     * sample</a> for details.
+     * </p>
+     * 
+     * @param describeDatabaseRequest
+     * @return Result of the DescribeDatabase operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.DescribeDatabase
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/DescribeDatabase"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeDatabaseResult describeDatabase(DescribeDatabaseRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeDatabase(request);
+    }
+
+    @SdkInternalApi
+    final DescribeDatabaseResult executeDescribeDatabase(DescribeDatabaseRequest describeDatabaseRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeDatabaseRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeDatabaseRequest> request = null;
+        Response<DescribeDatabaseResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDatabaseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDatabaseRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDatabase");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeDatabaseResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeDatabaseResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of available endpoints to make Timestream API calls against. This API operation is available
+     * through both the Write and Query APIs.
+     * </p>
+     * <p>
+     * Because the Timestream SDKs are designed to transparently work with the service’s architecture, including the
+     * management and mapping of the service endpoints, <i>we don't recommend that you use this API operation
+     * unless</i>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You are using <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/VPCEndpoints">VPC endpoints
+     * (Amazon Web Services PrivateLink) with Timestream</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Your application uses a programming language that does not yet have SDK support
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You require better control over the client-side implementation
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For detailed information on how and when to use and implement DescribeEndpoints, see <a
+     * href="https://docs.aws.amazon.com/timestream/latest/developerguide/Using.API.html#Using-API.endpoint-discovery"
+     * >The Endpoint Discovery Pattern</a>.
+     * </p>
+     * 
+     * @param describeEndpointsRequest
+     * @return Result of the DescribeEndpoints operation returned by the service.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @sample AmazonTimestreamWrite.DescribeEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/DescribeEndpoints"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeEndpointsResult describeEndpoints(DescribeEndpointsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeEndpoints(request);
+    }
+
+    @SdkInternalApi
+    final DescribeEndpointsResult executeDescribeEndpoints(DescribeEndpointsRequest describeEndpointsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeEndpointsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeEndpointsRequest> request = null;
+        Response<DescribeEndpointsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEndpointsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEndpointsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEndpoints");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeEndpointsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeEndpointsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about the table, including the table name, database name, retention duration of the memory
+     * store and the magnetic store. <a
+     * href="https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html">Service quotas apply</a>. See
+     * <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.describe-table.html">code
+     * sample</a> for details.
+     * </p>
+     * 
+     * @param describeTableRequest
+     * @return Result of the DescribeTable operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.DescribeTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/DescribeTable" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeTableResult describeTable(DescribeTableRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeTable(request);
+    }
+
+    @SdkInternalApi
+    final DescribeTableResult executeDescribeTable(DescribeTableRequest describeTableRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeTableRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeTableRequest> request = null;
+        Response<DescribeTableResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeTableRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeTableRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeTable");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeTableResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeTableResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides a list of batch load tasks, along with the name, status, when the task is resumable until, and other
+     * details. See <a
+     * href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.list-batch-load-tasks.html">code
+     * sample</a> for details.
+     * </p>
+     * 
+     * @param listBatchLoadTasksRequest
+     * @return Result of the ListBatchLoadTasks operation returned by the service.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.ListBatchLoadTasks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/ListBatchLoadTasks"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListBatchLoadTasksResult listBatchLoadTasks(ListBatchLoadTasksRequest request) {
+        request = beforeClientExecution(request);
+        return executeListBatchLoadTasks(request);
+    }
+
+    @SdkInternalApi
+    final ListBatchLoadTasksResult executeListBatchLoadTasks(ListBatchLoadTasksRequest listBatchLoadTasksRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listBatchLoadTasksRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListBatchLoadTasksRequest> request = null;
+        Response<ListBatchLoadTasksResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListBatchLoadTasksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBatchLoadTasksRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBatchLoadTasks");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListBatchLoadTasksResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListBatchLoadTasksResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of your Timestream databases. <a
+     * href="https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html">Service quotas apply</a>. See
+     * <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.list-db.html">code sample</a>
+     * for details.
+     * </p>
+     * 
+     * @param listDatabasesRequest
+     * @return Result of the ListDatabases operation returned by the service.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.ListDatabases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/ListDatabases" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListDatabasesResult listDatabases(ListDatabasesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDatabases(request);
+    }
+
+    @SdkInternalApi
+    final ListDatabasesResult executeListDatabases(ListDatabasesRequest listDatabasesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDatabasesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDatabasesRequest> request = null;
+        Response<ListDatabasesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDatabasesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDatabasesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDatabases");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListDatabasesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListDatabasesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides a list of tables, along with the name, status, and retention properties of each table. See <a
+     * href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.list-table.html">code sample</a>
+     * for details.
+     * </p>
+     * 
+     * @param listTablesRequest
+     * @return Result of the ListTables operation returned by the service.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.ListTables
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/ListTables" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListTablesResult listTables(ListTablesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTables(request);
+    }
+
+    @SdkInternalApi
+    final ListTablesResult executeListTables(ListTablesRequest listTablesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTablesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTablesRequest> request = null;
+        Response<ListTablesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTablesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTablesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTables");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTablesResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTablesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists all tags on a Timestream resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/ListTagsForResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * </p>
+     * 
+     * @param resumeBatchLoadTaskRequest
+     * @return Result of the ResumeBatchLoadTask operation returned by the service.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.ResumeBatchLoadTask
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/ResumeBatchLoadTask"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ResumeBatchLoadTaskResult resumeBatchLoadTask(ResumeBatchLoadTaskRequest request) {
+        request = beforeClientExecution(request);
+        return executeResumeBatchLoadTask(request);
+    }
+
+    @SdkInternalApi
+    final ResumeBatchLoadTaskResult executeResumeBatchLoadTask(ResumeBatchLoadTaskRequest resumeBatchLoadTaskRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(resumeBatchLoadTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ResumeBatchLoadTaskRequest> request = null;
+        Response<ResumeBatchLoadTaskResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ResumeBatchLoadTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(resumeBatchLoadTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ResumeBatchLoadTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ResumeBatchLoadTaskResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ResumeBatchLoadTaskResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Associates a set of tags with a Timestream resource. You can then activate these user-defined tags so that they
+     * appear on the Billing and Cost Management console for cost allocation tracking.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws ServiceQuotaExceededException
+     *         The instance quota of resource exceeded for this account.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/TagResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes the association of tags from a Timestream resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws ServiceQuotaExceededException
+     *         The instance quota of resource exceeded for this account.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/UntagResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the KMS key for an existing database. While updating the database, you must specify the database name
+     * and the identifier of the new KMS key to be used (<code>KmsKeyId</code>). If there are any concurrent
+     * <code>UpdateDatabase</code> requests, first writer wins.
+     * </p>
+     * <p>
+     * See <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.update-db.html">code
+     * sample</a> for details.
+     * </p>
+     * 
+     * @param updateDatabaseRequest
+     * @return Result of the UpdateDatabase operation returned by the service.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws ServiceQuotaExceededException
+     *         The instance quota of resource exceeded for this account.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.UpdateDatabase
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/UpdateDatabase"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateDatabaseResult updateDatabase(UpdateDatabaseRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateDatabase(request);
+    }
+
+    @SdkInternalApi
+    final UpdateDatabaseResult executeUpdateDatabase(UpdateDatabaseRequest updateDatabaseRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateDatabaseRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateDatabaseRequest> request = null;
+        Response<UpdateDatabaseResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateDatabaseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDatabaseRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDatabase");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateDatabaseResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateDatabaseResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the retention duration of the memory store and magnetic store for your Timestream table. Note that the
+     * change in retention duration takes effect immediately. For example, if the retention period of the memory store
+     * was initially set to 2 hours and then changed to 24 hours, the memory store will be capable of holding 24 hours
+     * of data, but will be populated with 24 hours of data 22 hours after this change was made. Timestream does not
+     * retrieve data from the magnetic store to populate the memory store.
+     * </p>
+     * <p>
+     * See <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.update-table.html">code
+     * sample</a> for details.
+     * </p>
+     * 
+     * @param updateTableRequest
+     * @return Result of the UpdateTable operation returned by the service.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.UpdateTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/UpdateTable" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateTableResult updateTable(UpdateTableRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateTable(request);
+    }
+
+    @SdkInternalApi
+    final UpdateTableResult executeUpdateTable(UpdateTableRequest updateTableRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateTableRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateTableRequest> request = null;
+        Response<UpdateTableResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateTableRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateTableRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateTable");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateTableResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateTableResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Enables you to write your time-series data into Timestream. You can specify a single data point or a batch of
+     * data points to be inserted into the system. Timestream offers you a flexible schema that auto detects the column
+     * names and data types for your Timestream tables based on the dimension names and data types of the data points
+     * you specify when invoking writes into the database.
+     * </p>
+     * <p>
+     * Timestream supports eventual consistency read semantics. This means that when you query data immediately after
+     * writing a batch of data into Timestream, the query results might not reflect the results of a recently completed
+     * write operation. The results may also include some stale data. If you repeat the query request after a short
+     * time, the results should return the latest data. <a
+     * href="https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html">Service quotas apply</a>.
+     * </p>
+     * <p>
+     * See <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.write.html">code
+     * sample</a> for details.
+     * </p>
+     * <p>
+     * <b>Upserts</b>
+     * </p>
+     * <p>
+     * You can use the <code>Version</code> parameter in a <code>WriteRecords</code> request to update data points.
+     * Timestream tracks a version number with each record. <code>Version</code> defaults to <code>1</code> when it's
+     * not specified for the record in the request. Timestream updates an existing record’s measure value along with its
+     * <code>Version</code> when it receives a write request with a higher <code>Version</code> number for that record.
+     * When it receives an update request where the measure value is the same as that of the existing record, Timestream
+     * still updates <code>Version</code>, if it is greater than the existing value of <code>Version</code>. You can
+     * update a data point as many times as desired, as long as the value of <code>Version</code> continuously
+     * increases.
+     * </p>
+     * <p>
+     * For example, suppose you write a new record without indicating <code>Version</code> in the request. Timestream
+     * stores this record, and set <code>Version</code> to <code>1</code>. Now, suppose you try to update this record
+     * with a <code>WriteRecords</code> request of the same record with a different measure value but, like before, do
+     * not provide <code>Version</code>. In this case, Timestream will reject this update with a
+     * <code>RejectedRecordsException</code> since the updated record’s version is not greater than the existing value
+     * of Version.
+     * </p>
+     * <p>
+     * However, if you were to resend the update request with <code>Version</code> set to <code>2</code>, Timestream
+     * would then succeed in updating the record’s value, and the <code>Version</code> would be set to <code>2</code>.
+     * Next, suppose you sent a <code>WriteRecords</code> request with this same record and an identical measure value,
+     * but with <code>Version</code> set to <code>3</code>. In this case, Timestream would only update
+     * <code>Version</code> to <code>3</code>. Any further updates would need to send a version number greater than
+     * <code>3</code>, or the update requests would receive a <code>RejectedRecordsException</code>.
+     * </p>
+     * 
+     * @param writeRecordsRequest
+     * @return Result of the WriteRecords operation returned by the service.
+     * @throws InternalServerException
+     *         Timestream was unable to fully process this request because of an internal server error.
+     * @throws ThrottlingException
+     *         Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
+     * @throws ValidationException
+     *         An invalid or malformed request.
+     * @throws ResourceNotFoundException
+     *         The operation tried to access a nonexistent resource. The resource might not be specified correctly, or
+     *         its status might not be ACTIVE.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform this action.
+     * @throws RejectedRecordsException
+     *         WriteRecords would throw this exception in the following cases: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Records with duplicate data where there are multiple records with the same dimensions, timestamps, and
+     *         measure names but:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Measure values are different
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Version is not present in the request <i>or</i> the value of version in the new record is equal to or
+     *         lower than the existing value
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         In this case, if Timestream rejects data, the <code>ExistingVersion</code> field in the
+     *         <code>RejectedRecords</code> response will indicate the current record’s version. To force an update, you
+     *         can resend the request with a version for the record set to a value greater than the
+     *         <code>ExistingVersion</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Records with timestamps that lie outside the retention duration of the memory store.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Records with dimensions or measures that exceed the Timestream defined limits.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html">Quotas</a> in the
+     *         Amazon Timestream Developer Guide.
+     * @throws InvalidEndpointException
+     *         The requested endpoint was not valid.
+     * @sample AmazonTimestreamWrite.WriteRecords
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/timestream-write-2018-11-01/WriteRecords" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public WriteRecordsResult writeRecords(WriteRecordsRequest request) {
+        request = beforeClientExecution(request);
+        return executeWriteRecords(request);
+    }
+
+    @SdkInternalApi
+    final WriteRecordsResult executeWriteRecords(WriteRecordsRequest writeRecordsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(writeRecordsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<WriteRecordsRequest> request = null;
+        Response<WriteRecordsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new WriteRecordsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(writeRecordsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Timestream Write");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "WriteRecords");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI cachedEndpoint = null;
+            if (endpointDiscoveryEnabled) {
+                DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, true, endpoint);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<WriteRecordsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new WriteRecordsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, cachedEndpoint, null);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Returns additional metadata for a previously executed successful, request, typically used for debugging issues
+     * where a service isn't acting as expected. This data isn't considered part of the result data returned by an
+     * operation, so it's available through this separate, diagnostic interface.
+     * <p>
+     * Response metadata is only cached for a limited period of time, so if you need to access this extra diagnostic
+     * information for an executed request, you should use this method to retrieve it as soon as possible after
+     * executing the request.
+     *
+     * @param request
+     *        The originally executed request
+     *
+     * @return The response metadata for the specified request, or null if none is available.
+     */
+    public ResponseMetadata getCachedResponseMetadata(AmazonWebServiceRequest request) {
+        return client.getResponseMetadataForRequest(request);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext) {
+
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
+        executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
+
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
+    }
+
+    /**
+     * Invoke with no authentication. Credentials are not required and any credentials set on the client or request will
+     * be ignored for this operation.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
+
+        return doInvoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Invoke the request using the http client. Assumes credentials (or lack thereof) have been configured in the
+     * ExecutionContext beforehand.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
+        request.setTimeOffset(timeOffset);
+
+        HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
+
+        return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
+        if (cache != null) {
+            cache.shutdown();
+        }
+    }
+
+}

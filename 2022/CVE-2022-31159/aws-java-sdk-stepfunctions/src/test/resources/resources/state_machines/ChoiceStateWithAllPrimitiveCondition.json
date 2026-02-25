@@ -1,0 +1,202 @@
+{
+  "StartAt": "InitialState",
+  "States": {
+    "InitialState": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "And": [
+            {
+              "Variable": "$.string",
+              "StringEquals": "value"
+            },
+            {
+              "Variable": "$.string",
+              "StringGreaterThan": "value"
+            },
+            {
+              "Variable": "$.string",
+              "StringGreaterThanEquals": "value"
+            },
+            {
+              "Variable": "$.string",
+              "StringLessThan": "value"
+            },
+            {
+              "Variable": "$.string",
+              "StringLessThanEquals": "value"
+            },
+            {
+              "Variable": "$.integral",
+              "NumericEquals": 42
+            },
+            {
+              "Variable": "$.integral",
+              "NumericGreaterThan": 42
+            },
+            {
+              "Variable": "$.integral",
+              "NumericGreaterThanEquals": 42
+            },
+            {
+              "Variable": "$.integral",
+              "NumericLessThan": 42
+            },
+            {
+              "Variable": "$.integral",
+              "NumericLessThanEquals": 42
+            },
+            {
+              "Variable": "$.double",
+              "NumericEquals": 9000.1
+            },
+            {
+              "Variable": "$.double",
+              "NumericGreaterThan": 9000.1
+            },
+            {
+              "Variable": "$.double",
+              "NumericGreaterThanEquals": 9000.1
+            },
+            {
+              "Variable": "$.double",
+              "NumericLessThan": 9000.1
+            },
+            {
+              "Variable": "$.double",
+              "NumericLessThanEquals": 9000.1
+            },
+            {
+              "Variable": "$.timestamp",
+              "TimestampEquals": "2016-03-14T01:59:00.000Z"
+            },
+            {
+              "Variable": "$.timestamp",
+              "TimestampGreaterThan": "2016-03-14T01:59:00.000Z"
+            },
+            {
+              "Variable": "$.timestamp",
+              "TimestampGreaterThanEquals": "2016-03-14T01:59:00.000Z"
+            },
+            {
+              "Variable": "$.timestamp",
+              "TimestampLessThan": "2016-03-14T01:59:00.000Z"
+            },
+            {
+              "Variable": "$.timestamp",
+              "TimestampLessThanEquals": "2016-03-14T01:59:00.000Z"
+            },
+            {
+              "Variable": "$.boolean",
+              "BooleanEquals": true
+            },
+            {
+              "Variable": "$.boolean",
+              "BooleanEquals": false
+            },
+            {
+              "Variable": "$.string",
+              "StringEqualsPath": "$.string2"
+            },
+            {
+              "Variable": "$.string",
+              "StringGreaterThanPath": "$.string2"
+            },
+            {
+              "Variable": "$.string",
+              "StringGreaterThanEqualsPath": "$.string2"
+            },
+            {
+              "Variable": "$.string",
+              "StringLessThanPath": "$.string2"
+            },
+            {
+              "Variable": "$.string",
+              "StringLessThanEqualsPath": "$.string2"
+            },
+            {
+              "Variable": "$.number",
+              "NumericEqualsPath": "$.number2"
+            },
+            {
+              "Variable": "$.number",
+              "NumericGreaterThanPath": "$.number2"
+            },
+            {
+              "Variable": "$.number",
+              "NumericGreaterThanEqualsPath": "$.number2"
+            },
+            {
+              "Variable": "$.number",
+              "NumericLessThanPath": "$.number2"
+            },
+            {
+              "Variable": "$.number",
+              "NumericLessThanEqualsPath": "$.number2"
+            },
+            {
+              "Variable": "$.timestamp",
+              "TimestampEqualsPath": "$.timestamp2"
+            },
+            {
+              "Variable": "$.timestamp",
+              "TimestampGreaterThanPath": "$.timestamp2"
+            },
+            {
+              "Variable": "$.timestamp",
+              "TimestampGreaterThanEqualsPath": "$.timestamp2"
+            },
+            {
+              "Variable": "$.timestamp",
+              "TimestampLessThanPath": "$.timestamp2"
+            },
+            {
+              "Variable": "$.timestamp",
+              "TimestampLessThanEqualsPath": "$.timestamp2"
+            },
+            {
+              "Variable": "$.boolean",
+              "BooleanEqualsPath": "$.boolean2"
+            },
+            {
+              "Variable": "$.variable",
+              "IsNull": true
+            },
+            {
+              "Variable": "$.variable",
+              "IsPresent": true
+            },
+            {
+              "Variable": "$.variable",
+              "IsString": true
+            },
+            {
+              "Variable": "$.variable",
+              "IsNumeric": true
+            },
+            {
+              "Variable": "$.variable",
+              "IsTimestamp": true
+            },
+            {
+              "Variable": "$.variable",
+              "IsBoolean": true
+            },
+            {
+              "Variable": "$.variable",
+              "StringMatches": "pattern"
+            }
+          ],
+          "Next": "NextState"
+        }
+      ],
+      "Default": "DefaultState"
+    },
+    "NextState": {
+      "Type": "Succeed"
+    },
+    "DefaultState": {
+      "Type": "Succeed"
+    }
+  }
+}

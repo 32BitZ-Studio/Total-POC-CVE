@@ -1,0 +1,337 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.mediaconvert.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * Settings related to WebVTT captions. WebVTT is a sidecar format that holds captions in a file that is separate from
+ * the video container. Set up sidecar captions in the same output group, but different output from your video. For more
+ * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/WebvttDestinationSettings"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class WebvttDestinationSettings implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * If the WebVTT captions track is intended to provide accessibility for people who are deaf or hard of hearing: Set
+     * Accessibility subtitles to Enabled. When you do, MediaConvert adds accessibility attributes to your output HLS or
+     * DASH manifest. For HLS manifests, MediaConvert adds the following accessibility attributes under EXT-X-MEDIA for
+     * this track:
+     * CHARACTERISTICS="public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound" and
+     * AUTOSELECT="YES". For DASH manifests, MediaConvert adds the following in the adaptation set for this track:
+     * <Accessibility schemeIdUri="urn:mpeg:dash:role:2011" value="caption"/>. If the captions track is not intended to
+     * provide such accessibility: Keep the default value, Disabled. When you do, for DASH manifests, MediaConvert
+     * instead adds the following in the adaptation set for this track: <Role schemeIDUri="urn:mpeg:dash:role:2011"
+     * value="subtitle"/>.
+     */
+    private String accessibility;
+    /**
+     * To use the available style, color, and position information from your input captions: Set Style passthrough to
+     * Enabled. MediaConvert uses default settings when style and position information is missing from your input
+     * captions. To recreate the input captions exactly: Set Style passthrough to Strict. MediaConvert automatically
+     * applies timing adjustments, including adjustments for frame rate conversion, ad avails, and input clipping. Your
+     * input captions format must be WebVTT. To ignore the style and position information from your input captions and
+     * use simplified output captions: Set Style passthrough to Disabled, or leave blank.
+     */
+    private String stylePassthrough;
+
+    /**
+     * If the WebVTT captions track is intended to provide accessibility for people who are deaf or hard of hearing: Set
+     * Accessibility subtitles to Enabled. When you do, MediaConvert adds accessibility attributes to your output HLS or
+     * DASH manifest. For HLS manifests, MediaConvert adds the following accessibility attributes under EXT-X-MEDIA for
+     * this track:
+     * CHARACTERISTICS="public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound" and
+     * AUTOSELECT="YES". For DASH manifests, MediaConvert adds the following in the adaptation set for this track:
+     * <Accessibility schemeIdUri="urn:mpeg:dash:role:2011" value="caption"/>. If the captions track is not intended to
+     * provide such accessibility: Keep the default value, Disabled. When you do, for DASH manifests, MediaConvert
+     * instead adds the following in the adaptation set for this track: <Role schemeIDUri="urn:mpeg:dash:role:2011"
+     * value="subtitle"/>.
+     * 
+     * @param accessibility
+     *        If the WebVTT captions track is intended to provide accessibility for people who are deaf or hard of
+     *        hearing: Set Accessibility subtitles to Enabled. When you do, MediaConvert adds accessibility attributes
+     *        to your output HLS or DASH manifest. For HLS manifests, MediaConvert adds the following accessibility
+     *        attributes under EXT-X-MEDIA for this track: CHARACTERISTICS=
+     *        "public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound" and
+     *        AUTOSELECT="YES". For DASH manifests, MediaConvert adds the following in the adaptation set for this
+     *        track: <Accessibility schemeIdUri="urn:mpeg:dash:role:2011" value="caption"/>. If the captions track is
+     *        not intended to provide such accessibility: Keep the default value, Disabled. When you do, for DASH
+     *        manifests, MediaConvert instead adds the following in the adaptation set for this track: <Role
+     *        schemeIDUri="urn:mpeg:dash:role:2011" value="subtitle"/>.
+     * @see WebvttAccessibilitySubs
+     */
+
+    public void setAccessibility(String accessibility) {
+        this.accessibility = accessibility;
+    }
+
+    /**
+     * If the WebVTT captions track is intended to provide accessibility for people who are deaf or hard of hearing: Set
+     * Accessibility subtitles to Enabled. When you do, MediaConvert adds accessibility attributes to your output HLS or
+     * DASH manifest. For HLS manifests, MediaConvert adds the following accessibility attributes under EXT-X-MEDIA for
+     * this track:
+     * CHARACTERISTICS="public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound" and
+     * AUTOSELECT="YES". For DASH manifests, MediaConvert adds the following in the adaptation set for this track:
+     * <Accessibility schemeIdUri="urn:mpeg:dash:role:2011" value="caption"/>. If the captions track is not intended to
+     * provide such accessibility: Keep the default value, Disabled. When you do, for DASH manifests, MediaConvert
+     * instead adds the following in the adaptation set for this track: <Role schemeIDUri="urn:mpeg:dash:role:2011"
+     * value="subtitle"/>.
+     * 
+     * @return If the WebVTT captions track is intended to provide accessibility for people who are deaf or hard of
+     *         hearing: Set Accessibility subtitles to Enabled. When you do, MediaConvert adds accessibility attributes
+     *         to your output HLS or DASH manifest. For HLS manifests, MediaConvert adds the following accessibility
+     *         attributes under EXT-X-MEDIA for this track: CHARACTERISTICS=
+     *         "public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound" and
+     *         AUTOSELECT="YES". For DASH manifests, MediaConvert adds the following in the adaptation set for this
+     *         track: <Accessibility schemeIdUri="urn:mpeg:dash:role:2011" value="caption"/>. If the captions track is
+     *         not intended to provide such accessibility: Keep the default value, Disabled. When you do, for DASH
+     *         manifests, MediaConvert instead adds the following in the adaptation set for this track: <Role
+     *         schemeIDUri="urn:mpeg:dash:role:2011" value="subtitle"/>.
+     * @see WebvttAccessibilitySubs
+     */
+
+    public String getAccessibility() {
+        return this.accessibility;
+    }
+
+    /**
+     * If the WebVTT captions track is intended to provide accessibility for people who are deaf or hard of hearing: Set
+     * Accessibility subtitles to Enabled. When you do, MediaConvert adds accessibility attributes to your output HLS or
+     * DASH manifest. For HLS manifests, MediaConvert adds the following accessibility attributes under EXT-X-MEDIA for
+     * this track:
+     * CHARACTERISTICS="public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound" and
+     * AUTOSELECT="YES". For DASH manifests, MediaConvert adds the following in the adaptation set for this track:
+     * <Accessibility schemeIdUri="urn:mpeg:dash:role:2011" value="caption"/>. If the captions track is not intended to
+     * provide such accessibility: Keep the default value, Disabled. When you do, for DASH manifests, MediaConvert
+     * instead adds the following in the adaptation set for this track: <Role schemeIDUri="urn:mpeg:dash:role:2011"
+     * value="subtitle"/>.
+     * 
+     * @param accessibility
+     *        If the WebVTT captions track is intended to provide accessibility for people who are deaf or hard of
+     *        hearing: Set Accessibility subtitles to Enabled. When you do, MediaConvert adds accessibility attributes
+     *        to your output HLS or DASH manifest. For HLS manifests, MediaConvert adds the following accessibility
+     *        attributes under EXT-X-MEDIA for this track: CHARACTERISTICS=
+     *        "public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound" and
+     *        AUTOSELECT="YES". For DASH manifests, MediaConvert adds the following in the adaptation set for this
+     *        track: <Accessibility schemeIdUri="urn:mpeg:dash:role:2011" value="caption"/>. If the captions track is
+     *        not intended to provide such accessibility: Keep the default value, Disabled. When you do, for DASH
+     *        manifests, MediaConvert instead adds the following in the adaptation set for this track: <Role
+     *        schemeIDUri="urn:mpeg:dash:role:2011" value="subtitle"/>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WebvttAccessibilitySubs
+     */
+
+    public WebvttDestinationSettings withAccessibility(String accessibility) {
+        setAccessibility(accessibility);
+        return this;
+    }
+
+    /**
+     * If the WebVTT captions track is intended to provide accessibility for people who are deaf or hard of hearing: Set
+     * Accessibility subtitles to Enabled. When you do, MediaConvert adds accessibility attributes to your output HLS or
+     * DASH manifest. For HLS manifests, MediaConvert adds the following accessibility attributes under EXT-X-MEDIA for
+     * this track:
+     * CHARACTERISTICS="public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound" and
+     * AUTOSELECT="YES". For DASH manifests, MediaConvert adds the following in the adaptation set for this track:
+     * <Accessibility schemeIdUri="urn:mpeg:dash:role:2011" value="caption"/>. If the captions track is not intended to
+     * provide such accessibility: Keep the default value, Disabled. When you do, for DASH manifests, MediaConvert
+     * instead adds the following in the adaptation set for this track: <Role schemeIDUri="urn:mpeg:dash:role:2011"
+     * value="subtitle"/>.
+     * 
+     * @param accessibility
+     *        If the WebVTT captions track is intended to provide accessibility for people who are deaf or hard of
+     *        hearing: Set Accessibility subtitles to Enabled. When you do, MediaConvert adds accessibility attributes
+     *        to your output HLS or DASH manifest. For HLS manifests, MediaConvert adds the following accessibility
+     *        attributes under EXT-X-MEDIA for this track: CHARACTERISTICS=
+     *        "public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound" and
+     *        AUTOSELECT="YES". For DASH manifests, MediaConvert adds the following in the adaptation set for this
+     *        track: <Accessibility schemeIdUri="urn:mpeg:dash:role:2011" value="caption"/>. If the captions track is
+     *        not intended to provide such accessibility: Keep the default value, Disabled. When you do, for DASH
+     *        manifests, MediaConvert instead adds the following in the adaptation set for this track: <Role
+     *        schemeIDUri="urn:mpeg:dash:role:2011" value="subtitle"/>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WebvttAccessibilitySubs
+     */
+
+    public WebvttDestinationSettings withAccessibility(WebvttAccessibilitySubs accessibility) {
+        this.accessibility = accessibility.toString();
+        return this;
+    }
+
+    /**
+     * To use the available style, color, and position information from your input captions: Set Style passthrough to
+     * Enabled. MediaConvert uses default settings when style and position information is missing from your input
+     * captions. To recreate the input captions exactly: Set Style passthrough to Strict. MediaConvert automatically
+     * applies timing adjustments, including adjustments for frame rate conversion, ad avails, and input clipping. Your
+     * input captions format must be WebVTT. To ignore the style and position information from your input captions and
+     * use simplified output captions: Set Style passthrough to Disabled, or leave blank.
+     * 
+     * @param stylePassthrough
+     *        To use the available style, color, and position information from your input captions: Set Style
+     *        passthrough to Enabled. MediaConvert uses default settings when style and position information is missing
+     *        from your input captions. To recreate the input captions exactly: Set Style passthrough to Strict.
+     *        MediaConvert automatically applies timing adjustments, including adjustments for frame rate conversion, ad
+     *        avails, and input clipping. Your input captions format must be WebVTT. To ignore the style and position
+     *        information from your input captions and use simplified output captions: Set Style passthrough to
+     *        Disabled, or leave blank.
+     * @see WebvttStylePassthrough
+     */
+
+    public void setStylePassthrough(String stylePassthrough) {
+        this.stylePassthrough = stylePassthrough;
+    }
+
+    /**
+     * To use the available style, color, and position information from your input captions: Set Style passthrough to
+     * Enabled. MediaConvert uses default settings when style and position information is missing from your input
+     * captions. To recreate the input captions exactly: Set Style passthrough to Strict. MediaConvert automatically
+     * applies timing adjustments, including adjustments for frame rate conversion, ad avails, and input clipping. Your
+     * input captions format must be WebVTT. To ignore the style and position information from your input captions and
+     * use simplified output captions: Set Style passthrough to Disabled, or leave blank.
+     * 
+     * @return To use the available style, color, and position information from your input captions: Set Style
+     *         passthrough to Enabled. MediaConvert uses default settings when style and position information is missing
+     *         from your input captions. To recreate the input captions exactly: Set Style passthrough to Strict.
+     *         MediaConvert automatically applies timing adjustments, including adjustments for frame rate conversion,
+     *         ad avails, and input clipping. Your input captions format must be WebVTT. To ignore the style and
+     *         position information from your input captions and use simplified output captions: Set Style passthrough
+     *         to Disabled, or leave blank.
+     * @see WebvttStylePassthrough
+     */
+
+    public String getStylePassthrough() {
+        return this.stylePassthrough;
+    }
+
+    /**
+     * To use the available style, color, and position information from your input captions: Set Style passthrough to
+     * Enabled. MediaConvert uses default settings when style and position information is missing from your input
+     * captions. To recreate the input captions exactly: Set Style passthrough to Strict. MediaConvert automatically
+     * applies timing adjustments, including adjustments for frame rate conversion, ad avails, and input clipping. Your
+     * input captions format must be WebVTT. To ignore the style and position information from your input captions and
+     * use simplified output captions: Set Style passthrough to Disabled, or leave blank.
+     * 
+     * @param stylePassthrough
+     *        To use the available style, color, and position information from your input captions: Set Style
+     *        passthrough to Enabled. MediaConvert uses default settings when style and position information is missing
+     *        from your input captions. To recreate the input captions exactly: Set Style passthrough to Strict.
+     *        MediaConvert automatically applies timing adjustments, including adjustments for frame rate conversion, ad
+     *        avails, and input clipping. Your input captions format must be WebVTT. To ignore the style and position
+     *        information from your input captions and use simplified output captions: Set Style passthrough to
+     *        Disabled, or leave blank.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WebvttStylePassthrough
+     */
+
+    public WebvttDestinationSettings withStylePassthrough(String stylePassthrough) {
+        setStylePassthrough(stylePassthrough);
+        return this;
+    }
+
+    /**
+     * To use the available style, color, and position information from your input captions: Set Style passthrough to
+     * Enabled. MediaConvert uses default settings when style and position information is missing from your input
+     * captions. To recreate the input captions exactly: Set Style passthrough to Strict. MediaConvert automatically
+     * applies timing adjustments, including adjustments for frame rate conversion, ad avails, and input clipping. Your
+     * input captions format must be WebVTT. To ignore the style and position information from your input captions and
+     * use simplified output captions: Set Style passthrough to Disabled, or leave blank.
+     * 
+     * @param stylePassthrough
+     *        To use the available style, color, and position information from your input captions: Set Style
+     *        passthrough to Enabled. MediaConvert uses default settings when style and position information is missing
+     *        from your input captions. To recreate the input captions exactly: Set Style passthrough to Strict.
+     *        MediaConvert automatically applies timing adjustments, including adjustments for frame rate conversion, ad
+     *        avails, and input clipping. Your input captions format must be WebVTT. To ignore the style and position
+     *        information from your input captions and use simplified output captions: Set Style passthrough to
+     *        Disabled, or leave blank.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WebvttStylePassthrough
+     */
+
+    public WebvttDestinationSettings withStylePassthrough(WebvttStylePassthrough stylePassthrough) {
+        this.stylePassthrough = stylePassthrough.toString();
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getAccessibility() != null)
+            sb.append("Accessibility: ").append(getAccessibility()).append(",");
+        if (getStylePassthrough() != null)
+            sb.append("StylePassthrough: ").append(getStylePassthrough());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof WebvttDestinationSettings == false)
+            return false;
+        WebvttDestinationSettings other = (WebvttDestinationSettings) obj;
+        if (other.getAccessibility() == null ^ this.getAccessibility() == null)
+            return false;
+        if (other.getAccessibility() != null && other.getAccessibility().equals(this.getAccessibility()) == false)
+            return false;
+        if (other.getStylePassthrough() == null ^ this.getStylePassthrough() == null)
+            return false;
+        if (other.getStylePassthrough() != null && other.getStylePassthrough().equals(this.getStylePassthrough()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getAccessibility() == null) ? 0 : getAccessibility().hashCode());
+        hashCode = prime * hashCode + ((getStylePassthrough() == null) ? 0 : getStylePassthrough().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public WebvttDestinationSettings clone() {
+        try {
+            return (WebvttDestinationSettings) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.mediaconvert.model.transform.WebvttDestinationSettingsMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

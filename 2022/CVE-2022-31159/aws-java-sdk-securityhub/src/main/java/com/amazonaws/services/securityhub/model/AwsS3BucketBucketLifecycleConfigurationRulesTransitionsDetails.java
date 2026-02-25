@@ -1,0 +1,668 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.securityhub.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * A rule for when objects transition to specific storage classes.
+ * </p>
+ * 
+ * @see <a
+ *      href="http://docs.aws.amazon.com/goto/WebAPI/securityhub-2018-10-26/AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * A date on which to transition objects to the specified storage class. If you provide <code>Date</code>, you
+     * cannot provide <code>Days</code>.
+     * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String date;
+    /**
+     * <p>
+     * The number of days after which to transition the object to the specified storage class. If you provide
+     * <code>Days</code>, you cannot provide <code>Date</code>.
+     * </p>
+     */
+    private Integer days;
+    /**
+     * <p>
+     * The storage class to transition the object to. Valid values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DEEP_ARCHIVE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GLACIER</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INTELLIGENT_TIERING</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ONEZONE_IA</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STANDARD_IA</code>
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String storageClass;
+
+    /**
+     * <p>
+     * A date on which to transition objects to the specified storage class. If you provide <code>Date</code>, you
+     * cannot provide <code>Days</code>.
+     * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param date
+     *        A date on which to transition objects to the specified storage class. If you provide <code>Date</code>,
+     *        you cannot provide <code>Days</code>.</p>
+     *        <p>
+     *        This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *        <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *        maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *        <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *        </p>
+     *        </li>
+     */
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    /**
+     * <p>
+     * A date on which to transition objects to the specified storage class. If you provide <code>Date</code>, you
+     * cannot provide <code>Days</code>.
+     * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return A date on which to transition objects to the specified storage class. If you provide <code>Date</code>,
+     *         you cannot provide <code>Days</code>.</p>
+     *         <p>
+     *         This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *         <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *         maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *         <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *         </p>
+     *         </li>
+     */
+
+    public String getDate() {
+        return this.date;
+    }
+
+    /**
+     * <p>
+     * A date on which to transition objects to the specified storage class. If you provide <code>Date</code>, you
+     * cannot provide <code>Days</code>.
+     * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param date
+     *        A date on which to transition objects to the specified storage class. If you provide <code>Date</code>,
+     *        you cannot provide <code>Days</code>.</p>
+     *        <p>
+     *        This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *        <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *        maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *        <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails withDate(String date) {
+        setDate(date);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of days after which to transition the object to the specified storage class. If you provide
+     * <code>Days</code>, you cannot provide <code>Date</code>.
+     * </p>
+     * 
+     * @param days
+     *        The number of days after which to transition the object to the specified storage class. If you provide
+     *        <code>Days</code>, you cannot provide <code>Date</code>.
+     */
+
+    public void setDays(Integer days) {
+        this.days = days;
+    }
+
+    /**
+     * <p>
+     * The number of days after which to transition the object to the specified storage class. If you provide
+     * <code>Days</code>, you cannot provide <code>Date</code>.
+     * </p>
+     * 
+     * @return The number of days after which to transition the object to the specified storage class. If you provide
+     *         <code>Days</code>, you cannot provide <code>Date</code>.
+     */
+
+    public Integer getDays() {
+        return this.days;
+    }
+
+    /**
+     * <p>
+     * The number of days after which to transition the object to the specified storage class. If you provide
+     * <code>Days</code>, you cannot provide <code>Date</code>.
+     * </p>
+     * 
+     * @param days
+     *        The number of days after which to transition the object to the specified storage class. If you provide
+     *        <code>Days</code>, you cannot provide <code>Date</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails withDays(Integer days) {
+        setDays(days);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The storage class to transition the object to. Valid values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DEEP_ARCHIVE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GLACIER</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INTELLIGENT_TIERING</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ONEZONE_IA</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STANDARD_IA</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param storageClass
+     *        The storage class to transition the object to. Valid values are as follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DEEP_ARCHIVE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GLACIER</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INTELLIGENT_TIERING</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ONEZONE_IA</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STANDARD_IA</code>
+     *        </p>
+     *        </li>
+     */
+
+    public void setStorageClass(String storageClass) {
+        this.storageClass = storageClass;
+    }
+
+    /**
+     * <p>
+     * The storage class to transition the object to. Valid values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DEEP_ARCHIVE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GLACIER</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INTELLIGENT_TIERING</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ONEZONE_IA</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STANDARD_IA</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The storage class to transition the object to. Valid values are as follows:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>DEEP_ARCHIVE</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GLACIER</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>INTELLIGENT_TIERING</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ONEZONE_IA</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>STANDARD_IA</code>
+     *         </p>
+     *         </li>
+     */
+
+    public String getStorageClass() {
+        return this.storageClass;
+    }
+
+    /**
+     * <p>
+     * The storage class to transition the object to. Valid values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DEEP_ARCHIVE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GLACIER</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INTELLIGENT_TIERING</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ONEZONE_IA</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STANDARD_IA</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param storageClass
+     *        The storage class to transition the object to. Valid values are as follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DEEP_ARCHIVE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GLACIER</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INTELLIGENT_TIERING</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ONEZONE_IA</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STANDARD_IA</code>
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails withStorageClass(String storageClass) {
+        setStorageClass(storageClass);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getDate() != null)
+            sb.append("Date: ").append(getDate()).append(",");
+        if (getDays() != null)
+            sb.append("Days: ").append(getDays()).append(",");
+        if (getStorageClass() != null)
+            sb.append("StorageClass: ").append(getStorageClass());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails == false)
+            return false;
+        AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails other = (AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails) obj;
+        if (other.getDate() == null ^ this.getDate() == null)
+            return false;
+        if (other.getDate() != null && other.getDate().equals(this.getDate()) == false)
+            return false;
+        if (other.getDays() == null ^ this.getDays() == null)
+            return false;
+        if (other.getDays() != null && other.getDays().equals(this.getDays()) == false)
+            return false;
+        if (other.getStorageClass() == null ^ this.getStorageClass() == null)
+            return false;
+        if (other.getStorageClass() != null && other.getStorageClass().equals(this.getStorageClass()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getDate() == null) ? 0 : getDate().hashCode());
+        hashCode = prime * hashCode + ((getDays() == null) ? 0 : getDays().hashCode());
+        hashCode = prime * hashCode + ((getStorageClass() == null) ? 0 : getStorageClass().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails clone() {
+        try {
+            return (AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.securityhub.model.transform.AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetailsMarshaller.getInstance().marshall(
+                this, protocolMarshaller);
+    }
+}

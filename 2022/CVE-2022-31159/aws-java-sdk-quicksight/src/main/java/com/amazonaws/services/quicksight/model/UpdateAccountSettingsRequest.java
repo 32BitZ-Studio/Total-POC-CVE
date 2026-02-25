@@ -1,0 +1,341 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.quicksight.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/quicksight-2018-04-01/UpdateAccountSettings" target="_top">AWS
+ *      API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class UpdateAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The ID for the Amazon Web Services account that contains the Amazon QuickSight settings that you want to list.
+     * </p>
+     */
+    private String awsAccountId;
+    /**
+     * <p>
+     * The default namespace for this Amazon Web Services account. Currently, the default is <code>default</code>. IAM
+     * users that register for the first time with Amazon QuickSight provide an email address that becomes associated
+     * with the default namespace.
+     * </p>
+     */
+    private String defaultNamespace;
+    /**
+     * <p>
+     * The email address that you want Amazon QuickSight to send notifications to regarding your Amazon Web Services
+     * account or Amazon QuickSight subscription.
+     * </p>
+     */
+    private String notificationEmail;
+    /**
+     * <p>
+     * A boolean value that determines whether or not an Amazon QuickSight account can be deleted. A <code>True</code>
+     * value doesn't allow the account to be deleted and results in an error message if a user tries to make a
+     * <code>DeleteAccountSubscription</code> request. A <code>False</code> value will allow the account to be deleted.
+     * </p>
+     */
+    private Boolean terminationProtectionEnabled;
+
+    /**
+     * <p>
+     * The ID for the Amazon Web Services account that contains the Amazon QuickSight settings that you want to list.
+     * </p>
+     * 
+     * @param awsAccountId
+     *        The ID for the Amazon Web Services account that contains the Amazon QuickSight settings that you want to
+     *        list.
+     */
+
+    public void setAwsAccountId(String awsAccountId) {
+        this.awsAccountId = awsAccountId;
+    }
+
+    /**
+     * <p>
+     * The ID for the Amazon Web Services account that contains the Amazon QuickSight settings that you want to list.
+     * </p>
+     * 
+     * @return The ID for the Amazon Web Services account that contains the Amazon QuickSight settings that you want to
+     *         list.
+     */
+
+    public String getAwsAccountId() {
+        return this.awsAccountId;
+    }
+
+    /**
+     * <p>
+     * The ID for the Amazon Web Services account that contains the Amazon QuickSight settings that you want to list.
+     * </p>
+     * 
+     * @param awsAccountId
+     *        The ID for the Amazon Web Services account that contains the Amazon QuickSight settings that you want to
+     *        list.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAccountSettingsRequest withAwsAccountId(String awsAccountId) {
+        setAwsAccountId(awsAccountId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The default namespace for this Amazon Web Services account. Currently, the default is <code>default</code>. IAM
+     * users that register for the first time with Amazon QuickSight provide an email address that becomes associated
+     * with the default namespace.
+     * </p>
+     * 
+     * @param defaultNamespace
+     *        The default namespace for this Amazon Web Services account. Currently, the default is <code>default</code>
+     *        . IAM users that register for the first time with Amazon QuickSight provide an email address that becomes
+     *        associated with the default namespace.
+     */
+
+    public void setDefaultNamespace(String defaultNamespace) {
+        this.defaultNamespace = defaultNamespace;
+    }
+
+    /**
+     * <p>
+     * The default namespace for this Amazon Web Services account. Currently, the default is <code>default</code>. IAM
+     * users that register for the first time with Amazon QuickSight provide an email address that becomes associated
+     * with the default namespace.
+     * </p>
+     * 
+     * @return The default namespace for this Amazon Web Services account. Currently, the default is
+     *         <code>default</code>. IAM users that register for the first time with Amazon QuickSight provide an email
+     *         address that becomes associated with the default namespace.
+     */
+
+    public String getDefaultNamespace() {
+        return this.defaultNamespace;
+    }
+
+    /**
+     * <p>
+     * The default namespace for this Amazon Web Services account. Currently, the default is <code>default</code>. IAM
+     * users that register for the first time with Amazon QuickSight provide an email address that becomes associated
+     * with the default namespace.
+     * </p>
+     * 
+     * @param defaultNamespace
+     *        The default namespace for this Amazon Web Services account. Currently, the default is <code>default</code>
+     *        . IAM users that register for the first time with Amazon QuickSight provide an email address that becomes
+     *        associated with the default namespace.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAccountSettingsRequest withDefaultNamespace(String defaultNamespace) {
+        setDefaultNamespace(defaultNamespace);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The email address that you want Amazon QuickSight to send notifications to regarding your Amazon Web Services
+     * account or Amazon QuickSight subscription.
+     * </p>
+     * 
+     * @param notificationEmail
+     *        The email address that you want Amazon QuickSight to send notifications to regarding your Amazon Web
+     *        Services account or Amazon QuickSight subscription.
+     */
+
+    public void setNotificationEmail(String notificationEmail) {
+        this.notificationEmail = notificationEmail;
+    }
+
+    /**
+     * <p>
+     * The email address that you want Amazon QuickSight to send notifications to regarding your Amazon Web Services
+     * account or Amazon QuickSight subscription.
+     * </p>
+     * 
+     * @return The email address that you want Amazon QuickSight to send notifications to regarding your Amazon Web
+     *         Services account or Amazon QuickSight subscription.
+     */
+
+    public String getNotificationEmail() {
+        return this.notificationEmail;
+    }
+
+    /**
+     * <p>
+     * The email address that you want Amazon QuickSight to send notifications to regarding your Amazon Web Services
+     * account or Amazon QuickSight subscription.
+     * </p>
+     * 
+     * @param notificationEmail
+     *        The email address that you want Amazon QuickSight to send notifications to regarding your Amazon Web
+     *        Services account or Amazon QuickSight subscription.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAccountSettingsRequest withNotificationEmail(String notificationEmail) {
+        setNotificationEmail(notificationEmail);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A boolean value that determines whether or not an Amazon QuickSight account can be deleted. A <code>True</code>
+     * value doesn't allow the account to be deleted and results in an error message if a user tries to make a
+     * <code>DeleteAccountSubscription</code> request. A <code>False</code> value will allow the account to be deleted.
+     * </p>
+     * 
+     * @param terminationProtectionEnabled
+     *        A boolean value that determines whether or not an Amazon QuickSight account can be deleted. A
+     *        <code>True</code> value doesn't allow the account to be deleted and results in an error message if a user
+     *        tries to make a <code>DeleteAccountSubscription</code> request. A <code>False</code> value will allow the
+     *        account to be deleted.
+     */
+
+    public void setTerminationProtectionEnabled(Boolean terminationProtectionEnabled) {
+        this.terminationProtectionEnabled = terminationProtectionEnabled;
+    }
+
+    /**
+     * <p>
+     * A boolean value that determines whether or not an Amazon QuickSight account can be deleted. A <code>True</code>
+     * value doesn't allow the account to be deleted and results in an error message if a user tries to make a
+     * <code>DeleteAccountSubscription</code> request. A <code>False</code> value will allow the account to be deleted.
+     * </p>
+     * 
+     * @return A boolean value that determines whether or not an Amazon QuickSight account can be deleted. A
+     *         <code>True</code> value doesn't allow the account to be deleted and results in an error message if a user
+     *         tries to make a <code>DeleteAccountSubscription</code> request. A <code>False</code> value will allow the
+     *         account to be deleted.
+     */
+
+    public Boolean getTerminationProtectionEnabled() {
+        return this.terminationProtectionEnabled;
+    }
+
+    /**
+     * <p>
+     * A boolean value that determines whether or not an Amazon QuickSight account can be deleted. A <code>True</code>
+     * value doesn't allow the account to be deleted and results in an error message if a user tries to make a
+     * <code>DeleteAccountSubscription</code> request. A <code>False</code> value will allow the account to be deleted.
+     * </p>
+     * 
+     * @param terminationProtectionEnabled
+     *        A boolean value that determines whether or not an Amazon QuickSight account can be deleted. A
+     *        <code>True</code> value doesn't allow the account to be deleted and results in an error message if a user
+     *        tries to make a <code>DeleteAccountSubscription</code> request. A <code>False</code> value will allow the
+     *        account to be deleted.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAccountSettingsRequest withTerminationProtectionEnabled(Boolean terminationProtectionEnabled) {
+        setTerminationProtectionEnabled(terminationProtectionEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A boolean value that determines whether or not an Amazon QuickSight account can be deleted. A <code>True</code>
+     * value doesn't allow the account to be deleted and results in an error message if a user tries to make a
+     * <code>DeleteAccountSubscription</code> request. A <code>False</code> value will allow the account to be deleted.
+     * </p>
+     * 
+     * @return A boolean value that determines whether or not an Amazon QuickSight account can be deleted. A
+     *         <code>True</code> value doesn't allow the account to be deleted and results in an error message if a user
+     *         tries to make a <code>DeleteAccountSubscription</code> request. A <code>False</code> value will allow the
+     *         account to be deleted.
+     */
+
+    public Boolean isTerminationProtectionEnabled() {
+        return this.terminationProtectionEnabled;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getAwsAccountId() != null)
+            sb.append("AwsAccountId: ").append(getAwsAccountId()).append(",");
+        if (getDefaultNamespace() != null)
+            sb.append("DefaultNamespace: ").append(getDefaultNamespace()).append(",");
+        if (getNotificationEmail() != null)
+            sb.append("NotificationEmail: ").append(getNotificationEmail()).append(",");
+        if (getTerminationProtectionEnabled() != null)
+            sb.append("TerminationProtectionEnabled: ").append(getTerminationProtectionEnabled());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof UpdateAccountSettingsRequest == false)
+            return false;
+        UpdateAccountSettingsRequest other = (UpdateAccountSettingsRequest) obj;
+        if (other.getAwsAccountId() == null ^ this.getAwsAccountId() == null)
+            return false;
+        if (other.getAwsAccountId() != null && other.getAwsAccountId().equals(this.getAwsAccountId()) == false)
+            return false;
+        if (other.getDefaultNamespace() == null ^ this.getDefaultNamespace() == null)
+            return false;
+        if (other.getDefaultNamespace() != null && other.getDefaultNamespace().equals(this.getDefaultNamespace()) == false)
+            return false;
+        if (other.getNotificationEmail() == null ^ this.getNotificationEmail() == null)
+            return false;
+        if (other.getNotificationEmail() != null && other.getNotificationEmail().equals(this.getNotificationEmail()) == false)
+            return false;
+        if (other.getTerminationProtectionEnabled() == null ^ this.getTerminationProtectionEnabled() == null)
+            return false;
+        if (other.getTerminationProtectionEnabled() != null && other.getTerminationProtectionEnabled().equals(this.getTerminationProtectionEnabled()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getAwsAccountId() == null) ? 0 : getAwsAccountId().hashCode());
+        hashCode = prime * hashCode + ((getDefaultNamespace() == null) ? 0 : getDefaultNamespace().hashCode());
+        hashCode = prime * hashCode + ((getNotificationEmail() == null) ? 0 : getNotificationEmail().hashCode());
+        hashCode = prime * hashCode + ((getTerminationProtectionEnabled() == null) ? 0 : getTerminationProtectionEnabled().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public UpdateAccountSettingsRequest clone() {
+        return (UpdateAccountSettingsRequest) super.clone();
+    }
+
+}
