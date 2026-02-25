@@ -1,0 +1,57 @@
+/************************ Color Picker panel ************************/
+#w2dc-color-picker-panel {
+	left: -177px;
+	position: fixed;
+	top: 25%;
+	width: 227px;
+	z-index: 100000;
+}
+#w2dc-color-picker {
+	background-color: #F7FFFF;
+	float: left;
+	padding: 5px;
+	width: 170px;
+	border-radius: 0 0 6px 0;
+	box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.55);
+}
+#w2dc-color-picker table {
+	line-height: 15px;
+	margin-bottom: 10px;
+	width: 100%;
+	min-width: auto;
+}
+.w2dc-color-scheme-name {
+	margin: 5px 0;
+}
+#w2dc-color-picker-panel-tools {
+	width: 57px;
+	height: 50px;
+	background-color: #F7FFFF;
+	float: left;
+	padding: 5px;
+	border-radius: 0 6px 6px 0;
+	box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.55);
+	text-align: right;
+	cursor: pointer;
+}
+.w2dc-body-fullscreen-map #w2dc-color-picker-panel-tools {
+	display: none;
+}
+#w2dc-color-picker-panel-tools img {
+	display: inline;
+	box-shadow: none;
+	width: 40px;
+	animation: spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.w2dc-color-option {
+	cursor: pointer;
+	padding: 3px;
+	margin-bottom: 2px;
+}
+.w2dc-color-option.color-option:hover, .w2dc-color-option.color-option.selected {
+	background: none repeat scroll 0 0 #DDDDDD;
+}

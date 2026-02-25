@@ -1,0 +1,7 @@
+[webdirectory-demo-links]
+
+[webdirectory-search]
+
+&nbsp;
+
+Full list of search shortcode parameters <a href="http://www.salephpscripts.com/wordpress_directory/demo/shortcodes/">here</a>.

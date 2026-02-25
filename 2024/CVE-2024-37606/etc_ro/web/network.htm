@@ -1,0 +1,425 @@
+<html>
+<head>
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | SETUP | NETWORK SETUP</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+function init()
+{
+  frm = document.forms[0];
+  frm.PPPoEPassword.value = DecryptPass(frm.PPPoEPassword.value, frm.SessionKey.value);
+  clickCheck();
+}
+function clickCheck()
+{
+  frm = document.forms[0];
+
+  if (frm.IPAddressMode[0].checked)
+  {
+     disable_box(id_box_staticip);
+     disable_box(id_box_pppoe);
+  }
+
+  if (frm.IPAddressMode[1].checked)
+  {
+     enable_box(id_box_staticip);
+     disable_box(id_box_pppoe);
+  }
+
+  if (frm.IPAddressMode[2].checked)
+  {
+     disable_box(id_box_staticip);
+     enable_box(id_box_pppoe);
+  }
+//  if (frm.BonjourEnable[0].checked)
+//     frm.BonjourName.disabled = false;
+//  else
+//     frm.BonjourName.disabled = true;
+//  frm.HTTPAuthenticationSel.value = frm.HTTPAuthentication.value;
+}
+//function ClickBonjour()
+//{
+//  frm = document.forms[0];
+//  if (frm.BonjourEnable[0].checked)
+//     frm.BonjourName.disabled = false;
+//  else
+//     frm.BonjourName.disabled = true;
+//}
+function ClickSubmit()
+{
+  frm = document.forms[0];
+  if (frm.IPAddressMode[1].checked)
+  {
+     if ((IpAddress=devip_check(frm.IPAddress.value)) == 1)
+     {
+        frm.IPAddress.select();
+        alert("The IP Address is invalid.");
+        return;
+     }
+     if ((SubnetMask=ip_check(frm.SubnetMask.value)) == 1)
+     {
+        frm.SubnetMask.select();
+        alert("The Subnet Mask is invalid.");
+        return;
+     }
+     if (check_mask(frm.IPAddress.value,frm.SubnetMask.value) != 0)
+     {
+        frm.IPAddress.select();
+        alert("The IP Address is invalid.");
+        return;
+     }
+     if ((frm.DefaultGateway.value != "") && (frm.DefaultGateway.value != "0.0.0.0"))
+     {
+        if ((DefaultGateway=ip_check(frm.DefaultGateway.value)) == 1)
+        {
+           frm.DefaultGateway.select();
+           alert("The Default Gateway is invalid.");
+           return;
+        }
+        if (check_mask(frm.DefaultGateway.value,frm.SubnetMask.value) != 0)
+        {
+           frm.DefaultGateway.select();
+           alert("The Default Gateway is invalid.");
+           return;
+        }
+        if (ip_same_net(IpAddress,SubnetMask,DefaultGateway) == 1)
+        {
+           frm.IPAddress.select();
+           alert("You enter incorrect TCP/IP configuration.");
+           return;
+        }
+     }
+  }
+  if (frm.IPAddressMode[2].checked)
+  {
+     if (frm.PPPoEUserID.value == "")
+     {
+        frm.PPPoEUserID.select();
+        alert("The format of User ID is invalid.");
+        return;
+     }
+     if (frm.PPPoEPassword.value == "")
+     {
+        frm.PPPoEPassword.select();
+        alert("The format of Password is invalid.");
+        return;
+     }
+  }
+  if ((frm.DNSIPAddress1.value != "") && (frm.DNSIPAddress1.value != "0.0.0.0"))
+  {
+     if ((IpAddress=devip_check(frm.DNSIPAddress1.value)) == 1)
+     {
+        frm.DNSIPAddress1.select();
+        alert("The Primary DNS is invalid.");
+        return;
+     }
+     if (ip_check(frm.DNSIPAddress1.value) == 1)
+     {
+        frm.DNSIPAddress1.select();
+        alert("The Primary DNS is invalid.");
+        return;
+     }
+  }
+  if ((frm.DNSIPAddress2.value != "") && (frm.DNSIPAddress2.value != "0.0.0.0"))
+  {
+     if ((IpAddress=devip_check(frm.DNSIPAddress2.value)) == 1)
+     {
+        frm.DNSIPAddress2.select();
+        alert("The Secondary DNS is invalid.");
+        return;
+     }
+     if (ip_check(frm.DNSIPAddress2.value) == 1)
+     {
+        frm.DNSIPAddress2.select();
+        alert("The Secondary DNS is invalid.");
+        return;
+     }
+  }
+  if ((checkIntRange(frm.SecondHTTPPort.value,65535,1) == 1) ||
+      (checkHttpPort(frm.SecondHTTPPort.value) == 1))
+  {
+     frm.SecondHTTPPort.select();
+     alert("The format of Port Number is invalid.");
+     return;
+  }
+//  if (frm.BonjourEnable[0].checked)
+//  {
+//     if (CheckBonjourname(frm.BonjourName.value))
+//     {
+//        frm.BonjourName.select();
+//        alert("The format of Bonjour Name is invalid.");
+//        return;
+//     }
+//  }
+
+    if (frm.IPAddressMode[2].checked) 
+  {
+     frm.PPPoEPassword.value = EncryptPass(frm.PPPoEPassword.value, frm.SessionKey.value);
+  }
+  javascript:document.forms[0].submit();
+}
+function ClickCancel()
+{
+  Browser = CheckBrower();
+  if ((Browser == "IE1x") || (Browser == "Opera") || (Browser == "Safari") || (Browser == "Chrome") || (Browser == "Firefox"))
+     loadurl("network.htm");
+  else {
+     javascript:document.forms[0].reset();
+     init();
+  }
+}
+</script>
+</head>
+<body topmargin="1" leftmargin="0" rightmargin="0" bgcolor="#757575">
+<table id="header_container" border="0" cellpadding="5" cellspacing="0" width="838" align="center">
+<tr>
+<td width="100%">Product: <a href="http://www.dlink.com/" target="_blank">%%CameraName();%%</a></td>
+  <td align="right" nowrap></td>
+  <td align="right" nowrap>Firmware version: %%FirmwareVersion();%% &nbsp;</td>
+</tr>
+</table>
+<div id="title_container">
+<table id="topnav_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr><td align="center" valign="middle"><img src="title.gif"></td></tr>
+</table>
+</div>
+<table id="index_container" border="0" cellpadding="2" cellspacing="1" width="838" align="center" bgcolor="#FFFFFF">
+<tr id="topnav_container">
+  <td><img src="devmodel.jpg?cidx=%%ModelName();%%"></td>
+  <td id="topnavoff"><a href="home.htm">Live Video</a></td>
+  <td id="topnavon"><a href="wizard.htm">Setup</a></td>
+  <td id="topnavoff"><a href="advanced.htm">Maintenance</a></td>
+  <td id="topnavoff"><a href="stsdev.htm">Status</a></td>
+  <td id="topnavoff"><a href="support.htm">Help</a></td>
+  <td id="index_space" width="640" style="display:none;"></td>
+</tr>
+<tr><td colspan=6 height=1 bgcolor="#ffffff"></td></tr>
+</table>
+<table id="space_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=50%>
+<tr><td height=1 bgcolor="#000000"></td></tr>
+<tr><td>
+<table id="data_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=100%>
+<tr>
+  <td valign="top" width="131" height="100%" align="right">
+    <!-- === BEGIN SIDENAV === -->
+    <table border="0" cellpadding="1" cellspacing="1" height=100% bgcolor="#FFFFFF">
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="wizard.htm">Wizard</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavon"><a href="network.htm">Network Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="wireless.htm">Wireless Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="ddns.htm">Dynamic DNS</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="image.htm">Image Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="video.htm">Video</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="audio.htm">Audio</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="motion.htm">Motion Detection</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="email.htm">Mail</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="upload.htm">FTP</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="time.htm">Time and Date</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="night.htm">Day/Night Mode</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="logout.htm">Logout</a></td></tr>
+    <tr id="sidenav_container" height=100%><td id="sidenavoff" align="center" valign="top">&nbsp;</td></tr>
+    </table>
+    <!-- === END SIDENAV === -->
+  </td>
+  <td valign="top" id="maincontent_container" height="1020">
+    <table height="1020" width=100% border="0" cellpadding="0" cellspacing="0" bgcolor="white">
+    <tr><td>
+    <div id="maincontent">
+      <!-- === BEGIN MAINCONTENT === -->
+      <div id="box_header"> 
+      <h1>Network Setup</h1>
+      You can configure your LAN and Internet settings here.
+<FORM ACTION="/setSystemNetwork" METHOD="POST" autocomplete="off">
+        <input type="hidden" name="ReplySuccessPage" value="network.htm">
+        <input type="hidden" name="ReplyErrorPage" value="errrnet.htm">
+        <input type="hidden" name="SecondHTTPPortEnable" value="3">
+        <input type="hidden" name="HTTPAuthentication" value="%%HTTPAuthentication();%%">
+        <input type="hidden" name="SessionKey" value="%%TimeStamp();%%">
+        <div align=center style="padding: 5px 0px 0px 0px;">
+        &nbsp;<INPUT type="button" width="80" value=" Save Settings " onclick="ClickSubmit()">
+        &nbsp;&nbsp;<INPUT type="button" width="80" value=" Don't Save Settings " onclick="ClickCancel()">
+        </div>
+      </div>
+      <div class="box">
+        <h2>lan settings</h2>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD rowspan=2 valign="top"><input type=radio name=IPAddressMode value=4 %%RadioOfIPAddressMode(4);%% onclick="clickCheck()"></TD>
+          <TD rowspan=2 valign="top">DHCP Connection</TD>
+          <TD colspan=2 valign="top"><input type=radio name=IPAddressMode value=1 %%RadioOfIPAddressMode(1);%% onclick="clickCheck()">&nbsp;Static IP Address</TD>
+          <TD colspan=2 valign="top"><input type=radio name=IPAddressMode value=5 %%RadioOfIPAddressMode(5);%% onclick="clickCheck()">&nbsp;PPPoE</TD>
+        </TR>
+        <TR>
+          <TD colspan=2 valign="top">
+            <table id="id_box_staticip" cellspacing=0 cellpadding=3 BORDER=0 class=maintext>
+            <tr>
+              <td>&nbsp;IP Address</td>
+              <td><INPUT type="text" size=18 name="IPAddress" value="%%IPAddress();%%"></td>
+            </tr>
+            <tr>
+              <td>&nbsp;Subnet Mask</td>
+              <td><INPUT type="text" size=18 name="SubnetMask" value="%%SubnetMask();%%"></td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;Default Gateway</td>
+              <td><INPUT type="text" size=18 name="DefaultGateway" value="%%DefaultGateway();%%"></td>
+            </tr>
+            </table>  
+          </TD>
+          <TD valign="top">
+            <table id="id_box_pppoe" cellspacing=0 cellpadding=3 BORDER=0 class=maintext>
+            <tr>
+              <td>&nbsp;User ID</td>
+              <td><INPUT type="text" size=18 maxlength=64 name="PPPoEUserID" value="%%PPPoEUserID();%%"></td>
+            </tr>
+            <tr>
+              <td>&nbsp;Password</td>
+              <td><INPUT type="password" size=18 maxlength=32 name="PPPoEPassword" value="%%PPPoEPassword(5);%%"></td>
+            </tr>
+            </table>
+          </TD>
+        </TR>
+        </table>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD width=22%>Primary DNS</TD>
+          <TD>&nbsp;<INPUT type="text" size=18 name="DNSIPAddress1" value="%%DNSIPAddress1();%%"></TD>
+        </TR>
+        <TR>
+          <TD>Secondary DNS</TD>
+          <TD>&nbsp;<INPUT type="text" size=18 name="DNSIPAddress2" value="%%DNSIPAddress2();%%"></TD>
+        </TR>
+        </table>
+      </div>
+      <div class="box">
+        <h2>Port settings</h2>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD  width=25%>&nbsp;HTTP Port</TD>
+          <TD><INPUT type="text" size=18 id="SecondHTTPPort" name="SecondHTTPPort" value="%%SecondHTTPPort();%%"></TD>
+        </TR>
+<!-----
+        <TR>
+          <TD>&nbsp;HTTP Authentication</TD>
+          <TD>
+            <SELECT id="HTTPAuthenticationSel" size="1" onchange="document.forms[0].HTTPAuthentication.value = this.value">
+            <OPTION value=0>Basic</OPTION>
+            <OPTION value=1>Digest</OPTION>
+            </SELECT>
+          </TD>
+        </TR>
+----->
+        </table>
+      </div>
+      <div class="box">
+        <H4>UPnP SETTINGS</H4>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD width=25%>&nbsp;UPnP</TD>
+          <TD>
+            <input type=radio name=UPnPEnable value=1 %%RadioOfUPnPEnable(1);%%>Enable
+            <input type=radio name=UPnPEnable value=0 %%RadioOfUPnPEnable(0);%%>Disable
+          </TD>
+        </TR>
+        <TR>
+          <TD>&nbsp;UPnP Port Forwarding</TD>
+          <TD>
+            <input type=radio name=UPnPPortForwarding value=1 %%RadioOfUPnPPortForwarding(1);%%>Enable
+            <input type=radio name=UPnPPortForwarding value=0 %%RadioOfUPnPPortForwarding(0);%%>Disable
+          </TD>
+        </TR>
+        </table>
+      </div>
+<!----
+      <div class="box">
+        <H4>BONJOUR SETTINGS</H4>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD width=25%>&nbsp;Bonjour</TD>
+          <TD>
+            <input type=radio name=BonjourEnable value=1 %%RadioOfBonjourEnable(1);%% onclick="ClickBonjour()">Enable
+            <input type=radio name=BonjourEnable value=0 %%RadioOfBonjourEnable(0);%% onclick="ClickBonjour()">Disable
+          </TD>
+        </TR>
+        <TR>
+          <TD valign=baseline>&nbsp;Bonjour Name</TD>
+          <TD>
+            <INPUT type="text" size=30 maxlength=32 name="BonjourName" value="%%BonjourName();%%"><br>
+            (Characters you may use in a Bonjour Name: "upper or lower case letters", "numbers" and "hyphens".)
+          </TD>
+        </TR>
+        </table>
+      </div>
+----->
+      <p align=center>
+        <input type="hidden" name="ConfigSystemNetwork" value="Save">
+        &nbsp;<INPUT type="button" width="80" value=" Save Settings " onclick="ClickSubmit()">
+        &nbsp;&nbsp;<INPUT type="button" width="80" value=" Don't Save Settings " onclick="ClickCancel()">
+      </p>
+</Form>
+       <!-- === END MAINCONTENT === -->
+    </div>
+    </td></tr>
+    <tr height=100%><td></td></tr>
+    </table>
+  </td>
+  <td valign="top" width="150" id="sidehelp_container" align="left">
+    <table cellpadding="2" cellspacing="0" border="0" bgcolor="#FFFFFF" bordercolor="#FFFFFF" bordercolordark="#FFFFFF" bordercolorlight="#FFFFFF">
+    <tr>
+      <td id="help_text">
+        <b>Helpful Hints..</b>
+        <br><br>Select "<b>DHCP Connection</b>" if you are running a DHCP 
+        server on your network and would like an IP address assigned to 
+        your camera automatically. You may choose to manually enter a 
+        <b>Static IP Address</b> and all the relevant network information 
+        or select <b>PPPoE</b> if you connect your %%ModelName();%% directly 
+        to the Internet that uses a PPPoE service. If you choose PPPoE you 
+        must enter the user ID and password that was given by your Internet 
+        Service Provider.
+        <br><br><b>DNS</b> (Domain Name System) server is an Internet 
+        service that translates domain names (i.e. www.dlink.com) into IP 
+        addresses (i.e. 192.168.0.20). The IP addresses can be obtained 
+        from your ISP.
+        <br>- <b>Primary DNS</b>: Primary domain name server that 
+        translates names to IP addresses.
+        <br>- <b>Secondary DNS</b>: Secondary domain name server to backup 
+        the primary one.
+        <br><br><b>Port Settings</b> - Most ISPs do not open port 80 (a %%ModelName();%% default video transfer port) for their residential customers, the %%ModelName();%% has the ability to use a different port by enabling the second http port for its video streaming. Any unused ports can be used such as port 800, 801, etc. Remember that if the %%ModelName();%% is behind a router, you will need to forward that port to the %%ModelName();%%'s IP Address. When accessing the camera, you would need to type the camera's IP Address followed by the colon character and the port number (for example http://192.168.0.20:800).
+        <br><br><b>UPnP</b> Settings will allow you to configure your camera as an UPnP device in the network.
+<!----
+        <br><br><b>Bonjour</b> provides a simple way of discovering various services on your camera.
+----->
+      </td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+</td></tr></table>
+<table id="footer_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr>
+  <td width="125" align="center">&nbsp;&nbsp;<img src="security.gif" width="114" height="35"></td>
+  <td width="10">&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+</table><br>
+<div align="center"><FONT color=#ffffff>Copyright <script language="Javascript">Copyright(2010);</script>, D-Link Corporation / D-Link Systems, Inc. All rights reserved.</font></div>
+<br>
+</body>
+<script language="Javascript">
+init();
+</script>
+</html>
+
+<FORM id="redir" name="redir" ACTION="/" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="">
+<input type="hidden" name="ReplyErrorPage" value="">
+</Form>

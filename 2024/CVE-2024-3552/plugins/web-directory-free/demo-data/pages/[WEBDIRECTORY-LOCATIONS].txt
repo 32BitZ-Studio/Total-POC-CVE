@@ -1,0 +1,60 @@
+[webdirectory-demo-links]
+
+List all states of USA - parent="united-states", where "united-states" is the slug of predefined location, also ID can be used here.
+
+<h2>4 Columns locations table</h2>
+&#091;webdirectory-locations parent="united-states" depth=1 columns=4 count=1&#093;
+
+[webdirectory-locations parent="united-states" depth=1 columns=4 count=1]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>3 Columns locations table</h2>
+&#091;webdirectory-locations parent="united-states" depth=1 columns=3 count=1&#093;
+
+[webdirectory-locations parent="united-states" depth=1 columns=3 count=1]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>2 Columns locations table</h2>
+&#091;webdirectory-locations parent="united-states" depth=1 columns=2 count=1&#093;
+
+[webdirectory-locations parent="united-states" depth=1 columns=2 count=1]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>3 Columns sub-locations grid</h2>
+
+&#091;webdirectory-locations parent="united-states" depth=2 columns=3 count=1 grid=1 subcats=4&#093;
+
+[webdirectory-locations parent="united-states" depth=2 columns=3 count=1 grid=1 subcats=4]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Grid View #1</h2>
+
+&#091;webdirectory-locationsparent="united-states" grid=1 grid_view=1&#093;
+
+[webdirectory-locations parent="united-states" grid=1 grid_view=1]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Grid View #2</h2>
+
+&#091;webdirectory-locations parent="united-states" grid=1 grid_view=2&#093;
+
+[webdirectory-locations parent="united-states" grid=1 grid_view=2]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Grid View #3</h2>
+
+&#091;webdirectory-locations parent="united-states" grid=1 grid_view=3&#093;
+
+[webdirectory-locations parent="united-states" grid=1 grid_view=3]

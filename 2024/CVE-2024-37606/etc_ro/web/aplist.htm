@@ -1,0 +1,126 @@
+<html>
+<head>
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | SETUP | WIRELESS SETUP | SITE SURVEY</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+function OnSelectWlan()
+{
+  frm0 = opener.document.forms[0];
+  frm = document.forms[0];
+  if (frm.ConnectionMode.value == 0)
+     frm0.ConnectionMode[1].checked = true;
+  else
+     frm0.ConnectionMode[0].checked = true;
+  for(i=0;i<frm0.WirelessChannel.length;i++)
+  {
+     if ((frm0.WirelessChannel[i].innerText == frm.WirelessChannel.value) ||
+         (frm0.WirelessChannel[i].value == frm.WirelessChannel.value))
+     {
+        frm0.WirelessChannel.selectedIndex = i;
+        break;
+     }
+  }
+  frm0.SSID.value = frm.SSID.value;
+  if (frm.WEPEncryption.value == 0)
+  {
+     frm0.WEPEncryWay[0].checked = true;
+     frm0.WEPEncryption.value = 0;
+  }
+  if (frm.WEPEncryption.value == 2)
+  {
+     frm0.WEPEncryWay[1].checked = true;
+     frm0.WEPEncryption.value = 2;
+  }
+  if (frm.WEPEncryption.value == 4)
+  {
+     frm0.WEPEncryWay[2].checked = true;
+     frm0.WEPEncryption.value = 4;
+  }
+  opener.clickAUTO();
+  opener.CheckKey();
+  window.close();
+}
+function OnSiteSurvey()
+{
+  javascript:document.forms[1].submit();
+}
+function SetValue(ssid,mode,channel,wep)
+{
+  frm = document.forms[0];
+  frm.SSID.value = getUnicodeStringFromHex(ssid);
+  frm.ConnectionMode.value = mode;
+  frm.WirelessChannel.value = channel;
+  frm.WEPEncryption.value = wep;
+  frm.button_apply.disabled = false;
+}
+</script>
+</head>
+<body topmargin="1" leftmargin="0" rightmargin="0">
+<table border="0" cellpadding="2" cellspacing="0" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" width=100%>
+<tr>
+  <td valign="top" id="maincontent_container">
+    <div id="maincontent">
+      <!-- === BEGIN MAINCONTENT === -->
+      <div id=box_header>
+      <h1>Site Survey  </h1>
+        This will scan and display all the available wireless networks surrounding your device. Click <b>Refresh</b> to rescan. Select a wireless network and then click <b>Select</b> to proceed.
+      </div>
+      <div class=box>
+        <table border=0 cellspacing=0 cellpadding=0 width=90%>
+<FORM ACTION="/setSystemAPSelect" METHOD="POST" autocomplete="off">
+        <input type="hidden" name="ReplySuccessPage" value="wireless.htm">
+        <input type="hidden" name="ReplyErrorPage" value="wireless.htm">
+        <input type="hidden" name="SSID" value="%%SSID();%%">
+        <input type="hidden" name="ConnectionMode" value="%%ConnectionMode();%%">
+        <input type="hidden" name="WirelessChannel" value="%%WirelessChannel();%%">
+        <input type="hidden" name="WEPEncryption" value="%%WEPEncryption();%%">
+        <tr><td>
+          <table cellspacing=1 cellpadding=1 BORDER=0 width=100%>
+          <TR>
+            <TD>
+              <table cellspacing=0 cellpadding=3 BORDER=1 class=maintext>
+              <TR>
+                <TD width=1%>Join</TD>
+                <TD width=40%>&nbsp;SSID</TD>
+                <TD width=24%>BSSID</TD>
+                <TD width=10%>Channel</TD>
+                <TD width=13%>Encryption</TD>
+                <TD width=12% nowrap>Signal %</TD>
+              </TR>
+              %%FoundSSIDList(1);%%
+              </table>
+            </TD>
+          </TR>
+          </table>
+        </td></tr>
+        <tr><td>
+            <INPUT type="button" width="80" value=" Refresh " onclick="OnSiteSurvey()">
+            <INPUT type="button" width="80" name="button_apply" value=" Select " onclick="OnSelectWlan()" disabled>
+            <INPUT type="button" width="80" value="   Exit   " onclick="window.close();">
+</form>
+        </td></tr>
+        </table>
+      </div>
+      <!-- === END MAINCONTENT === -->
+    </div>                                
+  </td>
+</tr>
+</table>
+
+<FORM ACTION="/setSystemAPReScan" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="waitscan.htm">
+<input type="hidden" name="ReplyErrorPage" value="waitscan.htm">
+</Form>
+
+</body>
+</html>

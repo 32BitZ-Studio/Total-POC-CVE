@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>SnapShot</title>
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<script language="Javascript">
+function adject()
+{
+    if (navigator.userAgent.indexOf('Safari') != -1)
+    {
+        if ((document.body.scrollHeight)/(document.body.scrollWidth) > 1)
+        {
+            document.live.width = document.body.offsetWidth * 0.99;
+            window.scroll(0,20);
+        }    
+        else
+            document.live.width = document.body.offsetWidth * 0.74;
+    }
+    else
+    {
+        if (window.screen.availWidth > window.screen.availHeight)
+            document.live.width = window.screen.availWidth * 0.7;
+        else 
+            document.live.width = window.screen.availWidth * 0.99;
+    }
+}
+function loadok()
+{
+    window.scroll(0,15);
+}
+function reloadimg()
+{
+    document.live.src = "IMAGE.JPG?cidx=" + Math.random();
+}
+
+</script>
+</head>
+<BODY BORDER=0 CELLSPACING=0 CELLPADDING=0 onresize=adject() onload=adject() onunload="">
+<CENTER>
+<table bgcolor=black BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<tr><td align="center" bgcolor=#DB6F22><font color=white><font size=+2>%%CameraName();%%</font></font></td></tr>
+<tr><td align=center>
+<a href="javascript: reloadimg();">
+<IMG id=live title=snapshot onerror=reloadimg() src="IMAGE.JPG?cidx=%%ReGetIndex();%%" width="100%" onload=loadok() name=live>
+</A>
+</td></tr>
+<tr>
+	<td align=center>
+   	&nbsp;<INPUT type="button" style="font-size: 20 pt; COLOR: red; FONT-WEIGHT: bold; width=140" value=" Snapshot " onclick="javascript:location.href='mobile.htm'">
+    &nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="button" style="font-size: 20 pt; FONT-WEIGHT: bold; width=140" value="Live View" onclick="javascript:location.href='mvideo.htm'">
+    </td>
+</tr>
+</table>
+</CENTER>
+</body>
+</html>

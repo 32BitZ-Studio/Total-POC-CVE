@@ -1,0 +1,10 @@
+[webdirectory-demo-links]
+
+[webdirectory-source]
+Display all map markers of listings in California. In this case "california" - is the slug of predefined location, it is possible to use predefined locations IDs. include_categories_children="1" parameter helps to include markers from all sub-locations of California. Hide both buttons in info window - show_summary_button="0" and show_readmore_button="0".
+
+<strong>Shortcodes of this page:</strong>
+[webdirectory-map num="-1" height="650" show_summary_button="0" show_readmore_button="0" locations="california" include_categories_children="1" map_style="Retro"]
+[/webdirectory-source]
+
+[webdirectory-map height="650" search_on_map=1 map_style="Retro" show_readmore_button="0" include_categories_children="1" num="-1" locations="california"]

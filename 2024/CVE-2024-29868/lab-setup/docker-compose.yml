@@ -1,0 +1,169 @@
+version: "3.4"
+
+services:
+
+  # StreamPipes services
+  backend:
+    image: "${SP_DOCKER_REGISTRY}/backend:${SP_VERSION}"
+    depends_on:
+      - consul
+      - couchdb
+    volumes:
+      - backend:/root/.streampipes
+      - files:/spImages
+    restart: unless-stopped
+    networks:
+      spnet:
+
+  ui:
+    image: "${SP_DOCKER_REGISTRY}/ui:${SP_VERSION}"
+    ports:
+      - "80:8088"
+    depends_on:
+      - couchdb
+      - consul
+      - backend
+    volumes:
+      - nginx:/etc/nginx/
+    restart: unless-stopped
+    networks:
+      spnet:
+
+  consul:
+    image: consul:1.14.3
+    environment:
+      - "CONSUL_LOCAL_CONFIG={\"disable_update_check\": true}"
+      - "CONSUL_BIND_INTERFACE=eth0"
+      - "CONSUL_HTTP_ADDR=0.0.0.0"
+    entrypoint:
+      - consul
+      - agent
+      - -server
+      - -bootstrap-expect=1
+      - -data-dir=/consul/data
+      - -node=consul-one
+      - -bind={{ GetInterfaceIP "eth0" }}
+      - -client=0.0.0.0
+      - -enable-script-checks=true
+      - -ui      
+    volumes:
+      - consul:/consul/data
+    restart: unless-stopped
+    networks:
+      spnet:
+        ipv4_address: ${SP_CONSUL_CONTAINER_IP}
+
+  couchdb:
+    image: couchdb:3.3.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=admin
+    volumes:
+      - couchdb:/opt/couchdb/data
+    restart: unless-stopped
+    networks:
+      spnet:
+
+  kafka:
+    image: fogsyio/kafka:2.2.0
+    hostname: kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://:9092
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_MESSAGE_MAX_BYTES: 5000012
+      KAFKA_FETCH_MESSAGE_MAX_BYTES: 5000012
+      KAFKA_REPLICA_FETCH_MAX_BYTES: 10000000
+    volumes:
+      - kafka:/kafka
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    networks:
+      spnet:
+
+  zookeeper:
+    image: fogsyio/zookeeper:3.4.13
+    volumes:
+      - zookeeper:/opt/zookeeper-3.4.13
+    restart: unless-stopped
+    networks:
+      spnet:
+
+  influxdb:
+    image: influxdb:2.6
+    environment:
+      - INFLUXDB_DATA_ENGINE=tsm1
+      - INFLUXDB_REPORTING_DISABLED=false
+      - INFLUXDB_ADMIN_ENABLED=true
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=sp-admin
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=sp-admin
+      - DOCKER_INFLUXDB_INIT_ORG=sp
+      - DOCKER_INFLUXDB_INIT_BUCKET=sp
+      - DOCKER_INFLUXDB_INIT_MODE=${SP_INFLUX_INIT_MODE}
+    volumes:
+      - influxdb:/var/lib/influxdb
+      - influxdb2:/var/lib/influxdb2
+    restart: unless-stopped
+    networks:
+      spnet:
+
+  # Lite version pipeline elements
+  extensions-all-jvm:
+    image: "${SP_DOCKER_REGISTRY}/extensions-all-jvm:${SP_VERSION}"
+    depends_on:
+      - consul
+    volumes:
+      - files:/spImages
+    restart: unless-stopped
+    networks:
+      spnet:
+
+  sources-watertank-simulator:
+    image: "${SP_DOCKER_REGISTRY}/sources-watertank-simulator:${SP_VERSION}"
+    depends_on:
+      - consul
+      - kafka
+    restart: unless-stopped
+    networks:
+      spnet:
+
+  # Local mailserver for testing purposes
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - '8025:8025'
+      - '1025:1025'
+    environment:
+      MH_STORAGE: maildir
+      MH_MAILDIR_PATH: /tmp
+    volumes:
+      - maildir:/tmp
+    restart: unless-stopped
+    networks:
+      spnet:
+
+volumes:
+  backend:
+  consul:
+  connect:
+  couchdb:
+  kafka:
+  zookeeper:
+  influxdb:
+  influxdb2:
+  files:
+  nginx:
+  maildir:
+
+networks:
+  spnet:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: ${SP_SUBNET}

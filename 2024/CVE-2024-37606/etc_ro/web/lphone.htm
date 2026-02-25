@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>Mobile Phone</title>
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<script language="Javascript">
+function imageReload() 
+{
+  if (navigator.userAgent.indexOf('Safari') == -1) {
+     document.live.src = "IMAGE.JPG?cidx=" + Math.random();
+     setTimeout('imageReload()', 1000);
+  } else {
+     document.live.src = "mjpeg.cgi";
+  }
+}
+</script>
+</head>
+<BODY onload="imageReload()">
+<CENTER>
+<table bgcolor=black BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<tr>
+	<td align="center" bgcolor=#DB6F22><font color=white><font size=+5>%%CameraName();%%</font></font></td>
+</tr>
+<tr>
+	<td align="center">
+	    <A href="javascript:location.reload();">
+    	<IMG id=live name=live BORDER="0" width=640 height=480>
+    	</A>
+    </td>
+</tr>
+<tr>
+	<td align="center">
+    	&nbsp;<INPUT type="button" style="font-size: 30 pt; FONT-WEIGHT: bold; width=250" value="Snapshot" onclick="javascript:location.href='iphone.htm'">
+    	&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="button" style="font-size: 30 pt; COLOR: red; FONT-WEIGHT: bold; width=250" value="Live View" onclick="javascript:location.href='lphone.htm'">
+    </td>
+</tr>
+</table>
+</CENTER>
+</body>
+</html>

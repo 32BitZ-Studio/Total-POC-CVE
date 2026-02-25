@@ -1,0 +1,21 @@
+POST /jrd/webapi?api=Login HTTP/1.1
+Host: 192.168.1.1
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0
+Accept: text/plain, */*; q=0.01
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+_TclRequestVerificationToken: xISsGlXqv0h9Is08G0yN5TlmhfhugCzWB/Hd9df08ZhUpVxfP56KAMWtWnAJ3sZvksvxG++KanEiyKEF+mWwW7KPt6JMeP24bwf12wZaA84=
+_TclRequestVerificationKey: KSDHSDFOGQ5WERYTUIQWERTYUISDFG1HJZXCVCXBN2GDSMNDHKVKFsVBNf
+X-Requested-With: XMLHttpRequest
+Content-Length: 126
+Origin: http://192.168.1.1
+DNT: 1
+Connection: close
+Referer: http://192.168.1.1/index.html
+Cookie: loginToken=1D4B9765B16C3A64AD97489B1610498BxISsGlXqv0h9Is08G0yN5TlmhfhugCzWB%2FHd9df08ZhUpVxfP56KAMWtWnAJ3sZvksvxG%2B%2BKanEiyKEF%2BmWwW7KPt6JMeP24bwf12wZaA84%3D
+
+{"jsonrpc":"2.0","method":"Login","params":{"UserName":"dc13ibej?7","Password":"d20c4988436ccf47eade4366ae497b22"},"id":"1.1"}
+
+
+

@@ -1,0 +1,17 @@
+/************************ Color Picker panel ************************/
+#w2dc-color-picker-panel {
+	right: -177px;
+	left: 0;
+}
+#w2dc-color-picker {
+	float: right;
+	border-radius: 0 0 0 6px;
+	box-shadow: -7px 6px 5px 0px rgba(50, 50, 50, 0.55);
+}
+#w2dc-color-picker-panel-tools {
+	float: right;
+	border-radius: 6px 0 0 6px;
+	box-shadow: -7px 6px 5px 0px rgba(50, 50, 50, 0.55);
+	text-align: left;
+	cursor: pointer;
+}

@@ -1,0 +1,176 @@
+.w2dc-sidebar-metabox .misc-pub-section {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+/* Icons selection dialog */
+.w2dc-icon-tag {
+	font-size: 20px !important;
+	width: 25px;
+}
+.w2dc-marker-icon-tag {
+	box-shadow: none !important;
+	display: inline-block;
+	margin-right: 5px;
+	vertical-align: middle;
+	font-size: 23px !important;
+}
+.wp-picker-input-wrap {
+	position: relative;
+}
+
+.w2dc-tax-dropdowns-wrap select {
+    min-width: 200px
+}
+
+/* jQuery UI sortable widget customizations */
+.ui-sortable-helper {
+	background-color: rgba(255,255,255,1);
+}
+.ui-sortable-placeholder {
+	background-color: #FFFBCC !important;
+}
+.ui-sortable tr, .w2dc-move-label {
+	cursor: move;
+}
+.ui-widget-overlay {
+    background-repeat: repeat !important;
+	z-index: 5 !important;
+}
+/* Content fields select/radio/checkboxes configuration */
+#w2dc-selection-items-wrapper {
+	display: inline-block;
+}
+
+/* jQuery UI dialog */
+.w2dc-content .ui-dialog-titlebar {
+	height: auto;
+}
+.w2dc-content .ui-dialog-content {
+	width: 100%;
+}
+.w2dc-content .ui-dialog-titlebar-close::before {
+	content: "" !important;
+}
+
+.w2dc-map-canvas {
+	margin: 20px 0;
+	border: 1px solid black;
+}
+.w2dc-map-canvas .gm-style img {
+	max-width: none !important;
+	box-shadow: none !important;
+}
+.w2dc-map-canvas .gm-style label {
+	width: auto !important;
+	display: inline !important;
+}
+.w2dc-map-canvas .gm-style-cc > div {
+	word-wrap: normal;
+}
+
+.w2dc-map-marker,
+.w2dc-map-marker-empty {
+	border-radius: 50% 50% 50% 0;
+	height: 40px;
+	margin: -30% 0;
+	transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	width: 40px;
+	cursor: pointer;
+	text-align: center;
+}
+.w2dc-map-marker:after {
+	background: #fff none repeat scroll 0 0;
+	border-radius: 50%;
+	content: "";
+	display: block;
+	height: 78%;
+	left: 11%;
+	position: absolute;
+	top: 11%;
+	width: 78%;
+}
+.w2dc-map-marker-empty:after {
+	background: #fff none repeat scroll 0 0;
+	border-radius: 50%;
+	content: "";
+	display: block;
+	height: 40%;
+	left: 32%;
+	position: absolute;
+	top: 28%;
+	width: 40%;
+}
+.w2dc-map-marker .w2dc-map-marker-icon {
+	font-size: 22px !important;
+	position: relative;
+	top: 20%;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	z-index: 1;
+	vertical-align: middle;
+}
+.w2dc-mapbox-marker {
+	cursor: pointer;
+}
+
+.w2dc-badge {
+	display: inline-block;
+	min-width: 10px;
+	padding: 3px 7px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #ffffff;
+	line-height: 1;
+	vertical-align: baseline;
+	white-space: nowrap;
+	text-align: center;
+	background-color: #777777;
+	border-radius: 10px;
+}
+
+/* We do not need restore section in vafpress-framework */
+#section_restore {
+	display: none !important;
+}
+
+.w2dc-admin-table label input[type="checkbox"] {
+    margin-top: 3px !important;
+	margin-left: 0 !important;
+}
+
+.vp-wrap .vp-checkbox .field label,
+.vp-wrap .vp-radiobutton .field label {
+  display: block !important;
+}
+
+/* Content fields and Groups */
+.wp-list-table.contentfields tbody tr:nth-child(odd) {
+	background: #f9f9f9
+}
+
+.w2dc-content .w2dc-btn,
+.w2dc-content .w2dc-btn:hover,
+.w2dc-content .w2dc-btn:focus,
+.w2dc-content .w2dc-btn:active {
+	color: #FFFFFF;
+}
+
+select.w2dc-widget-select-control,
+select[multiple].w2dc-widget-select-multiple-control {
+	width: 100%;
+	max-width: none;
+}
+select[multiple].w2dc-widget-select-multiple-control {
+	height: 300px;
+	max-width: none;
+}
+
+.w2dc-widget-description {
+	display: block;
+	padding: 0 0 15px;
+	margin: 0;
+	font-style: normal;
+	color: #72777c;
+}

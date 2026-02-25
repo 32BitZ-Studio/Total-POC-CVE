@@ -1,0 +1,44 @@
+/************************   Bootstrap Base CSS rules   ************************/
+.wcsearch-content {
+	direction: rtl;
+}
+.wcsearch-content {
+	.wcsearch-form-control{
+		text-align: right;
+	}
+	.wcsearch-radio input[type="radio"],
+	.wcsearch-radio-inline input[type="radio"],
+	.wcsearch-checkbox input[type="checkbox"],
+	.wcsearch-checkbox-inline input[type="checkbox"] {
+		margin-right: -20px;
+		margin-left: 0;
+	}
+	.wcsearch-radio-inline,
+	.wcsearch-checkbox-inline {
+		padding-right: 20px;
+		padding-left: 0;
+	}
+	.wcsearch-radio-inline + .wcsearch-radio-inline,
+	.wcsearch-checkbox-inline + .wcsearch-checkbox-inline {
+		margin-left: 10px;
+		margin-right: 0;
+	}
+	.wcsearch-has-feedback .wcsearch-form-control {
+		padding-right: 42.5px;
+		padding-left: 0;
+	}
+	.wcsearch-form-control-feedback {
+		right: auto;
+		left: 0;
+	}
+}
+
+/************************   Bootstrap Additional CSS rules   ************************/
+.wcsearch-content {
+	.wcsearch-has-feedback .wcsearch-form-control,
+	.wcsearch-has-feedback .wcsearch-form-control:focus {
+		padding-left: 34px;
+		padding-right: 6px;
+		text-aligh: right;
+	}
+}

@@ -1,0 +1,30 @@
+#!/bin/sh
+# acodec -a <reg> -d <data>
+
+if [ "$1" == "-a" ]; then
+	if [ "$2" == "" ]; then
+		echo "Usage: acodec -a <reg> -d <data>"
+	fi
+	if [ "$3" != "-d" ] || [ "$4" == "" ]; then
+		echo "Usage: acodec -a <reg> -d <data>"
+	else
+		i2c -cfg f8 -dev 1a -clk 200 -a $2 -d $4
+		echo "write WM8960: Register ($2), Data ($4)."
+	fi
+	exit
+fi
+
+if [ "$1" == "-d" ]; then
+	if [ "$2" == "" ]; then
+		echo "Usage: acodec -a <reg> -d <data>"
+	fi
+	if [ "$3" != "-a" ] || [ "$4" == "" ]; then
+		echo "Usage: acodec -a <reg> -d <data>"
+	else
+		i2c -cfg f8 -dev 1a -clk 200 -a $4 -d $2
+		echo "write WM8960: Register ($4), Data ($2)."
+	fi
+	exit
+fi
+echo "Usage: acodec -a <reg> -d <data>"
+

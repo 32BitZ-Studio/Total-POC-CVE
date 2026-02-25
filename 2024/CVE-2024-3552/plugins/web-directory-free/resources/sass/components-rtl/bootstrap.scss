@@ -1,0 +1,93 @@
+/************************ Bootstrap Custom Styles ************************/
+.w2dc-content {
+	.w2dc-col-md-1,
+	.w2dc-col-md-2,
+	.w2dc-col-md-3,
+	.w2dc-col-md-4,
+	.w2dc-col-md-5,
+	.w2dc-col-md-6,
+	.w2dc-col-md-7,
+	.w2dc-col-md-8,
+	.w2dc-col-md-9,
+	.w2dc-col-md-10,
+	.w2dc-col-md-11,
+	.w2dc-col-md-12 {
+		float: right;
+	}
+	.w2dc-list-group {
+		margin-right: 0;
+	}
+	.w2dc-form-horizontal .w2dc-control-label {
+		text-align: right;
+	}
+	.w2dc-has-feedback .w2dc-form-control,
+	.w2dc-has-feedback .w2dc-form-control:focus {
+		padding-left: 42.5px;
+		padding-right: 12px;
+	}
+	.w2dc-form-control-feedback {
+		left: 0;
+		right: inherit !important;
+	}
+	.w2dc-radio input[type="radio"], .w2dc-radio-inline input[type="radio"], .w2dc-checkbox input[type="checkbox"], .w2dc-checkbox-inline input[type="checkbox"] {
+		margin-right: -20px;
+	}
+	.w2dc-radio label, .w2dc-checkbox label {
+		padding-right: 20px;
+	}
+	.w2dc-pull-left {
+		float: right !important;
+	}
+	.w2dc-pull-right {
+		float: left !important;
+	}
+	.w2dc-text-right {
+		text-align: left;
+	}
+	.w2dc-text-left {
+		text-align: right;
+	}
+	.w2dc-nav-tabs > li {
+		float: right;
+	}
+	.w2dc-pagination > li > a,
+	.w2dc-pagination > li > span {
+		float: right;
+		margin-right: -1px;
+	}
+	.w2dc-pagination > li:first-child > a,
+	.w2dc-pagination > li:first-child > span {
+		border-bottom-right-radius: $border-radius;
+		border-top-right-radius: $border-radius;
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+		margin-right: 0;
+	}
+	.w2dc-pagination > li:last-child > a,
+	.w2dc-pagination > li:last-child > span {
+		border-bottom-left-radius: $border-radius;
+		border-top-left-radius: $border-radius;
+		border-bottom-right-radius: 0;
+		border-top-right-radius: 0;
+	}
+	.w2dc-btn-group > .w2dc-btn:first-child:not(:last-child):not(.w2dc-dropdown-toggle) {
+		border-bottom-right-radius: $border-radius;
+		border-top-right-radius: $border-radius;
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+		margin-left: -1px;
+	}
+	.w2dc-btn-group > .w2dc-btn:last-child:not(:first-child),
+	.w2dc-btn-group > .w2dc-dropdown-toggle:not(:first-child) {
+		border-bottom-left-radius: $border-radius;
+		border-top-left-radius: $border-radius;
+		border-bottom-right-radius: 0;
+		border-top-right-radius: 0;
+		margin-right: -1px;
+		margin-left: 0;
+	}
+	.w2dc-btn-group > .w2dc-btn,
+	.w2dc-btn-group-vertical > .w2dc-btn {
+		float: right;
+	}
+}

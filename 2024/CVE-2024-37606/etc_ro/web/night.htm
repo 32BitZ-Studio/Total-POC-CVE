@@ -1,0 +1,263 @@
+<html>
+<head>
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | SETUP | Day/Night Mode</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+function clickCheck()
+{
+  frm = document.forms[0];
+  if (frm.DayNightMode[4].checked)
+     enable_box(id_schedule);
+  else
+     disable_box(id_schedule);
+}
+function check_period(sid,eid) {
+  ret = daynightperiod_check(sid,eid);
+  startid = document.getElementById(sid);
+  endid = document.getElementById(eid);
+  if (ret == 1) {
+     startid.select();
+     alert("The format of Time is invalid.");
+     return 1;
+  }
+  if (ret == 2) {
+     endid.select();
+     alert("The format of Time is invalid.");
+     return 1;
+  }
+  if (ret == 3) {
+     endid.select();
+     alert("The range of Time Period is invalid.");
+     return 1;
+  }
+  return 0;
+}
+function ClickSubmit()
+{
+  frm = document.forms[0];
+  if (frm.DayNightMode[4].checked) {
+     if (check_period('MonStart','MonEnd') == 1)
+        return;
+     if (check_period('TueStart','TueEnd') == 1)
+        return;
+     if (check_period('WedStart','WedEnd') == 1)
+        return;
+     if (check_period('ThuStart','ThuEnd') == 1)
+        return;
+     if (check_period('FriStart','FriEnd') == 1)
+        return;
+     if (check_period('SatStart','SatEnd') == 1)
+        return;
+     if (check_period('SunStart','SunEnd') == 1)
+        return;
+  }
+  javascript:document.forms[0].submit();
+}
+function ClickCancel()
+{
+  javascript:document.forms[0].reset();
+  clickCheck();
+}
+</script>
+</head>
+<body topmargin="1" leftmargin="0" rightmargin="0" bgcolor="#757575">
+<table id="header_container" border="0" cellpadding="5" cellspacing="0" width="838" align="center">
+<tr>
+<td width="100%">Product: <a href="http://www.dlink.com/" target="_blank">%%CameraName();%%</a></td>
+  <td align="right" nowrap></td>
+  <td align="right" nowrap>Firmware version: %%FirmwareVersion();%% &nbsp;</td>
+</tr>
+</table>
+<div id="title_container">
+<table id="topnav_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr><td align="center" valign="middle"><img src="title.gif"></td></tr>
+</table>
+</div>
+<table id="index_container" border="0" cellpadding="2" cellspacing="1" width="838" align="center" bgcolor="#FFFFFF">
+<tr id="topnav_container">
+  <td><img src="devmodel.jpg?cidx=%%ModelName();%%"></td>
+  <td id="topnavoff"><a href="home.htm">Live Video</a></td>
+  <td id="topnavon"><a href="wizard.htm">Setup</a></td>
+  <td id="topnavoff"><a href="advanced.htm">Maintenance</a></td>
+  <td id="topnavoff"><a href="stsdev.htm">Status</a></td>
+  <td id="topnavoff"><a href="support.htm">Help</a></td>
+  <td id="index_space" width="640" style="display:none;"></td>
+</tr>
+<tr><td colspan=6 height=1 bgcolor="#ffffff"></td></tr>
+</table>
+<table id="space_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=50%>
+<tr><td height=1 bgcolor="#000000"></td></tr>
+<tr><td>
+<table id="data_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=100%>
+<tr>
+  <td valign="top" width="131" height="100%" align="right">
+    <!-- === BEGIN SIDENAV === -->
+    <table border="0" cellpadding="1" cellspacing="1" height=100% bgcolor="#FFFFFF">
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="wizard.htm">Wizard</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="network.htm">Network Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="wireless.htm">Wireless Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="ddns.htm">Dynamic DNS</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="image.htm">Image Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="video.htm">Video</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="audio.htm">Audio</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="motion.htm">Motion Detection</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="email.htm">Mail</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="upload.htm">FTP</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="time.htm">Time and Date</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavon"><a href="night.htm">Day/Night Mode</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="logout.htm">Logout</a></td></tr>
+    <tr id="sidenav_container" height=100%><td id="sidenavoff" align="center" valign="top">&nbsp;</td></tr>
+    </table>
+    <!-- === END SIDENAV === -->
+  </td>
+  <td valign="top" id="maincontent_container" height="420">
+    <table height="420" width=100% border="0" cellpadding="0" cellspacing="0" bgcolor="white">
+    <tr><td>
+    <div id="maincontent">
+      <!-- === BEGIN MAINCONTENT === -->
+      <div id="box_header"> 
+      <h1>Day/Night Mode</h1>
+      In this section, you can configure the Day/Night mode switching method.Day/Night mode ensures good video illumination in both day and night environments.<br><br>
+
+      In Day mode, IR illumination is off,  IR light is blocked and the video is in color.In Night mode, IR illumination is on, IR light is visible and the video is in black & white.
+<FORM ACTION="/setDayNightMode" METHOD="POST" autocomplete="off">
+        <input type="hidden" name="ReplySuccessPage" value="night.htm">
+        <input type="hidden" name="ReplyErrorPage" value="errrnght.htm">
+        <div align=center style="padding: 5px 0px 0px 0px;">
+        &nbsp;<INPUT type="button" width="80" value=" Save Settings " onclick="ClickSubmit()">
+        &nbsp;&nbsp;<INPUT type="button" width="80" value=" Don't Save Settings " onclick="ClickCancel()">
+        </div>
+      </div>
+      <div class="box">
+        <h2>Day/Night Mode Settings</h2>
+        <table cellpadding="2" cellspacing="1" border="0" bgcolor="white" bordercolor="#FFFFFF">
+        <tr>
+          <td width=120>Day/Night Mode</td>
+          <td><input type=radio name=DayNightMode value=0 %%RadioOfDayNightMode(0);%% onclick="clickCheck()"></td>
+          <td>Auto</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type=radio name=DayNightMode value=1 %%RadioOfDayNightMode(1);%% onclick="clickCheck()"></td>
+          <td>Manual</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type=radio name=DayNightMode value=2 %%RadioOfDayNightMode(2);%% onclick="clickCheck()"></td>
+          <td>Always Day Mode</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type=radio name=DayNightMode value=3 %%RadioOfDayNightMode(3);%% onclick="clickCheck()"></td>
+          <td>Always Night Mode</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type=radio name=DayNightMode value=4 %%RadioOfDayNightMode(4);%% onclick="clickCheck()"></td>
+          <td> Day Mode Schedule</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>
+            <table id="id_schedule" cellpadding="0" cellspacing="1" class=maintext>
+            <tr>
+              <td>Mon</td>
+              <td>:&nbsp;</td>
+              <td><INPUT type="text" size=5 maxlength=5 id="MonStart" name="IRLedScheduleMonStart" value="%%IRLedScheduleMonStart();%%">&nbsp;~&nbsp;<INPUT type="text" size=5 maxlength=5 id="MonEnd" name="IRLedScheduleMonEnd" value="%%IRLedScheduleMonEnd();%%"></td>
+              <td>&nbsp;(Example : 08:00 ~ 18:30)</td>
+            </tr>
+            <tr>
+              <td>Tue</td>
+              <td>:&nbsp;</td>
+              <td><INPUT type="text" size=5 maxlength=5 id="TueStart" name="IRLedScheduleTueStart" value="%%IRLedScheduleTueStart();%%">&nbsp;~&nbsp;<INPUT type="text" size=5 maxlength=5 id="TueEnd" name="IRLedScheduleTueEnd" value="%%IRLedScheduleTueEnd();%%"></td>
+              <td>&nbsp;(Example : 08:00 ~ 18:30)</td>
+            </tr>
+            <tr>
+              <td>Wed</td>
+              <td>:&nbsp;</td>
+              <td><INPUT type="text" size=5 maxlength=5 id="WedStart" name="IRLedScheduleWedStart" value="%%IRLedScheduleWedStart();%%">&nbsp;~&nbsp;<INPUT type="text" size=5 maxlength=5 id="WedEnd" name="IRLedScheduleWedEnd" value="%%IRLedScheduleWedEnd();%%"></td>
+              <td>&nbsp;(Example : 08:00 ~ 18:30)</td>
+            </tr>
+            <tr>
+              <td>Thu</td>
+              <td>:&nbsp;</td>
+              <td><INPUT type="text" size=5 maxlength=5 id="ThuStart" name="IRLedScheduleThuStart" value="%%IRLedScheduleThuStart();%%">&nbsp;~&nbsp;<INPUT type="text" size=5 maxlength=5 id="ThuEnd" name="IRLedScheduleThuEnd" value="%%IRLedScheduleThuEnd();%%"></td>
+              <td>&nbsp;(Example : 08:00 ~ 18:30)</td>
+            </tr>
+            <tr>
+              <td>Fri</td>
+              <td>:&nbsp;</td>
+              <td><INPUT type="text" size=5 maxlength=5 id="FriStart" name="IRLedScheduleFriStart" value="%%IRLedScheduleFriStart();%%">&nbsp;~&nbsp;<INPUT type="text" size=5 maxlength=5 id="FriEnd" name="IRLedScheduleFriEnd" value="%%IRLedScheduleFriEnd();%%"></td>
+              <td>&nbsp;(Example : 08:00 ~ 18:30)</td>
+            </tr>
+            <tr>
+              <td>Sat</td>
+              <td>:&nbsp;</td>
+              <td><INPUT type="text" size=5 maxlength=5 id="SatStart" name="IRLedScheduleSatStart" value="%%IRLedScheduleSatStart();%%">&nbsp;~&nbsp;<INPUT type="text" size=5 maxlength=5 id="SatEnd" name="IRLedScheduleSatEnd" value="%%IRLedScheduleSatEnd();%%"></td>
+              <td>&nbsp;(Example : 00:00 ~ 00:00)</td>
+            </tr>
+            <tr>
+              <td>Sun</td>
+              <td>:&nbsp;</td>
+              <td><INPUT type="text" size=5 maxlength=5 id="SunStart" name="IRLedScheduleSunStart" value="%%IRLedScheduleSunStart();%%">&nbsp;~&nbsp;<INPUT type="text" size=5 maxlength=5 id="SunEnd" name="IRLedScheduleSunEnd" value="%%IRLedScheduleSunEnd();%%"></td>
+              <td>&nbsp;(Example : 00:00 ~ 24:00)</td>
+            </tr>
+            </table>
+          </td>
+        </tr>
+        </table>
+      </div>
+      <p align=center>
+        <input type="hidden" name="ConfigDayNightMode" value="Save">
+        &nbsp;<INPUT type="button" width="80" value=" Save Settings " onclick="ClickSubmit()">
+        &nbsp;&nbsp;<INPUT type="button" width="80" value=" Don't Save Settings " onclick="ClickCancel()">
+      </p>
+</FORM>
+      <!-- === END MAINCONTENT === -->
+    </div>
+    </td></tr>
+    <tr height=100%><td></td></tr>
+    </table>
+  </td>
+  <td valign="top" width="150" id="sidehelp_container" align="left">
+    <table cellpadding="2" cellspacing="0" border="0" bgcolor="#FFFFFF" bordercolor="#FFFFFF" bordercolordark="#FFFFFF" bordercolorlight="#FFFFFF">
+    <tr>
+      <td id="help_text">
+        <b>Helpful Hints..</b>
+        <br><br><b>Auto</b> - Camera automatically switches between Day and Night mode. The camera normally works in Day mode. It automatically changes to Night mode in darker lighting.
+        <br><br><b>Manual</b> - User can manually control the camera to work in Day or Night mode on the live video view page.
+        <br><br><b>Always Day Mode</b> - The camera always works in the Day mode.
+        <br><br><b>Always Night Mode</b> - The camera always works in the Night mode.
+        <br><br><b>Day Mode Schedule</b> - The camera works in Day mode based on the day and time configured in the schedule. The camera changes to Night mode during all other times. The example displayed on the right side of the Mon/Tue/Wed/Thu/Fri/Sat/Sun fields mean that the camera works in Day mode from 08:00 to 18:30 on Monday, Tuesday, Wednesday, Thursday and Friday,  works in Night mode for all of Saturday, and works in Day mode for all of Sunday.
+      </td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+</td></tr></table>
+<table id="footer_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr>
+  <td width="125" align="center">&nbsp;&nbsp;<img src="security.gif" width="114" height="35"></td>
+  <td width="10">&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+</table><br>
+<div align="center"><FONT color=#ffffff>Copyright <script language="Javascript">Copyright(2010);</script>, D-Link Corporation / D-Link Systems, Inc. All rights reserved.</font></div>
+<br>
+</body>
+<script language="Javascript">
+clickCheck();
+</script>
+</html>

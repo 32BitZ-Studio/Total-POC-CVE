@@ -1,0 +1,162 @@
+body > .wcsearch-dropdowns-menu {
+	z-index: 101;
+}
+.wcsearch-dropdowns-menu-search,
+.ui-widget-content .wcsearch-dropdowns-menu-search.ui-state-active {
+	line-height: 1.7;
+	border: none;
+	background: none;
+	font-weight: normal !important;
+	margin: 0;
+	color: $dropdown-menu-item-text-color;
+}
+.ui-widget-content .wcsearch-dropdowns-menu-search-listing.ui-state-active {
+	font-weight: bold;
+}
+.wcsearch-dropdowns-menu-search-counter,
+.wcsearch-dropdowns-menu-search-note {
+	font-weight: normal;
+	font-size: 12px;
+	right: 8px;
+	position: absolute;
+}
+.wcsearch-dropdowns-menu-search-sublabel {
+	display: block;
+	font-size: 11px;
+	color: $dropdown-menu-item-sublabel-color;
+}
+.wcsearch-dropdowns-menu-search-sublabel .woocommerce-Price-amount {
+	font-size: 15px;
+}
+.wcsearch-dropdowns-menu-search-sublabel b {
+	color: $dropdown-menu-item-sublabel-bold-color;
+}
+.wcsearch-dropdowns-menu-search-root.wcsearch-dropdowns-menu-search-term {
+	display: inline-flex;
+	align-items: center;
+	min-height: 40px;
+}
+.wcsearch-dropdowns-menu-search-term {
+	padding-right: 50px;
+}
+.wcsearch-dropdowns-menu.ui-autocomplete {
+	max-height: 400px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25), 0 -1px 0px rgba(0, 0, 0, 0.1);
+	border-radius: 0 0 2px 2px;
+	border: 1px solid #969696;
+	border-top: 0;
+	position: absolute;
+	padding: 0;
+	margin: 0;
+}
+.wcsearch-sticky-scroll-background {
+	z-index: -1;
+}
+.wcsearch-content .ui-selectmenu-menu .ui-icon,
+.wcsearch-dropdowns-menu.ui-autocomplete .ui-icon {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	left: 9px;
+}
+.wcsearch-dropdowns-menu.ui-autocomplete .wcsearch-dropdowns-menu-search-listing .ui-icon {
+	position: absolute;
+	width: 42px;
+	height: 42px;
+	left: 4px;
+}
+.wcsearch-dropdowns-menu.ui-menu .ui-menu-item {
+	padding: 0;
+	margin: 0;
+}
+.wcsearch-dropdowns-menu.ui-menu .ui-menu-item-wrapper {
+	width: 100%;
+	padding: 3px 8px 3px 50px !important;
+	position: initial !important;
+	color: $dropdown-menu-item-text-color;
+	font-family: inherit;
+	font-size: 15px;
+	border: none;
+	border-bottom: 1px solid $dropdown-menu-item-border-color;
+}
+.wcsearch-dropdowns-menu .ui-menu-item-wrapper:hover,
+.wcsearch-dropdowns-menu .ui-menu-item-wrapper.ui-state-active {
+	border-bottom: 1px solid $dropdown-menu-item-border-color;
+	background: none;
+	background-color: $dropdown-menu-item-hover-color;
+	font-weight: inherit;
+	color: $dropdown-menu-item-text-color;
+}
+
+.wcsearch-dropdowns-menu.ui-menu .ui-menu-item-wrapper a {
+	color: $dropdown-menu-item-text-color !important;
+}
+.wcsearch-dropdowns-menu.ui-menu .ui-menu-item-wrapper a:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.wcsearch-content .wcsearch-form-control.ui-autocomplete-input[readonly] {
+	cursor: pointer;
+	background-color: #FFFFFF;
+}
+
+.wcsearch-form-control.wcsearch-main-search-field-multiselect {
+	cursor: pointer;
+	height: auto;
+	padding-bottom: 0;
+}
+.wcsearch-dropdowns-multiselect-placeholder {
+	height: 34px;
+	line-height: 34px;
+	margin-bottom: 6px;
+}
+.wcsearch-dropdowns-menu-selected-item {
+	background-color: $dropdown-menu-item-hover-color;
+}
+.wcsearch-dropdowns-multiselect-item {
+	display: inline-block;
+	border: 1px solid $border-color;
+	border-radius: $border-radius;
+	background-color: #e6f4ff;
+	padding: 3px 5px;
+	margin-right: 3px;
+	margin-bottom: 10px;
+	height: 30px;
+}
+.wcsearch-dropdowns-multiselect-item-close {
+	font-size: 10px;
+	cursor: pointer;;
+	margin-left: 4px;
+}
+.wcsearch-dropdowns-multiselect-item-close:before {
+	box-sizing: unset;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: auto;
+	height: auto;
+	margin-top: 0;
+	margin-left: 0;
+	border-radius: 0;
+	border: 0;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+}
+
+.wcsearch-dropdowns-menu-hierarhical {
+	margin-top: 0;
+}
+.wcsearch-dropdowns-menu-hierarhical ~ .wcsearch-dropdowns-menu-hierarhical {
+	margin-top: 15px;
+}
+
+.wcsearch-dropdowns-menu-search-listing label.w2dc-rating-icon,
+.wcsearch-dropdowns-menu-search-listing label.w2gn-rating-icon,
+.wcsearch-dropdowns-menu-search-listing label.w2mb-rating-icon,
+.wcsearch-dropdowns-menu-search-listing label.w2rr-rating-icon {
+	width: 10px;
+	font-size: 10px;
+}

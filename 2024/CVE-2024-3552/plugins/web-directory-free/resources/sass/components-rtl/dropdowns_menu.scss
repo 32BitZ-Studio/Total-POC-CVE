@@ -1,0 +1,22 @@
+/************************  Search dropdowns menues & jquery UI   ************************/
+.w2dc-dropdowns-menu-search-counter,
+.w2dc-dropdowns-menu-search-note {
+	left: 8px;
+	right: auto;
+}
+.w2dc-dropdowns-menu-search-term {
+	padding-left: 50px;
+	padding-right: 0;
+}
+.w2dc-content .ui-selectmenu-menu .ui-icon,
+.w2dc-dropdowns-menu.ui-autocomplete .ui-icon {
+	right: 0.5em;
+	left: 0;
+}
+.w2dc-dropdowns-menu.ui-menu .ui-menu-item {
+	padding: 3px 50px 3px 3px !important;
+}
+.w2dc-dropdowns-menu.ui-menu .ui-menu-item.ui-state-hover,
+.w2dc-dropdowns-menu.ui-menu .ui-menu-item.ui-state-focus {
+	padding: 3px 50px 3px 3px !important;
+}

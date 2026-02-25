@@ -1,0 +1,5 @@
+[webdirectory-demo-links]
+
+4 columns grid. Display all listings in the range of price content field $31 - $39, also they must be from 'Normal' listings level (levels="1"). Default order by title.
+
+[webdirectory-listings perpage="8" order_by="price" order="ASC" levels="1" field_price_min="21" field_price_max="39" listings_view_type="grid" listings_view_grid_columns="4"]

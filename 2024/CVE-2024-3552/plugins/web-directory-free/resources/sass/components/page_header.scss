@@ -1,0 +1,66 @@
+.w2dc-page-header-widget {
+  padding: $page-header-paddings 0;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  background-color: #00A6C9;
+  background-size: cover;
+  background-position: center center;
+  margin-bottom: 50px;
+}
+.w2dc-page-header-widget a {
+  text-decoration: underline;
+}
+.w2dc-page-header-widget:after {
+  background: #353a41;
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.5;
+}
+.w2dc-content .w2dc-page-header-widget,
+.w2dc-content .w2dc-page-header-widget h1,
+.w2dc-content .w2dc-page-header-widget a,
+.w2dc-content .w2dc-page-header-widget a:hover,
+.w2dc-content .w2dc-page-header-widget a:focus,
+.w2dc-content .w2dc-page-header-widget a:visited {
+	color: #FFFFFF;
+}
+h1.w2dc-page-title-widget {
+	font-size: 44px;
+}
+
+.w2dc-breadcrumbs .w2dc-trail-browse,
+.w2dc-breadcrumbs .w2dc-trail-items,
+.w2dc-breadcrumbs .w2dc-trail-items li {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: transparent;
+	text-indent: 0;
+}
+
+.w2dc-breadcrumbs .w2dc-trail-browse {
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+	color: inherit;
+}
+
+.w2dc-breadcrumbs .w2dc-trail-items {
+	list-style: none;
+}
+
+.w2dc-trail-items li::after {
+	content: "\002F";
+	padding: 0 0.5em;
+}
+
+.w2dc-trail-items li:last-of-type::after {
+	display: none;
+}

@@ -1,0 +1,11 @@
+IPAddress=%%CurrentIPAddress();%%
+SubnetMask=%%CurrentSubnetMask();%%
+DefaultGateway=%%CurrentDefaultGateway();%%
+PrimaryDNSAddress=%%DNSIPAddress1();%%
+SecondaryDNSAddress=%%DNSIPAddress2();%%
+DynamicDNS=%%StatusOfDynamicDNS();%%
+SecondaryHTTPPort=%%StringOfSecondHTTPPortEnable();%% (Port : %%SecondHTTPPort();%%)
+UPnP=%%StringOfUPnPEnable();%% (IP : %%GotIPFromUpnp();%%)
+UPnPPortForwarding=%%StatusOfUPnPPortForwarding();%%
+BonjourEnable=%%StringOfBonjourEnable();%%
+BonjourName=%%BonjourName();%% 

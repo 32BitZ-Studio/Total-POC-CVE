@@ -1,0 +1,8 @@
+[webdirectory-demo-links]
+
+<div class="w2dc-columns-panel"><div class="w2dc-column">[webdirectory-source]</div></div>
+<div class="w2dc-columns-panel">
+<div class="w2dc-column" style="width: 25%">[webdirectory-search custom_home="1" form_id="Sidebar (sticky)"]</div>
+<div class="w2dc-column" style="width: 45%; padding: 0 20px;">[webdirectory custom_home="1" scrolling_paginator="1" listing_thumb_width=210]</div>
+<div class="w2dc-column" style="width: 30%">[webdirectory-map custom_home="1" height="630" sticky_scroll="1"]</div>
+</div>

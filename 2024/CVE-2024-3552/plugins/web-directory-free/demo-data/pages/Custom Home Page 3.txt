@@ -1,0 +1,2 @@
+[webdirectory-demo-links][webdirectory-map custom_home="1" height="500" enable_wheel_zoom="0" sticky_scroll="0" search_on_map="1" search_on_map_open="1"]
+<div class="w2dc-entry">[webdirectory custom_home="1" listings_view_grid_columns="3" perpage="12" scrolling_paginator="1"]</div>

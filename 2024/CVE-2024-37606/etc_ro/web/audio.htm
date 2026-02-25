@@ -1,0 +1,178 @@
+<html>
+<head>
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | SETUP | AUDIO</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+function InitAUTO()
+{
+  frm = document.forms[0];
+  frm.VolumeSel.value = frm.AudioVolume.value;
+}
+function ClickCancel()
+{
+  Browser = CheckBrower();
+  if ((Browser == "IE1x") || (Browser == "Opera") || (Browser == "Safari") || (Browser == "Chrome") || (Browser == "Firefox"))
+     loadurl("audio.htm");
+  else {
+     javascript:document.forms[0].reset();
+     InitAUTO();
+  }
+}
+</script>
+</head>
+<body topmargin="1" leftmargin="0" rightmargin="0" bgcolor="#757575">
+<table id="header_container" border="0" cellpadding="5" cellspacing="0" width="838" align="center">
+<tr>
+<td width="100%">Product: <a href="http://www.dlink.com/" target="_blank">%%CameraName();%%</a></td>
+  <td align="right" nowrap></td>
+  <td align="right" nowrap>Firmware version: %%FirmwareVersion();%% &nbsp;</td>
+</tr>
+</table>
+<div id="title_container">
+<table id="topnav_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr><td align="center" valign="middle"><img src="title.gif"></td></tr>
+</table>
+</div>
+<table id="index_container" border="0" cellpadding="2" cellspacing="1" width="838" align="center" bgcolor="#FFFFFF">
+<tr id="topnav_container">
+  <td><img src="devmodel.jpg?cidx=%%ModelName();%%"></td>
+  <td id="topnavoff"><a href="home.htm">Live Video</a></td>
+  <td id="topnavon"><a href="wizard.htm">Setup</a></td>
+  <td id="topnavoff"><a href="advanced.htm">Maintenance</a></td>
+  <td id="topnavoff"><a href="stsdev.htm">Status</a></td>
+  <td id="topnavoff"><a href="support.htm">Help</a></td>
+  <td id="index_space" width="640" style="display:none;"></td>
+</tr>
+<tr><td colspan=6 height=1 bgcolor="#ffffff"></td></tr>
+</table>
+<table id="space_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=50%>
+<tr><td height=1 bgcolor="#000000"></td></tr>
+<tr><td>
+<table id="data_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=100%>
+<tr>
+  <td valign="top" width="131" height="100%" align="right">
+    <!-- === BEGIN SIDENAV === -->
+    <table border="0" cellpadding="1" cellspacing="1" height=100% bgcolor="#FFFFFF">
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="wizard.htm">Wizard</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="network.htm">Network Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="wireless.htm">Wireless Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="ddns.htm">Dynamic DNS</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="image.htm">Image Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="video.htm">Video</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavon"><a href="audio.htm">Audio</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="motion.htm">Motion Detection</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="email.htm">Mail</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="upload.htm">FTP</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="time.htm">Time and Date</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="night.htm">Day/Night Mode</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="logout.htm">Logout</a></td></tr>
+    <tr id="sidenav_container" height=100%><td id="sidenavoff" align="center" valign="top">&nbsp;</td></tr>
+    </table>
+    <!-- === END SIDENAV === -->
+  </td>
+  <td valign="top" id="maincontent_container" height="420">
+    <table height="420" width=100% border="0" cellpadding="0" cellspacing="0" bgcolor="white">
+    <tr><td>
+    <div id="maincontent">
+      <!-- === BEGIN MAINCONTENT === -->
+      <div id="box_header"> 
+      <h1>Audio</h1>
+      In this section, you can configure the audio settings for your camera.
+<FORM ACTION="/setSystemStream" METHOD="POST" autocomplete="off">
+        <input type="hidden" name="ReplySuccessPage" value="audio.htm">
+        <input type="hidden" name="ReplyErrorPage" value="errraud.htm">
+        <div align=center style="padding: 5px 0px 0px 0px;">
+        &nbsp;<INPUT type="button" width="80" value=" Save Settings " onclick="javascript:document.forms[0].submit()">
+        &nbsp;&nbsp;<INPUT type="button" width="80" value=" Don't Save Settings " onclick="ClickCancel()">
+        </div>
+      </div>
+      <div class="box">
+        <h2>Audio Settings</h2>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD>
+            <input type=radio name=AudioEnable value=1 %%RadioOfAudioEnable(1);%%>Enable
+            &nbsp;&nbsp;&nbsp;<input type=radio name=AudioEnable value=0 %%RadioOfAudioEnable(0);%%>Disable
+          </TD>
+        </TR>
+        </table>
+      </div>
+      <div class="box">
+        <h2>Volume Settings</h2>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD>
+            <INPUT type="HIDDEN" name="AudioVolume" value="%%AudioVolume();%%">
+            <SELECT id="VolumeSel" size="1" onchange="document.forms[0].AudioVolume.value = this.value">
+            <OPTION value=0>0</OPTION>
+            <OPTION value=10>10</OPTION>
+            <OPTION value=20>20</OPTION>
+            <OPTION value=30>30</OPTION>
+            <OPTION value=40>40</OPTION>
+            <OPTION value=50>50</OPTION>
+            <OPTION value=60>60</OPTION>
+            <OPTION value=70>70</OPTION>
+            <OPTION value=80>80</OPTION>
+            <OPTION value=90>90</OPTION>
+            <OPTION value=100>100</OPTION>
+            </SELECT>
+          </TD>
+        </TR>
+        </table>
+      </div>
+      <p align=center>
+        <input type="hidden" name="ConfigSystemStream" value="Save">
+        &nbsp;<INPUT type="button" width="80" value=" Save Settings " onclick="javascript:document.forms[0].submit()">
+        &nbsp;&nbsp;<INPUT type="button" width="80" value=" Don't Save Settings " onclick="ClickCancel()">
+      </p>
+</FORM>
+      <!-- === END MAINCONTENT === -->
+    </div>
+    </td></tr>
+    <tr height=100%><td></td></tr>
+    </table>
+  </td>
+  <td valign="top" width="150" id="sidehelp_container" align="left">
+    <table cellpadding="2" cellspacing="0" border="0" bgcolor="#FFFFFF" bordercolor="#FFFFFF" bordercolordark="#FFFFFF" bordercolorlight="#FFFFFF">
+    <tr>
+      <td id="help_text">
+        <b>Helpful Hints..</b>
+        <br><br><b>Audio Settings</b> - Enabling this feature to hear audio from the IP Camera's microphone.
+        <br><br><b>Volume Settings</b> - You can adjust the IP Camera's microphone volume using the volume level setting.
+      </td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+</td></tr></table>
+<table id="footer_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr>
+  <td width="125" align="center">&nbsp;&nbsp;<img src="security.gif" width="114" height="35"></td>
+  <td width="10">&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+</table><br>
+<div align="center"><FONT color=#ffffff>Copyright <script language="Javascript">Copyright(2010);</script>, D-Link Corporation / D-Link Systems, Inc. All rights reserved.</font></div>
+<br>
+</body>
+<script language="Javascript">
+InitAUTO();
+</script>
+</html>
+
+<FORM id="redir" name="redir" ACTION="/" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="">
+<input type="hidden" name="ReplyErrorPage" value="">
+</Form>
+

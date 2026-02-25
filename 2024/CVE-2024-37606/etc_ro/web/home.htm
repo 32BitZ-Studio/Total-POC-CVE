@@ -1,0 +1,42 @@
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta http-equiv="Pragma" content="no-cache">
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+function loadurl(url)
+{
+  redir.action = "/" + url;
+  redir.ReplySuccessPage.value = url;
+  redir.ReplyErrorPage.value = url;
+  javascript:redir.submit();
+}
+</script>
+</head>
+<body>
+<FORM id="redir" name="redir" ACTION="/" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="">
+<input type="hidden" name="ReplyErrorPage" value="">
+</Form>
+</body>
+<script language="Javascript">
+<!--
+  mode = %%ViewMode();%%;
+  if (mode == 1)
+    loadurl("aview.htm");
+  else {
+    if (mode == 2)
+       loadurl("jview.htm");
+    else
+       loadurl("top.htm");
+  }
+// -->
+</script>
+</html>

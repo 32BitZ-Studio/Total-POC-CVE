@@ -1,0 +1,91 @@
+<html>
+<head>
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | MAINTENANCE | DEVICE MANAGEMENT</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+function clickInit()
+{
+  frm = document.forms[0];
+  disable("User");
+  if (frm.OldEntryNo.value > 1)
+  {
+    disable("BApply");
+    disable("BClear");
+    window.setInterval("window.close()", 2000)
+  }
+}
+function ClickApply()
+{
+  frm = document.forms[0];
+  if (frm.NewPassword.value == frm.RetypePassword.value)
+  {
+     if (CheckUserpass(frm.NewPassword.value)) {
+        alert("You have entered an incorrect password. Please try again.")
+     } else {
+        enable("User");
+        frm.UserPassword.value = EncryptPass(frm.NewPassword.value, frm.SessionKey.value);
+        javascript:document.forms[0].submit();
+     }
+  } else {
+     alert("The password was not correctly confirmed. Please ensure that the new password and retype password match exactly.");
+  }
+}
+function ClickCancel()
+{
+  javascript:document.forms[0].reset();
+  clickInit();
+}
+</script>
+</head>
+
+<body class="td1" topmargin="0" leftmargin="0">
+<FORM ACTION="/setSystemAddUser" METHOD="POST" autocomplete="off"><br>
+  <table class="text1" border="0" cellpadding="2" cellspacing="2">
+  <tr> 
+    <td width="29">&nbsp;</td>
+    <td width="165">User Name</td>
+    <td width="254">
+        <input type="hidden" name="ReplySuccessPage" value="account.htm">
+        <input type="hidden" name="SessionKey" value="%%TimeStamp();%%">
+      <INPUT type="text" id="User" size=18 maxlength=12 name="UserName" value="%%UserName();%%">
+      <input type="hidden" name="UserPassword" value="">
+      <input type="hidden" name="UserAdd" value="Yes">
+      <input type="hidden" id="OldEntryNo" value="%%EntryNo();%%">
+      <input type="hidden" name="EntryNo" value="2">
+    </td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+    <td>New Password</td>
+    <td><INPUT type="password" size=18 maxlength=8 id="NewPassword" value=""></td> 
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+    <td>Retype Password</td>    
+    <td><INPUT type="password" size=18 maxlength=8 id="RetypePassword" value=""></td>      
+  </tr>
+  <tr> 
+    <td colspan=1></td>
+    <td colspan=2 align="center"><br>
+      <input type="button" id="BApply" value="Apply" onclick="ClickApply();">
+      <input type="button" id="BClear" value="Clear" onclick="ClickCancel();">
+      <INPUT type="button" width="80" value="   Exit   " onclick="window.close();">
+    </td>           
+  </tr>
+  </table>
+</form>
+</body>
+<script language="Javascript">
+clickInit();
+</script>
+</html>

@@ -1,0 +1,6 @@
+[webdirectory-demo-links]
+
+<div class="w2dc-columns-panel"><div class="w2dc-column">[webdirectory-source]</div></div>
+
+<div class="w2dc-columns-panel"><div class="w2dc-column-left">[webdirectory-search custom_home="1" form_id="Checkboxes search"]</div>
+<div class="w2dc-column-right">[webdirectory custom_home="1" listings_view_type="grid" listings_view_grid_columns="1"]</div></div>

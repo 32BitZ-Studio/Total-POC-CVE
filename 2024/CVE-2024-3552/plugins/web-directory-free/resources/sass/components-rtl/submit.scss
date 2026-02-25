@@ -1,0 +1,55 @@
+ul.w2dc-categorychecklist li ul.children {
+	margin-right: 12px;
+	margin-left: 0;
+}
+ul.w2dc-categorychecklist li label {
+	padding-right: 5px;
+	padding-left: 0;
+}
+ul.w2dc-categorychecklist span.w2dc-category-has-checked {
+	left: -2px;
+	right: 0;
+}
+ul.w2dc-categorychecklist li ul {
+	border-right: 1px solid $border-color;
+	border-left: 0;
+    padding: 0 25px 0 0;
+}
+ul.w2dc-categorychecklist li ul li:before {
+    right: -20px;
+	left: auto;
+}
+
+/* Content fields */
+.w2dc-delete-selection-item {
+	float: right;
+}
+
+.w2dc-icon,
+.w2dc-png-image,
+.w2dc-fa-icon {
+	float: right;
+}
+.w2dc-attached-item,
+.w2dc-upload-item {
+	float: right;
+	margin: 0 0 20px 20px;
+}
+
+.w2dc-fa.w2dc-attached-item-delete {
+	left: 10px;
+	right: auto;
+}
+.w2dc-attached-item-metadata {
+	right: 10px;
+	left: auto;
+}
+
+.w2dc-content-fields-metabox .w2dc-field-checkbox-input {
+	text-align: right;
+}
+
+.w2dc-table.w2dc-dashboard-listings td,
+.w2dc-table.w2dc-dashboard-listings th {
+	text-align: right;
+}

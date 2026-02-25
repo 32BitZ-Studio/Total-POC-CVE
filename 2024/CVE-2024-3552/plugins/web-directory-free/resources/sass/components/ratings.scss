@@ -1,0 +1,75 @@
+.w2dc-rating {
+	font-size: 18px;
+	display: inline-block;
+	margin: 5px 0;
+	vertical-align: middle;
+}
+.w2dc-dashboard-listings .w2dc-rating {
+	margin-left: 10px;
+}
+.w2dc-rating-stars {
+	overflow: hidden;
+}
+.w2dc-map-canvas .w2dc-rating-icon {
+	font-size: 18px !important;
+}
+label.w2dc-rating-icon {
+	margin: 0;
+	float: right;
+	color: $rating-star-color;
+	padding-left: 2px;
+	font-size: 20px;
+	font-weight: normal;
+}
+.w2dc-rating-active label.w2dc-rating-icon {
+	cursor: pointer;
+}
+.w2dc-rating-icon:last-child {
+	padding-left: 0;
+}
+.w2dc-rating-active {
+	.w2dc-rating-icon:hover:before,
+	.w2dc-rating-icon:hover ~ .w2dc-rating-icon:before {
+		content: "\f005" !important;
+		color: $rating-star-hover-color;
+	}
+	&.w2dc-rating-stars:hover .w2dc-rating-icon:before {
+		content: "\f006";
+	}
+}
+.w2dc-rating-avgvalue {
+	display: block;
+	position: relative;
+	top: -2px;
+	float: right;
+	margin-left: 5px;
+}
+.w2dc-rating-avgvalue span {
+	border-radius: 50%;
+	color: #fff;
+	display: block;
+	font-family: Arial !important;
+	font-size: 11px !important;
+	padding: 5px;
+	line-height: 15px;
+	background-color: $primary-color;
+	text-align: center;
+}
+
+/*
+ * font-size and min-width for stars and circle on the map
+ */
+.w2dc-map-info-window-field .w2rr-rating-avgvalue .w2rr-rating-avgvalue-digit {
+	width: 1.5em;
+	height: 1.5em;
+}
+.w2dc-map-info-window-field .w2rr-rating-avgvalue .w2rr-rating-avgvalue-digit-text {
+	font-size: 10px !important;
+}
+.w2dc-map-listings-panel .w2rr-rating {
+	font-size: 20px !important;
+}
+.w2dc-map-listings-panel .w2rr-rating-stars,
+.w2dc-map-info-window-field .w2rr-rating-stars {
+	min-width: 100px !important;
+}

@@ -1,0 +1,9 @@
+- move Dockerfile, Docker-Compose, evilApp.py, payload, and login-file here
+- start up Jenkins, clear "Remember me cookies"
+- start up evilApp, check that remember-me cookies is off
+- re-login and set "remember me"
+- re visit evilApp site, check that we got the cookies and reverse shell was popped
+	- evilApp should have some generic "hello" page or something
+	- evilApp should print data out of cookies and admin
+	- reverse shell
+	

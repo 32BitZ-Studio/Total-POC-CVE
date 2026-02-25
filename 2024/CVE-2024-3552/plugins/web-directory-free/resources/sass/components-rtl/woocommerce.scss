@@ -1,0 +1,25 @@
+/************************  WooCommerce   ************************/
+.w2dc-btn.added:after {
+	font-family: WooCommerce;
+	content: "\e017";
+	margin-left: .53em;
+	vertical-align: bottom
+}
+.w2dc-btn.loading:after {
+	font-family: WooCommerce;
+	content: "\e01c";
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	font-weight: 400;
+	position: absolute;
+	top: .618em;
+	right: 1em;
+	-webkit-animation: spin 2s linear infinite;
+	-moz-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite
+}
+.w2dc-btn.loading {
+	opacity: 0.25;
+	padding-right: 2.618em;
+	position: relative;
+}

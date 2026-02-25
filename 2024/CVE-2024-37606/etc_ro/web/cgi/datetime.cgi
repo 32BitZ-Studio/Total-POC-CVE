@@ -1,0 +1,17 @@
+DateTimeMode=%%DateTimeMode();%%
+TimeServerIPAddress=%%TimeServerIPAddress();%%
+TimeServerProtocol=%%TimeServerProtocol();%%
+TimeZone=%%TimeZone();%%
+TimeZoneIndex=%%TimeZoneIndex();%%
+Date=%%Date();%%
+Time=%%Time();%%
+DSTEnable=%%DSTEnable();%%
+DSTOffset=%%DSTOffset();%%
+DSTStartMonth=%%DSTStartMonth();%%
+DSTStartWeek=%%DSTStartWeek();%%
+DSTStartDay=%%DSTStartDay();%%
+DSTStartTime=%%DSTStartTime();%%
+DSTEndMonth=%%DSTEndMonth();%%
+DSTEndWeek=%%DSTEndWeek();%%
+DSTEndDay=%%DSTEndDay();%%
+DSTEndTime=%%DSTEndTime();%%

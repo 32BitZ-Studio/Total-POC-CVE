@@ -1,0 +1,267 @@
+/************************   Bootstrap Base CSS rules   ************************/
+.wcsearch-content {
+  direction: rtl;
+}
+
+.wcsearch-content .wcsearch-form-control {
+  text-align: right;
+}
+.wcsearch-content .wcsearch-radio input[type="radio"],
+.wcsearch-content .wcsearch-radio-inline input[type="radio"],
+.wcsearch-content .wcsearch-checkbox input[type="checkbox"],
+.wcsearch-content .wcsearch-checkbox-inline input[type="checkbox"] {
+  margin-right: -20px;
+  margin-left: 0;
+}
+.wcsearch-content .wcsearch-radio-inline,
+.wcsearch-content .wcsearch-checkbox-inline {
+  padding-right: 20px;
+  padding-left: 0;
+}
+.wcsearch-content .wcsearch-radio-inline + .wcsearch-radio-inline,
+.wcsearch-content .wcsearch-checkbox-inline + .wcsearch-checkbox-inline {
+  margin-left: 10px;
+  margin-right: 0;
+}
+.wcsearch-content .wcsearch-has-feedback .wcsearch-form-control {
+  padding-right: 42.5px;
+  padding-left: 0;
+}
+.wcsearch-content .wcsearch-form-control-feedback {
+  right: auto;
+  left: 0;
+}
+
+/************************   Bootstrap Additional CSS rules   ************************/
+.wcsearch-content .wcsearch-has-feedback .wcsearch-form-control,
+.wcsearch-content .wcsearch-has-feedback .wcsearch-form-control:focus {
+  padding-left: 34px;
+  padding-right: 6px;
+  text-aligh: right;
+}
+
+.wcsearch-content .wcsearch-checkbox label,
+.wcsearch-content .wcsearch-radio label {
+  padding-right: 35px;
+  padding-left: 0;
+}
+
+.wcsearch-checkbox .wcsearch-control-indicator,
+.wcsearch-radio .wcsearch-control-indicator {
+  right: 0;
+  left: auto;
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+/* Checkbox tick */
+.wcsearch-checkbox .wcsearch-control-indicator:after {
+  left: auto;
+  right: 5px;
+}
+
+.wcsearch-radio-reset-btn:before {
+  right: 0;
+  left: auto;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/************************ Datepicker ************************/
+.wcsearch-date-input-field .wcsearch-has-feedback {
+  float: right;
+}
+
+.wcsearch-date-input-field .wcsearch-date-reset-button {
+  float: left;
+}
+
+.wcsearch-date-input-wrapper-horizontally .wcsearch-date-input-field:nth-child(2n+1) {
+  padding-right: 0;
+  padding-left: 5px;
+}
+
+.wcsearch-date-input-wrapper-horizontally .wcsearch-date-input-field:nth-child(2n+2) {
+  padding-left: 0;
+  padding-right: 5px;
+}
+
+.wcsearch-dropdowns-menu-search-counter,
+.wcsearch-dropdowns-menu-search-note {
+  left: 8px;
+  right: auto;
+}
+
+.wcsearch-dropdowns-menu-search-term {
+  padding-right: 0;
+  padding-left: 50px;
+}
+
+.wcsearch-dropdowns-menu.ui-autocomplete {
+  box-shadow: 0 rgba(0, 0, 0, 0.25) 4px 2px, 0 rgba(0, 0, 0, 0.1) 0px -1px;
+  border-radius: 0 2px 2px 0;
+}
+
+.wcsearch-content .ui-selectmenu-menu .ui-icon,
+.wcsearch-dropdowns-menu.ui-autocomplete .ui-icon {
+  left: auto;
+  right: 9px;
+}
+
+.wcsearch-dropdowns-menu.ui-autocomplete .wcsearch-dropdowns-menu-search-listing .ui-icon {
+  left: auto;
+  right: 4px;
+}
+
+.wcsearch-dropdowns-menu.ui-menu .ui-menu-item {
+  padding: 3px 50px 3px 8px !important;
+}
+
+.wcsearch-dropdowns-multiselect-item {
+  margin-right: auto;
+  margin-left: 3px;
+}
+
+.wcsearch-dropdowns-multiselect-item-close {
+  margin-left: auto;
+  margin-right: 4px;
+}
+
+.wcsearch-dropdowns-multiselect-item-close:before {
+  right: auto;
+  left: 0;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+#wcsearch-ajax-loader-overlay {
+  left: auto;
+  right: 0;
+}
+
+.wcsearch-loader:before {
+  left: auto;
+  right: calc(50% - 20px);
+}
+
+.wcsearch-search-input-loader:before {
+  left: auto;
+  right: 50%;
+  margin-right: -12px;
+  margin-left: 0;
+}
+
+.wcsearch-ajax-iloader > div {
+  margin-right: 3px;
+  margin-left: 0;
+}
+
+body.post-type-wcsearch_form #poststuff #post-body {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.wcsearch-search-tab-title {
+  float: right;
+}
+
+/* Extend placeholder hover area */
+.wcsearch-search-model-placeholder:before {
+  left: auto;
+  right: -15px;
+}
+
+.wcsearch-search-model-input[data-align="left"] {
+  text-align: right;
+}
+
+.wcsearch-search-model-input[data-align="right"] {
+  text-align: left;
+}
+
+.wcsearch-range-slider-scale label,
+.wcsearch-single-slider-scale label {
+  margin-left: 0;
+  margin-right: 4px;
+}
+
+.wcsearch-search-model-buttons-panel {
+  right: auto;
+  left: -22px;
+}
+
+.wcsearch-search-model-move-button {
+  left: auto;
+  right: -25px;
+}
+
+.wcsearch-search-model-extend-button:before {
+  content: "\f060";
+}
+
+.wcsearch-search-model-bottom-buttons-panel {
+  right: auto;
+  left: 0px;
+}
+
+.wcsearch-search-model-top-buttons-panel {
+  left: auto;
+  right: 50%;
+}
+
+.wcsearch-search-model-input-checkboxes-column-2,
+.wcsearch-search-model-input-radios-column-2,
+.wcsearch-search-model-input-checkboxes-column-3,
+.wcsearch-search-model-input-radios-column-3,
+.wcsearch-search-model-input-checkboxes-column-4,
+.wcsearch-search-model-input-radios-column-4,
+.wcsearch-search-model-input-checkboxes-column-5,
+.wcsearch-search-model-input-radios-column-5 {
+  float: right;
+}
+
+.wcsearch-search-model-input-radios-column .wcsearch-radio,
+.wcsearch-search-model-input-checkboxes-column .wcsearch-checkbox {
+  margin: 15px 0 15px 10px !important;
+}
+
+.wcsearch-search-model-options-column-one,
+.wcsearch-search-model-options-column-two {
+  float: right;
+}
+
+.wcsearch-search-model-options-column-one {
+  padding-right: 0;
+  padding-left: 20px;
+}
+
+.wcsearch-search-model {
+  float: right;
+}
+
+.wcsearch-search-model-sidebar {
+  float: right;
+  margin-right: 0;
+  margin-left: 40px;
+}
+
+.wcsearch-btn.wcsearch-search-model-add-element-btn {
+  margin: 0 0 10px 10px;
+  text-align: right;
+}
+
+.wcsearch-form-control.wcsearch-search-model-input-1,
+.wcsearch-form-control.wcsearch-search-model-input-1:focus {
+  float: right;
+}
+
+.wcsearch-form-control.wcsearch-search-model-input-2,
+.wcsearch-form-control.wcsearch-search-model-input-2:focus {
+  float: left;
+}
+
+.wcsearch-content .wcsearch-search-grid .ui-slider-horizontal .ui-slider-range-min,
+.wcsearch-content .wcsearch-search-model-grid .ui-slider-horizontal .ui-slider-range-min {
+  right: -1px;
+  left: auto;
+}

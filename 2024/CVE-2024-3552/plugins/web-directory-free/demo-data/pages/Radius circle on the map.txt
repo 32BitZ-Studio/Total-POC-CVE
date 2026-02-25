@@ -1,0 +1,7 @@
+[webdirectory-demo-links]
+
+[webdirectory-source]
+Display all markers of listings within 30 miles from Los Angeles.
+[/webdirectory-source]
+
+[webdirectory-map address="Los Angeles, CA, USA" radius=30 radius_circle=1 height=650 map_style="Pale Dawn" draw_panel=1]

@@ -1,0 +1,38 @@
+.wcsearch-content .wcsearch-checkbox label,
+.wcsearch-content .wcsearch-radio label {
+	padding-right: 35px;
+	padding-left: 0;
+}
+.wcsearch-checkbox .wcsearch-control-indicator,
+.wcsearch-radio .wcsearch-control-indicator {
+	right: 0;
+	left: auto;
+	margin-right: 0;
+	margin-left: 5px;
+}
+/* Checkbox tick */
+.wcsearch-checkbox .wcsearch-control-indicator:after {
+	left: auto;
+	right: 5px;
+}
+.wcsearch-radio-reset-btn:before {
+	right: 0;
+	left: auto;
+	margin-left: auto;
+	margin-right: 0;
+}
+/************************ Datepicker ************************/
+.wcsearch-date-input-field .wcsearch-has-feedback {
+	float: right;
+}
+.wcsearch-date-input-field .wcsearch-date-reset-button {
+	float: left;
+}
+.wcsearch-date-input-wrapper-horizontally .wcsearch-date-input-field:nth-child(2n+1) {
+	padding-right: 0;
+	padding-left: 5px;
+}
+.wcsearch-date-input-wrapper-horizontally .wcsearch-date-input-field:nth-child(2n+2) {
+	padding-left: 0;
+	padding-right: 5px;
+}

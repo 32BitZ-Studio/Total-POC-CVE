@@ -1,0 +1,5 @@
+[wcsearch-demo-links]
+<div class="wcsearch-columns-panel">
+<div class="wcsearch-column-left">[wcsearch-products product_cat="accessories"]</div>
+<div class="wcsearch-column-right">[wcsearch id="Search products" params="product_cat='accessories'"]</div>
+</div>

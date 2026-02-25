@@ -1,0 +1,157 @@
+.w2dc-content .w2dc-btn:hover,
+.w2dc-content .w2dc-btn:focus,
+.w2dc-content .w2dc-btn:active,
+.w2dc-content .w2dc-btn.w2dc-active {
+	background-image: none;
+	box-shadow: unset;
+}
+.w2dc-content .w2dc-btn {
+	margin: 0;
+	max-width: 100%;
+	float: none;
+	border-radius: $button-border-radius;
+	height: $button-height;
+	font-size: $button-font-size;
+	padding: $button-padding;
+}
+.w2dc-content .w2dc-dashboard-tabs-content .w2dc-btn-group .w2dc-btn {
+	height: auto;
+	font-size: 14px;
+	padding: 8px;
+}
+.w2dc-content .w2dc-checkbox,
+.w2dc-content .w2dc-radio {
+	margin-top: 0;
+}
+.w2dc-content .w2dc-checkbox label,
+.w2dc-content .w2dc-radio label {
+	position: relative;
+	padding-left: 30px;
+}
+.w2dc-checkbox input,
+.w2dc-radio input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+.w2dc-checkbox .w2dc-control-indicator,
+.w2dc-radio .w2dc-control-indicator {
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	background: #FFFFFF;
+	font-family: 'Glyphicons Halflings';
+	margin-right: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: $button-default-color-1;
+}
+.w2dc-radio .w2dc-control-indicator {
+	border-radius: 50%;
+}
+/* Checked state */
+.w2dc-checkbox label input:checked ~ .w2dc-control-indicator,
+.w2dc-radio label input:checked ~ .w2dc-control-indicator {
+	border: none;
+	background: $button-default-color-1;
+}
+/* Disabled state */
+.w2dc-checkbox label input:disabled ~ .w2dc-control-indicator,
+.w2dc-radio label input:disabled ~ .w2dc-control-indicator {
+	pointer-events: none;
+	opacity: .6;
+	background: #e6e6e6;
+}
+/* Check mark */
+.w2dc-checkbox .w2dc-control-indicator:after {
+	position: absolute;
+	display: none;
+	content: "\e013";
+}
+.w2dc-radio .w2dc-control-indicator:after {
+	position: absolute;
+	display: none;
+	content: "";
+}
+/* Show check mark */
+.w2dc-checkbox input:checked ~ .w2dc-control-indicator:after,
+.w2dc-radio input:checked ~ .w2dc-control-indicator:after {
+	display: block;
+	color: #FFFFFF;
+}
+/* Checkbox tick */
+.w2dc-checkbox .w2dc-control-indicator:after {
+	font-size: 12px;
+	left: 5px;
+}
+/* Disabled tick colour */
+.w2dc-checkbox input:disabled ~ .w2dc-control-indicator:after {
+	border-color: $border-color;
+}
+/* Radio button inner circle */
+.w2dc-radio .w2dc-control-indicator:after {
+	top: 6px;
+	left: 6px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #fff;
+}
+/* Disabled circle colour */
+.w2dc-radio input:disabled ~ .w2dc-control-indicator:after {
+	background: #7b7b7b;
+}
+
+.w2dc-content select:not(.w2dc-week-day-input) {
+	background-image:
+	linear-gradient(50deg, transparent 50%, white 50%),
+	linear-gradient(130deg, white 50%, transparent 50%),
+	linear-gradient(to right, $primary-color, $primary-color) !important;
+	background-position: calc(100% - 13px) 50%, calc(100% - 8px) 50%, 100% 0 !important;
+	background-size: 6px 6px, 6px 6px, 2em 48px !important;
+	background-repeat: no-repeat !important;
+
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+
+	font-size: 14px !important;
+	line-height: 1.42857 !important;
+	padding: 3px 12px !important;
+}
+.w2dc-content select:not(.w2dc-week-day-input)::-ms-expand {
+	display: none;
+}
+.w2dc-content select:not(.w2dc-week-day-input):focus {
+	background-image:
+	linear-gradient(130deg, transparent 50%, white 50%),
+	linear-gradient(50deg, white 50%, transparent 50%),
+	linear-gradient(to right, $button-default-color-1, $button-default-color-1) !important;
+}
+
+.w2dc-content .w2dc-btn,
+.w2dc-content a,
+.w2dc-content button,
+.w2dc-content input[type="button"] {
+	transition: all 0.1s linear 0s;
+}
+.w2dc-content .w2dc-btn:focus,
+.w2dc-content a:focus,
+.w2dc-content button:focus,
+.w2dc-content input[type="button"]:focus {
+	outline: 0;
+}
+
+div.w2dc-content .w2dc-btn-primary, div.w2dc-content a.w2dc-btn-primary,
+div.w2dc-content .w2dc-btn-primary:hover, div.w2dc-content a.w2dc-btn-primary:hover
+div.w2dc-content .w2dc-btn-primary:visited, div.w2dc-content a.w2dc-btn-primary:visited,
+div.w2dc-content .w2dc-btn-primary:focus, div.w2dc-content a.w2dc-btn-primary:focus {
+	background-image: none;
+}

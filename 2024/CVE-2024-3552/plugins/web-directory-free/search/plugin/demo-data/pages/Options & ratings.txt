@@ -1,0 +1,5 @@
+[wcsearch-demo-links]
+<div class="wcsearch-columns-panel">
+<div class="wcsearch-column-left">[wcsearch-products]</div>
+<div class="wcsearch-column-right">[wcsearch id="Options and ratings"]</div>
+</div>

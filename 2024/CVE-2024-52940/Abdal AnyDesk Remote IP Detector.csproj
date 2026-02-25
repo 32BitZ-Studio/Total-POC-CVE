@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Abdal_AnyDesk_Remote_IP_Detector</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Desk\ico.ico</ApplicationIcon>
+    <PackageIcon>128.png</PackageIcon>
+    <Copyright>Ebrahim Shafiei (EbraSha)</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Github\**" />
+    <EmbeddedResource Remove="Github\**" />
+    <None Remove="Github\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Desk\ico.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Desk\128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

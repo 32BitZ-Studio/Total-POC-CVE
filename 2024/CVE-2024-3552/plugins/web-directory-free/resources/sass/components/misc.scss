@@ -1,0 +1,202 @@
+/************************ Misc ************************/
+.w2dc-contact-form label {
+	display: block;
+}
+input[type=submit], input[type=button] {
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+}
+a.w2dc-hint-icon:before {
+	content: "\f059";
+}
+a.w2dc-hint-icon {
+	font-family: 'FontAwesome' !important;
+	text-decoration: none !important;
+	font-size: 24px;
+}
+.w2dc-popover {
+    width: 100%;
+}
+.w2dc-print-buttons {
+	margin: 10px;
+}
+@media print {
+	.w2dc-print {
+		margin: 0;
+		padding: 0;
+	}
+	.w2dc-print-buttons {
+		display: none;
+	}
+}
+/*
+print landscape
+
+.w2dc-print {
+	size: landscape;
+	-webkit-transform: rotate(-90deg); 
+	-moz-transform:rotate(-90deg);
+	filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	page-break-before: avoid;
+	width:100%;
+	height:100%;
+} */
+
+
+/************************ Our plugin section in settings manager ************************/
+.w2dc-our-plugins {
+	margin: 100px 0;
+}
+.w2dc-our-plugins ul:after {
+	content: "";
+	clear: both;
+	display: table;
+}
+.w2dc-our-plugins li {
+	list-style: none;
+	float: left;
+	margin: 0 20px 20px 0;
+}
+.w2dc-our-plugins li img {
+	width: 440px;
+}
+ 
+
+/************************ Frontpanel Buttons ************************/
+.w2dc-directory-frontpanel {
+	margin-bottom: 10px;
+}
+.w2dc-listing-single .w2dc-directory-frontpanel {
+	margin: 0;
+	float: right;
+}
+@media screen and (max-width: $mobile-screen-width) {
+	.w2dc-listing-single .w2dc-directory-frontpanel {
+		float: none;
+	}
+}
+.w2dc-directory-frontpanel a.w2dc-btn {
+	margin: 10px 10px 10px 0;
+}
+
+/* Avoid fluid-width-video-wrapper */
+.w2dc-content .fluid-width-video-wrapper {
+	padding-top: 0 !important;
+	height: 400px !important;
+}
+
+.g-recaptcha {
+	margin: 10px 0;
+}
+
+.w2dc-red-asterisk {
+	color: red;
+	font-weight: bold;
+	font-size: 1.2em;
+	line-height: 1px;
+	padding: 2px;
+}
+
+/************************ Lightbox styles  ************************/
+.w2dc-content .lb-prev,
+.w2dc-content .lb-next {
+	outline: 0 none !important;
+}
+/* 
+	Bootstrap has default img max-width set to 100% and for some reason lightbox stops resizing
+	http://stackoverflow.com/questions/17523977/lightbox-v2-shrinks-the-image-in-the-box
+*/
+.lb-image {
+	max-width: inherit;
+}
+.lb-number {
+	display: none !important;
+}
+
+/************************ Profile template ************************/
+.dashicons, .dashicons-before::before {
+	line-height: inherit;
+}
+
+/************************ Adapted for Contact Fotm 7 plugin ************************/
+.w2dc-content .wpcf7-form .wpcf7-text,
+.w2dc-content .wpcf7-form .wpcf7-select,
+.w2dc-content .wpcf7-form .wpcf7-number,
+.w2dc-content .wpcf7-form .wpcf7-date,
+.w2dc-content .wpcf7-form .wpcf7-textarea {
+	width: 100%;
+}
+div.w2dc-content .wpcf7-form .wpcf7-submit,
+div.w2dc-content .wpcf7-form .wpcf7-submit:hover
+div.w2dc-content .wpcf7-form .wpcf7-submit:visited,
+div.w2dc-content .wpcf7-form .wpcf7-submit:focus {
+	background-image: none;
+}
+
+/************************ Paginator ************************/
+.w2dc-content {
+	.w2dc-pagination > li:first-child > a,
+	.w2dc-pagination > li:first-child > span {
+		border-bottom-left-radius: $border-radius;
+		border-top-left-radius: $border-radius;
+	}
+	.w2dc-pagination > li:last-child > a,
+	.w2dc-pagination > li:last-child > span {
+		border-bottom-right-radius: $border-radius;
+		border-top-right-radius: $border-radius;
+	}
+	.w2dc-pagination .w2dc-btn-group > .w2dc-btn:first-child:not(:last-child):not(.w2dc-dropdown-toggle) {
+		border-bottom-left-radius: $border-radius;
+		border-top-left-radius: $border-radius;
+	}
+	.w2dc-pagination .w2dc-btn-group > .w2dc-btn:last-child:not(:first-child),
+	.w2dc-pagination .w2dc-btn-group > .w2dc-dropdown-toggle:not(:first-child) {
+		border-bottom-right-radius: $border-radius;
+		border-top-right-radius: $border-radius;
+	}
+	.w2dc-pagination-wrapper {
+		text-align: center;
+		margin: 20px 0;
+	}
+	.w2dc-pagination li {
+		margin: 0;
+	}
+}
+
+/************************ Top Admin Bar ************************/
+#wpadminbar #wp-admin-bar-edit-listing > a::before {
+	content: "\f464";
+	top: 2px;
+}
+
+/************************ Badges ************************/
+.w2dc-badge.w2dc-listing-status-active,
+.w2dc-badge.w2dc-invoice-status-paid {
+	background-color: $status-active-color;
+}
+.w2dc-badge.w2dc-listing-status-expired {
+	background-color: $status-expired-color;
+}
+.w2dc-badge.w2dc-listing-status-unpaid,
+.w2dc-badge.w2dc-invoice-status-unpaid {
+	background-color: $status-unpaid-color;
+}
+.w2dc-badge.w2dc-listing-status-stopped,
+.w2dc-badge.w2dc-invoice-status-pending {
+	background-color: $status-stopped-color;
+}
+
+/************************ License support checker ************************/
+.w2dc-license-support-checker-active {
+	color: $status-active-color;
+}
+.w2dc-license-support-checker-expired {
+	color: $status-expired-color;
+}
+
+/************************ Elementor backend widget ************************/
+.w2dc-elementor-widget-content-template {
+	border: 1px dashed;
+	padding: 10px;
+	background-color: #e6f5ff;
+}

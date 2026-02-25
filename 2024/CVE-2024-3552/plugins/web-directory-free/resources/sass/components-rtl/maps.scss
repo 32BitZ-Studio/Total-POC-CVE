@@ -1,0 +1,97 @@
+.w2dc-map-info-window-title .w2dc-close-info-window {
+	float: left;
+}
+.w2dc-map-info-window-logo {
+	float: left;
+}
+.w2dc-map-field-icon {
+	padding-right: 0;
+	padding-left: 15px;
+}
+.w2dc-map-info-window-buttons a:first-child {
+	float: right;
+}
+.w2dc-map-info-window-buttons a:last-child {
+	float: left;
+}
+.w2dc-map-draw-panel-wrapper {
+	right: 0 !important;
+	padding-left: 6px;
+	padding-right: 0;
+}
+.w2dc-map-draw-panel button.w2dc-btn.w2dc-btn-primary.w2dc-map-location {
+	float: left;
+}
+/************************ Map Search & Sidebars ************************/
+.w2dc-map-sidebar-right .w2dc-map-canvas-wrapper {
+	float: right;
+}
+.w2dc-map-sidebar {
+	float: right;
+	margin-left: 0;
+	margin-right: -$map-search-width;
+}
+.w2dc-map-sidebar-right .w2dc-map-sidebar {
+	margin-right: 0;
+	margin-left: -$map-search-width;
+}
+.w2dc-map-sidebar-right .w2dc-map-sidebar {
+	float: left;
+}
+.w2dc-map-sidebar-open .w2dc-map-sidebar {
+	margin-right: 0;
+}
+.w2dc-map-sidebar-right.w2dc-map-sidebar-open .w2dc-map-sidebar {
+	margin-left: 0;
+}
+.w2dc-map-sidebar-open .w2dc-map-canvas-wrapper {
+	width: calc(100% - #{$map-search-width}) !important;
+	float: left;
+}
+.w2dc-map-sidebar-open.w2dc-map-sidebar-right .w2dc-map-canvas-wrapper {
+	float: right;
+}
+.w2dc-map-sidebar-open .w2dc-map-canvas.mapboxgl-map {
+	margin-right: 0;
+}
+.w2dc-map-sidebar-toggle-container {
+	left: auto;
+	right: 0;
+	margin-right: 0;
+	box-shadow: -3px 3px 4px rgba(0, 0, 0, 0.3);
+}
+.w2dc-map-sidebar-toggle-container .w2dc-fa-search {
+	padding: 5px 0 0 5px;
+}
+.w2dc-map-sidebar-open .w2dc-map-sidebar-toggle-container {
+	margin-right: $map-search-width;
+	margin-left: 0;
+}
+.w2dc-map-sidebar-open.w2dc-map-sidebar-right .w2dc-map-sidebar-toggle-container {
+	margin-right: 0;
+}
+.w2dc-map-search-toggle::after {
+	border-right: 1px solid $border-color;
+}
+/* It works with devices width less than 768 pixels. */
+@media screen and (max-width: $mobile-screen-width) {
+	.w2dc-map-sidebar-toggle-container-mobile {
+		left: 0;
+		right: calc(50% - 24px);
+		margin-right: 0;
+		box-shadow: -3px 3px 4px rgba(0, 0, 0, 0.3);
+	}
+}
+.w2dc-map-listing-logo-wrap {
+	float: right;
+	margin-left: 10px;
+	margin-right: 0;
+}
+.w2dc-map-listing-field-icon {
+	margin-right: 0;
+	margin-left: 5px;
+}
+
+.w2dc-content .mapboxgl-canvas {
+	position: relative !important;
+}

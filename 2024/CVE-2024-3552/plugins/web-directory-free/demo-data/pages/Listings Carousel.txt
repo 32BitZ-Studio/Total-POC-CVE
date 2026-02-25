@@ -1,0 +1,17 @@
+[webdirectory-demo-links]
+
+<div class="w2dc-columns-panel"><div class="w2dc-column">[webdirectory-source]</div></div>
+
+<div class="w2dc-columns-panel">
+<div class="w2dc-column">
+[webdirectory-listings carousel=1 carousel_slide_width=200]
+</div>
+
+<div class="w2dc-column">
+[webdirectory-listings carousel=1 hide_content=1 carousel_slide_width=200]
+</div>
+
+<div class="w2dc-column">
+[webdirectory-listings carousel=1 hide_content=1 carousel_show_slides=2 carousel_slide_width=300 summary_on_logo_hover=1]
+</div>
+</div>

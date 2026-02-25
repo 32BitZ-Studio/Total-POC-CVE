@@ -1,0 +1,7 @@
+[webdirectory-demo-links]
+<div class="w2dc-columns-panel">
+<div class="w2dc-column">[webdirectory-source]</div>
+</div>
+[webdirectory-map draw_panel=1 search_on_map=1 search_on_map_open=1 show_summary_button="0" show_readmore_button="1" ajax_map_loading=1 height="650" uid="u1" start_latitude=34.0498059 start_longitude=-118.2513123 start_zoom=10]
+
+[webdirectory-listings uid="u1" listings_view_type="grid" listings_view_grid_columns=3 ajax_initial_load=1]

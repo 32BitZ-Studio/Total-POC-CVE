@@ -1,0 +1,40 @@
+<wpml-config>
+    <custom-fields>
+	    <custom-field action="copy">_expiration_date</custom-field>
+	    <custom-field action="copy">_expiration_notification_sent</custom-field>
+	    <custom-field action="copy">_preexpiration_notification_sent</custom-field>
+	    <custom-field action="copy">_order_date</custom-field>
+	    <custom-field action="copy">_directory_id</custom-field>
+	    <custom-field action="copy">_level_id</custom-field>
+	    <custom-field action="copy">_listing_created</custom-field>
+	    <custom-field action="copy">_listing_status</custom-field>
+	    <custom-field action="copy">_map_zoom</custom-field>
+	    <custom-field action="copy">_w2dc_avg_rating</custom-field>
+	    <custom-field action="translate">_attached_image</custom-field>
+	    <custom-field action="translate">_attached_image_as_logo</custom-field>
+	    <custom-field action="translate">_attached_video_id</custom-field>
+	    <custom-field action="copy">_is_claimable</custom-field>
+	    <custom-field action="copy">_contact_email</custom-field>
+	    <custom-field action="copy">_location_id</custom-field>
+	    <custom-field action="copy">_place_id</custom-field>
+	    <custom-field action="copy">_address_line_1</custom-field>
+	    <custom-field action="copy">_address_line_2</custom-field>
+	    <custom-field action="copy">_zip_or_postal_index</custom-field>
+	    <custom-field action="copy">_additional_info</custom-field>
+	    <custom-field action="copy">_manual_coords</custom-field>
+	    <custom-field action="copy">_map_coords_1</custom-field>
+	    <custom-field action="copy">_map_coords_2</custom-field>
+	    <custom-field action="copy">_map_icon_file</custom-field>
+	    <custom-field action="copy">_map_zoom</custom-field>
+    </custom-fields>
+    <custom-types>
+        <custom-type translate="1">w2dc_listing</custom-type>
+    </custom-types>
+    <taxonomies>
+        <taxonomy translate="1">w2dc-category</taxonomy>
+        <taxonomy translate="1">w2dc-location</taxonomy>
+        <taxonomy translate="1">w2dc-tag</taxonomy>
+    </taxonomies>
+</wpml-config>
+
+

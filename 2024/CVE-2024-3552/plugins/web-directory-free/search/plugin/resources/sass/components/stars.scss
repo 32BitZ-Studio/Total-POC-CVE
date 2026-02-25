@@ -1,0 +1,24 @@
+.wcsearch-rating {
+	font-size: 18px;
+	display: inline-block;
+	margin: 5px 0;
+	vertical-align: middle;
+	letter-spacing: normal;
+}
+.wcsearch-rating-stars {
+	overflow: hidden;
+}
+label.wcsearch-rating-icon {
+	margin: 0;
+	float: right;
+	color: $rating-star-color;
+	width: 20px; /* Use width instead of padding-left to set stars without gaps on hover */
+	font-size: 20px;
+	font-weight: normal;
+}
+.wcsearch-rating-icon:last-child {
+	padding-left: 0;
+}
+.wcsearch-rating-checkbox {
+	display: inline-block;
+}

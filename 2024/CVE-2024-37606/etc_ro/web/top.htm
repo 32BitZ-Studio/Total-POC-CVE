@@ -1,0 +1,142 @@
+<html>
+<head>
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | HOME</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+function InitAUTO()
+{
+  frm0 = document.forms[0];
+  frm1 = document.forms[1];
+  frm0.WebLanguageSel.value = frm1.WebLanguage.value;
+}
+function ClickSubmit()
+{
+  javascript:document.forms[1].submit();
+}
+</script>
+</head>
+<body topmargin="1" leftmargin="0" rightmargin="0" bgcolor="#757575">
+<FORM ACTION="/top.htm" METHOD="POST" autocomplete="off">
+<table id="header_container" border="0" cellpadding="5" cellspacing="0" width="838" align="center">
+<tr>
+<td width="100%">Product: <a href="http://www.dlink.com/" target="_blank">%%CameraName();%%</a></td>
+  <td align="right" nowrap></td>
+  <td align="right" nowrap>Firmware version: %%FirmwareVersion();%% &nbsp;</td>
+</tr>
+</table>
+<div id="title_container">
+<table id="topnav_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr><td align="center" valign="middle"><img src="title.gif"></td></tr>
+</table>
+</div>
+<table id="index_container" border="0" cellpadding="2" cellspacing="1" width="838" align="center" bgcolor="#FFFFFF">
+<tr id="topnav_container">
+  <td><img src="devmodel.jpg?cidx=%%ModelName();%%"></td>
+  <td id="topnavon"><a href="home.htm">Live Video</a></td>
+  <td id="topnavoff"><a href="wizard.htm">Setup</a></td>
+  <td id="topnavoff"><a href="advanced.htm">Maintenance</a></td>
+  <td id="topnavoff"><a href="stsdev.htm">Status</a></td>
+  <td id="topnavoff"><a href="support.htm">Help</a></td>
+  <td id="index_space" width="640" style="display:none;"></td>
+</tr>
+<tr><td colspan=6 height=1 bgcolor="#ffffff"></td></tr>
+</table>
+<table id="space_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=50%>
+<tr><td height=1 bgcolor="#000000"></td></tr>
+<tr><td>
+<table id="data_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=100%>
+<tr>
+  <td valign="top" width="131" height="100%" align="right">
+    <!-- === BEGIN SIDENAV === -->
+    <table border="0" cellpadding="1" cellspacing="1" height=100% bgcolor="#FFFFFF">
+    <tr id="sidenav_container"><td id="sidenavon"><a href="home.htm">Camera</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="logout.htm">Logout</a></td></tr>
+    <tr id="sidenav_container" height=100%><td id="sidenavoff" valign="top">
+      <div style="padding: 39px 0px 0px 4px; font-size: 11px;"><font color=white>Language :</font></div>
+      &nbsp;<SELECT id="WebLanguageSel" size="1" onchange="document.forms[1].WebLanguage.value = this.value;ClickSubmit()">
+      %%SelectOfWebLanguage();%%
+      </SELECT>
+    </td></tr>
+    </table>
+    <!-- === END SIDENAV === -->
+  </td>
+  <td valign="top" id="maincontent_container" height="420">
+    <table height="420" width=100% border="0" cellpadding="0" cellspacing="0" bgcolor="white">
+    <tr><td>
+    <div id="maincontent">
+      <!-- === BEGIN MAINCONTENT === -->
+      <div id="box_header"> 
+      <h1>Camera</h1>
+      This section shows your IP camera's live video. You can control your settings using the buttons below.<br>
+      Current resolution is %%StringOfVideoResolution();%%.
+      </div>
+      <div class="box">
+        <h2>Function</h2>
+        <a href="aview.htm" style="padding: 0px 3px 0px 0px;TEXT-DECORATION: none" style="padding: 0px 3px 0px 0px;TEXT-DECORATION: none"><img src="radiooff.gif" border="0"></a>ActiveX&nbsp;
+        <a href="jview.htm" style="padding: 0px 3px 0px 0px;TEXT-DECORATION: none" style="padding: 0px 3px 0px 0px;TEXT-DECORATION: none"><img src="radiooff.gif" border="0"></a>Java&nbsp;
+      </div>
+      <div class="box">
+        <h2>Live Video</h2>
+        <table cellpadding="2" cellspacing="0" border="0" width="534" bgcolor="white" bordercolor="#000000">
+        <tr><td align="center">
+          <table bgcolor=black BORDER=0 CELLSPACING=0 CELLPADDING=0>
+          <tr style="height: 17px">
+            <td nowrap><font color=white>%%CameraName();%%<br>%%Location();%%</font></td>
+            <td nowrap align=right valign=top>&nbsp;&nbsp;<font color=white>%%CurrentTime();%%</font></td>
+          </tr>
+          <tr>
+            <td colspan=2 align=center bgcolor="white">
+            <IMG src="image.jpg?cidx=%%ReGetIndex();%%" BORDER="0">
+            </td>
+          </tr>
+          </table>
+        </td></tr>
+        </table>
+      </div>
+      <!-- === END MAINCONTENT === -->
+    </div>
+    </td></tr>
+    <tr height=100%><td></td></tr>
+    </table>
+  </td>
+</tr>
+</table>
+</td></tr></table>
+<table id="footer_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr>
+  <td width="125" align="center">&nbsp;&nbsp;<img src="security.gif" width="114" height="35"></td>
+  <td width="10">&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+</table><br>
+<div align="center"><FONT color=#ffffff>Copyright <script language="Javascript">Copyright(2010);</script>, D-Link Corporation / D-Link Systems, Inc. All rights reserved.</font></div>
+<br>
+</form>
+</body>
+
+<FORM ACTION="/setSystemLanguage" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="top.htm">
+<input type="hidden" name="ReplyErrorPage" value="top.htm">
+<input type="hidden" name="WebLanguage" value="%%WebLanguage();%%">
+<input type="hidden" name="ConfigSystemLanguage" value="Save">
+</Form>
+
+<FORM id="redir" name="redir" ACTION="/" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="">
+<input type="hidden" name="ReplyErrorPage" value="">
+</Form>
+
+<script language="Javascript">
+InitAUTO();
+</script>
+</html>

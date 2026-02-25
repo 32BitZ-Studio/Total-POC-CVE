@@ -1,0 +1,13 @@
+[webdirectory-demo-links]
+
+&#091;webdirectory-slider slides=10 height=400 order_by_rand=1 auto_slides=1 auto_slides_delay=3000&#093;
+
+[webdirectory-slider slides=10 height=400 order_by_rand=1 auto_slides=1 auto_slides_delay=3000]
+
+&#091;webdirectory-slider slides=4 height=350 width=500 slide_width=250 max_slides=2 order_by_rand=1&#093;
+
+[webdirectory-slider slides=4 height=350 width=500 slide_width=250 max_slides=2 order_by_rand=1]
+
+&#091;webdirectory-slider slides=9 height=600 slide_width=150 max_slides=6 order_by_rand=1 auto_slides=1 auto_slides_delay=4000 captions=0&#093;
+
+[webdirectory-slider slides=9 height=600  max_slides=5 order_by_rand=1 auto_slides=1 auto_slides_delay=4000 captions=0]

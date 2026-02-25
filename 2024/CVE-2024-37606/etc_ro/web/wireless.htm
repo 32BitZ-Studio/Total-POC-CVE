@@ -1,0 +1,623 @@
+<html>
+<head>
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | SETUP | WIRELESS SETUP</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+function init()
+{
+  frm = document.forms[0];
+  frm.Key1.value = DecryptPass(frm.Key1.value, frm.SessionKey.value);
+  frm.Key2.value = DecryptPass(frm.Key2.value, frm.SessionKey.value);
+  frm.Key3.value = DecryptPass(frm.Key3.value, frm.SessionKey.value);
+  frm.Key4.value = DecryptPass(frm.Key4.value, frm.SessionKey.value);
+  frm.PreSharedKey.value = DecryptPass(frm.PreSharedKey.value, frm.SessionKey.value);
+  clickAUTO();
+}
+function OnSiteSurvey()
+{
+  newwindow=window.open("setSystemAPReScan?ReplySuccessPage=waitscan.htm&ReplyErrorPage=waitscan.htm","","toolbar=0,location=0,directories=0,status=0,menubar=0,width=800,height=400,scrollbars=1");
+}
+function clickAUTO(){
+  frm = document.forms[0];
+
+  if (frm.WirelessDisable[0].checked)
+  {
+    frm.SSID.disabled = false;
+    frm.ConnectionMode_Infra.disabled = false;
+    frm.ConnectionMode_AdHoc.disabled = false;
+    frm.SiteSurvey.disabled = false;
+    enable_box(id_security);
+    if (frm.ConnectionMode[0].checked)
+    {
+       frm.WirelessChannel.disabled = true;
+       frm.WEPEncryWay[2].disabled = false;
+       frm.PreSharedKey.disabled = false;
+    }
+    else   
+    {
+       frm.WirelessChannel.disabled = false;
+       frm.WEPEncryWay[2].disabled = true;
+       frm.PreSharedKey.disabled = true;
+       if ((frm.WEPEncryption.value == 2) || (frm.WEPEncryption.value == 3))
+          frm.WEPEncryWay[1].checked = true;
+       if (frm.WEPEncryption.value == 4)
+          frm.WEPEncryWay[2].checked = true;
+       if (frm.WEPEncryWay[2].checked)
+       {
+          frm.WEPEncryWay[0].checked = true;
+          frm.WEPEncryption.value = 0;
+       }
+    }
+    /*frm.TxRateSel.value = frm.TransmissionRate.value;*/
+    frm.TxKeySel.value = frm.TxKey.value;
+    frm.KeyLenSel.value = frm.WEPKeyLen.value;
+    frm.KeyFormatSel.value = frm.WEPKeyFormat.value;
+    CheckKey();
+  }
+  else   
+  {
+     frm.SSID.disabled = true;
+     frm.WirelessChannel.disabled = true;
+     frm.ConnectionMode_Infra.disabled = true;
+     frm.ConnectionMode_AdHoc.disabled = true;
+     frm.SiteSurvey.disabled = true;
+     disable_box(id_security);
+     disable_box(id_wep);
+     disable_box(id_wpa);
+  }
+}
+function CheckKey(){
+  frm = document.forms[0];
+
+  /*frm.TransmissionRate.value = frm.TxRateSel.value;*/
+  if (frm.WEPEncryWay[0].checked)
+  {
+     hide("id_wep");
+     hide("id_wpa");
+     disable_box(id_wep);
+     disable_box(id_wpa);
+     frm.WEPEncryption.value = 0;
+     frm.Key1.maxLength = 0;
+     frm.Key2.maxLength = 0;
+     frm.Key3.maxLength = 0;
+     frm.Key4.maxLength = 0;
+  }
+
+  if (frm.WEPEncryWay[1].checked)
+  {
+     show("id_wep");
+     hide("id_wpa");
+     enable_box(id_wep);
+     disable_box(id_wpa);
+     if (frm.ConnectionMode[0].checked)
+     {
+        show("id_auth");
+        enable_box(id_auth);
+     }
+     else
+     {
+        hide("id_auth");
+        disable_box(id_auth);
+     }
+     frm.WEPKeyFormat.value = frm.KeyFormatSel.value;
+     frm.TxKey.value = frm.TxKeySel.value;
+     if (frm.KeyLenSel.value == 0)
+     {
+        frm.WEPEncryption.value = 2;
+        if (frm.KeyFormatSel.value == 0)
+        {
+           frm.Key1.maxLength = 5;
+           frm.Key2.maxLength = 5;
+           frm.Key3.maxLength = 5;
+           frm.Key4.maxLength = 5;
+        }
+        else
+        {
+           frm.Key1.maxLength = 10;
+           frm.Key2.maxLength = 10;
+           frm.Key3.maxLength = 10;
+           frm.Key4.maxLength = 10;
+        }
+     }
+     if (frm.KeyLenSel.value == 1)
+     {
+        frm.WEPEncryption.value = 3;
+        if (frm.KeyFormatSel.value == 0)
+        {
+           frm.Key1.maxLength = 13;
+           frm.Key2.maxLength = 13;
+           frm.Key3.maxLength = 13;
+           frm.Key4.maxLength = 13;
+        }
+        else
+        {
+           frm.Key1.maxLength = 26;
+           frm.Key2.maxLength = 26;
+           frm.Key3.maxLength = 26;
+           frm.Key4.maxLength = 26;
+        }
+     }
+  }   
+
+  if (frm.WEPEncryWay[2].checked)
+  {
+     hide("id_wep");
+     show("id_wpa");
+     disable_box(id_wep);
+     enable_box(id_wpa);
+     frm.WEPEncryption.value = 4;
+  }
+}
+function clickCheckKey(k){
+  frm = document.forms[0]
+  var a
+  if (frm.KeyLenSel.value == 1)
+  {
+     if (frm.WEPEncryption.value == 0)
+        a = 0;
+     if (frm.WEPEncryption.value == 2)
+        a = 10;
+     if (frm.WEPEncryption.value == 3)
+        a = 26;
+  }
+  else	// ASCII
+  {
+     if (frm.WEPEncryption.value == 0)
+        a = 0;
+     if (frm.WEPEncryption.value == 2)
+        a = 5;
+     if (frm.WEPEncryption.value == 3)
+        a = 13;
+  }
+
+  if (k == 1)
+  { 
+     if (frm.Key1.value.length != a)
+        frm.Key1.value = "";  
+  }
+  if (k == 2)
+  { 
+     if (frm.Key2.value.length != a)
+        frm.Key2.value = "";  
+  }
+  if (k == 3)
+  { 
+     if (frm.Key3.value.length != a)
+        frm.Key3.value = "";  
+  }
+  if (k == 4)
+  { 
+     if (frm.Key4.value.length != a)
+        frm.Key4.value = "";  
+  }
+}
+function ClickSubmit()
+{
+  frm = document.forms[0];
+  if (frm.WirelessDisable[1].checked) 
+  {
+     javascript:document.forms[0].submit();
+     return;
+  }
+  if (frm.WEPEncryWay[1].checked)
+  {
+     if (frm.TxKey.value == 1) key = frm.Key1;
+     if (frm.TxKey.value == 2) key = frm.Key2;
+     if (frm.TxKey.value == 3) key = frm.Key3;
+     if (frm.TxKey.value == 4) key = frm.Key4;
+     if (frm.KeyLenSel.value == 0)		// 64 bits
+     {
+        if (frm.KeyFormatSel.value == 0)	// ASCII = 5
+        {
+          if (key.value.length != 5)
+          {
+             key.select();
+             msg = "The format of Key "+frm.TxKey.value+" must be 5 ASCII characters";
+             alert(msg);
+             return;
+          }
+          if (frm.Key1.value.length != 5)
+          	frm.Key1.value = "";
+          if (frm.Key2.value.length != 5)
+          	frm.Key2.value = "";
+          if (frm.Key3.value.length != 5)
+          	frm.Key3.value = "";
+          if (frm.Key4.value.length != 5)
+          	frm.Key4.value = "";
+        }
+        else					// HEX = 10
+        {
+          if ((key.value.length != 10) || (CheckHex(key.value) == 1))
+          {
+             key.select();
+             msg = "The format of Key "+frm.TxKey.value+" must be 10 HEX characters";
+             alert(msg);
+             return;
+          }
+          if ((frm.Key1.value.length != 10) || (CheckHex(frm.Key1.value) == 1))
+          	frm.Key1.value = "";
+          if ((frm.Key2.value.length != 10) || (CheckHex(frm.Key2.value) == 1))
+          	frm.Key2.value = "";
+          if ((frm.Key3.value.length != 10) || (CheckHex(frm.Key3.value) == 1))
+          	frm.Key3.value = "";
+          if ((frm.Key4.value.length != 10) || (CheckHex(frm.Key4.value) == 1))
+          	frm.Key4.value = "";
+        }
+     }
+     else
+     {						// 128 bits
+        if (frm.KeyFormatSel.value == 0)	// ASCII = 13
+        {
+          if (key.value.length != 13)
+          {
+             key.select();
+             msg = "The format of Key "+frm.TxKey.value+" must be 13 ASCII characters";
+             alert(msg);
+             return;
+          }
+          if (frm.Key1.value.length != 13)
+          	frm.Key1.value = "";
+          if (frm.Key2.value.length != 13)
+          	frm.Key2.value = "";
+          if (frm.Key3.value.length != 13)
+          	frm.Key3.value = "";
+          if (frm.Key4.value.length != 13)
+          	frm.Key4.value = "";
+        }
+        else					// HEX = 26
+        {
+          if ((key.value.length != 26) || (CheckHex(key.value) == 1))
+          {
+             key.select();
+             msg = "The format of Key "+frm.TxKey.value+" must be 26 HEX characters";
+             alert(msg);
+             return;
+          }
+          if ((frm.Key1.value.length != 26) || (CheckHex(frm.Key1.value) == 1))
+          	frm.Key1.value = "";
+          if ((frm.Key2.value.length != 26) || (CheckHex(frm.Key2.value) == 1))
+          	frm.Key2.value = "";
+          if ((frm.Key3.value.length != 26) || (CheckHex(frm.Key3.value) == 1))
+          	frm.Key3.value = "";
+          if ((frm.Key4.value.length != 26) || (CheckHex(frm.Key4.value) == 1))
+          	frm.Key4.value = "";
+        }
+     }
+  }
+  if (frm.WEPEncryWay[2].checked)
+  {
+     if ((CheckWPAKey(frm.PreSharedKey.value)) == 1)
+     {
+        frm.PreSharedKey.select();
+        alert("The format of Pre-Shared Key is invalid.");
+        return;
+     }
+  }
+  frm.WirelessChannel.disabled = false;
+  if (frm.WEPEncryWay[1].checked)
+  {
+     frm.Key1.value = EncryptPass(frm.Key1.value, frm.SessionKey.value);
+     frm.Key2.value = EncryptPass(frm.Key2.value, frm.SessionKey.value);
+     frm.Key3.value = EncryptPass(frm.Key3.value, frm.SessionKey.value);
+     frm.Key4.value = EncryptPass(frm.Key4.value, frm.SessionKey.value);
+  }
+  if (frm.WEPEncryWay[2].checked)
+     frm.PreSharedKey.value = EncryptPass(frm.PreSharedKey.value, frm.SessionKey.value);
+  javascript:document.forms[0].submit();
+}
+function ClickCancel()
+{
+  Browser = CheckBrower();
+  if ((Browser == "IE1x") || (Browser == "Opera") || (Browser == "Safari") || (Browser == "Chrome") || (Browser == "Firefox"))
+     loadurl("wireless.htm")
+  else {
+     javascript:document.forms[0].reset();
+     init();
+  }
+}
+</script>
+</head>
+<body topmargin="1" leftmargin="0" rightmargin="0" bgcolor="#757575">
+<table id="header_container" border="0" cellpadding="5" cellspacing="0" width="838" align="center">
+<tr>
+<td width="100%">Product: <a href="http://www.dlink.com/" target="_blank">%%CameraName();%%</a></td>
+  <td align="right" nowrap></td>
+  <td align="right" nowrap>Firmware version: %%FirmwareVersion();%% &nbsp;</td>
+</tr>
+</table>
+<div id="title_container">
+<table id="topnav_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr><td align="center" valign="middle"><img src="title.gif"></td></tr>
+</table>
+</div>
+<table id="index_container" border="0" cellpadding="2" cellspacing="1" width="838" align="center" bgcolor="#FFFFFF">
+<tr id="topnav_container">
+  <td><img src="devmodel.jpg?cidx=%%ModelName();%%"></td>
+  <td id="topnavoff"><a href="home.htm">Live Video</a></td>
+  <td id="topnavon"><a href="wizard.htm">Setup</a></td>
+  <td id="topnavoff"><a href="advanced.htm">Maintenance</a></td>
+  <td id="topnavoff"><a href="stsdev.htm">Status</a></td>
+  <td id="topnavoff"><a href="support.htm">Help</a></td>
+  <td id="index_space" width="640" style="display:none;"></td>
+</tr>
+<tr><td colspan=6 height=1 bgcolor="#ffffff"></td></tr>
+</table>
+<table id="space_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=50%>
+<tr><td height=1 bgcolor="#000000"></td></tr>
+<tr><td>
+<table id="data_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=100%>
+<tr>
+  <td valign="top" width="131" height="100%" align="right">
+    <!-- === BEGIN SIDENAV === -->
+    <table border="0" cellpadding="1" cellspacing="1" height=100% bgcolor="#FFFFFF">
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="wizard.htm">Wizard</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="network.htm">Network Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavon"><a href="wireless.htm">Wireless Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="ddns.htm">Dynamic DNS</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="image.htm">Image Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="video.htm">Video</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="audio.htm">Audio</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="motion.htm">Motion Detection</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="email.htm">Mail</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="upload.htm">FTP</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="time.htm">Time and Date</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="night.htm">Day/Night Mode</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="logout.htm">Logout</a></td></tr>
+    <tr id="sidenav_container" height=100%><td id="sidenavoff" align="center" valign="top">&nbsp;</td></tr>
+    </table>
+    <!-- === END SIDENAV === -->
+  </td>
+  <td valign="top" id="maincontent_container" height="750">
+    <table height="750" width=100% border="0" cellpadding="0" cellspacing="0" bgcolor="white">
+    <tr><td>
+    <div id="maincontent">
+      <!-- === BEGIN MAINCONTENT === -->
+      <div id="box_header"> 
+      <h1>Wireless Setup</h1>
+      In this section, you can configure the wireless settings of your camera. 
+<FORM ACTION="/setSystemWireless" METHOD="POST" autocomplete="off">
+        <input type="hidden" name="ReplySuccessPage" value="wireless.htm">
+        <input type="hidden" name="ReplyErrorPage" value="errrwlan.htm">
+        <input type="hidden" name="TransmissionRate" value="%%TransmissionRate(2);%%">
+        <input type="hidden" name="TxKey" value="%%TxKey(2);%%">
+        <input type="hidden" name=WEPEncryption value=%%WEPEncryption(2);%%>
+        <input type="hidden" name=WEPKeyFormat value=%%WEPKeyFormat(2);%%>
+        <input type="hidden" id=WEPKeyLen value=%%WEPKeyLen(2);%%>
+        <input type="hidden" name="SessionKey" value="%%TimeStamp();%%">
+        <div align=center style="padding: 5px 0px 0px 0px;">
+        &nbsp;<INPUT type="button" width="80" value=" Save Settings " onclick="ClickSubmit()">
+        &nbsp;&nbsp;<INPUT type="button" width="80" value=" Don't Save Settings " onclick="ClickCancel()">
+        </div>
+      </div>
+      <div class="box">
+        <h2>wireless settings</h2>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD>
+            <input type=radio name=WirelessDisable value=0 OnClick="clickAUTO()" %%RadioOfWirelessDisable(2,0);%%>Enable&nbsp;&nbsp;
+            <input type=radio name=WirelessDisable value=1 OnClick="clickAUTO()" %%RadioOfWirelessDisable(2,1);%%>Disable
+          </TD>
+        </TR>
+        </table>
+      </div>
+      <div id="id_basic" class="box"> 
+        <h2>basic wireless settings</h2>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD width="23%">&nbsp;SSID</TD>
+          <TD>&nbsp;&nbsp;<INPUT type="text" size=20 maxlength=32 name="SSID" value="%%SSID(2);%%"></TD>
+        </TR>
+        <TR>
+          <TD>&nbsp;Channel</TD>
+          <TD>&nbsp;&nbsp;<SELECT name="WirelessChannel" size="1">%%SelectOfWirelessChannel(2);%%</SELECT></TD>
+        </TR>
+<!----
+        <TR>
+          <TD>&nbsp;Transmission Rate</TD>
+          <TD>&nbsp;&nbsp;
+            <SELECT name="TxRateSel" size="1" onchange="CheckKey()" onclick="CheckKey()">
+            <OPTION value=0 >Fully Automatic</OPTION>
+            <OPTION value=1 >1 Mb</OPTION>
+            <OPTION value=2 >2 Mb</OPTION>
+            <OPTION value=5 >5.5 Mb</OPTION>
+            <OPTION value=11>11 Mb</OPTION>
+            <OPTION value=6 >6 Mb</OPTION>
+            <OPTION value=9 >9 Mb</OPTION>
+            <OPTION value=12>12 Mb</OPTION>
+            <OPTION value=18>18 Mb</OPTION>
+            <OPTION value=24>24 Mb</OPTION>
+            <OPTION value=36>36 Mb</OPTION>
+            <OPTION value=48>48 Mb</OPTION>
+            <OPTION value=54>54 Mb</OPTION>
+            </SELECT>
+          </TD>
+        </TR>
+----->
+        <TR>
+          <TD>&nbsp;Connection Mode</TD>
+          <TD>
+            <input type=radio id="ConnectionMode_Infra" name=ConnectionMode value=0 OnClick="clickAUTO()" %%RadioOfConnectionMode(2,0);%%>Infrastructure&nbsp;&nbsp;
+            <input type=radio id="ConnectionMode_AdHoc" name=ConnectionMode value=1 OnClick="clickAUTO()" %%RadioOfConnectionMode(2,1);%%>Ad-Hoc
+          </TD>
+        </TR>
+        <TR>
+          <TD colspan=2>&nbsp;<INPUT type="button" style="width:185px" id="SiteSurvey" value="          Site survey             " onclick="OnSiteSurvey()"></TD>
+        </TR>
+<!----
+        <TR>
+          <TD colspan=2>&nbsp;<INPUT type="button" style="width:185px" value="               WPS                   " onclick='loadurl("wizsetup")'></TD>
+        </TR>
+----->
+        </table>
+      </div>
+      <div id="id_security" class="box"> 
+        <h2>Wireless Security Mode</h2>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD width="23%">Security Mode</TD>
+          <TD>
+            <input type=radio name=WEPEncryWay value=0 %%RadioOfWEPEncryWay(2,0);%% onclick="CheckKey()">None&nbsp;&nbsp;
+            <input type=radio name=WEPEncryWay value=2 %%RadioOfWEPEncryWay(2,2);%% onclick="CheckKey()">WEP&nbsp;&nbsp;
+            <input type=radio name=WEPEncryWay value=4 %%RadioOfWEPEncryWay(2,4);%% onclick="CheckKey()">WPA-PSK / WPA2-PSK&nbsp;&nbsp;
+          </TD>
+        </TR>
+        </table>
+      </div>
+      <div id="id_wep" class="box" style="DISPLAY: none">
+        <h2>WEP Settings</h2>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR id="id_auth">
+          <TD width="23%">Authentication</TD>
+          <TD>
+            <input type=radio name=AuthenticationType value=0 %%RadioOfAuthenticationType(2,0);%%>Open System&nbsp;
+            <input type=radio name=AuthenticationType value=1 %%RadioOfAuthenticationType(2,1);%%>Shared Key&nbsp;
+            <input type=radio name=AuthenticationType value=2 %%RadioOfAuthenticationType(2,2);%%>Both
+          </TD>
+        </TR>
+        <TR>
+          <TD width="23%">Encryption Mode</TD>
+          <TD>
+            <SELECT id="KeyLenSel" size="1" onchange="CheckKey()" onclick="CheckKey()">
+            <OPTION value=0>64Bits</OPTION>
+            <OPTION value=1>128Bits</OPTION>
+            </SELECT>
+          </TD>
+        </TR>
+        <TR>
+          <TD>Key Format</TD>
+          <TD>
+            <SELECT id="KeyFormatSel" size="1" onchange="CheckKey()" onclick="CheckKey()">
+            <OPTION value=1>HEX</OPTION>
+            <OPTION value=0>ASCII</OPTION>
+            </SELECT>
+          </TD>
+        </TR>
+        <TR>
+          <TD>Default Key</TD>
+          <TD>
+            <SELECT id="TxKeySel" size="1" onchange="CheckKey()" onclick="CheckKey()">
+            <OPTION value=1>Key 1</OPTION>
+            <OPTION value=2>Key 2</OPTION>
+            <OPTION value=3>Key 3</OPTION>
+            <OPTION value=4>Key 4</OPTION>
+            </SELECT>
+          </TD>
+        </TR>
+        <TR>
+          <TD>Key1</TD>
+          <TD><INPUT type="password" size=32 name="Key1" OnClick="clickCheckKey(1)" value="%%Key1(5);%%"></TD>
+        </TR>
+        <TR>
+          <TD>Key2</TD>
+          <TD><INPUT type="password" size=32 name="Key2" OnClick="clickCheckKey(2)" value="%%Key2(5);%%"></TD>
+        </TR>
+        <TR>
+          <TD>Key3</TD>
+          <TD><INPUT type="password" size=32 name="Key3" OnClick="clickCheckKey(3)" value="%%Key3(5);%%"></TD>
+        </TR>
+        <TR>
+          <TD>Key4</TD>
+          <TD><INPUT type="password" size=32 name="Key4" OnClick="clickCheckKey(4)" value="%%Key4(5);%%"></TD>
+        </TR>
+        </table>
+      </div>
+      <div id="id_wpa" class="box" style="DISPLAY: none">
+        <h2>WPA-PSK / WPA2-PSK Settings</h2>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD width="23%">Pre-Shared Key</TD>
+          <TD><INPUT type="password" size=24 maxlength=64 name="PreSharedKey" value="%%PreSharedKey(5);%%"> (8-63 ASCII or 64 HEX characters)</TD>
+        </TR>
+        </table>
+      </div>
+<!----
+      <div class="box">
+        <h2>Advanced Setting</h2>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD width="20%">&nbsp;Beacon Interval</TD>
+          <TD width="3%">:</TD>
+          <TD>&nbsp;&nbsp;<INPUT type="int" size=12 name="BeaconInterval" value="%%BeaconInterval(2);%%"> (ms)</TD>
+        </TR>
+        <TR>
+          <TD>&nbsp;Preamble</TD>
+          <TD>:</TD>
+          <TD>
+            <input type=radio name=Preamble value=0 %%RadioOfPreamble(2,0);%%>Long
+            <input type=radio name=Preamble value=1 %%RadioOfPreamble(2,1);%%>Short
+          </TD>
+        </TR>
+        </table>
+      </div>
+----->
+      <p align=center>
+        <input type="hidden" name="ConfigSystemWireless" value="Save">
+        &nbsp;<INPUT type="button" width="80" value=" Save Settings " onclick="ClickSubmit()">
+        &nbsp;&nbsp;<INPUT type="button" width="80" value=" Don't Save Settings " onclick="ClickCancel()">
+      </p>
+</FORM>
+      <!-- === END MAINCONTENT === -->
+    </div>
+    </td></tr>
+    <tr height=100%><td></td></tr>
+    </table>
+  </td>
+  <td valign="top" width="150" id="sidehelp_container" align="left">
+    <table cellpadding="2" cellspacing="0" border="0" bgcolor="#FFFFFF" bordercolor="#FFFFFF" bordercolordark="#FFFFFF" bordercolorlight="#FFFFFF">
+    <tr>
+      <td id="help_text">
+        <b>Helpful Hints..</b>
+        <br><br>You may enable the wireless setting on your camera and 
+        connect to a wireless network by entering the <b>SSID</b> (unique 
+        name of your wireless network), or click the <b>Site Survey</b> 
+        button to select an available wireless network. Then you may choose 
+        a channel number. When there is 
+        interference from the wireless networks that overlap with one 
+        another, you may change the channel to obtain maximum performance 
+        from your connection.
+
+        <br><br>There are two connection modes. <b>Infrastructure</b> is a wireless connection using an access point as the transmission point of all wireless devices. <b>Ad-Hoc</b> is a wireless connection used without an access point, which connects the PC directly to the %%ModelName();%%. 
+
+        <br><br>For security there are three choices of wireless encryption, 
+        <b>None</b>, <b>WEP</b>, and <b>WPA-PSK / WPA2-PSK</b>. Select 
+        the same encryption method that is being used by your wireless 
+        device/ router. If you have selected <b>WPA-PSK or WPA2-PSK</b> 
+        setting, you may need to enter the appropriate <b>Pre-Shared Key</b> 
+        in order to connect to the wireless network.
+      </td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+</td></tr></table>
+<table id="footer_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr>
+  <td width="125" align="center">&nbsp;&nbsp;<img src="security.gif" width="114" height="35"></td>
+  <td width="10">&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+</table><br>
+<div align="center"><FONT color=#ffffff>Copyright <script language="Javascript">Copyright(2010);</script>, D-Link Corporation / D-Link Systems, Inc. All rights reserved.</font></div>
+<br>
+</body>
+<script language="Javascript">
+init();
+</script>
+</html>
+
+<FORM id="redir" name="redir" ACTION="/" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="">
+<input type="hidden" name="ReplyErrorPage" value="">
+</Form>
+

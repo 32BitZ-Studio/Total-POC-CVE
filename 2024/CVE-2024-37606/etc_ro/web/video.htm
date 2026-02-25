@@ -1,0 +1,232 @@
+<html>
+<head>
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | SETUP | VIDEO</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+function InitAUTO()
+{
+  frm = document.forms[0];
+  frm.VideoResolutionSel.value = frm.VideoResolution.value;
+  frm.CompressionRateSel.value = frm.CompressionRate.value;
+  frm.FrameRateSel.value = frm.FrameRate.value;
+  frm.ViewModeSel.value = frm.ViewMode.value;
+  ClickCheck();
+}
+function ClickCheck()
+{
+  frm = document.forms[0];
+  if (frm.VideoResolution.value == 2) {
+     frm.FrameRateSel[1].disabled = true;
+     if (frm.FrameRate.value == 30) {
+        frm.FrameRate.value = 0;
+        frm.FrameRateSel.value = 0;
+     }
+  } else
+     frm.FrameRateSel[1].disabled = false;
+}
+function ClickCancel()
+{
+  Browser = CheckBrower();
+  if ((Browser == "IE1x") || (Browser == "Opera") || (Browser == "Safari") || (Browser == "Chrome") || (Browser == "Firefox"))
+     loadurl("video.htm");
+  else {
+     javascript:document.forms[0].reset();
+     InitAUTO();
+  }
+}
+</script>
+</head>
+<body topmargin="1" leftmargin="0" rightmargin="0" bgcolor="#757575">
+<table id="header_container" border="0" cellpadding="5" cellspacing="0" width="838" align="center">
+<tr>
+<td width="100%">Product: <a href="http://www.dlink.com/" target="_blank">%%CameraName();%%</a></td>
+  <td align="right" nowrap></td>
+  <td align="right" nowrap>Firmware version: %%FirmwareVersion();%% &nbsp;</td>
+</tr>
+</table>
+<div id="title_container">
+<table id="topnav_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr><td align="center" valign="middle"><img src="title.gif"></td></tr>
+</table>
+</div>
+<table id="index_container" border="0" cellpadding="2" cellspacing="1" width="838" align="center" bgcolor="#FFFFFF">
+<tr id="topnav_container">
+  <td><img src="devmodel.jpg?cidx=%%ModelName();%%"></td>
+  <td id="topnavoff"><a href="home.htm">Live Video</a></td>
+  <td id="topnavon"><a href="wizard.htm">Setup</a></td>
+  <td id="topnavoff"><a href="advanced.htm">Maintenance</a></td>
+  <td id="topnavoff"><a href="stsdev.htm">Status</a></td>
+  <td id="topnavoff"><a href="support.htm">Help</a></td>
+  <td id="index_space" width="640" style="display:none;"></td>
+</tr>
+<tr><td colspan=6 height=1 bgcolor="#ffffff"></td></tr>
+</table>
+<table id="space_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=50%>
+<tr><td height=1 bgcolor="#000000"></td></tr>
+<tr><td>
+<table id="data_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=100%>
+<tr>
+  <td valign="top" width="131" height="100%" align="right">
+    <!-- === BEGIN SIDENAV === -->
+    <table border="0" cellpadding="1" cellspacing="1" height=100% bgcolor="#FFFFFF">
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="wizard.htm">Wizard</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="network.htm">Network Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="wireless.htm">Wireless Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="ddns.htm">Dynamic DNS</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="image.htm">Image Setup</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavon"><a href="video.htm">Video</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="audio.htm">Audio</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="motion.htm">Motion Detection</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="email.htm">Mail</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="upload.htm">FTP</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="time.htm">Time and Date</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="night.htm">Day/Night Mode</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="logout.htm">Logout</a></td></tr>
+    <tr id="sidenav_container" height=100%><td id="sidenavoff" align="center" valign="top">&nbsp;</td></tr>
+    </table>
+    <!-- === END SIDENAV === -->
+  </td>
+  <td valign="top" id="maincontent_container" height="420">
+    <table height="420" width=100% border="0" cellpadding="0" cellspacing="0" bgcolor="white">
+    <tr><td>
+    <div id="maincontent">
+      <!-- === BEGIN MAINCONTENT === -->
+      <div id="box_header"> 
+      <h1>Video</h1>
+      In this section, you can configure the camera video quality, resolution, and frame rate.
+<FORM ACTION="/setSystemStream" METHOD="POST" autocomplete="off">
+        <input type="hidden" name="ReplySuccessPage" value="video.htm">
+        <input type="hidden" name="ReplyErrorPage" value="errrcam.htm">
+        <input type="hidden" name="VideoResolution" value="%%VideoResolution();%%">
+        <input type="hidden" name="CompressionRate" value="%%CompressionRate();%%">
+        <input type="hidden" name="FrameRate" value="%%FrameRate();%%">
+        <input type="hidden" name="ViewMode" value="%%ViewMode();%%">
+        <div align=center style="padding: 5px 0px 0px 0px;">
+        &nbsp;<INPUT type="button" width="80" value=" Save Settings " onclick="javascript:document.forms[0].submit()">
+        &nbsp;&nbsp;<INPUT type="button" width="80" value=" Don't Save Settings " onclick="ClickCancel()">
+        </div>
+      </div>
+      <div class="box">
+        <h2>VIDEO PROFILE</h2>
+        <table id=id_box_table style="BORDER-COLLAPSE: collapse" borderColor=#111111 cellSpacing=0 cellPadding=0 width=513 border=0>
+        <TR>
+          <TD width=100 bgColor=#c0c0c0 height=20>Encode Type</TD>
+          <TD width=100 bgColor=#c0c0c0 height=20>Resolution </TD>
+          <TD width=80  bgColor=#c0c0c0 height=20>FPS</TD>
+          <TD width=100 bgColor=#c0c0c0 height=20>Jpeg Quality</TD>
+          <TD width=133 bgColor=#c0c0c0 height=20>View Mode</TD>
+        <TR>
+          <TD height=25>JPEG</TD>
+          <TD>
+            <SELECT id="VideoResolutionSel" size="1" onchange="document.forms[0].VideoResolution.value = this.value;ClickCheck()">
+            <OPTION value=0>160 x 120</OPTION>
+            <OPTION value=1>320 x 240</OPTION>
+            <OPTION value=2>640 x 480</OPTION>
+            </SELECT>
+          </TD>
+          <TD>
+            <SELECT id="FrameRateSel" size="1" onchange="document.forms[0].FrameRate.value = this.value;ClickCheck()">
+            <OPTION value=0>Auto</OPTION>
+            <OPTION value=30>30</OPTION>
+            <OPTION value=20>20</OPTION>
+            <OPTION value=15>15</OPTION>
+            <OPTION value=7>7</OPTION>
+            <OPTION value=5>5</OPTION>
+            <OPTION value=1>1</OPTION>
+            </SELECT>
+          </TD>
+          <TD>
+            <SELECT id="CompressionRateSel" size="1" onchange="document.forms[0].CompressionRate.value = this.value">
+            <OPTION value=4>Very Low</OPTION>
+            <OPTION value=3>Low</OPTION>
+            <OPTION value=2>Medium</OPTION>
+            <OPTION value=1>High</OPTION>
+            <OPTION value=0>Very High</OPTION>
+            </SELECT>
+          </TD>
+          <TD>
+            <SELECT id="ViewModeSel" size="1" onchange="document.forms[0].ViewMode.value = this.value">
+            <OPTION value=0>Image</OPTION>
+            <OPTION value=1>ActiveX</OPTION>
+            <OPTION value=2>Java</OPTION>
+            </SELECT>
+          </TD>
+        </TR>
+        </table>
+      </div>
+      <div class="box">
+        <h2>Light Frequency</h2>
+        <table cellpadding="2" cellspacing="1" border="0" width="534" bgcolor="white" bordercolor="#FFFFFF">
+        <TR>
+          <TD>
+            <input type=radio name=LightFrequency value=0 %%RadioOfLightFrequency(0);%%>50 Hz
+            &nbsp;&nbsp;<input type=radio name=LightFrequency value=1 %%RadioOfLightFrequency(1);%%>60 Hz
+          </TD>
+        </TR>
+        </table>
+      </div>
+      <p align=center>
+        <input type="hidden" name="ConfigSystemStream" value="Save">
+        &nbsp;<INPUT type="button" width="80" value=" Save Settings " onclick="javascript:document.forms[0].submit()">
+        &nbsp;&nbsp;<INPUT type="button" width="80" value=" Don't Save Settings " onclick="ClickCancel()">
+      </p>
+</FORM>
+      <!-- === END MAINCONTENT === -->
+    </div>
+    </td></tr>
+    <tr height=100%><td></td></tr>
+    </table>
+  </td>
+  <td valign="top" width="150" id="sidehelp_container" align="left">
+    <table cellpadding="2" cellspacing="0" border="0" bgcolor="#FFFFFF" bordercolor="#FFFFFF" bordercolordark="#FFFFFF" bordercolorlight="#FFFFFF">
+    <tr>
+      <td id="help_text">
+        <b>Helpful Hints..</b>
+        <br><br><b>Resolution</b> - 3 settings are available.  
+        <br>1.QQVGA @ 160x120 - Usually used for display on handheld 
+        devices.
+        <br>2.QVGA  @ 320x240 - Standard resolution for mobile phones, and 
+        PDAs 
+        <br>3.VGA   @ 640x480 - Standard resolution for computer display.
+        <br><br><b>FPS</b> (Frames Per Second) -  
+        The higher the FPS, the smoother the video will appear. Note the a higher FPS setting also uses more bandwidth.
+        <br><br><b>Jpeg Quality</b> - Default value is <b>Medium</b>. 
+        <br><br><b>Light Frequency</b> - 2 options, 50 or 60 Hz. 
+        Default value is 60 Hz.
+      </td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+</td></tr></table>
+<table id="footer_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr>
+  <td width="125" align="center">&nbsp;&nbsp;<img src="security.gif" width="114" height="35"></td>
+  <td width="10">&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+</table><br>
+<div align="center"><FONT color=#ffffff>Copyright <script language="Javascript">Copyright(2010);</script>, D-Link Corporation / D-Link Systems, Inc. All rights reserved.</font></div>
+<br>
+</body>
+<script language="Javascript">
+InitAUTO();
+</script>
+</html>
+
+<FORM id="redir" name="redir" ACTION="/" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="">
+<input type="hidden" name="ReplyErrorPage" value="">
+</Form>
+

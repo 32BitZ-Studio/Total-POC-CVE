@@ -1,0 +1,19 @@
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+</head>
+<body>
+<form action="/vjview.htm" METHOD="POST" autocomplete="off">
+<applet name="cvcs" codeBase="%%JavaCodeBase();%%" archive="aplug.jar" code="aplug.class" width=%%CurrentVideoWidth();%% height=%%CurrentVideoHeight();%%>
+<param name="RemotePort" value=%%RemoteHostPort();%%>
+<param name="RemoteHost" value=%%RemoteHostIPAddress();%%>
+<param name="Timeout" value=5000>
+<param name="RotateAngle" value=0>
+<param name="PreviewFrameRate" value=2>
+<param name="Algorithm" value="1">
+<param name="DeviceSerialNo" value="%%Authroized();%%">
+</applet>
+</form>
+</body>
+</html>

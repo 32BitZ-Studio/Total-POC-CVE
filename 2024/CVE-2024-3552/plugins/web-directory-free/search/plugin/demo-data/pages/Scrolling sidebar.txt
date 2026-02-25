@@ -1,0 +1,5 @@
+[wcsearch-demo-links]
+<div class="wcsearch-columns-panel">
+<div class="wcsearch-column-left">[wcsearch id="Scrolling sidebar"]</div>
+<div class="wcsearch-column-right">[wcsearch-products]</div>
+</div>

@@ -1,0 +1,122 @@
+/************************   AJAX COMMENTS   ************************/
+.w2dc-comments-profile-pic {
+	float: left;
+	margin: 0 10px 10px 0;
+}
+.w2dc-comments-profile-pic-container {
+	margin: 0 10px 0 0;
+	display: block;
+	float: left;
+	height: 32px;
+	width: 32px;
+}
+.w2dc-comments-profile-pic:last-child {
+	margin: 0 0 10px 0;
+}
+#w2dc_comments_ajax_target {
+	overflow: auto;
+}
+.w2dc-comments-container > .w2dc-comments-container {
+	margin-left: 20px;
+}
+.w2dc-comments-container .callout-container {
+	width: 100%;
+}
+.w2dc-comments-container img {
+	border: 0;
+	max-width: 100%;
+}
+.w2dc-comments-container .w2dc-comments-p {
+	float: left;
+	font: normal 14px/1.5em helvetica, sans-serif;
+	padding: 10px;
+	margin: 10px 0;
+	width: 97%;
+}
+.w2dc-comments-container .w2dc-comments-content,
+.w2dc-comments-container .w2dc-comments-content-form {
+	border-top: 1px solid #ddd;
+	float: left;
+	width: 100%;
+}
+.w2dc-comments-container .w2dc-comments-content-form {
+	margin: 20px 0;
+}
+.w2dc-comments-container textarea {
+	height: 40px;
+	min-height: 40px;
+	width: 80%;
+	resize: none;
+	overflow: auto;
+	vertical-align: top;
+}
+.w2dc-comments-container time {
+	font: normal 11px/1 helvetica, sans-serif;
+	margin: 10px 0 0;
+	float: left;
+}
+.w2dc-comments-more-container {
+	display: none;
+	padding: 0 0 0 42px;
+}
+.w2dc-comments-more-container .w2dc-comments-field {
+	float: left;
+	padding: 0 5px 0 0;
+	width: 33%;
+}
+.w2dc-comments-more-container .w2dc-comments-field:last-child {
+	margin: 0;
+}
+.w2dc-comments-more-handle a {
+	font-weight: bold;
+	left: 5px;
+	position: relative;
+	text-transform: uppercase;
+}
+.w2dc-comments-content-form *:focus {
+	outline: none;
+}
+.w2dc-comments-content-form input[type="url"],
+.w2dc-comments-content-form input[type="email"],
+.w2dc-comments-content-form input[type="text"],
+.w2dc-comments-content-form textarea {
+	border: 1px solid #BBB;
+	font: normal 13px/1.3em Helvetica, sans-serif, arial;
+	padding: 6px;
+}
+.w2dc-comments-more-container .w2dc-comments-field input[type="text"],
+.w2dc-comments-more-container .w2dc-comments-field input[type="email"],
+.w2dc-comments-more-container .w2dc-comments-field input[type="url"] {
+	margin: 5px 0 0;
+	width: 100%;
+}
+.w2dc-comments-content-form input[type="text"]:hover,
+.w2dc-comments-content-form textarea:hover {
+	border: 1px solid #333;
+}
+.w2dc-comments-content-comment-fields {
+	background: rgba(0, 0, 0, 0.04);
+}
+.w2dc-comments-highlight {
+	background: #FFFFD7;
+}
+.w2dc-comments-annon {}
+.w2dc-comments-administrator {
+	border-left: 2px solid #F00;
+	margin-left: -2px;
+}
+.w2dc-comments-allowed-tags-container {
+	word-wrap: normal;
+	margin: 5px 50px 5px 0;
+	color: #C0C0C0;
+	font-weight: 300;
+	text-shadow: 1px 1px 0 #FFF;
+}
+.w2dc-comments-content blockquote {
+	font-style: italic;
+	border-left: 1px solid #DDD;
+	float: left;
+	padding: 3px 10px;
+	margin: 5px 0;
+	color: #888;
+}

@@ -1,0 +1,58 @@
+[webdirectory-demo-links]
+
+<h2>4 Columns categories table</h2>
+&#091;webdirectory-categories depth=1 columns=4 count=1&#093;
+
+[webdirectory-categories depth=1 columns=4 count=1]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>3 Columns categories table</h2>
+&#091;webdirectory-categories depth=1 columns=3 count=1&#093;
+
+[webdirectory-categories depth=1 columns=3 count=1]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>2 Columns categories table</h2>
+&#091;webdirectory-categories depth=1 columns=2 count=1&#093;
+
+[webdirectory-categories depth=1 columns=2 count=1]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>3 Columns sub-categories grid</h2>
+
+&#091;webdirectory-categories depth=2 columns=3 count=1 grid=1 subcats=4&#093;
+
+[webdirectory-categories depth=2 columns=3 count=1 grid=1 subcats=4]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Grid View #1</h2>
+
+&#091;webdirectory-categories grid=1 grid_view=1&#093;
+
+[webdirectory-categories grid=1 grid_view=1]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Grid View #2</h2>
+
+&#091;webdirectory-categories grid=1 grid_view=2&#093;
+
+[webdirectory-categories grid=1 grid_view=2]
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Grid View #3</h2>
+
+&#091;webdirectory-categories grid=1 grid_view=3&#093;
+
+[webdirectory-categories grid=1 grid_view=3]

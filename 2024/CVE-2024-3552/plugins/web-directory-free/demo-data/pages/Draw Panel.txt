@@ -1,0 +1,5 @@
+[webdirectory-demo-links]
+
+[webdirectory-source]
+
+[webdirectory-map height=800 draw_panel=1 search_on_map=0 num=50]

@@ -1,0 +1,68 @@
+.wcsearch-search-param {
+	float: right;
+	margin-right: 0;
+	margin-left: 5px;
+}
+.wcsearch-search-param .wcsearch-search-param-delete,
+.wcsearch-search-param .wcsearch-search-param-delete:hover,
+.wcsearch-search-param .wcsearch-search-param-delete:focus,
+.wcsearch-search-param .wcsearch-search-param-delete:visited {
+	float: left;
+	margin-left: 0;
+	margin-right: 10px;
+}
+.wcsearch-jquery-ui-slider {
+	overflow: visible !important;
+	padding-right: 0;
+	padding-left: 11px;
+}
+.wcsearch-range-slider-scale label,
+.wcsearch-single-slider-scale label {
+	margin-left: 0;
+	margin-right: 4px;
+}
+.wcsearch-content p.wcsearch-search-suggestions label {
+	margin: 0 0 0 3px;
+}
+.wcsearch-click-to-edit-search-button {
+	right: auto;
+	left: 0;
+}
+.wcsearch-search-input {
+	text-align: right;
+}
+.wcsearch-search-input[data-align="left"] {
+	text-align: right;
+}
+.wcsearch-search-input[data-align="right"] {
+	text-align: left;
+}
+.wcsearch-search-input-label {
+	margin: 5px 0 0 10px;
+	width: auto; /* needed fix */
+}
+.wcsearch-search-input-closed .wcsearch-search-input-label:after,
+.wcsearch-search-input-opened .wcsearch-search-input-label:after {
+	float: left;
+	margin-right: 0;
+	margin-left: 5px;
+}
+
+.wcsearch-search-input-terms-column-2,
+.wcsearch-search-input-terms-column-3,
+.wcsearch-search-input-terms-column-4,
+.wcsearch-search-input-terms-column-5 {
+	float: right;
+}
+.wcsearch-search-input-terms-column .wcsearch-radio,
+.wcsearch-search-input-terms-column .wcsearch-checkbox {
+	margin: 15px 0 15px 10px !important;
+}
+.wcsearch-form-control.wcsearch-search-input-1,
+.wcsearch-form-control.wcsearch-search-input-1:focus {
+	float: right;
+}
+.wcsearch-form-control.wcsearch-search-input-2,
+.wcsearch-form-control.wcsearch-search-input-2:focus {
+	float: left;
+}

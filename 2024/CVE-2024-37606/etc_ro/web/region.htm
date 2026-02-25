@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | REGION</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<style type=text/css>
+.maintext {font-family: "Arial", "Helvetica", "sans-serif";font-size: 12px;}
+.spacetext {font-size: 10px;}
+.buttontext {font-size: 6px;}
+.blue {background-color: #b6caf0;font-family: "Arial", "Helvetica", "sans-serif";font-size: 12px;font-weight: bold;}
+</style>
+</head>
+
+<body bgcolor="white" topmargin=0>
+<FORM ACTION="/setSystemRegion" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="region.htm">
+<table cellspacing=0 cellpadding=3 BORDER=0 width=100% class=maintext>
+<TR>
+  <TD>&nbsp;Change Wireless Region :</TD>
+</TR>
+<TR>
+  <TD>
+    <input type=radio name=WirelessCountry value=0 %%RadioOfWirelessCountry(0);%%>1~11<br>
+    <input type=radio name=WirelessCountry value=1 %%RadioOfWirelessCountry(1);%%>1~13<br>
+    <input type=radio name=WirelessCountry value=2 %%RadioOfWirelessCountry(2);%%>10~11<br>
+    <input type=radio name=WirelessCountry value=3 %%RadioOfWirelessCountry(3);%%>10~13<br>
+    <input type=radio name=WirelessCountry value=4 %%RadioOfWirelessCountry(4);%%>14<br>
+    <input type=radio name=WirelessCountry value=5 %%RadioOfWirelessCountry(5);%%>1~14<br>
+    <input type=radio name=WirelessCountry value=6 %%RadioOfWirelessCountry(6);%%>3~9<br>
+    <input type=radio name=WirelessCountry value=7 %%RadioOfWirelessCountry(7);%%>5~13
+  </TD>
+</TR>
+</table>
+<p>
+  <INPUT width="80" type="submit" name="ConfigWirelessRegion" value=" Save ">
+  <INPUT width="80" type="reset" value="Cancel">
+</p>
+</Form>
+</body>
+</html>

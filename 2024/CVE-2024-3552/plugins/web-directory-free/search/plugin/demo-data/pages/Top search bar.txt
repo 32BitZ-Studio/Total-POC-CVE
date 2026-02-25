@@ -1,0 +1,4 @@
+[wcsearch-demo-links]
+<div class="wcsearch-entry">
+[wcsearch id="Top search bar"]
+[wcsearch-products]</div>

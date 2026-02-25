@@ -1,0 +1,15 @@
+version: '2'
+services:
+  pyload:
+    image: cve-2024-22416-pyload
+    build: ./pyload
+    ports:
+      - 8000:8000 # Webinterface
+      - 9666:9666 # Click 'N' Load
+    restart: unless-stopped
+  attacker:
+    image: cve-2024-22416-attacker
+    build: ./attacker
+    ports:
+      - 8001:80
+    restart: unless-stopped

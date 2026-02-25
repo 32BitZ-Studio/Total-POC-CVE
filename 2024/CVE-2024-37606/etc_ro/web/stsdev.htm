@@ -1,0 +1,166 @@
+<html>
+<head>
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | STATUS | DEVICE INFO</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript" SRC="showmsg.js?cidx=%%ReGetIndex();%%"></script>
+<script language="Javascript">
+var __year 
+var __month
+var __date 
+var __hour 
+var __min  
+var __sec  
+function init()
+{
+  frm = document.forms[0];
+  __year   = frm.f_year.value;
+  __month  = frm.f_month.value;
+  __date   = frm.f_date.value;
+  __hour   = frm.f_hour.value;
+  __min    = frm.f_min.value;
+  __sec    = frm.f_sec.value;
+}
+function clickRefresh()
+{
+   loadurl("stsdev.htm");
+}
+</script>
+</head>
+<body topmargin="1" leftmargin="0" rightmargin="0" bgcolor="#757575" onload="init();showtime(0);">
+<table id="header_container" border="0" cellpadding="5" cellspacing="0" width="838" align="center">
+<tr>
+<td width="100%">Product: <a href="http://www.dlink.com/" target="_blank">%%CameraName();%%</a></td>
+  <td align="right" nowrap></td>
+  <td align="right" nowrap>Firmware version: %%FirmwareVersion();%% &nbsp;</td>
+</tr>
+</table>
+<div id="title_container">
+<table id="topnav_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr><td align="center" valign="middle"><img src="title.gif"></td></tr>
+</table>
+</div>
+<table id="index_container" border="0" cellpadding="2" cellspacing="1" width="838" align="center" bgcolor="#FFFFFF">
+<tr id="topnav_container">
+  <td><img src="devmodel.jpg?cidx=%%ModelName();%%"></td>
+  <td id="topnavoff"><a href="home.htm">Live Video</a></td>
+  <td id="topnavoff"><a href="wizard.htm">Setup</a></td>
+  <td id="topnavoff"><a href="advanced.htm">Maintenance</a></td>
+  <td id="topnavon"><a href="stsdev.htm">Status</a></td>
+  <td id="topnavoff"><a href="support.htm">Help</a></td>
+  <td id="index_space" width="640" style="display:none;"></td>
+</tr>
+<tr><td colspan=6 height=1 bgcolor="#ffffff"></td></tr>
+</table>
+<table id="space_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=50%>
+<tr><td height=1 bgcolor="#000000"></td></tr>
+<tr><td>
+<table id="data_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF" height=100%>
+<tr>
+  <td valign="top" width="131" height="100%" align="right">
+    <!-- === BEGIN SIDENAV === -->
+    <table border="0" cellpadding="1" cellspacing="1" height=100% bgcolor="#FFFFFF">
+    <tr id="sidenav_container"><td id="sidenavon"><a href="stsdev.htm">Device Info</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="stsuser.htm">Active User</a></td></tr>
+    <tr id="sidenav_container"><td id="sidenavoff"><a href="logout.htm">Logout</a></td></tr>
+    <tr id="sidenav_container" height=100%><td id="sidenavoff" align="center" valign="top">&nbsp;</td></tr>
+    </table>
+    <!-- === END SIDENAV === -->
+  </td>
+  <td valign="top" id="maincontent_container" height="560">
+    <table height="560" width=100% border="0" cellpadding="0" cellspacing="0" bgcolor="white">
+    <tr><td>
+    <div id="maincontent">
+      <!-- === BEGIN MAINCONTENT === -->
+      <div id="box_header"> 
+      <h1>Device Info</h1>
+      All of your network connection details are displayed on this page. The firmware version is also displayed here.
+      </div>
+<FORM ACTION="/stsdev.htm" METHOD="POST" autocomplete="off">
+        <input type="hidden" name="f_year"  value="%%YearOfTime();%%">
+        <input type="hidden" name="f_month" value="%%MonthOfTime();%%">
+        <input type="hidden" name="f_date"  value="%%DateOfTime();%%">
+        <input type="hidden" name="f_hour"  value="%%HourOfTime();%%">
+        <input type="hidden" name="f_min"   value="%%MinuteOfTime();%%">
+        <input type="hidden" name="f_sec"   value="%%SecondOfTime();%%">
+      <div class="box">
+        <h2>Basic information</h2>
+        <table cellpadding="1" cellspacing="1" border="0" width="525">
+        <TR><TD width=25%>Camera Name</TD><TD>%%CameraName();%%</TD></TR>
+        <TR><TD>Time & Date</TD><TD><DIV id=timeclock></DIV></TD></TR>
+        <TR><TD>Firmware Version</TD><TD>%%FirmwareVersion();%%.%%FirmwareVersion(3);%% (%%ReleaseDate();%%)</TD></TR>
+        <TR><TD>Hardware Version</TD><TD>%%HardwareVersion(2);%%</TD></TR>
+        <TR><TD>Agent Version</TD><TD>%%MyDlinkAgentVersion();%%</TD></TR>
+        <TR><TD>MAC Address</TD><TD>%%MACAddress();%%</TD></TR>
+        <TR><TD>IP Address</TD><TD>%%CurrentIPAddress();%%</TD></TR>
+        <TR><TD>Subnet Mask</TD><TD>%%CurrentSubnetMask();%%</TD></TR>
+        <TR><TD>Default Gateway</TD><TD>%%CurrentDefaultGateway();%%</TD></TR>
+        <TR><TD>Primary DNS</TD><TD>%%CurrentDNSAddress1();%%</TD></TR>
+        <TR><TD>Secondary DNS</TD><TD>%%CurrentDNSAddress2();%%</TD></TR>
+        <TR><TD>DDNS</TD><TD><script language="Javascript">ShowDDNSStatus("%%StatusOfDynamicDNS();%%")</script></TD></TR>
+        <TR><TD>UPnP Port Forwarding</TD><TD><script language="Javascript">ShowMessageStatus("%%StatusOfUPnPPortForwarding();%%")</script></TD></TR>
+        <TR><TD>&nbsp;</TD><TD>&nbsp;</TD></TR>
+        <TR><TD>FTP Server Test</TD><TD><script language="Javascript">ShowMessageStatus("%%ResultOfFTPServerTest();%%")</script></TD></TR>
+        <TR><TD>E-mail Test</TD><TD><script language="Javascript">ShowMessageStatus("%%ResultOfEmailTest();%%")</script></TD></TR>
+        </table>
+      </div>
+      <div class="box">
+        <h2>Wireless Status</h2>
+        <table cellpadding="1" cellspacing="1" border="0" width="525">
+        <TR><TD width=25%>Connection Mode</TD><TD><script language="Javascript">ShowMessageStatus("%%StringOfConnectionMode();%%")</script></TD></TR>
+        <TR><TD>Link</TD><TD><script language="Javascript">ShowMessageStatus("%%WirelessLink();%%")</script></TD></TR>
+        <TR><TD>SSID</TD><TD>%%WirelessCurrentSSID();%% (MAC : %%WirelessCurrentAPMACAddress();%%)</TD></TR>
+        <TR><TD>Channel</TD><TD>%%WirelessCurrentChannel();%%</TD></TR>
+<!----
+        <TR><TD>Transmission Rate</TD><TD><script language="Javascript">ShowMessageStatus("%%WirelessCurrentTransmissionRate();%%")</script></TD></TR>
+----->
+        <TR><TD>Encryption</TD><TD><script language="Javascript">ShowMessageStatus("%%WirelessCurrentEncryption();%%")</script></TD></TR>
+        </table>
+      </div>
+      <div align="center"><br><INPUT type="button" value='Refresh' onClick='clickRefresh()'></div>
+</FORM>
+      <!-- === END MAINCONTENT === -->
+    </div>
+    </td></tr>
+    <tr height=100%><td></td></tr>
+    </table>
+  </td>
+  <td valign="top" width="150" id="sidehelp_container" align="left">
+    <table cellpadding="2" cellspacing="0" border="0" bgcolor="#FFFFFF" bordercolor="#FFFFFF" bordercolordark="#FFFFFF" bordercolorlight="#FFFFFF">
+    <tr>
+      <td id="help_text">
+        <b>Helpful Hints..</b>
+        <br><br>All of your network connection details are displayed on this page.
+      </td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+</td></tr></table>
+<table id="footer_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr>
+  <td width="125" align="center">&nbsp;&nbsp;<img src="security.gif" width="114" height="35"></td>
+  <td width="10">&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+</table><br>
+<div align="center"><FONT color=#ffffff>Copyright <script language="Javascript">Copyright(2010);</script>, D-Link Corporation / D-Link Systems, Inc. All rights reserved.</font></div>
+<br>
+</body>
+</html>
+
+<FORM id="redir" name="redir" ACTION="/" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="">
+<input type="hidden" name="ReplyErrorPage" value="">
+</Form>
+

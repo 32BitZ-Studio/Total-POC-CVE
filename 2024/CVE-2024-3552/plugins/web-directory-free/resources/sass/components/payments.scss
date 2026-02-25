@@ -1,0 +1,36 @@
+.w2dc-payments-free {
+	font-weight: bold;
+}
+.w2dc-choose-plan .w2dc-payments-free {
+	color: #FFFFFF;
+}
+.w2dc-price {
+	font-size: 3em;
+	line-height: normal;
+}
+.w2dc-price-period {
+	font-size: 0.5em;
+}
+.w2dc-price-cents {
+	vertical-align: super;
+	font-size: 50%;
+}
+.w2dc-payment-method {
+	float: left;
+	padding: 2%;
+	width: 28%;
+	text-align: center;
+}
+.w2dc-payment-method > a {
+	font-weight: bold;
+}
+.w2dc-payment-gateway-icon {
+	margin-bottom: 20px
+}
+.widefat td, .widefat th {
+	padding: 8px 10px;
+}
+
+#w2dc_invoice_payment.postbox .inside {
+	overflow: auto;
+}

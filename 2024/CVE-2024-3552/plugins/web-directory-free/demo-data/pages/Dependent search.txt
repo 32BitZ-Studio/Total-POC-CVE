@@ -1,0 +1,7 @@
+[webdirectory-demo-links]
+
+<div class="w2dc-columns-panel"><div class="w2dc-column">[webdirectory-source]</div></div>
+
+[webdirectory-search custom_home="1" form_id="Dependent search"]
+
+[webdirectory custom_home="1" scrolling_paginator="1"]

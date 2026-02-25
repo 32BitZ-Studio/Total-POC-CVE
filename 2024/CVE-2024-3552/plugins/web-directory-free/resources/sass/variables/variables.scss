@@ -1,0 +1,86 @@
+$content-font-size: 14px;
+$border-radius: 2px;
+$border-color: #CCCCCC;
+
+$mobile-screen-width: 768px;
+$desktop-screen-width: 992px;
+
+$primary-color: #428bca;
+$secondary-color: #428BCA;
+
+$margin-between-elements: 20px;
+
+$button-border-radius: $border-radius;
+$button-font-size: 16px;
+$button-padding: 12px;
+$button-height: 48px;
+$button-default-color-1: #428bca;
+$button-default-color-2: #428BCA;
+
+$listing-logo-text-color: #FFFFFF;
+
+$terms-color: #FFFFFF;
+$sub-terms-background-color: #F2F2F2;
+$terms-grid-border-radius: 5px;
+
+$label-background-color: #f3f4f7;
+
+$input-color: #555555;
+$input-placeholder-color: #777777;
+$input-border-width: 1px;
+$input-border-color: #969696;
+$input-border-radius: 2px;
+$input-height: 48px;
+$input-font-size: 16px;
+$input-padding: 6px 12px;
+
+$dropdown-menu-background-color: #f8f8f8;
+$dropdown-menu-item-border-color: #e6dada;
+$dropdown-menu-item-hover-color: #dcf0f8;
+$dropdown-menu-item-text-color: #000000;
+$dropdown-menu-item-sublabel-color: #2d2d2d;
+$dropdown-menu-item-sublabel-bold-color: #2d2d2d;
+
+$map-canvas-border-radius: $border-radius;
+$map-canvas-border-color: #bdbdbd;
+$map-canvas-button-padding: 8px 10px;
+$map-search-width: 365px;
+$map-search-input-width: $map-search-width - 20px;
+$map-search-background-color: #FFFFFF;
+
+$message-updated-background-color: #FFFFE0;
+$message-updated-border-color: #E6DB55;
+$message-error-background-color: #FFEBE8;
+$message-error-border-color: #CC0000;
+$message-no-found-background-color: #FFF5F4;
+$message-no-found-border-color: #FBC5C5;
+
+$submit-section-background-color: #FBFBFB;
+$submit-section-label-background-color: #F3F3F3;
+$submit-section-label-font-size: 18px;
+$submit-section-description-font-size: 14px;
+
+$status-active-color: #5BB75B;
+$status-expired-color: #DA4F49;
+$status-unpaid-color: #FAA732;
+$status-stopped-color: #000000;
+
+$loader-background-color: rgba(255, 255, 255, 0.7);
+
+$rating-star-color: #FFB300;
+$rating-star-hover-color: #CB8E00;
+
+$range-slider-color: #428bca !default;
+$range-slider-handle-color: #2c3e50 !default;
+$range-slider-handle-color-hover: #428bca !default;
+$range-slider-handle-width: 6px !default;
+$range-slider-handle-height: 25px !default;
+$range-slider-track-color: #d7dcdf !default;
+$range-slider-track-height: 12px !default;
+$range-slider-value-color: #2c3e50 !default;
+$range-slider-value-width: 60px !default;
+
+$grid-item-normal-height: 260px;
+$grid-item-tall-height: $grid-item-normal-height*2+15;
+
+$page-header-paddings: 80px;

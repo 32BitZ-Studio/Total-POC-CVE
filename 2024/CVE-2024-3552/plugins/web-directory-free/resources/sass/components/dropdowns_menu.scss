@@ -1,0 +1,96 @@
+/* .ui-widget-content.w2dc-dropdowns-menu {
+	background-color: $dropdown-menu-background-color;
+} */
+/* full screen map requires menu to have giant z-index (when it is not on sticky-scroll map)  */
+body > .w2dc-dropdowns-menu {
+	z-index: 100002;
+}
+.w2dc-dropdowns-menu-search,
+.ui-widget-content .w2dc-dropdowns-menu-search.ui-state-active {
+	line-height: 1.7;
+	border: none;
+	background: none;
+	font-weight: normal !important;
+	margin: 0;
+	color: $dropdown-menu-item-text-color;
+}
+.ui-widget-content .w2dc-dropdowns-menu-search-listing.ui-state-active {
+	font-weight: bold;
+}
+.w2dc-dropdowns-menu-search-counter,
+.w2dc-dropdowns-menu-search-note {
+	font-weight: normal;
+	font-size: 10px;
+	right: 8px;
+	position: absolute;
+}
+.w2dc-dropdowns-menu-search-sublabel {
+	display: block;
+	font-size: 11px;
+	color: $dropdown-menu-item-sublabel-color;
+}
+.w2dc-dropdowns-menu-search-sublabel b {
+	color: $dropdown-menu-item-sublabel-bold-color;
+}
+.w2dc-dropdowns-menu-search-root.w2dc-dropdowns-menu-search-term {
+	display: inline-flex;
+	align-items: center;
+	min-height: 40px;
+}
+.w2dc-dropdowns-menu-search-term {
+	padding-right: 50px;
+}
+.w2dc-dropdowns-menu.ui-autocomplete {
+	max-height: 400px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25), 0 -1px 0px rgba(0, 0, 0, 0.1);
+	border-radius: 0 0 2px 2px;
+	border: 1px solid #969696;
+	border-top: 0;
+}
+.w2dc-content .ui-selectmenu-menu .ui-icon,
+.w2dc-dropdowns-menu.ui-autocomplete .ui-icon {
+	width: 32px;
+	height: 32px;
+	left: 9px;
+	position: absolute;
+}
+.w2dc-dropdowns-menu.ui-autocomplete .w2dc-dropdowns-menu-search-listing .ui-icon {
+	width: 42px;
+	height: 42px;
+	left: 4px;
+}
+.w2dc-dropdowns-menu.ui-menu .ui-menu-item {
+	color: $dropdown-menu-item-text-color;
+	padding: 3px 8px 3px 50px !important;
+	font-family: inherit;
+	font-size: 15px;
+	border: none;
+	border-bottom: 1px solid $dropdown-menu-item-border-color;
+}
+.w2dc-dropdowns-menu .ui-menu-item:hover {
+	border-bottom: 1px solid $dropdown-menu-item-border-color;
+	background: none;
+	background-color: $dropdown-menu-item-hover-color;
+	font-weight: inherit;
+	color: $dropdown-menu-item-text-color;
+}
+.w2dc-dropdowns-menu-only-address.ui-menu .ui-menu-item,
+.w2dc-dropdowns-menu-only-address.ui-menu .ui-menu-item.ui-state-hover,
+.w2dc-dropdowns-menu-only-address.ui-menu .ui-menu-item.ui-state-focus  {
+	padding: 3px 8px 3px 8px !important;
+}
+
+.w2dc-dropdowns-menu.ui-menu .ui-menu-item a {
+	color: $dropdown-menu-item-text-color;
+}
+.w2dc-dropdowns-menu.ui-menu .ui-menu-item a:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.w2dc-content .w2dc-form-control.ui-autocomplete-input[readonly] {
+	cursor: pointer;
+	background-color: #FFFFFF;
+}

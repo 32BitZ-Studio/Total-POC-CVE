@@ -1,0 +1,5 @@
+[webdirectory-demo-links]
+
+[webdirectory-source]
+
+[webdirectory-map height="650" search_on_map=1 search_on_map_open=1 num=20 search_on_map_id="Categories on map" search_on_map_listings_bottom=1 search_on_map_listings_sidebar=0]

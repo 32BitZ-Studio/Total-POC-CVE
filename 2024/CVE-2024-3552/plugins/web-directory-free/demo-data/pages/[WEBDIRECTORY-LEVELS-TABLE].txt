@@ -1,0 +1,10 @@
+[webdirectory-demo-links]
+
+&#091;webdirectory-levels-table columns="3" columns_same_height="0" show_period=0&#093;
+[webdirectory-levels-table columns="3" columns_same_height="0" show_period=0]
+
+&#091;webdirectory-levels-table directory="2" columns="3" columns_same_height="1"&#093;
+[webdirectory-levels-table directory="2" columns="3" levels="" columns_same_height="1"]
+
+&#091;webdirectory-levels-table columns="3" levels="1,2"&#093;
+[webdirectory-levels-table columns="3" levels="1,2"]

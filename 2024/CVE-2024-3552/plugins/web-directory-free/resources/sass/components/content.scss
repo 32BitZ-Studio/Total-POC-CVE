@@ -1,0 +1,138 @@
+.w2dc-content {
+	font-size: $content-font-size;
+	direction: ltr;
+	line-height: 1.7;
+	white-space: initial;
+}
+.w2dc-content img {
+	box-shadow: none;
+	border-radius: 0;
+	margin: 0;
+	padding: 0;
+	max-width: 100%;
+}
+
+.w2dc-columns-panel {
+	width: 100%;
+}
+.w2dc-columns-panel:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+.w2dc-column {
+	float: left;
+	box-sizing: border-box;
+}
+.w2dc-column-left {
+	float: left;
+	width: 55%;
+	padding: 0 10px;
+	box-sizing: border-box;
+}
+.w2dc-column-right {
+	float: left;
+	width: 45%;
+	padding: 0 10px;
+	box-sizing: border-box;
+}
+
+.w2dc-column-entry {
+	float: left;
+	width: 75%;
+	padding: 0 10px;
+	box-sizing: border-box;
+}
+.w2dc-column-sidebar {
+	float: left;
+	width: 25%;
+	padding: 0 10px;
+	box-sizing: border-box;
+}
+
+
+.w2dc-entry {
+	max-width: 1300px;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+.w2dc-entry-padding {
+	max-width: 1300px;
+	margin: 0 auto;
+	margin-top: 50px;
+	padding: 0 25px;
+}
+.w2dc-entry-bg {
+	background-color: #d6d6d6;
+	background-position: center center;
+	background-size: cover;
+	max-width: 100%;
+	padding: 100px 50px;
+	position: relative;
+	z-index: 1;
+}
+.w2dc-entry-bg:after {
+	background: #4c5055;
+	content: "";
+	display: block;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: -1;
+	opacity: 0.4;
+	left: 0;
+}
+.w2dc-entry-fixed {
+	position: fixed;
+	width: 100%;
+	background-color: #FFF;
+	z-index: 2;
+}
+.w2dc-entry-fixed .w2dc-entry {
+	margin-top: 0;
+}
+
+/* Maximum width of 768 pixels. */
+@media screen and (max-width: $mobile-screen-width) {
+	.w2dc-column-left,
+	.w2dc-column-right,
+	.w2dc-column-entry,
+	.w2dc-column-sidebar {
+		float: none;
+		width: 100%;
+	}
+}
+
+/************************ Demo ************************/
+.w2dc-demo-prev-next-demos {
+	padding: 30px;
+	background-color: #e6f5ff;
+	margin-bottom: 50px;
+	font-size: 26px;
+}
+@media screen and (max-width: $mobile-screen-width) {
+	.w2dc-demo-prev-next-demos {
+		padding: 10px;
+		margin-bottom: 40px;
+		font-size: 16px;
+	}
+}
+.w2dc-demo-prev-next-demos:after{
+	clear: both;
+	content: "";
+	display: table;
+}
+.w2dc-demo-prev-next-demos a {
+	text-decoration: underline;
+}
+.w2dc-demo-prev-demo {
+	float: left;
+	width: 50%;
+	text-align: left;
+}
+.w2dc-demo-next-demo {
+	float: right;
+	width: 50%;
+	text-align: right;
+}

@@ -1,0 +1,3 @@
+The following to execute the following commands before running the program：
+pip install requests
+pip install colorama

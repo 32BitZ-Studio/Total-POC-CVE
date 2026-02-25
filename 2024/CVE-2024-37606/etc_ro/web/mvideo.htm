@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>Video</title>
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<script language="Javascript">
+var space = "";
+var timeout ="";
+var timeout2 ="";
+var semphore;
+function width()
+{
+  if (navigator.userAgent.indexOf('Safari') != -1)
+     window.scroll(0,40);
+}
+function adject()
+{
+    semphore = true;
+    document.live.src = "IMAGE.JPG?cidx=" + Math.random();
+    if (navigator.userAgent.indexOf('Safari') != -1)
+    {
+        if ((document.body.scrollHeight)/(document.body.scrollWidth) > 1)
+        {
+            document.live.width = document.body.offsetWidth * 0.99;
+            window.scroll(0,20);
+        }    
+        else
+            document.live.width = document.body.offsetWidth * 0.74;
+    }
+    else
+    {
+        if (window.screen.availWidth > window.screen.availHeight)
+            document.live.width = window.screen.availWidth * 0.7;
+        else 
+            document.live.width = window.screen.availWidth * 0.99;
+    }
+}
+function reloadimg()
+{
+    location.reload();
+}
+
+function imageReload() 
+{
+	if (navigator.userAgent.indexOf('Safari') == -1 && navigator.userAgent.indexOf('MSIE') != -1 && semphore)
+	{ 
+		semphore = false;
+		document.live.src = "IMAGE.JPG?cidx=" + Math.random();
+		timeout2 = setTimeout(imageReload, 2000);	
+		semphore = true;
+	}
+	else
+	{
+		document.live.src = "IMAGE.JPG?cidx=" + Math.random();
+	 	setTimeout('document.live.src = "IMAGE.JPG?cidx=%%ReGetIndex();%%'+Math.random() +'";', 1000);
+	}
+}
+</script>
+
+<BODY BORDER=0 CELLSPACING=0 CELLPADDING=0 onresize=adject() onload=adject() onerror="reloadimg()">
+<CENTER>
+<table bgcolor=black BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<tr><td align="center" bgcolor=#DB6F22><font color=white><font size=+2>%%CameraName();%%</font></font></td></tr>
+<tr><td align=center>
+<A href="javascript:location.reload();">
+<IMG id=live style="VERTICAL-ALIGN: middle" title="Please wait" onerror=reloadimg() width="100%" onload=imageReload() border=0 name=live>
+</A>
+</td></tr>
+<tr>
+	<td align=center>
+   	&nbsp;<INPUT type="button" style="font-size: 20 pt; FONT-WEIGHT: bold; width=140" value=" Snapshot " onclick="javascript:location.href='mobile.htm'">
+    &nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="button" style="font-size: 20 pt; COLOR: red; FONT-WEIGHT: bold; width=140" value="Live View" onclick="javascript:location.href='mvideo.htm'">
+    </td>
+</tr>
+</table>
+</CENTER>
+</body>
+</html>

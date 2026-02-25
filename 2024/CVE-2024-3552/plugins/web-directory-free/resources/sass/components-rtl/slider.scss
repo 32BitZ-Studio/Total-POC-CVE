@@ -1,0 +1,11 @@
+.w2dc-bx-wrapper {
+	direction: ltr;
+}
+.w2dc-bx-wrapper a.w2dc-bx-prev {
+	left: 0;
+	border-radius: 0 5px 5px 0;
+}
+.w2dc-bx-wrapper a.w2dc-bx-next {
+	right: 0;
+	border-radius: 5px 0 0 5px;
+}

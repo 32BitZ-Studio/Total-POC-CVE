@@ -1,0 +1,28 @@
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<script language="Javascript">
+function Init() {
+    cvcs.RemoteHost = "%%RemoteHostIPAddress();%%"
+    cvcs.RemoteWeb = "%%RemoteHostPort();%%"
+    cvcs.Timeout = 5
+    cvcs.AuthType = 1
+    cvcs.PreviewFrameRate = 1
+    cvcs.PreviewWidth = "%%CurrentVideoWidth();%%"
+    cvcs.PreviewHeight = "%%CurrentVideoHeight();%%"
+    cvcs.Algorithm = 1
+    cvcs.DeviceSerialNo = "%%Authroized();%%"
+    window.setInterval("ShowFrameRate()", 1000);
+}
+function ShowFrameRate() {
+    cvcs.Play()
+}
+</script>
+</head>
+<body onload="Init()" onunload="cvcs.Stop()">
+<OBJECT ID="cvcs" width=%%CurrentVideoWidth();%% height=%%CurrentVideoHeight();%%
+CLASSID="CLSID:7191F0AC-D686-46A8-BFCC-EA61778C74DD"
+codeBase="aplugLiteDL.cab#version=2,3,2,39">
+</OBJECT></body>
+</html>

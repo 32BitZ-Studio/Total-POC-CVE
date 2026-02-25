@@ -1,0 +1,11 @@
+[webdirectory-demo-links]
+
+[webdirectory-source]
+Display all existing markers using AJAX loading, start from 'LA, USA', show compact search form on the map.
+
+Main feature of this page: the map loads only needed map markers, those visible in the viewport of the map. Each drag or zoom changing of the map loads new markers. This effect due to ajax_map_loading=1 parameter in the map shortcode. ajax_markers_loading=1 parameter gives an ability to load marker info window after the click on marker. All these effects give increase of performance and allow to process thousands of markers. Using built-in compact search form is quite useful and allows to find needed listings very fast.
+
+[webdirectory-map search_on_map=1 search_on_map_open=1 height=650 clusters=1 ajax_map_loading=1 ajax_markers_loading=1 start_address="LA, USA" start_zoom=12 map_style="Gowalla"]
+[/webdirectory-source]
+
+[webdirectory-map search_on_map="1" search_on_map_open=1 num="100" height="650" clusters=1 show_summary_button="0" show_readmore_button="1" ajax_map_loading="1" ajax_markers_loading="0" start_latitude=34.0498059 start_longitude=-118.2513123 start_zoom=12 map_style="Gowalla"]

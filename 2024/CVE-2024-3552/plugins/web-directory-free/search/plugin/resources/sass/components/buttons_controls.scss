@@ -1,0 +1,247 @@
+.wcsearch-content .wcsearch-btn:hover,
+.wcsearch-content .wcsearch-btn:focus,
+.wcsearch-content .wcsearch-btn:active,
+.wcsearch-content .wcsearch-btn.wcsearch-active {
+	background-image: none;
+	box-shadow: unset;
+}
+.wcsearch-content .wcsearch-btn {
+	margin: 0;
+	max-width: 100%;
+	float: none;
+	border-radius: $button-border-radius;
+	height: $button-height;
+	font-size: $button-font-size;
+	padding: $button-padding;
+}
+.wcsearch-content .wcsearch-dashboard-tabs-content .wcsearch-btn-group .wcsearch-btn {
+	height: auto;
+	font-size: 14px;
+	padding: 8px;
+}
+.wcsearch-content .wcsearch-checkbox,
+.wcsearch-content .wcsearch-radio {
+	margin-top: 0;
+}
+.wcsearch-content .wcsearch-checkbox label,
+.wcsearch-content .wcsearch-radio label {
+	position: relative;
+	padding-left: 35px;
+}
+.wcsearch-checkbox input,
+.wcsearch-radio input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+.wcsearch-checkbox .wcsearch-control-indicator,
+.wcsearch-radio .wcsearch-control-indicator {
+	position: absolute;
+	top: 1px;
+	left: 0;
+	width: 26px;
+	height: 26px;
+	background: #FFFFFF;
+	font-family: "FontAwesome"; 
+	margin-right: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: $primary-color;
+}
+.wcsearch-radio .wcsearch-control-indicator {
+	border-radius: 50%;
+}
+/* Checked state */
+.wcsearch-checkbox label input:checked ~ .wcsearch-control-indicator,
+.wcsearch-radio label input:checked ~ .wcsearch-control-indicator {
+	border: 1px solid;
+	background: $primary-color;
+}
+/* Disabled state */
+.wcsearch-checkbox label input:disabled ~ .wcsearch-control-indicator,
+.wcsearch-radio label input:disabled ~ .wcsearch-control-indicator {
+	pointer-events: none;
+	opacity: .6;
+	background: #e6e6e6;
+}
+/* Check mark */
+.wcsearch-checkbox .wcsearch-control-indicator:after {
+	position: absolute;
+	display: none;
+	content: "\f00c";
+}
+.wcsearch-radio .wcsearch-control-indicator:after {
+	position: absolute;
+	display: none;
+	content: "";
+}
+/* Show check mark */
+.wcsearch-checkbox input:checked ~ .wcsearch-control-indicator:after,
+.wcsearch-radio input:checked ~ .wcsearch-control-indicator:after {
+	display: block;
+	color: #FFFFFF;
+}
+/* Checkbox tick */
+.wcsearch-checkbox .wcsearch-control-indicator:after {
+	font-size: 15px;
+	left: 5px;
+}
+/* Disabled tick colour */
+.wcsearch-checkbox input:disabled ~ .wcsearch-control-indicator:after {
+	border-color: $border-color;
+}
+/* Radio button inner circle */
+.wcsearch-radio .wcsearch-control-indicator:after {
+	top: 7px;
+	left: 7px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #fff;
+}
+/* Disabled circle colour */
+.wcsearch-radio input:disabled ~ .wcsearch-control-indicator:after {
+	background: #7b7b7b;
+}
+
+.wcsearch-radio-reset-btn {
+	font-size: 14px;
+	cursor: pointer;
+	margin-left: 10px;
+}
+.wcsearch-radio-reset-btn:before {
+	box-sizing: unset;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: auto;
+	height: auto;
+	margin-top: 0;
+	margin-left: 0;
+	border-radius: 0;
+	border: 0;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+}
+
+.wcsearch-term-wrapper-highlight {
+	border: 1px dashed;
+}
+
+.wcsearch-search-term-button {
+	margin: 15px 10px 15px 0 !important;
+	position: relative;
+}
+.wcsearch-search-term-button .wcsearch-model-options-link {
+	position: absolute;
+	bottom: -18px;
+}
+.wcsearch-search-term-button .wcsearch-btn {
+	width: 100%;
+	display: block;
+	overflow: hidden;
+	opacity: 0.4;
+}
+.wcsearch-search-term-button .wcsearch-btn:hover,
+.wcsearch-search-term-button-active .wcsearch-btn {
+	opacity: 1;
+}
+
+.wcsearch-content select {
+	background-image:
+	linear-gradient(50deg, transparent 50%, white 50%),
+	linear-gradient(130deg, white 50%, transparent 50%),
+	linear-gradient(to right, $primary-color, $primary-color) !important;
+	background-position: calc(100% - 13px) 50%, calc(100% - 8px) 50%, 100% 0 !important;
+	background-size: 6px 6px, 6px 6px, 2em 48px !important;
+	background-repeat: no-repeat !important;
+
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+
+	font-size: 14px !important;
+	line-height: 1.42857 !important;
+	padding: 3px 12px !important;
+}
+.wcsearch-content select::-ms-expand {
+	display: none;
+}
+.wcsearch-content select:focus {
+	background-image:
+	linear-gradient(130deg, transparent 50%, white 50%),
+	linear-gradient(50deg, white 50%, transparent 50%),
+	linear-gradient(to right, $primary-color, $primary-color) !important;
+}
+
+.wcsearch-content .wcsearch-btn,
+.wcsearch-content a,
+.wcsearch-content button,
+.wcsearch-content input[type="button"] {
+	transition: all 0.1s linear 0s;
+}
+.wcsearch-content .wcsearch-btn:focus,
+.wcsearch-content a:focus,
+.wcsearch-content button:focus,
+.wcsearch-content input[type="button"]:focus {
+	outline: 0;
+}
+
+div.wcsearch-content .wcsearch-btn-primary, div.wcsearch-content a.wcsearch-btn-primary,
+div.wcsearch-content .wcsearch-btn-primary:hover, div.wcsearch-content a.wcsearch-btn-primary:hover
+div.wcsearch-content .wcsearch-btn-primary:visited, div.wcsearch-content a.wcsearch-btn-primary:visited,
+div.wcsearch-content .wcsearch-btn-primary:focus, div.wcsearch-content a.wcsearch-btn-primary:focus {
+	background-image: none;
+}
+
+/************************ Datepicker ************************/
+.wcsearch-date-input-field {
+	overflow: auto;
+}
+.wcsearch-date-input-field .wcsearch-has-feedback {
+	float: left;
+	width: 68%;
+	vertical-align: bottom;
+}
+.wcsearch-date-input-field .wcsearch-date-reset-button {
+	float: right;
+	width: 30%;
+}
+.wcsearch-date-input-wrapper-vertically .wcsearch-date-input-field:first-child {
+	padding-bottom: 10px;
+}
+.wcsearch-date-input-wrapper-horizontally .wcsearch-date-input-field:nth-child(2n+1) {
+	padding-right: 5px;
+}
+.wcsearch-date-input-wrapper-horizontally .wcsearch-date-input-field:nth-child(2n+2) {
+	padding-left: 5px;
+}
+.wcsearch-date-input-wrapper-horizontally:after {
+	display: none;
+	content: "";
+	float: none;
+}
+.wcsearch-date-input-wrapper-horizontally .wcsearch-date-input-field {
+	float: left;
+	width: 50%;
+}
+/* Maximum width of 768 pixels. */
+@media screen and (max-width: $mobile-screen-width) {
+	.wcsearch-date-input-wrapper-vertically .wcsearch-date-input-field:first-child {
+		padding-bottom: 0;
+	}
+	.wcsearch-date-input-wrapper-horizontally .wcsearch-date-input-field {
+		float: none;
+		width: 100%;
+		padding: 0;
+	}
+	.wcsearch-date-input-wrapper-horizontally-gap {
+		float: none;
+		display: none;
+	}
+}

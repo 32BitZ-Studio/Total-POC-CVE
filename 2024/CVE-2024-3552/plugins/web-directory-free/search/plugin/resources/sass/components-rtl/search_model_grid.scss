@@ -1,0 +1,85 @@
+body.post-type-wcsearch_form #poststuff #post-body {
+	margin-left: 0;
+	margin-right: auto;
+}
+.wcsearch-search-tab-title {
+	float: right;
+}
+/* Extend placeholder hover area */
+.wcsearch-search-model-placeholder:before {
+	left: auto;
+	right: -15px;
+}
+.wcsearch-search-model-input[data-align="left"] {
+	text-align: right;
+}
+.wcsearch-search-model-input[data-align="right"] {
+	text-align: left;
+}
+.wcsearch-range-slider-scale label,
+.wcsearch-single-slider-scale label {
+	margin-left: 0;
+	margin-right: 4px;
+}
+.wcsearch-search-model-buttons-panel {
+	right: auto;
+	left: -22px;
+}
+.wcsearch-search-model-move-button {
+	left: auto;
+	right: -25px;
+}
+.wcsearch-search-model-extend-button:before {
+	content: "\f060";
+}
+.wcsearch-search-model-bottom-buttons-panel {
+	right: auto;
+	left: 0px;
+}
+.wcsearch-search-model-top-buttons-panel {
+	left: auto;
+	right: 50%;
+}
+.wcsearch-search-model-input-checkboxes-column-2,
+.wcsearch-search-model-input-radios-column-2,
+.wcsearch-search-model-input-checkboxes-column-3,
+.wcsearch-search-model-input-radios-column-3,
+.wcsearch-search-model-input-checkboxes-column-4,
+.wcsearch-search-model-input-radios-column-4,
+.wcsearch-search-model-input-checkboxes-column-5,
+.wcsearch-search-model-input-radios-column-5 {
+	float: right;
+}
+.wcsearch-search-model-input-radios-column .wcsearch-radio,
+.wcsearch-search-model-input-checkboxes-column .wcsearch-checkbox {
+	margin: 15px 0 15px 10px !important;
+}
+.wcsearch-search-model-options-column-one,
+.wcsearch-search-model-options-column-two {
+	float: right;
+}
+.wcsearch-search-model-options-column-one {
+	padding-right: 0;
+	padding-left: 20px;
+}
+
+.wcsearch-search-model {
+	float: right;
+}
+.wcsearch-search-model-sidebar {
+	float: right;
+	margin-right: 0;
+	margin-left: 40px;
+}
+.wcsearch-btn.wcsearch-search-model-add-element-btn {
+	margin: 0 0 10px 10px;
+	text-align: right;
+}
+.wcsearch-form-control.wcsearch-search-model-input-1,
+.wcsearch-form-control.wcsearch-search-model-input-1:focus {
+	float: right;
+}
+.wcsearch-form-control.wcsearch-search-model-input-2,
+.wcsearch-form-control.wcsearch-search-model-input-2:focus {
+	float: left;
+}

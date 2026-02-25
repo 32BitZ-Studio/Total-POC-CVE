@@ -1,0 +1,2 @@
+AudioEnable=%%AudioEnable();%%
+AudioVolume=%%AudioVolume();%%

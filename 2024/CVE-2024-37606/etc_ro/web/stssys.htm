@@ -1,0 +1,93 @@
+<html>
+<head>
+<meta content="text/html; charset=big5" http-equiv=Content-Type>
+<style type=text/css>
+.Devtext {font-family: "Arial", "Helvetica", "sans-serif"}
+.maintext {font-family: "Arial", "Helvetica", "sans-serif";font-size: 12px;}
+.spacetext {font-size: 10px;}
+.buttontext {font-size: 6px;}
+.blue {background-color: #b6caf0;font-family: "Arial", "Helvetica", "sans-serif";font-size: 12px;font-weight: bold;}
+</style>
+</head>
+
+<body bgcolor="#C3CBD0" topmargin=0>
+<table width="100%" border=0 cellspacing=0 cellpadding=0>
+<tr><td><img src="LOGO.jpg" width="1022" height="124" border=0 usemap="#Map2" usemap="#Map2"></td></tr>
+<TR>
+  <TD height="300">
+    <table width="765" border=0 cellpadding=0 cellspacing=0>
+    <TR>
+      <TD width="133" rowspan="2" valign="top" bgcolor="#C3CBD0">
+        <table border=0 align=center cellpadding=3 cellspacing=0>
+        <TR><TD valign="top"><div align=center><img src="Device.jpg" width="133" height="120"></div></TD></TR>
+        <tr><td align="center" class=Devtext><b>%%ModelName();%%</b></td></tr>
+        <TR>
+          <TD class=buttontext>
+            <div align=center><a href="stssys.htm" target="_self"><img src="System1.jpg" border=0></a></div><br>
+            <div align=center><a href="stsvdo.htm" target="_self"><img src="Video0.jpg" border=0></a></div><br>
+            <div align=center><a href="stsnet.htm" target="_self"><img src="Network0.jpg" border=0></a></div><br>
+            <div align=center><a href="stsuser.htm" target="_self"><img src="User0.JPG" border=0></a></div><br>
+          </TD>
+        </TR>
+        </table>
+      </TD>
+      <TD valign="top" bgcolor="#C3CBD0">&nbsp;</TD>
+      <TD colspan="2" valign="top" align="right" bgcolor="#C3CBD0"><img src="MStatus.jpg" width="649" height="36" border=0 usemap="#Map"></TD>
+      <TD valign="top" bgcolor="#C3CBD0"></TD>
+    </TR>
+    <TR>
+      <TD width="25" background="down_03.jpg"><p><img src="down_03.jpg"></p></TD>
+      <TD width="626" valign="top" bgcolor="#FFFFFF" class=spacetext><br>
+        <table width="99%" border=0 align=center cellpadding=0 cellspacing=0>
+        <TR>
+           <TD height="510" valign=top><!-- 以下是加入內容啟始區！-->
+             <table cellspacing=0 cellpadding=3 BORDER=0 width="626" class=maintext>
+             <TR><TD width=5></TD><TD class=blue>Device Status</TD></TR>
+             </table>
+             <table cellspacing=0 cellpadding=3 BORDER=0 width="626" class=maintext>
+             <TR><TD width=25%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Camera Name</TD><TD width=3%>:</TD><TD>%%CameraName();%%</TD></TR>
+             <TR><TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location</TD><TD>:</TD><TD>%%Location();%%</TD></TR>
+             <TR><TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Model</TD><TD>:</TD><TD>%%ModelName();%%</TD></TR>
+             <TR><TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Firmware Version</TD><TD>:</TD><TD>%%FirmwareVersion();%% (%%ReleaseDate();%%)</TD></TR>
+             <TR><TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAC Address</TD><TD>:</TD><TD>%%MACAddress();%%</TD></TR>
+             <TR><TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IP Address</TD><TD>:</TD><TD>%%CurrentIPAddress();%%</TD></TR>
+             </table><br>
+             <table cellspacing=0 cellpadding=3 BORDER=0 width="626" class=maintext>
+             <TR><TD width=5></TD><TD class=blue>Ethernet Status</TD></TR>
+             </table>
+             <table cellspacing=0 cellpadding=3 BORDER=0 width="626" class=maintext>
+             <TR><TD width=25%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Link</TD><TD width=3%>:</TD><TD>%%EthernetLink();%%</TD></TR>
+             <TR><TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Speed</TD><TD>:</TD><TD>%%EthernetSpeed();%% bps</TD></TR>
+             <TR><TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Duplex</TD><TD>:</TD><TD>%%EthernetDuplex();%%</TD></TR>
+             </table>
+             <p align=right><a href="" onClick='loadurl("stssys.htm")'><img src=FRefresh.jpg BORDER=0></A></p>
+          <!--以上是結尾區！--></TD>
+        </TR>
+        </table>
+      </TD>
+      <TD width="19" height="26"></TD>
+      <TD height="359">&nbsp;</TD>
+    </TR>
+    </table>
+  </TD>
+</TR>
+</table>
+</body>
+</html>
+
+<FORM id="redir" name="redir" ACTION="/" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="">
+<input type="hidden" name="ReplyErrorPage" value="">
+</Form>
+
+<map name="Map">
+  <area shape="rect" coords="2,8,139,40"   href="home.htm" target="_top">
+  <area shape="rect" coords="140,8,265,40" href="system.htm" target="_self">
+  <area shape="rect" coords="266,8,380,40" href="Test.htm" target="_self">
+  <area shape="rect" coords="381,8,525,40" href="stssys.htm" target="_self">
+  <area shape="rect" coords="521,8,648,40" href="Help.htm" target="_self">
+</map>
+
+<map name="Map2">
+  <area shape="rect" coords="6,6,175,60" href="http://www.dlink.com" target="_blank">
+</map>

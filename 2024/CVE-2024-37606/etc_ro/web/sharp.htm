@@ -1,0 +1,48 @@
+<html>
+<head>
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | SETUP | IMAGE SETUP</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+function ClickSubmit()
+{
+  frm = document.forms[0];
+  if (checkIntRange(frm.SharpnessControl.value,65535,0) == 1)
+  {
+     frm.SharpnessControl.select();
+     alert("The format of Sharpness Control is invalid.");
+     return;
+  }
+}
+function ClickCancel()
+{
+  javascript:document.forms[0].reset();
+}
+</script>
+</head>
+<body>
+<FORM ACTION="/setSystemStream" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="sharp.htm">
+<input type="hidden" name="ReplyErrorPage" value="sharp.htm">
+<table>
+<TR>
+  <TD>Sharpness Control</TD>
+  <TD><INPUT type="text" size=18 id="SharpnessControl" name="SharpnessControl" value="%%SharpnessControl();%%" onblur="ClickSubmit()" onchange="ClickSubmit()"></TD>
+</TR>
+</table>
+<input type="hidden" name="ConfigSystemStream" value="Save">
+<br>&nbsp;<INPUT type="button" width="80" value=" Save Settings " onclick="javascript:document.forms[0].submit()">
+&nbsp;&nbsp;<INPUT type="button" width="80" value=" Don't Save Settings " onclick="ClickCancel()">
+</FORM>
+<br>
+</body>
+</html>

@@ -1,0 +1,39 @@
+.wcsearch-dropdowns-menu-search-counter,
+.wcsearch-dropdowns-menu-search-note {
+	left: 8px;
+	right: auto;
+}
+.wcsearch-dropdowns-menu-search-term {
+	padding-right: 0;
+	padding-left: 50px;
+}
+.wcsearch-dropdowns-menu.ui-autocomplete {
+	box-shadow: 0 rgba(0, 0, 0, 0.25) 4px 2px, 0 rgba(0, 0, 0, 0.1) 0px -1px;
+	border-radius: 0 2px 2px 0;
+}
+.wcsearch-content .ui-selectmenu-menu .ui-icon,
+.wcsearch-dropdowns-menu.ui-autocomplete .ui-icon {
+	left: auto;
+	right: 9px;
+}
+.wcsearch-dropdowns-menu.ui-autocomplete .wcsearch-dropdowns-menu-search-listing .ui-icon {
+	left: auto;
+	right: 4px;
+}
+.wcsearch-dropdowns-menu.ui-menu .ui-menu-item {
+	padding: 3px 50px 3px 8px !important;
+}
+.wcsearch-dropdowns-multiselect-item {
+	margin-right: auto;
+	margin-left: 3px;
+}
+.wcsearch-dropdowns-multiselect-item-close {
+	margin-left: auto;
+	margin-right: 4px;
+}
+.wcsearch-dropdowns-multiselect-item-close:before {
+	right: auto;
+	left: 0;
+	margin-right: auto;
+	margin-left: 0;
+}

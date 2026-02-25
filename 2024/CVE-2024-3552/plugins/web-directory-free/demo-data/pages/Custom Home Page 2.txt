@@ -1,0 +1,1 @@
+<div class="w2dc-columns-panel">[webdirectory-demo-links]<div class="w2dc-column-left">[webdirectory-search custom_home="1"][webdirectory custom_home="1"]</div><div class="w2dc-column-right">[webdirectory-map custom_home="1" height="100%" sticky_scroll="1" search_on_map="0"]</div></div>

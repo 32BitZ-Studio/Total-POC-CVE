@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle>
+  <domain name="W2DC">
+    <project>
+      <target>
+        <directory>languages</directory>
+      </target>
+      <template>
+        <file>languages/W2DC.pot</file>
+      </template>
+    </project>
+  </domain>
+  <domain name="WCSEARCH">
+    <project name="Search system">
+      <target>
+        <directory>search/plugin/languages</directory>
+      </target>
+      <template>
+        <file>search/plugin/languages/WCSEARCH.pot</file>
+      </template>
+    </project>
+  </domain>
+</bundle>

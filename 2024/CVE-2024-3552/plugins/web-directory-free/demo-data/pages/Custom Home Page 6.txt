@@ -1,0 +1,3 @@
+[webdirectory-demo-links]
+
+<div class="w2dc-entry">[webdirectory-search custom_home="1" form_id="One row (sticky)"][webdirectory-demo-links][webdirectory custom_home="1" listings_view_grid_columns="3" perpage="12" scrolling_paginator="1"]</div>

@@ -1,0 +1,98 @@
+#wcsearch-ajax-loader-overlay {
+	background-color: $loader-background-color;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000000;
+}
+.wcsearch-ajax-target-loading {
+	position: absolute;
+	background-color: $loader-background-color;
+	z-index: 10;
+}
+.wcsearch-loader:before {
+	content: '';
+	box-sizing: border-box;
+	position: absolute;
+	top: calc(50% - 20px);
+	left: calc(50% - 20px);
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 5px solid transparent;
+	border-top-color: $primary-color;
+	border-bottom-color: $primary-color;
+	animation: wcsearch-spinner .8s ease infinite;
+}
+.wcsearch-loader.wcsearch-loader-max-top:before {
+	top: 300px;
+}
+@keyframes wcsearch-spinner {
+	to {transform: rotate(360deg);}
+}
+
+.wcsearch-search-input-loader:before {
+	content: '' !important;
+	box-sizing: border-box;
+	position: absolute;
+	top: 24px;
+	left: 50%;
+	width: 22px;
+	height: 22px;
+	margin-top: -12px;
+	margin-left: -12px;
+	border-radius: 50%;
+	border: 4px solid transparent;
+	border-top-color: $input-placeholder-color;
+	border-bottom-color: $input-placeholder-color;
+	animation: wcsearch-spinner .8s ease infinite;
+}
+
+.wcsearch-ajax-iloader {
+	margin: 0px auto;
+	width: 50px;
+	height: 22px;
+	text-align: center;
+	font-size: 10px;
+}
+.wcsearch-ajax-iloader > div {
+	background-color: #FFF;
+	margin-left: 3px;
+	height: 100%;
+	width: 6px;
+	display: inline-block;
+
+	-webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+	animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+.wcsearch-ajax-iloader .rect2 {
+	-webkit-animation-delay: -1.1s;
+	animation-delay: -1.1s;
+}
+.wcsearch-ajax-iloader .rect3 {
+	-webkit-animation-delay: -1.0s;
+	animation-delay: -1.0s;
+}
+.wcsearch-ajax-iloader .rect4 {
+	-webkit-animation-delay: -0.9s;
+	animation-delay: -0.9s;
+}
+.wcsearch-ajax-iloader .rect5 {
+	-webkit-animation-delay: -0.8s;
+	animation-delay: -0.8s;
+}
+@-webkit-keyframes sk-stretchdelay {
+	0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+	20% { -webkit-transform: scaleY(1.0) }
+}
+@keyframes sk-stretchdelay {
+	0%, 40%, 100% { 
+		transform: scaleY(0.4);
+	-webkit-transform: scaleY(0.4);
+	}  20% { 
+		transform: scaleY(1.0);
+		-webkit-transform: scaleY(1.0);
+	}
+}

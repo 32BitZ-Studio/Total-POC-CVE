@@ -1,0 +1,36 @@
+.w2dc-content select:not(.w2dc-week-day-input) {
+	background-position: 8px 50%, 13px 50%, 0 0 !important;
+}
+.w2dc-content .w2dc-checkbox,
+.w2dc-content .w2dc-radio {
+	text-align: right;
+}
+.w2dc-content .w2dc-checkbox label,
+.w2dc-content .w2dc-radio label {
+	position: relative;
+	padding-left: 20px;
+	padding-right: 30px;
+}
+.w2dc-checkbox input,
+.w2dc-radio input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+.w2dc-checkbox .w2dc-control-indicator,
+.w2dc-radio .w2dc-control-indicator {
+	right: 0;
+	left: auto;
+	margin-right: 0;
+	margin-left: 5px;
+}
+/* Checkbox tick */
+.w2dc-checkbox .w2dc-control-indicator:after {
+	font-size: 12px;
+	left: 0;
+	right: 5px;
+}
+/* Radio button inner circle */
+.w2dc-radio .w2dc-control-indicator:after {
+	right: 6px;
+}

@@ -1,0 +1,875 @@
+<html>
+<head>
+<link rel="stylesheet" rev="stylesheet" href="dlink.css?cidx=%%ReleaseTime();%%" type="text/css">
+<title>D-Link Corporation. | WIRELESS INTERNET CAMERA | SETUP | WIZARD</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+var __year 
+var __month
+var __date 
+var __hour 
+var __min  
+var __sec  
+function init()
+{
+  frm = document.forms[0];
+  frm.PPPoEPassword.value = DecryptPass(frm.PPPoEPassword.value, frm.SessionKey.value);
+  frm.DDNSPassword.value = DecryptPass(frm.DDNSPassword.value, frm.SessionKey.value);
+  __year   = frm.f_year.value;
+  __month  = frm.f_month.value;
+  __date   = frm.f_date.value;
+  __hour   = frm.f_hour.value;
+  __min    = frm.f_min.value;
+  __sec    = frm.f_sec.value;
+  for(i=0;i<frm.TimeZoneSelect.length;i++)
+  {
+     if (frm.TimeZoneIndex.value == parseInt(frm.TimeZoneSelect[i].value,10)) 
+     {
+        frm.TimeZoneSelect.selectedIndex = i;
+        frm.TimeZoneIndex.value = frm.TimeZoneSelect[frm.TimeZoneSelect.selectedIndex].value;
+        break;
+     }
+  }
+  
+  //frm.OffsetSel.value = frm.DSTOffset.value;
+  //frm.StartMonthSel.value = frm.DSTStartMonth.value;
+  //frm.StartWeekSel.value = frm.DSTStartWeek.value;
+  //frm.StartDaySel.value = frm.DSTStartDay.value;
+  //frm.StartTimeSel.value = frm.DSTStartTime.value;
+  //frm.EndMonthSel.value = frm.DSTEndMonth.value;
+  //frm.EndWeekSel.value = frm.DSTEndWeek.value;
+  //frm.EndDaySel.value = frm.DSTEndDay.value;
+  //frm.EndTimeSel.value = frm.DSTEndTime.value;
+  //ClickDST();
+}
+function NextSetup()
+{
+  id_menu.style.display='none';id_lan.style.display='';
+}
+function clickLan()
+{
+  frm = document.forms[0];
+
+  if (frm.IPAddressMode[0].checked)
+  {
+     disable_box(id_box_staticip);
+     disable_box(id_box_pppoe);
+  }
+  if (frm.IPAddressMode[1].checked)
+  {
+     enable_box(id_box_staticip);
+     disable_box(id_box_pppoe);
+  }
+  if (frm.IPAddressMode[2].checked)
+  {
+     disable_box(id_box_staticip);
+     enable_box(id_box_pppoe);
+  }
+}
+function NextLan()
+{
+  frm = document.forms[0];
+  if (frm.IPAddressMode[1].checked)
+  {
+     if ((IpAddress=devip_check(frm.IPAddress.value)) == 1)
+     {
+        frm.IPAddress.select();
+        alert("The IP Address is invalid.");
+        return;
+     }
+     if ((SubnetMask=ip_check(frm.SubnetMask.value)) == 1)
+     {
+        frm.SubnetMask.select();
+        alert("The Subnet Mask is invalid.");
+        return;
+     }
+     if (check_mask(frm.IPAddress.value,frm.SubnetMask.value) != 0)
+     {
+        frm.IPAddress.select();
+        alert("The IP Address is invalid.");
+        return;
+     }
+     if ((frm.DefaultGateway.value != "") && (frm.DefaultGateway.value != "0.0.0.0"))
+     {
+        if ((DefaultGateway=ip_check(frm.DefaultGateway.value)) == 1)
+        {
+           frm.DefaultGateway.select();
+           alert("The Default Gateway is invalid.");
+           return;
+        }
+        if (check_mask(frm.DefaultGateway.value,frm.SubnetMask.value) != 0)
+        {
+           frm.DefaultGateway.select();
+           alert("The Default Gateway is invalid.");
+           return;
+        }
+        if (ip_same_net(IpAddress,SubnetMask,DefaultGateway) == 1)
+        {
+           frm.IPAddress.select();
+           alert("You enter incorrect TCP/IP configuration.");
+           return;
+        }
+     }
+  }
+  if (frm.IPAddressMode[2].checked)
+  {
+     if (frm.PPPoEUserID.value == "")
+     {
+        frm.PPPoEUserID.select();
+        alert("The format of User ID is invalid.");
+        return;
+     }
+     if (frm.PPPoEPassword.value == "")
+     {
+        frm.PPPoEPassword.select();
+        alert("The format of Password is invalid.");
+        return;
+     }
+  }
+  if ((frm.DNSIPAddress1.value != "") && (frm.DNSIPAddress1.value != "0.0.0.0"))
+  {
+     if (((IpAddress=devip_check(frm.DNSIPAddress1.value)) == 1) ||
+         (ip_check(frm.DNSIPAddress1.value) == 1))
+     {
+        frm.DNSIPAddress1.select();
+        alert("The Primary DNS is invalid.");
+        return;
+     }
+  }
+  if ((frm.DNSIPAddress2.value != "") && (frm.DNSIPAddress2.value != "0.0.0.0"))
+  {
+     if (((IpAddress=devip_check(frm.DNSIPAddress2.value)) == 1) ||
+         (ip_check(frm.DNSIPAddress2.value) == 1))
+     {
+        frm.DNSIPAddress2.select();
+        alert("The Secondary DNS is invalid.");
+        return;
+     }
+  }
+  id_lan.style.display='none';id_ddns.style.display=''
+}
+function NextDDNS()
+{
+  frm = document.forms[0];
+  if (frm.DDNSEnable[0].checked)
+  {
+     if (frm.DDNSProvider.value == "")
+     {
+        frm.DDNSProvider.select();
+        alert("The format of Server Address is invalid.");
+        return;
+     }
+     if (frm.DDNSHostName.value == "")
+     {
+        frm.DDNSHostName.select();
+        alert("The format of Host Name is invalid.");
+        return;
+     }
+     if (frm.DDNSUserName.value == "")
+     {
+        frm.DDNSUserName.select();
+        alert("The format of User Name is invalid.");
+        return;
+     }
+     if (frm.DDNSPassword.value == "")
+     {
+        frm.DDNSPassword.select();
+        alert("The format of Password is invalid.");
+        return;
+     }
+     if (checkIntRange(frm.DDNSTimeout.value,65535,240) == 1)
+     {
+        frm.DDNSTimeout.select();
+        alert("The Timeout range is from 240 to 65535 hours.");
+        return;
+     }
+  }
+  id_ddns.style.display='none';id_srv.style.display='';
+}
+function clickDDNS()
+{
+  frm = document.forms[0];
+
+  if (frm.DDNSEnable[0].checked)
+     enable_box(id_box_DDNS);
+
+  if (frm.DDNSEnable[1].checked)
+     disable_box(id_box_DDNS);
+}
+function NextSrvName()
+{
+  frm = document.forms[0];
+  if (CheckSrvname(frm.CameraName.value))
+  {
+    frm.CameraName.select();
+    alert("The format of Camera Name is invalid.");
+    return;
+  }
+  id_srv.style.display='none';id_time.style.display=''
+}
+function ClickTimeZone()
+{
+  frm = document.forms[0];
+  oldtz = frm.TimeZoneIndex.value;
+  newtz = frm.TimeZoneSelect[frm.TimeZoneSelect.selectedIndex].value;
+  oldoff = 0;
+  if (oldtz.charAt(6) != ')')
+  {
+     oldoff =  (oldtz.charAt(7)-'0')*10 + (oldtz.charAt(8)-'0');  
+     oldoff =  oldoff*60 + (oldtz.charAt(10)-'0')*10 + (oldtz.charAt(11)-'0');  
+     if (oldtz.charAt(6) == '-')
+        oldoff = 0-oldoff;
+  }
+  newoff = 0;
+  if (newtz.charAt(6) != ')')
+  {
+     newoff =  (newtz.charAt(7)-'0')*10 + (newtz.charAt(8)-'0');  
+     newoff =  newoff*60 + (newtz.charAt(10)-'0')*10 + (newtz.charAt(11)-'0');  
+     if (newtz.charAt(6) == '-')
+        newoff = 0-newoff;
+  }
+  __min = __min-oldoff+newoff;
+  frm.TimeZoneIndex.value = newtz;
+}
+
+//function ClickDST()
+//{
+//  frm = document.forms[0];
+//  if (frm.DSTEnable[0].checked)
+//  {
+//     frm.OffsetSel.disabled = false;
+//     enable_box(id_box_dst);
+//  }
+//  if (frm.DSTEnable[1].checked)
+//  {
+//     frm.OffsetSel.disabled = true;
+//     disable_box(id_box_dst);
+//  }
+//}
+function chk_msg()
+{
+  frm = document.forms[0];
+
+  if (frm.IPAddressMode[0].checked)
+     document.getElementById('id_ipaddr').innerHTML = "DHCP Connection";
+  else
+     if (frm.IPAddressMode[1].checked)
+        document.getElementById('id_ipaddr').innerHTML = frm.IPAddress.value;
+     else
+     if (frm.IPAddressMode[2].checked)
+        document.getElementById('id_ipaddr').innerHTML = "PPPoE";
+
+  document.getElementById('id_camera_name').innerHTML = getHTMLString(frm.CameraName.value);
+
+  idx = frm.TimeZoneSelect.selectedIndex;
+  document.getElementById('id_timezone').innerHTML = frm.TimeZoneSelect[idx].innerHTML;
+
+  if (frm.DDNSEnable[0].checked)
+     document.getElementById('id_ddns_msg').innerHTML = "Enable";
+  else
+     document.getElementById('id_ddns_msg').innerHTML = "Disable";
+}
+function ClickSubmit()
+{
+  frm = document.forms[0];
+  var now = new Date();
+  now.setYear(__year);
+  now.setMonth(__month-1);
+  now.setDate(__date);
+  now.setHours(__hour);
+  now.setMinutes(__min);
+  now.setSeconds(__sec);
+  frm.f_year.value = now.getFullYear();
+  frm.f_month.value = now.getMonth()+1;
+  frm.f_date.value = now.getDate();
+  frm.f_hour.value = now.getHours();
+  frm.f_min.value = now.getMinutes();
+  frm.f_sec.value = now.getSeconds();
+  frm.Date.value = frm.f_year.value + "-";
+  if (frm.f_month.value < 10)
+     frm.Date.value += "0";
+  frm.Date.value += frm.f_month.value + "-";
+  if (frm.f_date.value < 10)
+     frm.Date.value += "0";
+  frm.Date.value += frm.f_date.value;
+  
+  if (frm.f_hour.value < 10)
+  	frm.Time.value = "0" + frm.f_hour.value + ":";
+  else
+  	frm.Time.value = frm.f_hour.value + ":";
+  if (frm.f_min.value < 10)
+     frm.Time.value += "0";
+  frm.Time.value += frm.f_min.value + ":";
+  if (frm.f_sec.value < 10)
+     frm.Time.value += "0";
+  frm.Time.value += frm.f_sec.value;
+  frm.TimeZoneIndex.value = frm.TimeZoneSelect.value;
+  if (frm.IPAddressMode[2].checked) 
+  {
+     frm.PPPoEPassword.value = EncryptPass(frm.PPPoEPassword.value, frm.SessionKey.value);
+  }
+  if (frm.DDNSEnable[0].checked)
+  {
+     frm.DDNSPassword.value = EncryptPass(frm.DDNSPassword.value, frm.SessionKey.value);
+  }
+  javascript:document.forms[0].submit();
+}
+</script>
+</head>
+<body topmargin="1" leftmargin="0" rightmargin="0" bgcolor="#757575" onload="init();showtime(0);">
+<table id="header_container" border="0" cellpadding="5" cellspacing="0" width="838" align="center">
+<tr>
+<td width="100%">Product: <a href="http://www.dlink.com/" target="_blank">%%CameraName();%%</a></td>
+  <td align="right" nowrap></td>
+  <td align="right" nowrap>Firmware version: %%FirmwareVersion();%% &nbsp;</td>
+</tr>
+</table>
+<table id="topnav_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr><td align="center" valign="middle"><img src="title.gif"></td></tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="838" align="center" bgcolor="#FFFFFF" bordercolordark="#FFFFFF">
+<tr>
+  <td valign="top" height="520" align="center">
+    <table cellSpacing=0 cellPadding=0 border=0 width="600">
+    <tr>
+      <td valign="top" id="maincontent_container">
+<FORM ACTION="/setSystemWizard" METHOD="POST" autocomplete="off">
+        <input type="hidden" name="ReplySuccessPage" value="wizard.htm">
+        <input type="hidden" name="ReplyErrorPage" value="wizard.htm">
+        <input type="hidden" name="DateTimeMode" value="%%DateTimeMode();%%">
+        <input type="hidden" name="TimeZoneIndex" value="%%TimeZoneIndex();%%">
+        <input type="hidden" name="Date" value="%%Date();%%">
+        <input type="hidden" name="Time" value="%%Time();%%">
+        <input type="hidden" name="f_year"  value="%%YearOfTime();%%">
+        <input type="hidden" name="f_month" value="%%MonthOfTime();%%">
+        <input type="hidden" name="f_date"  value="%%DateOfTime();%%">
+        <input type="hidden" name="f_hour"  value="%%HourOfTime();%%">
+        <input type="hidden" name="f_min"   value="%%MinuteOfTime();%%">
+        <input type="hidden" name="f_sec"   value="%%SecondOfTime();%%">
+        <input type="hidden" name="SessionKey" value="%%TimeStamp();%%">
+        <div id="id_menu"><br><br>
+          <div id=box_header>
+            <h1>welcome to d-link setup wizard - internet connection setup</h1>  
+            This wizard will guide you through a step-by-step process to configure your new D-Link Camera and connect 
+            the camera to the internet.<br><br>
+            <center>
+              <div style="text-align:left; width:228;">
+              <li><b>Step 1:</b> Setup LAN Settings
+              <li><b>Step 2:</b> Setup DDNS Settings
+              <li><b>Step 3:</b> Server Name Settings
+              <li><b>Step 4:</b> Setup Time Zone
+              </div><br><br>
+              <input type="button" value="Back" onclick='loadurl("wizard.htm")'>
+              <input type="button" value="Next" onclick="NextSetup();clickLan();">
+              <input type="button" value="Cancel" onclick='loadurl("wizard.htm")'>
+            </center>
+          </div>
+        </div>
+
+        <div id="id_lan" style="display:none"><br><br>
+          <div id=box_header>
+            <h1>step 1: setup lan settings</h1>
+            Please select whether your camera will connect to the Internet with a DHCP connection, Static IP address or
+            PPPoE. If your camera is connected to a router, or you are unsure which settings to pick, D-Link recommends 
+            that you keep the default selection of DHCP connection. Otherwise, click on Static IP address to manually 
+            assign an IP address before clicking on the <b>Next</b> button.<br><br>
+            <center>
+              <table align="center">
+              <tr>
+                <td><input type=radio name=IPAddressMode value=4 %%RadioOfIPAddressMode(4);%% onclick="clickLan()"></td>
+                <td>DHCP Connection</td>
+              </tr>
+              <tr>
+                <td><input type=radio name=IPAddressMode value=1 %%RadioOfIPAddressMode(1);%% onclick="clickLan()"></td>
+                <td>Static IP Address</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <table id="id_box_staticip" cellspacing=0 cellpadding=3 BORDER=0 class=maintext>
+                  <tr>
+                    <td>&nbsp;IP Address</td>
+                    <td><INPUT type="text" size=18 name="IPAddress" value="%%IPAddress();%%"></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;Subnet Mask</td>
+                    <td><INPUT type="text" size=18 name="SubnetMask" value="%%SubnetMask();%%"></td>
+                  </tr>
+                  <tr>
+                    <td nowrap>&nbsp;Default Gateway</td>
+                    <td><INPUT type="text" size=18 name="DefaultGateway" value="%%DefaultGateway();%%"></td>
+                  </tr>
+                  </table>  
+                </td>
+              </tr>
+              <tr>
+                <td><input type=radio name=IPAddressMode value=5 %%RadioOfIPAddressMode(5);%% onclick="clickLan()"></td>
+                <td>PPPoE</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <table id="id_box_pppoe" cellspacing=0 cellpadding=3 BORDER=0 class=maintext>
+                  <tr>
+                    <td>&nbsp;User ID</td>
+                    <td><INPUT type="text" size=18 maxlength=64 name="PPPoEUserID" value="%%PPPoEUserID();%%"></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;Password</td>
+                    <td><INPUT type="password" size=18 maxlength=32 name="PPPoEPassword" value="%%PPPoEPassword(5);%%"></td>
+                  </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td colspan=2><br>
+                  <table id="id_box_dns" cellspacing=0 cellpadding=3 BORDER=0 class=maintext>
+                  <tr>
+                    <td>Primary DNS</td>
+                    <td><INPUT type="text" size=18 name="DNSIPAddress1" value="%%DNSIPAddress1();%%"></td>
+                  </tr>
+                  <tr>
+                    <td>Secondary DNS</td>
+                    <td><INPUT type="text" size=18 name="DNSIPAddress2" value="%%DNSIPAddress2();%%"></td>
+                  </tr>
+                  </table>
+                </td>
+              </tr>
+              </table><br><br>
+              <input type="button" value="Back" onclick="id_menu.style.display='';id_lan.style.display='none'">
+              <input type="button" value="Next" onclick="NextLan();clickDDNS();">
+              <input type="button" value="Cancel" onclick='loadurl("wizard.htm")'>
+            </center>
+          </div>
+        </div>
+
+        <div id="id_ddns" style="display:none"><br><br>
+          <div id=box_header>
+            <h1>step 2: Setup DDNS Settings</h1>  
+            If you have a Dynamic DNS account and would like your camera to 
+            update the IP address automatically, enable DDNS and enter your 
+            host information below. Click on the <b>Next</b> button to 
+            continue.<br><br>
+            <center>
+              <table align="center">
+              <TR>
+                <TD>
+                  <input type=radio name=DDNSEnable value=1 %%RadioOfDDNSEnable(1);%% onclick="clickDDNS()">Enable<br>
+                  <input type=radio name=DDNSEnable value=0 %%RadioOfDDNSEnable(0);%% onclick="clickDDNS()">Disable
+                  <table id="id_box_DDNS" cellspacing=0 cellpadding=3 BORDER=0 class=maintext>
+                  <tr>
+                    <td>&nbsp;Server Address</td>
+                    <td>
+                      <INPUT type="text" size=28 maxlength=64 name="DDNSProvider" value="%%DDNSProvider();%%" class="text">&nbsp;&lt;&lt;&nbsp;
+                      <SELECT name="Provider" size="1" onchange="document.forms[0].DDNSProvider.value = this.value">
+                      <OPTION selected>Select Dynamic DNS Server</OPTION>
+                      <OPTION value=www.dlinkddns.com>www.dlinkddns.com</OPTION>
+                      <OPTION value=www.DynDNS.org>www.DynDNS.org</OPTION>
+                      </SELECT>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;Host Name</td>
+                    <td><INPUT type="text" size=32 maxlength=64 name="DDNSHostName" value="%%DDNSHostName();%%"></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;User Name</td>
+                    <td><INPUT type="text" size=32 maxlength=64 name="DDNSUserName" value="%%DDNSUserName();%%"></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;Password</td>
+                    <td><INPUT type="password" size=32 maxlength=32 name="DDNSPassword" value="%%DDNSPassword(5);%%"></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;Timeout</td>
+                    <td><INPUT type="text" size=32 name="DDNSTimeout" value="%%DDNSTimeout();%%"> hours</td>
+                  </tr>
+                  </table>
+                </TD>
+              </TR>
+              </table><br><br>
+              <input type="button" value="Back" onclick="id_lan.style.display='';id_ddns.style.display='none'">
+              <input type="button" value="Next" onclick="NextDDNS();">
+              <input type="button" value="Cancel" onclick='loadurl("wizard.htm")'>
+            </center>
+          </div>
+        </div>
+
+        <div id="id_srv" style="display:none"><br><br>
+          <div id=box_header>
+            <h1>step 3: Server Name Settings</h1>
+            D-Link recommends that you rename your camera for easy accessibility. Please assign a name of your choice 
+            before clicking on the <b>Next</b> button.<br><br>
+            <center>
+              <table align="center">
+              <TR>
+                <TD>Camera Name</TD>
+                <TD><INPUT type="text" size=30 maxlength=32 name="CameraName" value="%%CameraName();%%"></TD>
+              </TR>
+              </table><br><br>
+              <input type="button" value="Back" onclick="id_ddns.style.display='';id_srv.style.display='none'">
+              <input type="button" value="Next" onclick="NextSrvName()">
+              <input type="button" value="Cancel" onclick='loadurl("wizard.htm")'>
+            </center>
+          </div>
+        </div>
+
+        <div id="id_time" style="display:none"><br><br>
+          <div id=box_header>
+            <h1>step 4: Setup Time Zone</h1>
+            Please select the camera's timezone and then click on the <b>Next</b> button.<br><br>
+            <center>
+              <table align="center">
+              <TR>
+                <TD width=120>Current Time</TD>
+                <TD style="padding: 3px 0px 3px 6px;"><DIV id=timeclock></DIV></TD>
+              </TR>
+              <TR>
+                <TD>Time Zone</TD>
+                <TD style="padding: 3px 0px 3px 6px;">
+                  <SELECT id="TimeZoneSelect" name="TimeZoneSelect" size="1" onchange="ClickTimeZone()">
+<option value="01(GMT-12:00)">(GMT-12:00) International Date Line West</option>
+<option value="02(GMT-11:00)">(GMT-11:00) Midway Island, Samoa</option>
+<option value="03(GMT-10:00)">(GMT-10:00) Hawaii</option>
+<option value="04(GMT-09:00)">(GMT-09:00) Alaska</option>
+<option value="05(GMT-08:00)">(GMT-08:00) Pacific Time (US & Canada)</option>
+<option value="06(GMT-08:00)">(GMT-08:00) Tijuana, Baja California</option>
+<option value="07(GMT-07:00)">(GMT-07:00) Arizona</option>
+<option value="08(GMT-07:00)">(GMT-07:00) Chihuahua, La Paz, Mazatlan</option>
+<option value="09(GMT-07:00)">(GMT-07:00) Mountain Time (US & Canada)</option>
+<option value="10(GMT-06:00)">(GMT-06:00) Central America</option>
+<option value="11(GMT-06:00)">(GMT-06:00) Central Time (US & Canada)</option>
+<option value="12(GMT-06:00)">(GMT-06:00) Guadalajara, Mexico City, Monterrey</option>
+<option value="13(GMT-06:00)">(GMT-06:00) Saskatchewan</option>
+<option value="14(GMT-05:00)">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</option>
+<option value="15(GMT-05:00)">(GMT-05:00) Eastern Time (US & Canada)</option>
+<option value="16(GMT-05:00)">(GMT-05:00) Indiana (East)</option>
+<option value="17(GMT-04:30)">(GMT-04:30) Caracas</option>
+<option value="18(GMT-04:00)">(GMT-04:00) Atlantic Time (Canada)</option>
+<option value="19(GMT-04:00)">(GMT-04:00) La Paz, Georgetown</option>
+<option value="20(GMT-04:00)">(GMT-04:00) Manaus</option>
+<option value="22(GMT-03:30)">(GMT-03:30) Newfoundland</option>
+<option value="21(GMT-03:00)">(GMT-03:00) Santiago</option>
+<option value="23(GMT-03:00)">(GMT-03:00) Brasilia</option>
+<option value="24(GMT-03:00)">(GMT-03:00) Buenos Aires</option>
+<option value="25(GMT-03:00)">(GMT-03:00) Greenland</option>
+<option value="26(GMT-03:00)">(GMT-03:00) Montevideo</option>
+<option value="27(GMT-02:00)">(GMT-02:00) Mid-Atlantic</option>
+<option value="28(GMT-01:00)">(GMT-01:00) Azores</option>
+<option value="29(GMT-01:00)">(GMT-01:00) Cape Verde Is.</option>
+<option value="30(GMT)">(GMT) Casablanca, Monrovia, Reykjavik</option>
+<option value="31(GMT)">(GMT) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London</option>
+<option value="32(GMT+01:00)">(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
+<option value="33(GMT+01:00)">(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
+<option value="34(GMT+01:00)">(GMT+01:00) Brussels, Copenhagen, Madrid, Paris</option>
+<option value="35(GMT+01:00)">(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb</option>
+<option value="36(GMT+01:00)">(GMT+01:00) West Central Africa</option>
+<option value="37(GMT+02:00)">(GMT+02:00) Amman</option>
+<option value="38(GMT+02:00)">(GMT+02:00) Athens, Bucharest, Istanbul</option>
+<option value="39(GMT+02:00)">(GMT+02:00) Beirut</option>
+<option value="40(GMT+02:00)">(GMT+02:00) Cairo</option>
+<option value="41(GMT+02:00)">(GMT+02:00) Harare, Pretoria</option>
+<option value="42(GMT+02:00)">(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</option>
+<option value="43(GMT+02:00)">(GMT+02:00) Jerusalem</option>
+<option value="45(GMT+02:00)">(GMT+02:00) Windhoek</option>
+<option value="87(GMT+02:00)">(GMT+02:00) Kaliningrad</option>
+<option value="44(GMT+03:00)">(GMT+03:00) Minsk</option>
+<option value="46(GMT+03:00)">(GMT+03:00) Baghdad</option>
+<option value="47(GMT+03:00)">(GMT+03:00) Kuwait, Riyadh</option>
+<option value="48(GMT+03:00)">(GMT+03:00) Nairobi</option>
+<option value="49(GMT+03:00)">(GMT+03:00) Tbilisi</option>
+<option value="51(GMT+03:00)">(GMT+03:00) Moscow, St. Petersburg, Volgograd</option>
+<option value="50(GMT+03:30)">(GMT+03:30) Tehran</option>
+<option value="52(GMT+04:00)">(GMT+04:00) Abu Dhabi, Muscat</option>
+<option value="53(GMT+04:00)">(GMT+04:00) Baku</option>
+<option value="54(GMT+04:00)">(GMT+04:00) Yerevan</option>
+<option value="88(GMT+04:00)">(GMT+04:00) Samara</option>
+<option value="55(GMT+04:30)">(GMT+04:30) Kabul</option>
+<option value="56(GMT+05:00)">(GMT+05:00) Islamabad, Karachi, Tashkent</option>
+<option value="60(GMT+05:00)">(GMT+05:00) Ekaterinburg (Yekaterinburg)</option>
+<option value="57(GMT+05:30)">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
+<option value="58(GMT+05:30)">(GMT+05:30) Sri Jayawardenepura</option>
+<option value="59(GMT+05:45)">(GMT+05:45) Kathmandu</option>
+<option value="61(GMT+06:00)">(GMT+06:00) Almaty</option>
+<option value="62(GMT+06:00)">(GMT+06:00) Astana, Dhaka</option>
+<option value="85(GMT+06:00)">(GMT+06:00) Novosibirsk</option>
+<option value="63(GMT+06:30)">(GMT+06:30) Yangon (Rangoon)</option>
+<option value="64(GMT+07:00)">(GMT+07:00) Bangkok, Hanoi, Jakarta</option>
+<option value="65(GMT+07:00)">(GMT+07:00) Krasnoyarsk</option>
+<option value="66(GMT+08:00)">(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi</option>
+<option value="67(GMT+08:00)">(GMT+08:00) Ulaan Bataar</option>
+<option value="68(GMT+08:00)">(GMT+08:00) Kuala Lumpur, Singapore</option>
+<option value="69(GMT+08:00)">(GMT+08:00) Perth</option>
+<option value="70(GMT+08:00)">(GMT+08:00) Taipei</option>
+<option value="86(GMT+08:00)">(GMT+08:00) Irkutsk</option>
+<option value="71(GMT+09:00)">(GMT+09:00) Osaka, Sapporo, Tokyo</option>
+<option value="72(GMT+09:00)">(GMT+09:00) Seoul</option>
+<option value="75(GMT+09:00)">(GMT+09:00) Yakutsk</option>
+<option value="73(GMT+09:30)">(GMT+09:30) Adelaide</option>
+<option value="74(GMT+09:30)">(GMT+09:30) Darwin</option>
+<option value="76(GMT+10:00)">(GMT+10:00) Brisbane</option>
+<option value="77(GMT+10:00)">(GMT+10:00) Canberra, Melbourne, Sydney</option>
+<option value="78(GMT+10:00)">(GMT+10:00) Guam, Port Moresby</option>
+<option value="79(GMT+10:00)">(GMT+10:00) Hobart</option>
+<option value="80(GMT+10:00)">(GMT+10:00) Vladivostok, Magadan</option>
+<option value="81(GMT+11:00)">(GMT+11:00) Solomon Is., New Caledonia</option>
+<option value="82(GMT+12:00)">(GMT+12:00) Auckland, Wellington</option>
+<option value="83(GMT+12:00)">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
+<option value="89(GMT+12:00)">(GMT+12:00) Anadyr</option>
+<option value="84(GMT+13:00)">(GMT+13:00) Nuku'alofa</option>
+                  </select>
+                </TD>
+              </TR>
+<!-----
+              <TR>
+                <TD>Daylight Saving</TD>
+                <TD>
+            		<input type=radio name=DSTEnable value=1 %%RadioOfDSTEnable(1);%% onclick="ClickDST()">Enable
+            		&nbsp;&nbsp;&nbsp;<input type=radio name=DSTEnable value=0 %%RadioOfDSTEnable(0);%% onclick="ClickDST()">Disable
+                </TD>
+              </TR>
+              <TR>
+                <TD></TD>
+                <TD style="padding: 3px 0px 3px 6px;">Offset&nbsp;:
+	              <INPUT type="HIDDEN" name="DSTOffset" value="%%DSTOffset();%%">
+            	  <SELECT id="OffsetSel" size="1" onchange="document.forms[0].DSTOffset.value = this.value">
+            	  <OPTION value=0>-2:00</OPTION>
+            	  <OPTION value=1>-1:30</OPTION>
+            	  <OPTION value=2>-1:00</OPTION>
+            	  <OPTION value=3>-0:30</OPTION>
+            	  <OPTION value=4>+0:30</OPTION>
+            	  <OPTION value=5>+1:00</OPTION>
+            	  <OPTION value=6>+1:30</OPTION>
+            	  <OPTION value=7>+2:00</OPTION>
+            	  </SELECT>
+                </TD>
+              </TR>
+        	  <TR>
+          	    <td></td>
+          	    <td>
+            	  <table id="id_box_dst" cellpadding="2" cellspacing="2">
+            	  <tr><td></td><td>Month</td><td>Week</td><td width=85>Day of Week</td><td>Time</td></tr>
+            	  <tr><td>Start</td>
+              	    <td>
+                      <INPUT type="HIDDEN" name="DSTStartMonth" value="%%DSTStartMonth();%%">
+                      <SELECT id="StartMonthSel" size="1" onchange="document.forms[0].DSTStartMonth.value = this.value">
+                      <OPTION value=0>Jan</OPTION>
+                      <OPTION value=1>Feb</OPTION>
+                      <OPTION value=2>Mar</OPTION>
+                      <OPTION value=3>Apr</OPTION>
+                      <OPTION value=4>May</OPTION>
+                      <OPTION value=5>Jun</OPTION>
+                      <OPTION value=6>Jul</OPTION>
+                      <OPTION value=7>Aug</OPTION>
+                      <OPTION value=8>Sep</OPTION>
+                      <OPTION value=9>Oct</OPTION>
+                      <OPTION value=10>Nov</OPTION>
+                      <OPTION value=11>Dec</OPTION>
+                      </SELECT>
+                    </td>
+                    <td>
+                      <INPUT type="HIDDEN" name="DSTStartWeek" value="%%DSTStartWeek();%%">
+                      <SELECT id="StartWeekSel" size="1" onchange="document.forms[0].DSTStartWeek.value = this.value">
+                      <OPTION value=0>1st</OPTION>
+                      <OPTION value=1>2nd</OPTION>
+                      <OPTION value=2>3rd</OPTION>
+                      <OPTION value=3>4th</OPTION>
+                      <OPTION value=4>5th</OPTION>
+                      <OPTION value=5>6th</OPTION>
+                      </SELECT>
+                    </td>
+                    <td>
+                      <INPUT type="HIDDEN" name="DSTStartDay" value="%%DSTStartDay();%%">
+                      <SELECT id="StartDaySel" size="1" onchange="document.forms[0].DSTStartDay.value = this.value">
+                      <OPTION value=0>Sun</OPTION>
+                      <OPTION value=1>Mon</OPTION>
+                      <OPTION value=2>Tue</OPTION>
+                      <OPTION value=3>Wed</OPTION>
+                      <OPTION value=4>Thu</OPTION>
+                      <OPTION value=5>Fri</OPTION>
+                      <OPTION value=6>Sat</OPTION>
+                      </SELECT>
+                    </td>
+                    <td>
+                      <INPUT type="HIDDEN" name="DSTStartTime" value="%%DSTStartTime();%%">
+                      <SELECT id="StartTimeSel" size="1" onchange="document.forms[0].DSTStartTime.value = this.value">
+                      <OPTION value=0>12 am</OPTION>
+                      <OPTION value=1>1 am</OPTION>
+                      <OPTION value=2>2 am</OPTION>
+                      <OPTION value=3>3 am</OPTION>
+                      <OPTION value=4>4 am</OPTION>
+                      <OPTION value=5>5 am</OPTION>
+                      <OPTION value=6>6 am</OPTION>
+                      <OPTION value=7>7 am</OPTION>
+                      <OPTION value=8>8 am</OPTION>
+                      <OPTION value=9>9 am</OPTION>
+                      <OPTION value=10>10 am</OPTION>
+                      <OPTION value=11>11 am</OPTION>
+                      <OPTION value=12>12 pm</OPTION>
+                      <OPTION value=13>1 pm</OPTION>
+                      <OPTION value=14>2 pm</OPTION>
+                      <OPTION value=15>3 pm</OPTION>
+                      <OPTION value=16>4 pm</OPTION>
+                      <OPTION value=17>5 pm</OPTION>
+                      <OPTION value=18>6 pm</OPTION>
+                      <OPTION value=19>7 pm</OPTION>
+                      <OPTION value=20>8 pm</OPTION>
+                      <OPTION value=21>9 pm</OPTION>
+                      <OPTION value=22>10 pm</OPTION>
+                      <OPTION value=23>11 pm</OPTION>
+                      </SELECT>
+                    </td>
+                  </tr>
+                  <tr><td>End</td>
+                    <td>
+                      <INPUT type="HIDDEN" name="DSTEndMonth" value="%%DSTEndMonth();%%">
+                      <SELECT id="EndMonthSel" size="1" onchange="document.forms[0].DSTEndMonth.value = this.value">
+                      <OPTION value=0>Jan</OPTION>
+                      <OPTION value=1>Feb</OPTION>
+                      <OPTION value=2>Mar</OPTION>
+                      <OPTION value=3>Apr</OPTION>
+                      <OPTION value=4>May</OPTION>
+                      <OPTION value=5>Jun</OPTION>
+                      <OPTION value=6>Jul</OPTION>
+                      <OPTION value=7>Aug</OPTION>
+                      <OPTION value=8>Sep</OPTION>
+                      <OPTION value=9>Oct</OPTION>
+                      <OPTION value=10>Nov</OPTION>
+                      <OPTION value=11>Dec</OPTION>
+                      </SELECT>
+                    </td>
+                    <td>
+                      <INPUT type="HIDDEN" name="DSTEndWeek" value="%%DSTEndWeek();%%">
+                      <SELECT id="EndWeekSel" size="1" onchange="document.forms[0].DSTEndWeek.value = this.value">
+                      <OPTION value=0>1st</OPTION>
+                      <OPTION value=1>2nd</OPTION>
+                      <OPTION value=2>3rd</OPTION>
+                      <OPTION value=3>4th</OPTION>
+                      <OPTION value=4>5th</OPTION>
+                      <OPTION value=5>6th</OPTION>
+                      </SELECT>
+                    </td>
+                    <td>
+                      <INPUT type="HIDDEN" name="DSTEndDay" value="%%DSTEndDay();%%">
+                      <SELECT id="EndDaySel" size="1" onchange="document.forms[0].DSTEndDay.value = this.value">
+                      <OPTION value=0>Sun</OPTION>
+                      <OPTION value=1>Mon</OPTION>
+                      <OPTION value=2>Tue</OPTION>
+                      <OPTION value=3>Wed</OPTION>
+                      <OPTION value=4>Thu</OPTION>
+                      <OPTION value=5>Fri</OPTION>
+                      <OPTION value=6>Sat</OPTION>
+                      </SELECT>
+                    </td>
+                    <td>
+                      <INPUT type="HIDDEN" name="DSTEndTime" value="%%DSTEndTime();%%">
+                      <SELECT id="EndTimeSel" size="1" onchange="document.forms[0].DSTEndTime.value = this.value">
+                      <OPTION value=0>12 am</OPTION>
+                      <OPTION value=1>1 am</OPTION>
+                      <OPTION value=2>2 am</OPTION>
+                      <OPTION value=3>3 am</OPTION>
+                      <OPTION value=4>4 am</OPTION>
+                      <OPTION value=5>5 am</OPTION>
+                      <OPTION value=6>6 am</OPTION>
+                      <OPTION value=7>7 am</OPTION>
+                      <OPTION value=8>8 am</OPTION>
+                      <OPTION value=9>9 am</OPTION>
+                      <OPTION value=10>10 am</OPTION>
+                      <OPTION value=11>11 am</OPTION>
+                      <OPTION value=12>12 pm</OPTION>
+                      <OPTION value=13>1 pm</OPTION>
+                      <OPTION value=14>2 pm</OPTION>
+                      <OPTION value=15>3 pm</OPTION>
+                      <OPTION value=16>4 pm</OPTION>
+                      <OPTION value=17>5 pm</OPTION>
+                      <OPTION value=18>6 pm</OPTION>
+                      <OPTION value=19>7 pm</OPTION>
+                      <OPTION value=20>8 pm</OPTION>
+                      <OPTION value=21>9 pm</OPTION>
+                      <OPTION value=22>10 pm</OPTION>
+                      <OPTION value=23>11 pm</OPTION>
+                      </SELECT>
+                    </td>
+                  </tr>
+                  </table>
+                </td>
+              </TR>
+----->
+              </table><br><br>
+              <input type="button" value="Back" onclick="id_srv.style.display='';id_time.style.display='none'">
+              <input type="button" value="Next" onclick="id_time.style.display='none';id_list.style.display='';chk_msg();">
+              <input type="button" value="Cancel" onclick='loadurl("wizard.htm")'>
+            </center>
+          </div>
+        </div>
+
+        <div id="id_list" style="display:none"><br><br>
+          <div id=box_header>
+            <h1>step 5: Setup complete</h1>  
+            Here is a summary of your camera settings. Click <b>Back</b> to modify the settings, or click <b>Apply</b> if all settings are correct. It is recommended you write down this information for future access or reference.<br><br>
+            <center>
+              <table align="center">
+              <TR>
+                <TD width=110>&#12288;</TD>
+                <TD width=115>IP Address</TD>
+                <TD width=298><DIV id=id_ipaddr></DIV></TD>
+              </TR>
+              <TR>
+                <TD width=110>&#12288;</TD>
+                <TD width=115>IP Camera Name</TD>
+                <TD width=298><DIV id=id_camera_name></DIV></TD>
+              </TR>
+              <TR>
+                <TD width=110>&#12288;</TD>
+                <TD width=115>Time Zone</TD>
+                <TD width=298><DIV id=id_timezone></DIV></TD>
+              </TR>
+              <TR>
+                <TD width=110>&#12288;</TD>
+                <TD width=115>DDNS</TD>
+                <TD width=298><DIV id=id_ddns_msg></DIV></TD>
+              </TR>
+              </table><br><br>
+              <input type="hidden" name="ConfigSystemWizard" value="Save">
+              <input type="button" value="Back" onclick="id_time.style.display='';id_list.style.display='none'">
+              <input type="button" value="Apply" onclick="ClickSubmit()">
+              <input type="button" value="Cancel" onclick='loadurl("wizard.htm")'>
+            </center>
+          </div>
+        </div>
+</FORM>
+      </td>   
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+
+
+<table id="footer_container" border="0" cellpadding="0" cellspacing="0" width="838" align="center">
+<tr>
+  <td width="125" align="center">&nbsp;&nbsp;<img src="security.gif" width="114" height="35"></td>
+  <td width="10">&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+</table><br>
+<div align="center"><FONT color=#ffffff>Copyright <script language="Javascript">Copyright(2010);</script>, D-Link Corporation / D-Link Systems, Inc. All rights reserved.</font></div>
+<br>
+</Form>
+</body>
+</html>
+
+<FORM id="redir" name="redir" ACTION="/" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="">
+<input type="hidden" name="ReplyErrorPage" value="">
+</Form>
+

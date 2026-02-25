@@ -1,0 +1,14 @@
+[webdirectory-demo-links]
+
+&#091;webdirectory-buttons&#093;
+
+[webdirectory-buttons]
+
+&#091;webdirectory-buttons hide_button_text=1&#093;
+
+[webdirectory-buttons hide_button_text=1]
+
+Single listings pages contain more buttons, you can select which of them to display in "buttons" parameter. By default all buttons will be displayed.
+&#091;webdirectory-buttons buttons="submit,claim,favourites,edit,print,bookmark,pdf"&#093;
+
+[webdirectory-buttons buttons="submit,claim,favourites,edit,print,bookmark,pdf"]

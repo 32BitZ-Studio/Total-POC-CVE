@@ -1,0 +1,18 @@
+#wcsearch-ajax-loader-overlay {
+	left: auto;
+	right: 0;
+}
+.wcsearch-loader:before {
+	left: auto;
+	right: calc(50% - 20px);
+}
+.wcsearch-search-input-loader:before {
+	left: auto;
+	right: 50%;
+	margin-right: -12px;
+	margin-left: 0;
+}
+.wcsearch-ajax-iloader > div {
+	margin-right: 3px;
+	margin-left: 0;
+}

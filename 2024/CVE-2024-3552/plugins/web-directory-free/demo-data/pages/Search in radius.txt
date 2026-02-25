@@ -1,0 +1,9 @@
+[webdirectory-demo-links]
+
+<div class="w2dc-columns-panel"><div class="w2dc-column">[webdirectory-source]</div></div>
+
+<div class="w2dc-entry">
+[webdirectory-search custom_home="1" form_id="Search in radius"]
+[webdirectory-map custom_home="1" radius_circle="1" start_address="Los Angeles, CA, USA"]
+[webdirectory custom_home="1"]
+</div>

@@ -1,0 +1,6 @@
+[webdirectory-demo-links]
+
+<div class="w2dc-columns-panel"><div class="w2dc-column">[webdirectory-source]</div></div>
+
+<div class="w2dc-columns-panel"><div class="w2dc-column-left">[webdirectory custom_home="1" listings_view_type="list"]</div>
+<div class="w2dc-column-right">[webdirectory-search custom_home="1" form_id="More filters"]</div></div>

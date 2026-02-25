@@ -1,0 +1,49 @@
+.w2dc-content {
+	.ui-slider .ui-slider-handle:before,
+	.ui-slider .ui-slider-handle:after {
+		content: none;
+	}
+	.ui-slider .ui-slider-handle:last-child {
+		transform: none;
+	}
+	.ui-slider .ui-slider-handle {
+		z-index: 1 !important;
+		cursor: pointer;
+	}
+	.ui-widget-overlay {
+	    background-repeat: repeat !important;
+		z-index: 5 !important;
+	}
+	.ui-slider.ui-slider-horizontal .ui-widget-header {
+		background: none;
+		background-color: $secondary-color;
+	}
+	.ui-slider.ui-slider-horizontal,
+	.ui-slider.ui-slider-horizontal .ui-slider-range {
+		height: 6px;
+		top: -1px;
+	}
+	.ui-slider-horizontal .ui-slider-range-min {
+		left: -1px;
+	}
+	.ui-slider.ui-slider-horizontal {
+		margin: 20px 0;
+	}
+	.ui-slider .ui-slider-handle.ui-corner-all {
+		top: -13px;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+	}
+	.ui-slider.ui-widget-content .ui-slider-handle.ui-state-default,
+	.ui-slider.ui-widget-content .ui-slider-handle.ui-state-default:focus,
+	.ui-slider.ui-widget-content .ui-slider-handle.ui-state-default:active,
+	.ui-slider.ui-widget-content .ui-slider-handle.ui-state-focus,
+	.ui-slider.ui-widget-content .ui-slider-handle.ui-state-hover {
+		border: 1px solid $secondary-color;
+		border-width: 1px;
+		background: none;
+		background-color: $primary-color;
+		font-weight: bold;
+	}
+}

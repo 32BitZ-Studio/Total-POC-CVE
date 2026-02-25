@@ -1,0 +1,152 @@
+<html>
+<head>
+<meta content="text/html; charset=big5" http-equiv=Content-Type>
+<style type=text/css>
+.maintext {font-family: "Arial", "Helvetica", "sans-serif";font-size: 12px;}
+.spacetext {font-size: 10px;}
+.buttontext {font-size: 6px;}
+.blue {background-color: #b6caf0;font-family: "Arial", "Helvetica", "sans-serif";font-size: 12px;font-weight: bold;}
+</style>
+<script language="Javascript" SRC="function.js?cidx=%%ReleaseTime();%%"></script>
+<script language="Javascript">
+//if (top != self) {
+//    top.location = self.location;
+//}
+</script>
+<script language="Javascript">
+function InitAUTO()
+{
+  frm = document.forms[0];
+  if ((frm.Mirror.value & 0x01) == 0x01)
+     frm.TmpMirror1.checked = true;
+  else
+     frm.TmpMirror1.checked = false;
+  if ((frm.Mirror.value & 0x02) == 0x02)
+     frm.TmpMirror2.checked = true;
+  else
+     frm.TmpMirror2.checked = false;
+}
+function ClickMirror()
+{
+  frm = document.forms[0];
+
+  frm.Mirror.value = 0;
+  if (frm.TmpMirror1.checked)
+     frm.Mirror.value |= 0x01;
+  if (frm.TmpMirror2.checked)
+     frm.Mirror.value |= 0x02;
+}
+function ClickCancel()
+{
+  javascript:document.forms[0].reset();
+  InitAUTO();
+}
+</script>
+</head>
+
+<body bgcolor="white" topmargin=0>
+<FORM ACTION="/setSystemStream" METHOD="POST" autocomplete="off">
+<input type="hidden" name="ReplySuccessPage" value="setvdo.htm">
+<input type="hidden" name="ReplyErrorPage" value="errrvdo.htm">
+<input type="hidden" name="Mirror" value="%%Mirror();%%">
+<table cellspacing=0 cellpadding=3 BORDER=0 width=100% class=maintext>
+<TR><TD class=blue>Video Setting</TD></TR>
+</table>
+<table cellspacing=0 cellpadding=3 BORDER=0 width=100% class=maintext>
+<TR>
+  <TD width=22%>&nbsp;Video Resolution</TD>
+  <TD width=3%>:</TD>
+  <TD>
+    <input type=radio name=VideoResolution value=0 %%RadioOfVideoResolution(0);%%>160 x 120
+    &nbsp;&nbsp;<input type=radio name=VideoResolution value=1 %%RadioOfVideoResolution(1);%%>320 x 240
+    &nbsp;&nbsp;<input type=radio name=VideoResolution value=2 %%RadioOfVideoResolution(2);%%>640 x 480
+  </TD>
+</TR>
+<TR>
+  <TD>&nbsp;Compression Rate</TD>
+  <TD>:</TD>
+  <TD>
+    <input type=radio name=CompressionRate value=0 %%RadioOfCompressionRate(0);%%>Very Low
+    &nbsp;&nbsp;<input type=radio name=CompressionRate value=1 %%RadioOfCompressionRate(1);%%>Low
+    &nbsp;&nbsp;<input type=radio name=CompressionRate value=2 %%RadioOfCompressionRate(2);%%>Medium
+    &nbsp;&nbsp;<input type=radio name=CompressionRate value=3 %%RadioOfCompressionRate(3);%%>High
+    &nbsp;&nbsp;<input type=radio name=CompressionRate value=4 %%RadioOfCompressionRate(4);%%>Very High
+  </TD>
+</TR>
+<TR>
+  <TD>&nbsp;Frame Rate</TD>
+  <TD>:</TD>
+  <TD>
+    <input type=radio name=FrameRate value=1 %%RadioOfFrameRate(1);%%>1
+    &nbsp;&nbsp;<input type=radio name=FrameRate value=5 %%RadioOfFrameRate(5);%%>5
+    &nbsp;&nbsp;<input type=radio name=FrameRate value=7 %%RadioOfFrameRate(7);%%>7
+    &nbsp;&nbsp;<input type=radio name=FrameRate value=15 %%RadioOfFrameRate(15);%%>15
+    &nbsp;&nbsp;<input type=radio name=FrameRate value=20 %%RadioOfFrameRate(20);%%>20
+    &nbsp;&nbsp;<input type=radio name=FrameRate value=30 %%RadioOfFrameRate(30);%%>30
+    &nbsp;&nbsp;<input type=radio name=FrameRate value=0 %%RadioOfFrameRate(0);%%>Auto
+    &nbsp;&nbsp;(Frames/Sec.)
+  </TD>
+</TR>
+<TR>
+  <TD>&nbsp;Brightness Control</TD>
+  <TD>:</TD>
+  <TD>&nbsp;
+    <INPUT type="button" value=" -10" onclick="if (parseInt(BrightnessControl.value) > 10) {BrightnessControl.value=parseInt(BrightnessControl.value)-10}">
+    <INPUT type="button" value=" -1" onclick="if (parseInt(BrightnessControl.value) > 1) {BrightnessControl.value=parseInt(BrightnessControl.value)-1}">
+    <INPUT size=3 name=BrightnessControl value=%%BrightnessControl();%% onChange="if ((parseInt(BrightnessControl.value)>128) || (parseInt(BrightnessControl.value)<1)) {BrightnessControl.value=64}">
+    <INPUT type="button" value=" +1" onclick="if (parseInt(BrightnessControl.value) < 128) {BrightnessControl.value=parseInt(BrightnessControl.value)+1}">
+    <INPUT type="button" value="+10" onclick="if (parseInt(BrightnessControl.value) < 119) {BrightnessControl.value=parseInt(BrightnessControl.value)+10}">
+  </TD>
+</TR>
+<TR>
+  <TD>&nbsp;Contrast Control</TD>
+  <TD>:</TD>
+  <TD>&nbsp;
+    <INPUT type="button" value=" -10" onclick="if (parseInt(ContrastControl.value) > 10) {ContrastControl.value=parseInt(ContrastControl.value)-10}">
+    <INPUT type="button" value=" -1" onclick="if (parseInt(ContrastControl.value) > 1) {ContrastControl.value=parseInt(ContrastControl.value)-1}">
+    <INPUT size=3 name=ContrastControl value=%%ContrastControl();%% onChange="if ((parseInt(ContrastControl.value)>128) || (parseInt(ContrastControl.value)<1)) {ContrastControl.value=64}">
+    <INPUT type="button" value=" +1" onclick="if (parseInt(ContrastControl.value) < 128) {ContrastControl.value=parseInt(ContrastControl.value)+1}">
+    <INPUT type="button" value="+10" onclick="if (parseInt(ContrastControl.value) < 119) {ContrastControl.value=parseInt(ContrastControl.value)+10}">
+  </TD>
+</TR>
+<TR>
+  <TD>&nbsp;Saturation Control</TD>
+  <TD>:</TD>
+  <TD>&nbsp;
+    <INPUT type="button" value=" -10" onclick="if (parseInt(SaturationControl.value) > 10) {SaturationControl.value=parseInt(SaturationControl.value)-10}">
+    <INPUT type="button" value=" -1" onclick="if (parseInt(SaturationControl.value) > 1) {SaturationControl.value=parseInt(SaturationControl.value)-1}">
+    <INPUT size=3 name=SaturationControl value=%%SaturationControl();%% onChange="if ((parseInt(SaturationControl.value)>128) || (parseInt(SaturationControl.value)<1)) {SaturationControl.value=64}">
+    <INPUT type="button" value=" +1" onclick="if (parseInt(SaturationControl.value) < 128) {SaturationControl.value=parseInt(SaturationControl.value)+1}">
+    <INPUT type="button" value="+10" onclick="if (parseInt(SaturationControl.value) < 119) {SaturationControl.value=parseInt(SaturationControl.value)+10}">
+  </TD>
+</TR>
+<TR>
+  <TD>&nbsp;Light Frequency</TD>
+  <TD>:</TD>
+  <TD>
+    <input type=radio name=LightFrequency value=0 %%RadioOfLightFrequency(0);%%>50 Hz
+    &nbsp;&nbsp;<input type=radio name=LightFrequency value=1 %%RadioOfLightFrequency(1);%%>60 Hz
+  </TD>
+</TR>
+<TR>
+  <TD>&nbsp;Mirror</TD>
+  <TD>:</TD>
+  <TD><input type="checkbox" id="TmpMirror1" onclick="ClickMirror()"></TD>
+</TR>
+<TR>
+  <TD>&nbsp;Flip</TD>
+  <TD>:</TD>
+  <TD><input type="checkbox" id="TmpMirror2" onclick="ClickMirror()"></TD>
+</TR>
+</table>
+<p align=right>
+  <input type="hidden" name="ConfigSystemStream" value="Save">
+  <a href=javascript:document.forms[0].submit()><IMG src=FApply.jpg border=0></a>
+  <img src=FCancel.jpg border=0 onclick="ClickCancel()">
+</p>
+</Form>
+</body>
+<script language="Javascript">
+InitAUTO();
+</script>
+</html>

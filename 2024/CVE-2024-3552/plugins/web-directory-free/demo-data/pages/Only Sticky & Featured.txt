@@ -1,0 +1,12 @@
+[webdirectory-demo-links]
+
+[webdirectory-source]
+
+Display all Sticky & Featured listings by 2 listings per page. Hide counter and sorter.
+
+<strong>Shortcodes of this page:</strong>
+[webdirectory-listings perpage="2" sticky_featured="1" hide_order="1" hide_count="1"]
+
+[/webdirectory-source]
+
+[webdirectory-listings perpage="2" sticky_featured="1" hide_order="1" hide_count="1"]

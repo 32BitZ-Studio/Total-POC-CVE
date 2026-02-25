@@ -1,0 +1,19 @@
+div.Tokenize ul.TokensContainer {
+    padding: 0 0 10px 5px;
+}
+div.Tokenize ul.TokensContainer li.Token,
+div.Tokenize ul.TokensContainer li.TokenSearch {
+    margin: 5px 5px 0 0;
+	float: right;
+}
+div.Tokenize ul.TokensContainer li.Placeholder {
+    padding: 5px 5px 0 0;
+}
+div.Tokenize ul.TokensContainer li.Token a.Close {
+    margin: 1px 5px 0 0;
+}
+div.Tokenize ul.Dropdown {
+    -webkit-border-radius: 0 6px 6px 0;
+    -moz-border-radius: 0 6px 6px 0;
+    border-radius: 0 6px 6px 0;
+}

@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Version Information</title>
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+<meta content="text/html; charset=big5" http-equiv=Content-Type>
+</head>
+<BODY text=#000000 bgColor=#ffffff><STRONG>
+<P><FONT size=6>%%ModelName();%%</FONT> Version Information</P><br>
+<P>
+ <br><font size="+0">v%%FirmwareVersion();%% Build %%FirmwareVersion(2);%%</font> - 
+ <font size="+0">%%ReleaseDate();%%</font><br>
+</P>
+<script language="Javascript">
+    if (%%CMSDProject();%%) {
+        document.write("<br><P>Project : CMSD</P><br>");
+    }
+    if (%%CMXJProject();%%) {
+        document.write("<br><P>Project : CMXJ</P><br>");
+    }
+</script>
+<br><br><A href="home.htm" target=_top>Back</A> 
+</STRONG>
+</body>
+</html>
