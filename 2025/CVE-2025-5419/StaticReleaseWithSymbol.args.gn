@@ -1,0 +1,15 @@
+is_component_build = false
+is_debug = false
+symbol_level = 2
+blink_symbol_level = 2
+v8_symbol_level = 2
+perfetto_force_dcheck = "off"
+dcheck_always_on = false
+v8_enable_backtrace = true
+v8_enable_fast_mksnapshot = true
+v8_enable_slow_dchecks = false
+v8_optimized_debug = false
+v8_enable_disassembler = true
+v8_enable_object_print = true
+v8_enable_verify_heap = true
+enable_cet_shadow_stack = false

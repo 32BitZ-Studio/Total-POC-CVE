@@ -1,0 +1,76 @@
+# Test script to verify logrus DoS vulnerability across multiple versions
+# Tests: v1.8.1, v1.8.2, v1.8.3, v1.9.0, v1.9.1, v1.9.2, v1.9.3
+
+$versions = @("v1.8.1", "v1.8.2", "v1.8.3", "v1.9.0", "v1.9.1", "v1.9.2", "v1.9.3")
+$results = @()
+
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "logrus DoS Vulnerability Version Test" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host ""
+
+foreach ($version in $versions) {
+    Write-Host "Testing version: $version" -ForegroundColor Yellow
+    Write-Host "----------------------------------------" -ForegroundColor Gray
+    
+    # Clean up previous version
+    if (Test-Path "go.mod") {
+        Remove-Item "go.mod" -Force
+    }
+    if (Test-Path "go.sum") {
+        Remove-Item "go.sum" -Force
+    }
+    
+    # Initialize and get specific version
+    go mod init poclogrus 2>&1 | Out-Null
+    go get "github.com/sirupsen/logrus@$version" 2>&1 | Out-Null
+    
+    # Run PoC and capture output
+    $output = go run .\poc_logrus_dos_improved.go 2>&1 | Out-String
+    
+    # Check if vulnerable
+    # The error message appears in all versions, but the key is whether Writer becomes unusable
+    $hasError = $output -match "bufio.Scanner: token too long"
+    $writerBroken = $output -match "Writer is broken|Writer\(\) is no longer functional|io: read/write on closed pipe"
+    $writerWorks = $output -match "Second write succeeded|Writer\(\) is still functional"
+    
+    # Vulnerable if Writer is broken (even if error appears)
+    # Fixed if Writer continues to work (even if error is logged)
+    $status = if ($writerBroken) { 
+        "VULNERABLE" 
+    } elseif ($writerWorks) {
+        "FIXED"
+    } else {
+        # Fallback: if error appears but we can't determine Writer status
+        if ($hasError) { "UNCLEAR" } else { "FIXED" }
+    }
+    
+    $color = if ($status -eq "VULNERABLE") { 
+        "Red" 
+    } else { 
+        "Green" 
+    }
+    
+    Write-Host "Status: $status" -ForegroundColor $color
+    Write-Host ""
+    
+    # Store result
+    $results += [PSCustomObject]@{
+        Version = $version
+        Status = $status
+        HasError = $hasError
+        WriterBroken = $writerBroken
+        WriterWorks = $writerWorks
+    }
+    
+    # Clean up for next iteration
+    Start-Sleep -Seconds 1
+}
+
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "Test Summary" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host ""
+
+$results | Format-Table -AutoSize
+

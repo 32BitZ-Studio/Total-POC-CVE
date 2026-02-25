@@ -1,0 +1,240 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"Project-Id-Version: WP01\n"
+"POT-Creation-Date: 2020-09-02 05:01+0000\n"
+"PO-Revision-Date: 2021-01-08 19:18+0000\n"
+"Last-Translator: \n"
+"Language-Team: Русский\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: wp01.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.4.3; wp-5.5.1"
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://wp01.ru"
+msgstr "https://wp01.ru"
+
+#: content/admin-page.php:21
+msgid "Online версия инструкций:"
+msgstr "Online версия инструкций:"
+
+#. Author of the plugin
+msgid "WP01"
+msgstr "WP01"
+
+#: inc/class-wp01.php:254
+msgid "Активация "
+msgstr "Инструкция по настройке"
+
+#: inc/class-wp01-content.php:25
+msgid "Активен"
+msgstr "Активен"
+
+#: inc/class-wp01-installer.php:69 inc/class-wp01-installer.php:184
+msgid "Активировать"
+msgstr "Активировать"
+
+#: inc/class-wp01.php:253
+msgid "Активировать "
+msgstr "Активировать"
+
+#: inc/class-wp01-installer.php:58
+msgid "Активировать аналог"
+msgstr "Активировать аналог"
+
+#: inc/class-wp01-table.php:54
+msgid "Аналогов нет"
+msgstr "Аналогов нет"
+
+#: content/admin-page-nav.php:22
+msgid "В меню \"Настройки\""
+msgstr "В меню \"Настройки\""
+
+#: content/admin-page-nav.php:19
+msgid "В меню администратора"
+msgstr "В меню администратора"
+
+#: content/admin-page-nav.php:39
+msgid "Выбор языка в плагине влияет на отображение языка для профиля в целом"
+msgstr "Выбор языка в плагине влияет на отображение языка для профиля в целом"
+
+#: inc/class-wp01-content.php:80
+msgid "Высокая"
+msgstr "Высокая"
+
+#: inc/class-wp01.php:255
+msgid "Деактивация "
+msgstr "Деактивация"
+
+#: inc/class-wp01-installer.php:84 inc/class-wp01-installer.php:169
+msgid "Деактивировать"
+msgstr "Деактивировать"
+
+#: inc/class-wp01-installer.php:73
+msgid "Деактивировать аналог"
+msgstr "Деактивировать аналог"
+
+#: content/admin-page.php:42
+msgid "Есть вопросы, нужна помощь?"
+msgstr "Есть вопросы, нужна помощь?"
+
+#: content/admin-page.php:36
+msgid "Заказать улучшения за деньги"
+msgstr "Заказать улучшения за деньги"
+
+#: inc/class-wp01-table.php:65
+msgid "Инструкция по настройке"
+msgstr "Инструкция по настройке"
+
+#: inc/class-wp01.php:298
+msgid "Кофе разработчикам"
+msgstr "Кофе разработчикам"
+
+#: inc/class-wp01.php:297 content/admin-page-nav.php:9
+msgid "Настройки"
+msgstr "Настройки"
+
+#: content/admin-page-nav.php:14
+msgid "Настройки плагина"
+msgstr "Настройки плагина"
+
+#: content/admin-page.php:34
+msgid "Не смогли разобраться?"
+msgstr "Не смогли разобраться?"
+
+#: inc/class-wp01-content.php:41
+msgid "Не установлен"
+msgstr "Не установлен"
+
+#: inc/class-wp01-content.php:80
+msgid "Низкая"
+msgstr "Низкая"
+
+#: inc/class-wp01-installer.php:90
+msgid "Опции аналога"
+msgstr "Опции аналога"
+
+#: inc/class-wp01-installer.php:151 inc/class-wp01-table.php:52
+msgid "Открыть"
+msgstr "Открыть"
+
+#: content/admin-page-nav.php:15
+msgid "Отображение плагина:"
+msgstr "Отображение плагина:"
+
+#: inc/class-wp01-table.php:51
+msgid "Отсутствует"
+msgstr "Отсутствует"
+
+#: content/admin-page.php:24
+#| msgid ""
+#| "Перед внедрением любых технических изменений, обновлением "
+#| "CMS/темы/переводов сайта создайте бэкап (шаг 2, или <a href=\"https:"
+#| "//plagin.wp01.ru/sozdanie-bekapa\" target=\"_blank\">Online</a>).<br> "
+#| "Если что-то пойдёт не так - воспользуйтесь <a href=\"https://plagin.wp01."
+#| "ru/vosstanovlenie-iz-bekapa\" target=\"_blank\">данной инструкцией</a>."
+msgid ""
+"Перед внедрением любых технических изменений, обновлением CMS/темы/плагинов "
+"сайта создайте бэкап (шаг 2, или <a href=\"https://plagin.wp01.ru/sozdanie-"
+"bekapa\" target=\"_blank\">Online</a>).<br> Если что-то пойдёт не так - "
+"воспользуйтесь <a href=\"https://plagin.wp01.ru/vosstanovlenie-iz-bekapa\" "
+"target=\"_blank\">данной инструкцией</a>."
+msgstr ""
+"Перед внедрением любых технических изменений, обновлением CMS/темы/плагинов "
+"сайта создайте бэкап (шаг 2, или <a href=\"https://plagin.wp01.ru/sozdanie-"
+"bekapa\" target=\"_blank\">Online</a>).<br> Если что-то пойдёт не так - "
+"воспользуйтесь <a href=\"https://plagin.wp01.ru/vosstanovlenie-iz-bekapa\" "
+"target=\"_blank\">данной инструкцией</a>."
+
+#: content/admin-page-nav.php:6
+msgid "Перейти к шагу"
+msgstr "Перейти к шагу"
+
+#. Description of the plugin
+msgid ""
+"Плагин для самостоятельного ускорения, seo оптимизации и защиты вашего "
+"WordPress сайта."
+msgstr ""
+"Плагин для самостоятельного ускорения, seo оптимизации и защиты вашего "
+"WordPress сайта."
+
+#: inc/class-wp01-table.php:109
+msgid "Полная"
+msgstr "Полная"
+
+#: content/admin-page-nav.php:4
+msgid "Предыдущий шаг"
+msgstr "Предыдущий шаг"
+
+#: inc/class-wp01-installer.php:99
+msgid "Скачать аналог"
+msgstr "Скачать аналог"
+
+#: content/admin-page-nav.php:45
+msgid "Следующий шаг"
+msgstr "Следующий шаг"
+
+#: content/admin-page-nav.php:28
+msgid "Сохранить изменения"
+msgstr "Сохранить изменения"
+
+#: inc/class-wp01.php:64
+#, php-format
+msgid ""
+"Спасибо за установку плагина “Улучшения от WP01”. Нажмите <a href=\"%s\">"
+"здесь</a>, чтобы произвести его настройку."
+msgstr ""
+"Спасибо за установку плагина “Улучшения от WP01”. Нажмите <a href=\"%s\">"
+"здесь</a>, чтобы произвести его настройку."
+
+#: inc/class-wp01-content.php:80
+msgid "Средняя"
+msgstr "Средняя"
+
+#: content/admin-page.php:45
+msgid "Страница поддержки плагина"
+msgstr "Страница поддержки плагина"
+
+#: inc/class-wp01-table.php:34
+msgid ""
+"Схожи по функционалу с рекомендованным плагином. Устанавливать если основной "
+"плагин работает не корректно"
+msgstr ""
+"Схожи по функционалу с рекомендованным плагином. Устанавливать если основной "
+"плагин работает не корректно."
+
+#. Name of the plugin
+#: inc/class-wp01.php:227 content/admin-page.php:14
+msgid "Улучшения от WP01"
+msgstr "Улучшения от WP01"
+
+#: inc/class-wp01-table.php:53
+msgid "Установлен аналог"
+msgstr "Установлен аналог"
+
+#: inc/class-wp01-content.php:39
+msgid "Установлен, не активирован"
+msgstr "Установлен, не активирован"
+
+#: inc/class-wp01-table.php:109
+msgid "Частичная"
+msgstr "Частичная"
+
+#: inc/class-wp01-table.php:65
+msgid "разрабатывается..."
+msgstr "разрабатывается..."

@@ -1,0 +1,2108 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Kubio @@buildversion@@\n"
+"Report-Msgid-Bugs-To: support@kubiobuilder.com\n"
+"Last-Translator: Kubio <support@kubiobuilder.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-03-06T17:53:01+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: kubio\n"
+"Plural-Forms: \n"
+
+#. Plugin Name of the plugin
+#: plugin.php
+msgid "@@plugin-name@@"
+msgstr "@@plugin-name@@"
+
+#. Plugin URI of the plugin
+#: plugin.php
+msgid "https://kubiobuilder.com"
+msgstr "https://kubiobuilder.com"
+
+#. Description of the plugin
+#: plugin.php
+msgid "Using the power of AI, Kubio gives you a head start by generating a first draft of your website, which you can further customize to your liking."
+msgstr "Grâce à l'intelligence artificielle, Kubio vous donne un coup de pouce en générant un premier jet de votre site web, que vous pouvez ensuite personnaliser à votre guise."
+
+#. Author of the plugin
+#: plugin.php
+msgid "ExtendThemes"
+msgstr "ExtendThemes"
+
+#. Author URI of the plugin
+#: plugin.php
+msgid "https://extendthemes.com"
+msgstr "https://extendthemes.com"
+
+#: build/block-library/blocks/menu/menu-items/index.php:145
+msgid "This block has no menu assigned."
+msgstr "Ce bloc n'a aucun menu attribué."
+
+#: build/block-library/blocks/menu/menu-items/index.php:146
+msgid "Edit this page to select a menu or delete this block."
+msgstr "Modifiez cette page pour choisir un menu ou supprimer ce bloc."
+
+#: build/block-library/blocks/menu/offscreen/index.php:56
+msgid "Mobile Menu"
+msgstr "Menu sur mobile"
+
+#. translators: %s - year month or day
+#: build/block-library/blocks/page-title/index.php:16
+msgid "Posts from %s"
+msgstr "Articles de %s"
+
+#. translators: %s - search term
+#: build/block-library/blocks/page-title/index.php:21
+msgid "Search results for: %s"
+msgstr "Résultats de recherche pour : %s"
+
+#. translators: %s - search term
+#: build/block-library/blocks/page-title/index.php:22
+msgid "Sorry! Page Not Found!"
+msgstr "Désolé ! Page non trouvée !"
+
+#. translators: %s - category
+#: build/block-library/blocks/page-title/index.php:25
+msgid "Posts in %s"
+msgstr "Articles dans %s - catégorie"
+
+#. translators: %s - author
+#: build/block-library/blocks/page-title/index.php:27
+msgid "Posts by %s"
+msgstr "Articles par %s"
+
+#. translators: %s - tag
+#: build/block-library/blocks/page-title/index.php:29
+msgid "Posts about %s"
+msgstr "Articles sur %s"
+
+#. translators: Yearly archive title. 1: Year
+#: build/block-library/blocks/page-title/index.php:75
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr "Y"
+
+#. translators: Monthly archive title. 1: Month name and year
+#: build/block-library/blocks/page-title/index.php:79
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr "Archive mensuelle %1$s"
+
+#. translators: Daily archive title. 1: Date
+#: build/block-library/blocks/page-title/index.php:83
+msgctxt "daily archives date format"
+msgid "F j, Y"
+msgstr "j F Y"
+
+#: build/block-library/blocks/page-title/index.php:87
+msgctxt "post format archive title"
+msgid "Asides"
+msgstr "Encadrés"
+
+#: build/block-library/blocks/page-title/index.php:89
+msgctxt "post format archive title"
+msgid "Galleries"
+msgstr "Galeries"
+
+#: build/block-library/blocks/page-title/index.php:91
+msgctxt "post format archive title"
+msgid "Images"
+msgstr "Images"
+
+#: build/block-library/blocks/page-title/index.php:93
+msgctxt "post format archive title"
+msgid "Videos"
+msgstr "Vidéos"
+
+#: build/block-library/blocks/page-title/index.php:95
+msgctxt "post format archive title"
+msgid "Quotes"
+msgstr "Citations"
+
+#: build/block-library/blocks/page-title/index.php:97
+msgctxt "post format archive title"
+msgid "Links"
+msgstr "Liens"
+
+#: build/block-library/blocks/page-title/index.php:99
+msgctxt "post format archive title"
+msgid "Statuses"
+msgstr "Statuts"
+
+#: build/block-library/blocks/page-title/index.php:101
+msgctxt "post format archive title"
+msgid "Audio"
+msgstr "Audio"
+
+#: build/block-library/blocks/page-title/index.php:103
+msgctxt "post format archive title"
+msgid "Chats"
+msgstr "Chats"
+
+#. translators: Post type archive title. 1: Post type name
+#: build/block-library/blocks/page-title/index.php:107
+msgid "Archives: %s"
+msgstr "Archives : %s"
+
+#. translators: Taxonomy term archive title. 1: Taxonomy singular name, 2: Current taxonomy term
+#: build/block-library/blocks/page-title/index.php:111
+msgid "%1$s: %2$s"
+msgstr "%1$s: %2$s"
+
+#: build/block-library/blocks/page-title/index.php:113
+msgid "Archives"
+msgstr "Archives"
+
+#: build/block-library/blocks/post-comments-form/index.php:26
+msgid "Comments are closed. This Post Comments Form block is still present here but is not visible on front-end."
+msgstr "Les commentaires sont fermés. Ce bloc de formulaire de commentaires de l'article est toujours présent ici mais n'est pas visible sur le front-end."
+
+#: build/block-library/blocks/post-comments/index.php:42
+#: build/block-library/index.js:37
+msgid "No responses yet"
+msgstr "Aucune réponse pour l’instant"
+
+#: build/block-library/blocks/post-comments/index.php:43
+#: build/block-library/index.js:37
+msgid "One response"
+msgstr "Une réponse"
+
+#: build/block-library/blocks/post-comments/index.php:44
+#: build/block-library/index.js:37
+msgid "{COMMENTS-COUNT} Responses"
+msgstr "{COMMENTS-COUNT} réponses"
+
+#: build/block-library/blocks/post-comments/index.php:45
+#: build/block-library/index.js:37
+msgid "Comments are closed"
+msgstr "Les commentaires sont fermés."
+
+#: build/block-library/blocks/post-excerpt/index.php:52
+#: build/block-library/index.js:37
+msgid "Pages do not support excerpt by default."
+msgstr "Les pages ne prennent pas en charge l'extrait par défaut."
+
+#: build/block-library/blocks/post-excerpt/index.php:53
+msgid "Edit this page and remove the current block or use it in a posts list."
+msgstr "Modifiez cette page et supprimez le bloc actuel ou utilisez-le dans une liste d'articles."
+
+#: build/block-library/blocks/post-title/index.php:35
+#: build/block-library/index.js:37
+msgid "(Post Title)"
+msgstr "(Titre de l'article)"
+
+#. translators: %s: social link value
+#: build/block-library/blocks/social-icons/index.php:44
+msgid "Social link: %s"
+msgstr "Lien social : %s"
+
+#: build/block-library/blocks/widgets-area/index.php:19
+msgid "Please choose a widget area to be displayed"
+msgstr "Veuillez choisir une zone de widget à afficher"
+
+#: build/block-library/blocks/widgets-area/index.php:23
+msgid "Widget area not found"
+msgstr "Zone de widgets non trouvée"
+
+#: lib/add-edit-in-kubio.php:93
+#: lib/add-edit-in-kubio.php:197
+#: lib/add-edit-in-kubio.php:364
+#: lib/filters/default-editor-overlay.php:156
+#: lib/kubio-editor.php:996
+#: build/block-library/index.js:13
+msgid "Edit with Kubio"
+msgstr "Modifier avec Kubio"
+
+#: lib/add-edit-in-kubio.php:145
+#: lib/full-site-editing/template-parts.php:156
+#: lib/full-site-editing/templates.php:276
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: lib/admin-pages/kubio-get-started.php:9
+msgid "Get started with Kubio"
+msgstr "Commencez avec Kubio"
+
+#: lib/admin-pages/kubio-get-started.php:11
+msgid "The supercharged block-based WordPress builder"
+msgstr "Le constructeur WordPress basé sur des blocs surpuissant"
+
+#: lib/admin-pages/kubio-get-started.php:25
+#: build/editor/index.js:21
+msgid "Starter sites"
+msgstr "Sites de démarrage"
+
+#: lib/admin-pages/kubio-get-started.php:27
+msgid "Beautiful starter sites with 1-click import"
+msgstr "De magnifiques sites de démarrage avec importation en un clic"
+
+#: lib/admin-pages/kubio-get-started.php:44
+#: build/editor/index.js:51
+#: build/pro/index.js:1
+msgid "Upgrade to PRO"
+msgstr "Passez à la version PRO"
+
+#: lib/admin-pages/kubio-get-started.php:46
+msgid "The first block-based WordPress builder"
+msgstr "Le premier constructeur WordPress basé sur des blocs"
+
+#: lib/admin-pages/kubio-get-started.php:100
+msgid "Unknown tab partial"
+msgstr "Partie d'onglet inconnue"
+
+#: lib/admin-pages/kubio-get-started.php:115
+msgid "Kubio - Get Started"
+msgstr "Kubio - Démarrer"
+
+#: lib/admin-pages/kubio-get-started.php:116
+msgid "Get Started"
+msgstr "Lancez-vous !"
+
+#: lib/admin-pages/kubio-get-started.php:126
+msgid "Kubio - Starter Sites"
+msgstr "Kubio - Sites de démarrage"
+
+#: lib/admin-pages/kubio-get-started.php:127
+msgid "Starter Sites"
+msgstr "Sites de démarrage"
+
+#: lib/admin-pages/main-page/demo-sites.php:13
+#: lib/kubio-editor.php:1245
+msgid "You need a higher level of permission."
+msgstr "Vous devez avoir des droits supérieurs."
+
+#: lib/admin-pages/main-page/demo-sites.php:16
+msgid "Current user is not allowed to import starter sites. This feature is available only for administrators"
+msgstr "Vous n'êtes pas autorisé à importer des sites de démarrage. Cette fonctionnalité est uniquement disponible pour les administrateurs"
+
+#: lib/admin-pages/main-page/demo-sites.php:31
+msgid "Retrieving starter sites..."
+msgstr "Récupération des sites de départ..."
+
+#: lib/admin-pages/main-page/demo-sites.php:50
+#: build/editor/index.js:23
+msgid "Preview"
+msgstr "Prévisualiser"
+
+#: lib/admin-pages/main-page/demo-sites.php:59
+#: build/editor/index.js:15
+msgid "Untitled"
+msgstr "Sans titre"
+
+#: lib/admin-pages/main-page/demo-sites.php:65
+#: lib/admin-pages/main-page/demo-sites.php:152
+msgid "Import site"
+msgstr "Importer un site"
+
+#: lib/admin-pages/main-page/demo-sites.php:72
+msgid "Try Online"
+msgstr "Essayer en ligne"
+
+#: lib/admin-pages/main-page/demo-sites.php:95
+#: build/editor/index.js:21
+msgid "You are about to import a demo site"
+msgstr "Vous êtes sur le point d'importer un site de démo"
+
+#: lib/admin-pages/main-page/demo-sites.php:98
+#: build/editor/index.js:21
+msgid "Current pages will be moved to trash. You can restore the content back at any time."
+msgstr "Les pages actuelles seront déplacées vers la corbeille. Vous pouvez restaurer le contenu à tout moment."
+
+#: lib/admin-pages/main-page/demo-sites.php:101
+#: build/editor/index.js:21
+msgid "Posts, pages, images, widgets, menus and other theme settings will get imported."
+msgstr "Les articles, les pages, les images, les widgets, les menus et les autres réglages du thème seront importés."
+
+#: lib/admin-pages/main-page/demo-sites.php:104
+msgid "Your current design will be completely overwritten by the new template. This process is irreversible. If you wish to be able to go back to the current design, please create a backup of your site before proceeding with the import."
+msgstr "Votre design actuel sera complètement écrasé par le nouveau modèle. Ce processus est irréversible. Si vous souhaitez pouvoir revenir à votre design actuel, veuillez créer une sauvegarde de votre site avant de procéder à l'importation."
+
+#: lib/admin-pages/main-page/demo-sites.php:110
+#: build/editor/index.js:21
+msgid "The following plugins will be installed as they are part of the demo"
+msgstr "Les plugins suivants seront installés car ils font partie de la démo"
+
+#: lib/admin-pages/main-page/demo-sites.php:121
+msgid "Installing required plugins"
+msgstr "Installation des plugins requis"
+
+#: lib/admin-pages/main-page/demo-sites.php:124
+msgid "Preparing for demo site import"
+msgstr "Préparation de l'importation du site de démonstration"
+
+#: lib/admin-pages/main-page/demo-sites.php:127
+msgid "Importing content"
+msgstr "Importation du contenu"
+
+#: lib/admin-pages/main-page/demo-sites.php:133
+msgid "Errors"
+msgstr "Erreurs"
+
+#: lib/admin-pages/main-page/demo-sites.php:143
+msgid "Available only with Kubio PRO"
+msgstr "Disponible uniquement avec Kubio PRO"
+
+#: lib/admin-pages/main-page/demo-sites.php:149
+#: build/block-editor/index.js:11
+#: build/block-editor/index.js:23
+#: build/block-editor/index.js:96
+#: build/block-library/index.js:19
+#: build/controls/index.js:35
+#: build/editor/index.js:1
+#: build/editor/index.js:7
+#: build/editor/index.js:21
+#: build/editor/index.js:31
+msgid "Cancel"
+msgstr "Annuler"
+
+#: lib/admin-pages/main-page/demo-sites.php:156
+msgid "Check all PRO features"
+msgstr "Voir toutes les fonctionnalités PRO"
+
+#: lib/admin-pages/main-page/demo-sites.php:164
+msgid "Demo site imported sucessfuly"
+msgstr "Site de démonstration importé avec succès"
+
+#: lib/admin-pages/main-page/demo-sites.php:170
+msgid "View site"
+msgstr "Voir le site"
+
+#: lib/admin-pages/main-page/demo-sites.php:174
+#: lib/admin-pages/pages.php:64
+msgid "Start editing"
+msgstr "Commencer l'édition"
+
+#: lib/admin-pages/main-page/demo-sites.php:205
+#: build/block-library/index.js:27
+#: build/block-library/index.js:29
+#: build/block-library/index.js:33
+#: build/block-library/index.js:37
+#: build/editor/index.js:21
+msgid "Active"
+msgstr "Actif"
+
+#: lib/admin-pages/main-page/demo-sites.php:206
+#: build/editor/index.js:21
+msgid "Installed"
+msgstr "Installé"
+
+#: lib/admin-pages/main-page/demo-sites.php:207
+msgid "Not Installed"
+msgstr "Non installé"
+
+#: lib/admin-pages/main-page/demo-sites.php:209
+msgid "Import stopped"
+msgstr "Import arrêté"
+
+#: lib/admin-pages/main-page/get-started.php:7
+msgid "Kubio Website"
+msgstr "Site web de Kubio"
+
+#: lib/admin-pages/main-page/get-started.php:12
+msgid "Kubio Documentation"
+msgstr "Documentation de Kubio"
+
+#: lib/admin-pages/main-page/get-started.php:17
+msgid "Talk to support"
+msgstr "Parlez au support"
+
+#: lib/admin-pages/main-page/get-started.php:22
+#: lib/admin-pages/main-page/get-started.php:61
+msgid "Connect with us"
+msgstr "Connecte-toi avec nous"
+
+#: lib/admin-pages/main-page/get-started.php:42
+msgid "Check out our 2 min getting started video"
+msgstr "Regardez notre vidéo de démarrage de 2 minutes"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:22
+msgid "Thank you for your interest in Kubio!"
+msgstr "Merci pour votre intérêt pour Kubio!"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:23
+msgid "Upgrading to Kubio PRO gives you access to advanced features and tools to create a truly professional website—effortlessly."
+msgstr "La mise à niveau vers Kubio PRO vous donne accès à des fonctionnalités avancées et des outils pour créer un site web vraiment professionnel, sans effort."
+
+#: lib/admin-pages/main-page/upgrade-pro.php:26
+msgid "How to Upgrade in 3 Simple Steps"
+msgstr "Comment mettre à jour en 3 étapes simples"
+
+#. translators: %s: Upgrade to Kubio PRO link.
+#: lib/admin-pages/main-page/upgrade-pro.php:32
+msgid "%s - Select the plan that fits your needs."
+msgstr "%s - Sélectionnez le plan qui correspond à vos besoins."
+
+#. translators: %s: Upgrade to Kubio PRO link.
+#: lib/admin-pages/main-page/upgrade-pro.php:33
+msgid "Purchase a Kubio PRO License"
+msgstr "Acheter une licence Kubio PRO"
+
+#. translators: %s: Download the Kubio PRO Plugin link.
+#: lib/admin-pages/main-page/upgrade-pro.php:41
+msgid "%s - A download link will be provided after purchase."
+msgstr "%s - Un lien de téléchargement sera fourni après l'achat."
+
+#. translators: %s: Download the Kubio PRO Plugin link.
+#: lib/admin-pages/main-page/upgrade-pro.php:42
+msgid "Download the Kubio PRO Plugin"
+msgstr "Téléchargez le plugin Kubio PRO"
+
+#. Translators: %1$s: Install & Activate, %2$s: Add New.
+#: lib/admin-pages/main-page/upgrade-pro.php:50
+msgid "%1$s - Upload the ZIP file via WordPress > Plugins > %2$s, then enter your license key to activate PRO features instantly."
+msgstr "%1$s - Téléchargez le fichier ZIP via WordPress > Extensions > %2$s, puis saisissez votre clé de licence pour activer instantanément les fonctionnalités PRO."
+
+#. Translators: %1$s: Install & Activate, %2$s: Add New.
+#: lib/admin-pages/main-page/upgrade-pro.php:51
+msgid "Install & Activate"
+msgstr "Installer et Activer"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:52
+msgid "Add New"
+msgstr "Ajouter"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:62
+msgid "Upgrade to Kubio PRO"
+msgstr "Passer à Kubio PRO"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:67
+msgid "Why Choose Kubio PRO?"
+msgstr "Pourquoi choisir Kubio PRO ?"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:68
+msgid "Upgrade now and enjoy the full power of Kubio PRO!"
+msgstr "Mettez à niveau maintenant et profitez pleinement de la puissance de Kubio PRO!"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:70
+msgid "<strong>AI-Powered Website Creation</strong> - Instantly generate pages, images, and text."
+msgstr "<strong>Création de site web alimentée par l'IA</strong> - Générez instantanément des pages, des images et du texte."
+
+#: lib/admin-pages/main-page/upgrade-pro.php:71
+msgid "<strong>50+ Advanced Blocks</strong> - Add sliders, pricing tables, carousels, and more."
+msgstr "<strong>50+ Blocs Avancés</strong> - Ajoutez des curseurs, des tableaux de prix, des carrousels et plus encore."
+
+#: lib/admin-pages/main-page/upgrade-pro.php:72
+msgid "<strong>340+ Pre-Designed Sections</strong> - Choose from professionally crafted layouts for faster design."
+msgstr "<strong>Plus de 340 sections pré-conçues</strong> - Choisissez parmi des mises en page professionnellement conçues pour un design plus rapide."
+
+#: lib/admin-pages/main-page/upgrade-pro.php:73
+msgid "<strong>Multiple Headers & Footers</strong> - Fully customize headers, footers, and templates."
+msgstr "<strong>En-têtes et pieds de page multiples</strong> - Personnalisez entièrement les en-têtes, pieds de page et modèles."
+
+#: lib/admin-pages/main-page/upgrade-pro.php:74
+msgid "<strong>Premium Support & Updates</strong> - We got you covered with priority support and continuous enhancements."
+msgstr "<strong>Support Premium & Mises à jour</strong> - Nous vous couvrons avec un support prioritaire et des améliorations continues."
+
+#: lib/admin-pages/pages.php:59
+#: build/pro/index.js:1
+msgid "Try PRO Online"
+msgstr "Essayer PRO en ligne"
+
+#. translators: %s: spinner icon
+#: lib/AI/admin-tab/partials/main.php:17
+msgid "%s Retrieving data..."
+msgstr "%s Récupération des données..."
+
+#: lib/AI/admin-tab/tab.php:25
+#: build/editor/index.js:55
+msgid "Kubio AI"
+msgstr "Kubio IA"
+
+#: lib/AI/admin-tab/tab.php:27
+msgid "Build smarter & faster with Kubio AI"
+msgstr "Construisez de manière plus intelligente et plus rapide avec Kubio AI"
+
+#: lib/AI/admin-tab/tab.php:57
+#: lib/AI/admin-tab/tab.php:58
+msgid "Unauthorized"
+msgstr "Non autorisé"
+
+#: lib/AI/api.php:700
+#: lib/AI/SDApi/KubioCloudSDApi.php:75
+msgid "No image was generated"
+msgstr "Aucune image n'a été générée"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:13
+#: build/editor/index.js:53
+msgid "Photographic"
+msgstr "Photographique"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:14
+#: build/editor/index.js:53
+msgid "3D Model"
+msgstr "Modèle 3D"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:15
+#: build/controls/index.js:35
+msgid "Background image"
+msgstr "Image d’arrière-plan"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:16
+#: build/editor/index.js:53
+msgid "Digital Art"
+msgstr "Art numérique"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:17
+msgid "Artistic painting"
+msgstr "Peinture artistique"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:24
+#: build/block-editor/index.js:96
+#: build/block-library/index.js:19
+#: build/editor/index.js:55
+msgid "Landscape"
+msgstr "Paysage"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:25
+msgid "Macro"
+msgstr "Macro"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:26
+#: build/block-editor/index.js:96
+#: build/block-library/index.js:19
+#: build/editor/index.js:55
+msgid "Portrait"
+msgstr "Portrait"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:27
+msgid "Long Exposure"
+msgstr "Exposition longue"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:31
+msgid "Clay"
+msgstr "Argile"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:32
+msgid "Digital"
+msgstr "Virtuel"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:33
+#: build/editor/index.js:53
+msgid "Origami"
+msgstr "Origami"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:34
+msgid "Stone sculpture"
+msgstr "Sculpture sur pierre"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:35
+msgid "Wood sculpture"
+msgstr "Sculpture sur bois"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:39
+msgid "Floral"
+msgstr "Fleuri"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:40
+#: build/controls/index.js:15
+#: build/controls/index.js:35
+#: build/controls/index.js:37
+#: build/wp-global-styles/index.js:3
+msgid "Gradient"
+msgstr "Dégradé"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:41
+msgid "Mosaic"
+msgstr "Mosaïque"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:42
+msgid "Neon"
+msgstr "Néon"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:43
+msgid "Bokeh"
+msgstr "Flou"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:47
+#: build/editor/index.js:53
+msgid "Anime"
+msgstr "Anime"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:48
+msgid "Cartoon"
+msgstr "Dessin animé"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:49
+#: build/editor/index.js:53
+msgid "Cinematic"
+msgstr "Cinématographique"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:50
+#: build/editor/index.js:53
+msgid "Comic Book"
+msgstr "Bande dessinée"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:51
+#: build/editor/index.js:53
+msgid "Fantasy Art"
+msgstr "Art fantastique"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:52
+#: build/editor/index.js:53
+msgid "Isometric"
+msgstr "Isométrique"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:53
+msgid "Vector"
+msgstr "Vecteur"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:54
+#: build/editor/index.js:53
+msgid "Pixel Art"
+msgstr "Pixelisé"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:55
+#: build/editor/index.js:53
+msgid "Low Poly"
+msgstr "Faible poly"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:56
+#: build/editor/index.js:53
+msgid "Neon Punk"
+msgstr "Punk néon"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:60
+#: build/controls/index.js:35
+msgid "Doodle"
+msgstr "Gribouillage"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:61
+#: build/editor/index.js:53
+msgid "Line Art"
+msgstr "Dessin au trait"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:62
+msgid "Oil Painting"
+msgstr "Peinture à l’huile"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:63
+msgid "Pencil Drawing"
+msgstr "Dessin au crayon"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:64
+msgid "Watercolor"
+msgstr "Aquarelle"
+
+#: lib/AI/utils.php:73
+#: build/ai/index.js:1
+msgid "Natural"
+msgstr "Natural"
+
+#: lib/AI/utils.php:74
+#: build/ai/index.js:1
+msgid "Is the default language style. It can adapt to some extent depending on the cues from the user's input."
+msgstr "C'est le style de langue par défaut. Il peut s'adapter dans une certaine mesure en fonction des indices de l'entrée de l'utilisateur."
+
+#: lib/AI/utils.php:77
+msgid "Formal"
+msgstr "Formel"
+
+#: lib/AI/utils.php:78
+msgid "Used in official documents, academic papers, and professional communication, characterized by complex sentence structures, precise vocabulary, and avoidance of contractions and slang."
+msgstr "Utilisé dans les documents officiels, les travaux académiques et la communication professionnelle, caractérisé par des structures de phrases complexes, un vocabulaire précis et l'évitement des contractions et de l'argot."
+
+#: lib/AI/utils.php:81
+msgid "Informal"
+msgstr "Informel"
+
+#: lib/AI/utils.php:82
+msgid "Casual and relaxed style used in everyday conversations, personal emails, and informal writing. It often includes contractions, colloquialisms, and a more relaxed sentence structure."
+msgstr "Style décontracté et détendu utilisé dans les conversations quotidiennes, les e-mails personnels et l'écriture informelle. Il inclut souvent des contractions, des expressions familières et une structure de phrase plus détendue."
+
+#: lib/AI/utils.php:85
+msgid "Technical"
+msgstr "Technique"
+
+#: lib/AI/utils.php:86
+msgid "Specific to a particular field or industry, this style uses terminology and jargon understood by experts in that field. It aims for clear and precise communication within that domain."
+msgstr "Spécifique à un domaine ou une industrie particulière, ce style utilise un vocabulaire et un jargon compris par les experts de ce domaine. Il vise une communication claire et précise au sein de ce domaine."
+
+#: lib/AI/utils.php:90
+msgid "Persuasive"
+msgstr "Persuasif"
+
+#: lib/AI/utils.php:91
+msgid "Used to convince or influence the reader's opinion, often employing rhetoric, emotional appeals, and strong arguments to present a particular viewpoint."
+msgstr "Utilisé pour convaincre ou influencer l'opinion du lecteur, en utilisant souvent la rhétorique, les appels émotionnels et de solides arguments pour présenter un point de vue particulier."
+
+#: lib/AI/utils.php:94
+msgid "Humorous"
+msgstr "Humoristique"
+
+#: lib/AI/utils.php:95
+msgid "Intended to amuse the reader, this style uses wit, sarcasm, irony, and clever wordplay to evoke laughter or amusement."
+msgstr "Destiné à amuser le lecteur, ce style utilise l'esprit, le sarcasme, l'ironie et les jeux de mots astucieux pour susciter le rire ou l'amusement."
+
+#: lib/AI/utils.php:104
+#: build/ai/index.js:1
+msgid "Business"
+msgstr "Professionnel"
+
+#: lib/AI/utils.php:106
+#: build/ai/index.js:1
+msgid "Resources and insights for starting, managing, and growing businesses."
+msgstr "Ressources et conseils pour démarrer, gérer et développer des entreprises."
+
+#: lib/AI/utils.php:109
+#: build/ai/index.js:3
+msgid "Services"
+msgstr "Services"
+
+#: lib/AI/utils.php:111
+msgid "Promoting and detailing services offered by professionals or businesses."
+msgstr "Promotion et détail des services offerts par des professionnels ou des entreprises."
+
+#: lib/AI/utils.php:114
+msgid "Consulting"
+msgstr "Conseil"
+
+#: lib/AI/utils.php:116
+msgid "Offering expert advice, insights, and solutions in specialized fields."
+msgstr "Offrant des conseils, des idées et des solutions d'experts dans des domaines spécialisés."
+
+#: lib/AI/utils.php:120
+msgid "Art / Design Portfolio"
+msgstr "Portfolio Art / Design"
+
+#: lib/AI/utils.php:122
+msgid "Showcasing artistic and design work, including portfolios, projects, and creative endeavors."
+msgstr "Mise en avant du travail artistique et de design, y compris les portfolios, les projets et les initiatives créatives."
+
+#: lib/AI/utils.php:126
+msgid "Community & Non-profit"
+msgstr "Communauté et association à but non-lucratif"
+
+#: lib/AI/utils.php:128
+msgid "Highlighting community initiatives, nonprofit organizations, and philanthropic efforts for social good."
+msgstr "Mise en avant des initiatives communautaires, des organisations à but non lucratif et des efforts philanthropiques pour le bien social."
+
+#: lib/AI/utils.php:131
+msgid "Personal"
+msgstr "Personnel"
+
+#: lib/AI/utils.php:133
+msgid "A platform for sharing personal experiences, thoughts, and interests."
+msgstr "Une plateforme pour partager des expériences personnelles, des pensées et des centres d'intérêt."
+
+#: lib/AI/utils.php:136
+msgid "Event"
+msgstr "Événement"
+
+#: lib/AI/utils.php:138
+msgid "Information and details about upcoming events, conferences, or gatherings."
+msgstr "Informations et détails sur les événements, conférences ou rassemblements à venir."
+
+#: lib/AI/utils.php:142
+msgid "Educational"
+msgstr "Éducatif"
+
+#: lib/AI/utils.php:144
+msgid "Online presence for educational institutions, showcasing courses, programs, and achievements."
+msgstr "Présence en ligne pour les établissements d'enseignement, mettant en avant les cours, les programmes et les réalisations."
+
+#: lib/AI/utils.php:148
+msgid "Food & Drink"
+msgstr "Nourriture & Boisson"
+
+#: lib/AI/utils.php:150
+msgid "Exploring culinary delights, recipes, and beverage-related content."
+msgstr "Explorer les délices culinaires, les recettes et le contenu lié aux boissons."
+
+#: lib/AI/utils.php:154
+msgid "Health & Fitness"
+msgstr "Santé et Forme"
+
+#: lib/AI/utils.php:156
+msgid "Promoting a healthy lifestyle, fitness routines, and well-being tips."
+msgstr "Promouvoir un mode de vie sain, des routines de fitness et des conseils de bien-être."
+
+#: lib/AI/utils.php:160
+msgid "Fashion & Beauty"
+msgstr "Mode & Beauté"
+
+#: lib/AI/utils.php:162
+msgid "Showcasing the latest fashion trends, beauty tips, and style advice."
+msgstr "Mise en avant des dernières tendances de la mode, des conseils de beauté et des conseils de style."
+
+#: lib/AI/utils.php:166
+msgid "Technology & Gadgets"
+msgstr "Technologie & Gadgets"
+
+#: lib/AI/utils.php:168
+msgid "Exploring the world of tech, gadgets, and digital innovations."
+msgstr "Explorer le monde de la technologie, des gadgets et des innovations numériques."
+
+#: lib/AI/utils.php:172
+msgid "Gaming"
+msgstr "Jeu"
+
+#: lib/AI/utils.php:174
+msgid "Exploring the world of gaming, video games, and esports."
+msgstr "Explorer le monde du jeu vidéo, des jeux vidéo et de l'esport."
+
+#. translators: %s is the error message
+#: lib/AI/utils.php:410
+msgid "AI Server error: %s"
+msgstr "Erreur du serveur AI: %s"
+
+#: lib/AI/utils.php:426
+msgid "AI response is invalid"
+msgstr "La réponse de l'IA n'est pas valide"
+
+#: lib/AI/utils.php:484
+msgid "AI response is invalid ( Empty response )"
+msgstr "La réponse de l'IA est invalide (réponse vide)"
+
+#: lib/api/colibri.php:84
+#: lib/api/colibri.php:145
+msgid "Zip Export not supported."
+msgstr "L'export Zip n'est pas pris en charge."
+
+#: lib/api/colibri.php:98
+msgid "Bad screenshot."
+msgstr "Mauvaise capture d'écran."
+
+#: lib/api/colibri.php:103
+#: lib/api/colibri.php:163
+msgid "Bad name."
+msgstr "Mauvais nom."
+
+#: lib/api/colibri.php:158
+msgid "No id."
+msgstr "Pas d'identifiant."
+
+#: lib/api/colibri.php:218
+msgid "Unable to open export file (archive) for writing."
+msgstr "Impossible d'ouvrir le fichier d'exportation (archive) en écriture."
+
+#: lib/api/get-post-content.php:21
+msgid "Current post content is empty. A placeholder text is displayed in editor"
+msgstr "Le contenu actuel de l'article est vide. Un texte de substitution est affiché dans l'éditeur"
+
+#: lib/api/kubio-cloud.php:48
+#: lib/api/kubio-cloud.php:77
+#: lib/api/kubio-cloud.php:92
+msgid "Api key not found"
+msgstr "Clé API non trouvée"
+
+#: lib/api/subscribe-form.php:23
+msgid "Untitled form"
+msgstr "Formulaire sans titre"
+
+#: lib/blog/comments.php:44
+msgid "Older Comments"
+msgstr "Commentaires plus anciens"
+
+#: lib/blog/comments.php:60
+msgid "Newer Comments"
+msgstr "Commentaires plus récents"
+
+#: lib/blog/comments.php:77
+msgid "Comments are closed."
+msgstr "Les commentaires sont fermés."
+
+#. translators: 1: Comment date, 2: Comment time.
+#: lib/blog/walker-comment.php:31
+msgid "%1$s at %2$s"
+msgstr "%1$s à %2$s"
+
+#: lib/blog/walker-comment.php:39
+#: build/editor/index.js:53
+msgid "Edit"
+msgstr "Modifier"
+
+#: lib/blog/walker-comment.php:43
+msgid "Your comment is awaiting moderation."
+msgstr "Votre commentaire est en attente de modération."
+
+#: lib/blog/walker-comment.php:45
+msgid "Your comment is awaiting moderation. This is a preview; your comment will be visible after it has been approved."
+msgstr "Votre commentaire est en attente de modération. Ceci est un aperçu ; votre commentaire sera visible après approbation."
+
+#: lib/filters/default-editor-overlay.php:161
+msgid "Edit with default editor"
+msgstr "Modifier avec l'éditeur par défaut"
+
+#. translators: %1$s is the name of the plugin, %2$s is the name of the other plugin.
+#: lib/filters/gutenerg-plugin-check.php:10
+msgid "The %1$s plugin is active on this site. This might interfere with the proper functioning of the %2$s plugin. It is recommended to deactivate the %1$s plugin"
+msgstr "Le plugin %1$s est actif sur ce site. Cela pourrait interférer avec le bon fonctionnement du plugin %2$s. Il est recommandé de désactiver le plugin %1$s."
+
+#. translators: %s - php version e.g. 7.2
+#: lib/filters/requirements-notices.php:14
+msgid "PHP %1$s"
+msgstr "PHP %1$s"
+
+#. translators: %s - WordPress version e.g. 5.0
+#: lib/filters/requirements-notices.php:17
+msgid "WordPress %1$s"
+msgstr "WordPress %1$s"
+
+#. translators: %1$s and %2$s - PHP and WordPress versions version e.g. 5.0
+#: lib/filters/requirements-notices.php:27
+msgid "%1$s and %2$s"
+msgstr "%1$s et %2$s"
+
+#. translators: the placeholders are urls or a product name
+#: lib/filters/requirements-notices.php:42
+msgid "If you want to rollback to a previous version you can get it here: <a href=\"%1$s\">%2$s</a>. You can follow this steps to manually install a Kubio: <a target=\"_blank\" href=\"%3$s\">Manual plugin update</a>"
+msgstr "Si vous souhaitez revenir à une version précédente, vous pouvez la télécharger ici : <a href=\"%1$s\">%2$s</a>. Vous pouvez suivre ces étapes pour installer manuellement Kubio : <a target=\"_blank\" href=\"%3$s\">Mise à jour manuelle du plugin</a>"
+
+#. translators: %s required message. e.g. WordPress 6.0 and PHP 7.2
+#: lib/filters/requirements-notices.php:105
+msgid "Kubio Page Builder requires %s!"
+msgstr "Kubio Page Builder nécessite %s!"
+
+#: lib/full-site-editing/block-templates.php:78
+msgid "No theme is defined for this template."
+msgstr "Aucun thème n’est défini pour ce modèle."
+
+#: lib/full-site-editing/default-template-types.php:26
+msgctxt "Template name"
+msgid "Index"
+msgstr "Index"
+
+#: lib/full-site-editing/default-template-types.php:27
+msgid "The default template used when no other template is available. This is a required template in WordPress."
+msgstr "Le modèle par défaut utilisé lorsqu'aucun autre modèle n'est disponible. Il s'agit d'un modèle requis dans WordPress."
+
+#: lib/full-site-editing/default-template-types.php:30
+msgctxt "Template name"
+msgid "Home"
+msgstr "Accueil"
+
+#: lib/full-site-editing/default-template-types.php:31
+msgid "Template used for the main page that displays blog posts. This is the front page by default in WordPress. If a static front page is set, this is the template used for the page that contains the latest blog posts."
+msgstr "Modèle utilisé pour la page principale qui affiche les articles de blog. Il s'agit de la page d'accueil par défaut dans WordPress. Si une page d'accueil statique est définie, c'est le modèle utilisé pour la page contenant les derniers articles de blog."
+
+#: lib/full-site-editing/default-template-types.php:34
+msgctxt "Template name"
+msgid "Front Page"
+msgstr "Page d’accueil"
+
+#: lib/full-site-editing/default-template-types.php:35
+msgid "Template used to render the front page of the site, whether it displays blog posts or a static page. The front page template takes precedence over the \"Home\" template."
+msgstr "Modèle utilisé pour afficher la page d'accueil du site, qu'il s'agisse d'afficher des articles de blog ou une page statique. Le modèle de la page d'accueil a la priorité sur le modèle \"Accueil\"."
+
+#: lib/full-site-editing/default-template-types.php:38
+msgctxt "Template name"
+msgid "Singular"
+msgstr "Publication (générique)"
+
+#: lib/full-site-editing/default-template-types.php:39
+msgid "Template used for displaying single views of the content. This template is a fallback for the Single, Post, and Page templates, which take precedence when they exist."
+msgstr "Modèle utilisé pour afficher les vues individuelles du contenu. Ce modèle est une solution de secours pour les modèles de Publication et de Page, qui ont la priorité s'ils existent."
+
+#: lib/full-site-editing/default-template-types.php:42
+msgctxt "Template name"
+msgid "Single Post"
+msgstr "Article seul"
+
+#: lib/full-site-editing/default-template-types.php:43
+msgid "Template used to display a single blog post."
+msgstr "Modèle utilisé pour afficher un seul article de blog."
+
+#: lib/full-site-editing/default-template-types.php:46
+msgctxt "Template name"
+msgid "Page"
+msgstr "Page"
+
+#: lib/full-site-editing/default-template-types.php:47
+msgid "Template used to display individual pages."
+msgstr "Modèle utilisé pour afficher des pages individuelles."
+
+#: lib/full-site-editing/default-template-types.php:50
+msgctxt "Template name"
+msgid "Archive"
+msgstr "Archive"
+
+#: lib/full-site-editing/default-template-types.php:51
+msgid "The archive template displays multiple entries at once. It is used as a fallback for the Category, Author, and Date templates, which take precedence when they are available."
+msgstr "Le modèle d'archive affiche plusieurs entrées à la fois. Il est utilisé comme solution de secours pour les modèles de Catégorie, Auteur et Date, qui ont la priorité lorsqu'ils sont disponibles."
+
+#: lib/full-site-editing/default-template-types.php:54
+msgctxt "Template name"
+msgid "Author"
+msgstr "Auteur/autrice"
+
+#: lib/full-site-editing/default-template-types.php:55
+msgid "Archive template used to display a list of posts from a single author."
+msgstr "Modèle d'archive utilisé pour afficher une liste d'articles d'un seul auteur."
+
+#: lib/full-site-editing/default-template-types.php:58
+msgctxt "Template name"
+msgid "Category"
+msgstr "Catégorie"
+
+#: lib/full-site-editing/default-template-types.php:59
+msgid "Archive template used to display a list of posts from the same category."
+msgstr "Modèle d'archive utilisé pour afficher une liste d'articles de la même catégorie."
+
+#: lib/full-site-editing/default-template-types.php:62
+msgctxt "Template name"
+msgid "Taxonomy"
+msgstr "Taxonomie"
+
+#: lib/full-site-editing/default-template-types.php:63
+msgid "Archive template used to display a list of posts from the same taxonomy."
+msgstr "Modèle d'archive utilisé pour afficher une liste d'articles de la même taxonomie."
+
+#: lib/full-site-editing/default-template-types.php:66
+msgctxt "Template name"
+msgid "Date"
+msgstr "Date"
+
+#: lib/full-site-editing/default-template-types.php:67
+msgid "Archive template used to display a list of posts from a specific date."
+msgstr "Modèle d'archive utilisé pour afficher une liste d'articles à partir d'une date spécifique."
+
+#: lib/full-site-editing/default-template-types.php:70
+msgctxt "Template name"
+msgid "Tag"
+msgstr "Étiquette"
+
+#: lib/full-site-editing/default-template-types.php:71
+msgid "Archive template used to display a list of posts with a given tag."
+msgstr "Modèle d'archive utilisé pour afficher une liste d'articles avec un tag donné."
+
+#: lib/full-site-editing/default-template-types.php:74
+msgid "Media"
+msgstr "Média"
+
+#: lib/full-site-editing/default-template-types.php:75
+msgid "Template used to display individual media items or attachments."
+msgstr "Modèle utilisé pour afficher des éléments multimédias individuels ou des pièces jointes."
+
+#: lib/full-site-editing/default-template-types.php:78
+msgctxt "Template name"
+msgid "Search"
+msgstr "Rechercher"
+
+#: lib/full-site-editing/default-template-types.php:79
+msgid "Template used to display search results."
+msgstr "Modèle utilisé pour afficher les résultats de recherche."
+
+#: lib/full-site-editing/default-template-types.php:82
+msgid "Privacy Policy"
+msgstr "Politique de confidentialité"
+
+#: lib/full-site-editing/default-template-types.php:86
+msgctxt "Template name"
+msgid "404"
+msgstr "404"
+
+#: lib/full-site-editing/default-template-types.php:87
+msgid "Template shown when no content is found."
+msgstr "Modèle affiché lorsque aucun contenu n'est trouvé."
+
+#: lib/full-site-editing/template-parts-area.php:26
+#: build/ai/index.js:3
+#: build/block-library/index.js:37
+#: build/editor/index.js:15
+msgid "General"
+msgstr "Général"
+
+#: lib/full-site-editing/template-parts-area.php:27
+msgid "General templates often perform a specific role like displaying post content, and are not tied to any particular area."
+msgstr "Les modèles généraux répondent souvent à des rôles spécifiques, tels que l’affichage du contenu de la publication, et ne sont pas forcément liés à une zone particulière."
+
+#: lib/full-site-editing/template-parts-area.php:36
+#: build/block-library/index.js:19
+#: build/core/index.js:3
+#: build/editor/index.js:3
+msgid "Header"
+msgstr "Entête"
+
+#: lib/full-site-editing/template-parts-area.php:37
+msgid "The Header template defines a page area that typically contains a title, logo, and main navigation."
+msgstr "Le modèle d’entête définit une zone de page qui contient typiquement un titre, un logo, ainsi que la navigation principale."
+
+#: lib/full-site-editing/template-parts-area.php:46
+#: build/block-library/index.js:19
+#: build/core/index.js:3
+#: build/editor/index.js:3
+msgid "Footer"
+msgstr "Pied de page"
+
+#: lib/full-site-editing/template-parts-area.php:47
+msgid "The Footer template defines a page area that typically contains site credits, social links, or any other combination of blocks."
+msgstr "Le modèle de pied de page définit une zone de page qui contient typiquement les crédits du site, des liens de réseaux sociaux, et tout autre combinaison de blocs."
+
+#: lib/full-site-editing/template-parts-area.php:56
+#: build/block-library/index.js:19
+#: build/core/index.js:3
+#: build/editor/index.js:3
+msgid "Sidebar"
+msgstr "Colonne latérale"
+
+#: lib/full-site-editing/template-parts-area.php:57
+msgid "The Sidebar template defines a page area that typically contains widgets."
+msgstr "Le modèle de la barre latérale définit une zone de page qui contient généralement des widgets."
+
+#. translators: %1$s: Template area type, %2$s: the uncategorized template area value.
+#: lib/full-site-editing/template-parts-area.php:118
+msgid "\"%1$s\" is not a supported wp_template_part area value and has been added as \"%2$s\"."
+msgstr "« %1$s » n’est pas une valeur de zone « wp_template_part » prise en charge et a été ajoutée en tant que « %2$s »."
+
+#: lib/full-site-editing/template-parts-area.php:143
+msgid "Template Part Areas"
+msgstr "Zones d’élément de modèle"
+
+#: lib/full-site-editing/template-parts-area.php:144
+msgid "Template Part Area"
+msgstr "Zone d’élément de modèle"
+
+#: lib/full-site-editing/template-parts.php:13
+#: lib/kubio-block-library.php:41
+#: build/editor/index.js:33
+msgid "Template Parts"
+msgstr "Éléments de modèles"
+
+#: lib/full-site-editing/template-parts.php:14
+#: build/block-library/index.js:11
+msgid "Template Part"
+msgstr "Élément de modèle"
+
+#: lib/full-site-editing/template-parts.php:15
+msgctxt "Admin Menu text"
+msgid "Template Parts"
+msgstr "Éléments de modèles"
+
+#: lib/full-site-editing/template-parts.php:16
+msgctxt "Template Part"
+msgid "Add New"
+msgstr "Ajouter"
+
+#: lib/full-site-editing/template-parts.php:17
+msgid "Add New Template Part"
+msgstr "Ajouter un élément de modèle"
+
+#: lib/full-site-editing/template-parts.php:18
+msgid "New Template Part"
+msgstr "Nouvel élément de modèle"
+
+#: lib/full-site-editing/template-parts.php:19
+msgid "Edit Template Part"
+msgstr "Modifier l’élément de modèle"
+
+#: lib/full-site-editing/template-parts.php:20
+msgid "View Template Part"
+msgstr "Voir l’élément de modèle"
+
+#: lib/full-site-editing/template-parts.php:21
+msgid "All Template Parts"
+msgstr "Toutes les sections de modèle"
+
+#: lib/full-site-editing/template-parts.php:22
+msgid "Search Template Parts"
+msgstr "Rechercher un élément de modèle"
+
+#: lib/full-site-editing/template-parts.php:23
+msgid "Parent Template Part:"
+msgstr "Élément de modèle parent :"
+
+#: lib/full-site-editing/template-parts.php:24
+msgid "No template parts found."
+msgstr "Aucun élément de modèle trouvé."
+
+#: lib/full-site-editing/template-parts.php:25
+msgid "No template parts found in Trash."
+msgstr "Aucun élément de modèle trouvé dans la corbeille."
+
+#: lib/full-site-editing/template-parts.php:26
+msgid "Template part archives"
+msgstr "Archives d’éléments de modèles"
+
+#: lib/full-site-editing/template-parts.php:27
+msgid "Insert into template part"
+msgstr "Insérer dans l’élément de modèle"
+
+#: lib/full-site-editing/template-parts.php:28
+msgid "Uploaded to this template part"
+msgstr "Téléversé dans cet élément de modèle"
+
+#: lib/full-site-editing/template-parts.php:29
+msgid "Filter template parts list"
+msgstr "Filtrer la liste d’éléments de modèles"
+
+#: lib/full-site-editing/template-parts.php:30
+msgid "Template parts list navigation"
+msgstr "Navigation dans la liste des éléments de modèles"
+
+#: lib/full-site-editing/template-parts.php:31
+msgid "Template parts list"
+msgstr "Liste des éléments de modèles"
+
+#: lib/full-site-editing/template-parts.php:36
+msgid "Template parts to include in your templates."
+msgstr "Éléments de modèles à inclure dans vos modèles."
+
+#: lib/full-site-editing/template-parts.php:122
+#: lib/full-site-editing/templates.php:242
+#: build/block-library/index.js:27
+msgid "Slug"
+msgstr "Slug"
+
+#: lib/full-site-editing/template-parts.php:136
+msgid "Template part slug"
+msgstr "Raccourci de modèle particulier"
+
+#: lib/full-site-editing/template-parts.php:140
+#: lib/full-site-editing/templates.php:21
+#: lib/full-site-editing/templates.php:259
+#: build/wp-global-styles/index.js:3
+msgid "Theme"
+msgstr "Thème"
+
+#: lib/full-site-editing/templates.php:20
+msgid "Themes"
+msgstr "Thèmes"
+
+#: lib/full-site-editing/templates.php:45
+#: build/editor/index.js:33
+msgid "Templates"
+msgstr "Modèles"
+
+#: lib/full-site-editing/templates.php:46
+#: build/editor/index.js:33
+msgid "Template"
+msgstr "Modèle"
+
+#: lib/full-site-editing/templates.php:47
+msgctxt "Admin Menu text"
+msgid "Templates"
+msgstr "Modèles"
+
+#: lib/full-site-editing/templates.php:48
+msgctxt "Template"
+msgid "Add New"
+msgstr "Ajouter"
+
+#: lib/full-site-editing/templates.php:49
+msgid "Add New Template"
+msgstr "Ajouter un modèle"
+
+#: lib/full-site-editing/templates.php:50
+msgid "New Template"
+msgstr "Nouveau modèle"
+
+#: lib/full-site-editing/templates.php:51
+msgid "Edit Template"
+msgstr "Modifier le modèle"
+
+#: lib/full-site-editing/templates.php:52
+msgid "View Template"
+msgstr "Voir le modèle"
+
+#: lib/full-site-editing/templates.php:53
+msgid "All Templates"
+msgstr "Tous les modèles"
+
+#: lib/full-site-editing/templates.php:54
+msgid "Search Templates"
+msgstr "Rechercher des modèles"
+
+#: lib/full-site-editing/templates.php:55
+msgid "Parent Template:"
+msgstr "Modèle parent :"
+
+#: lib/full-site-editing/templates.php:56
+msgid "No templates found."
+msgstr "Aucun modèle trouvé."
+
+#: lib/full-site-editing/templates.php:57
+msgid "No templates found in Trash."
+msgstr "Aucun modèle trouvé dans la corbeille."
+
+#: lib/full-site-editing/templates.php:58
+msgid "Template archives"
+msgstr "Archives des modèles"
+
+#: lib/full-site-editing/templates.php:59
+msgid "Insert into template"
+msgstr "Insérer dans le modèle"
+
+#: lib/full-site-editing/templates.php:60
+msgid "Uploaded to this template"
+msgstr "Téléversé sur ce modèle"
+
+#: lib/full-site-editing/templates.php:61
+msgid "Filter templates list"
+msgstr "Filtrer la liste des modèles"
+
+#: lib/full-site-editing/templates.php:62
+msgid "Templates list navigation"
+msgstr "Navigation de liste des modèles"
+
+#: lib/full-site-editing/templates.php:63
+msgid "Templates list"
+msgstr "Liste des modèles"
+
+#: lib/full-site-editing/templates.php:68
+msgid "Templates to include in your theme."
+msgstr "Modèles à inclure dans votre thème."
+
+#: lib/full-site-editing/templates.php:255
+msgid "Template slug"
+msgstr "Slug de modèle"
+
+#: lib/global-data.php:20
+#: lib/global-data.php:129
+msgid "Kubio Globals"
+msgstr "Kubio Mondial"
+
+#. translators: %s is the number of the color e.g. Kubio color 1
+#: lib/global-data.php:424
+msgid "Kubio color %s"
+msgstr "Couleur Kubio %s"
+
+#: lib/integrations/third-party-themes/templates-importer.php:285
+#: lib/kubio-editor.php:160
+#: lib/src/Core/Activation.php:424
+#: lib/src/Core/Activation.php:608
+#: lib/src/Core/KubioFrontPageRevertNotice.php:545
+#: build/editor/index.js:21
+msgid "Blog"
+msgstr "Blog"
+
+#: lib/integrations/third-party-themes/templates-importer.php:323
+#: lib/src/Core/Activation.php:491
+#: lib/src/Core/Activation.php:594
+#: lib/src/Core/KubioFrontPageRevertNotice.php:470
+#: lib/src/Core/KubioFrontPageRevertNotice.php:519
+#: lib/src/Core/KubioFrontPageRevertNotice.php:532
+msgid "Home"
+msgstr "Accueil"
+
+#: lib/integrations/third-party-themes/templates.php:39
+#: build/controls/index.js:19
+#: build/core/index.js:7
+#: build/editor-data/index.js:1
+#: build/editor/index.js:25
+msgid "Page"
+msgstr "Page"
+
+#: lib/integrations/third-party-themes/templates.php:43
+msgid "Single"
+msgstr "Publication"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:21
+msgid "Cart"
+msgstr "Panier"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:38
+msgid "Filter by price"
+msgstr "Filtre par prix"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:45
+msgid "Recently Viewed Products"
+msgstr "Produits récemment consultés"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:52
+msgid "Top rated products"
+msgstr "Produits les mieux notés"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:59
+msgid "Active filters"
+msgstr "Filtres actifs"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:116
+msgid "WooCommerce Widgets Area"
+msgstr "Zone de widgets WooCommerce"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:118
+msgid "Add widgets here to appear in the WooCommerce sidebar."
+msgstr "Ajoutez des widgets ici pour les faire apparaître dans la barre latérale WooCommerce."
+
+#. translators: %s is the category name
+#: lib/kubio-block-library.php:9
+msgid "Kubio - %s"
+msgstr "Kubio - %s"
+
+#: lib/kubio-block-library.php:19
+msgid "Basic Blocks"
+msgstr "Blocs de Base"
+
+#: lib/kubio-block-library.php:23
+msgid "Advanced Blocks"
+msgstr "Blocs Avancés"
+
+#: lib/kubio-block-library.php:27
+msgid "Site Data Blocks"
+msgstr "Blocs de Données du Site"
+
+#: lib/kubio-block-library.php:31
+msgid "Blog Blocks"
+msgstr "Blocs de Blog"
+
+#: lib/kubio-block-library.php:36
+#: build/block-library/index.js:9
+#: build/block-library/index.js:11
+#: build/block-library/index.js:25
+#: build/editor/index.js:5
+#: build/editor/index.js:7
+#: build/wp-global-styles/index.js:1
+#: build/wp-global-styles/index.js:3
+msgid "Layout"
+msgstr "Mise en page"
+
+#: lib/kubio-block-library.php:138
+msgid "Kubio Error: Blocks manifest file (blocks-manifest.php) does not exists. Please recompile the plugin"
+msgstr "Erreur Kubio : Le fichier de manifeste des blocs (blocks-manifest.php) n'existe pas. Veuillez recompiler le plugin"
+
+#: lib/kubio-editor.php:136
+msgid "Hero accent"
+msgstr "Accent de la section principale"
+
+#: lib/kubio-editor.php:141
+msgid "About"
+msgstr "À propos"
+
+#: lib/kubio-editor.php:146
+#: build/ai/index.js:3
+msgid "Features"
+msgstr "Fonctionnalités"
+
+#. translators: %d: number of blocks
+#. translators: %d: number of words
+#: lib/kubio-editor.php:151
+#: build/block-editor/index.js:118
+#: build/block-library/index.js:3
+#: build/block-library/index.js:29
+#: build/block-library/index.js:37
+#: build/editor/index.js:3
+#: build/editor/index.js:7
+#: build/editor/index.js:21
+#: build/editor/index.js:23
+#: build/third-party-blocks/index.js:1
+msgid "Content"
+msgstr "Contenu"
+
+#: lib/kubio-editor.php:156
+msgid "Call to action"
+msgstr "Appel à l’action"
+
+#: lib/kubio-editor.php:165
+msgid "Counters"
+msgstr "Compteurs"
+
+#: lib/kubio-editor.php:170
+#: build/ai/index.js:3
+msgid "Portfolio"
+msgstr "Portfolio"
+
+#: lib/kubio-editor.php:175
+msgid "Photo gallery"
+msgstr "Galerie Photo"
+
+#: lib/kubio-editor.php:180
+msgid "Testimonials"
+msgstr "Témoignages"
+
+#: lib/kubio-editor.php:185
+msgid "Clients"
+msgstr "Clients"
+
+#: lib/kubio-editor.php:190
+#: build/ai/index.js:3
+msgid "Team"
+msgstr "Équipe"
+
+#: lib/kubio-editor.php:195
+#: build/ai/index.js:3
+msgid "Contact"
+msgstr "Contact"
+
+#: lib/kubio-editor.php:200
+#: build/ai/index.js:3
+msgid "F.A.Q."
+msgstr "F.A.Q."
+
+#: lib/kubio-editor.php:205
+#: build/ai/index.js:3
+#: build/block-library/index.js:37
+msgid "Pricing"
+msgstr "Prix"
+
+#: lib/kubio-editor.php:209
+msgid "Inner Headers"
+msgstr "En-têtes internes"
+
+#: lib/kubio-editor.php:214
+#: build/editor/index.js:15
+msgid "Headers"
+msgstr "Entêtes"
+
+#: lib/kubio-editor.php:219
+#: build/editor/index.js:15
+msgid "Footers"
+msgstr "Pieds de page"
+
+#: lib/kubio-editor.php:385
+#: build/block-editor/index.js:1
+#: build/block-library/index.js:19
+msgid "Thumbnail"
+msgstr "Miniature"
+
+#: lib/kubio-editor.php:386
+#: build/block-editor/index.js:1
+#: build/block-library/index.js:19
+#: build/editor/index.js:55
+msgid "Medium"
+msgstr "Moyenne"
+
+#: lib/kubio-editor.php:387
+#: build/block-editor/index.js:1
+#: build/block-library/index.js:19
+#: build/editor/index.js:55
+msgid "Large"
+msgstr "Grande"
+
+#: lib/kubio-editor.php:388
+#: build/block-editor/index.js:1
+#: build/block-library/index.js:19
+msgid "Original Size"
+msgstr "Taille originale"
+
+#: lib/kubio-editor.php:980
+#: lib/kubio-editor.php:984
+#: lib/kubio-editor.php:995
+msgid "Kubio"
+msgstr "Kubio"
+
+#: lib/kubio-editor.php:1023
+#: lib/src/Core/EditInKubioCustomizerPanel.php:87
+msgid "Open Kubio Editor"
+msgstr "Ouvrir l'éditeur Kubio"
+
+#: lib/kubio-editor.php:1101
+msgid "What to show on the front page"
+msgstr "Afficher quoi sur la page d’accueil"
+
+#: lib/kubio-editor.php:1114
+msgid "The ID of the page that should be displayed on the front page"
+msgstr "L’ID de la page qui doit être affiché sur la page d’accueil"
+
+#: lib/kubio-editor.php:1129
+msgid "The ID of the page that displays the posts"
+msgstr "L'ID de la page qui affiche les articles"
+
+#: lib/kubio-editor.php:1147
+msgid "Site icon."
+msgstr "Icône du site."
+
+#: lib/kubio-editor.php:1164
+msgctxt "Template name"
+msgid "Full Width"
+msgstr "Pleine largeur"
+
+#: lib/kubio-editor.php:1165
+#: lib/kubio-editor.php:1172
+msgid "Recommended Kubio template to display individual pages. This template works best with the Kubio provided blocks and predesigned sections."
+msgstr "Modèle Kubio recommandé pour afficher des pages individuelles. Ce modèle fonctionne mieux avec les blocs fournis par Kubio et les sections prédéfinies."
+
+#: lib/kubio-editor.php:1171
+msgctxt "Template name"
+msgid "Kubio Full Width"
+msgstr "Kubio Pleine Largeur"
+
+#: lib/kubio-editor.php:1246
+msgid "Sorry, you are not allowed to customize this site."
+msgstr "Désolé, vous n’avez pas l’autorisation de personnaliser ce site."
+
+#: lib/kubio-editor.php:1264
+msgid "Kubio Section"
+msgstr "Section Kubio"
+
+#: lib/kubio-editor.php:1306
+msgid "Kubio Favorites"
+msgstr "Favoris de Kubio"
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:50
+msgid "An alphanumeric identifier for the menu location."
+msgstr "Un identificateur alphanumérique pour l’emplacement de menu."
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:76
+#: lib/menu/class-wp-rest-menu-locations-controller.php:113
+msgid "Sorry, you are not allowed to view menu locations."
+msgstr "Désolé, vous n‘avez pas l‘autorisation pour voir ces emplacements de menu."
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:116
+#: lib/menu/class-wp-rest-menu-locations-controller.php:132
+#: lib/menu/class-wp-rest-menus-controller.php:146
+msgid "Invalid menu location."
+msgstr "Emplacement du menu non valide."
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:194
+msgid "The name of the menu location."
+msgstr "Le nom de l’emplacement du menu."
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:200
+msgid "The description of the menu location."
+msgstr "La description de l’emplacement du menu."
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:206
+msgid "The ID of the assigned menu."
+msgstr "L’ID du menu attribué."
+
+#: lib/menu/class-wp-rest-menus-controller.php:38
+msgid "Sorry, you are not allowed to edit terms in this taxonomy."
+msgstr "Désolé, vous n’avez pas l’autorisation de modifier les termes de cette taxonomie."
+
+#: lib/menu/class-wp-rest-menus-controller.php:40
+msgid "Sorry, you cannot view these menus, unless you have access to permission edit them. "
+msgstr "Désolé, vous ne pouvez pas voir ces menus, sauf si vous avez l'autorisation de les éditer."
+
+#: lib/menu/class-wp-rest-menus-controller.php:58
+msgid "Sorry, you are not allowed to edit this term."
+msgstr "Désolé, vous n’avez pas l’autorisation de modifier ce terme."
+
+#: lib/menu/class-wp-rest-menus-controller.php:60
+msgid "Sorry, you cannot view this menu, unless you have access to permission edit it. "
+msgstr "Désolé, vous ne pouvez pas voir ce menu, à moins d'avoir l'autorisation de le modifier."
+
+#: lib/menu/class-wp-rest-menus-controller.php:139
+msgid "Sorry, you are not allowed to assign the provided locations."
+msgstr "Désolé, vous n'êtes pas autorisé à attribuer les emplacements fournis."
+
+#: lib/menu/class-wp-rest-menus-controller.php:171
+msgid "Sorry, you are not allowed to set auto add pages."
+msgstr "Désolé, vous n'êtes pas autorisé à définir l'ajout automatique de pages."
+
+#: lib/menu/class-wp-rest-menus-controller.php:264
+#: lib/menu/class-wp-rest-menus-controller.php:373
+msgid "Cannot set parent term, taxonomy is not hierarchical."
+msgstr "Impossible de définir un terme parent, la taxonomie n’est pas hiérarchique."
+
+#: lib/menu/class-wp-rest-menus-controller.php:270
+#: lib/menu/class-wp-rest-menus-controller.php:379
+msgid "Parent term does not exist."
+msgstr "Le terme parent n’existe pas."
+
+#. translators: %s: force=true
+#: lib/menu/class-wp-rest-menus-controller.php:450
+msgid "Terms do not support trashing. Set '%s' to delete."
+msgstr "Les termes ne peuvent pas être mis à la corbeille. Utilisez le paramètre « %s » pour supprimer."
+
+#: lib/menu/class-wp-rest-menus-controller.php:460
+msgid "The term cannot be deleted."
+msgstr "Le terme ne peut pas être supprimé."
+
+#: lib/menu/class-wp-rest-menus-controller.php:576
+msgid "Menu location does not exist."
+msgstr "L'emplacement du menu n'existe pas."
+
+#: lib/menu/class-wp-rest-menus-controller.php:604
+msgid "The locations assigned to the menu."
+msgstr "Les emplacements assignés au menu."
+
+#: lib/menu/class-wp-rest-menus-controller.php:613
+msgid "Whether to automatically add top level pages to this menu."
+msgstr "Ajouter automatiquement les pages de premier niveau à ce menu."
+
+#: lib/menu/locations.php:10
+msgid "Header menu"
+msgstr "Menu d’en-tête"
+
+#: lib/menu/locations.php:11
+msgid "Kubio header menu"
+msgstr "Menu d'en-tête Kubio"
+
+#: lib/menu/locations.php:14
+msgid "Secondary header menu"
+msgstr "Menu secondaire de l'en-tête"
+
+#: lib/menu/locations.php:15
+msgid "Kubio secondary header menu"
+msgstr "Menu secondaire de l'en-tête Kubio"
+
+#: lib/menu/locations.php:18
+msgid "Footer menu"
+msgstr "Menu du pied de page"
+
+#: lib/menu/locations.php:19
+msgid "Kubio footer menu"
+msgstr "Menu de pied de page Kubio"
+
+#: lib/menu/locations.php:22
+msgid "Secondary footer menu"
+msgstr "Menu de pied de page secondaire"
+
+#: lib/menu/locations.php:23
+msgid "Kubio secondary footer menu"
+msgstr "Menu secondaire du pied de page Kubio"
+
+#: lib/menu/menu-rest-controller.php:46
+msgid "Unique identifier for menu."
+msgstr "Identifiant unique pour le menu."
+
+#: lib/preview/index.php:128
+msgid "Kubio Preview"
+msgstr "Aperçu de Kubio"
+
+#: lib/preview/index.php:253
+msgid "Current preview state is unavailable"
+msgstr "L'état de prévisualisation actuel n'est pas disponible"
+
+#. translators: the placeholder is an url
+#: lib/pro/filters/notices.php:33
+msgid "If you want to rollback to a previous version please open a support ticket: <a target=\"_blank\" href=\"%1$s\">Open support ticket</a>"
+msgstr "Si vous souhaitez revenir à une version précédente, veuillez ouvrir un ticket de support : <a target=\"_blank\" href=\"%1$s\">Ouvrir un ticket de support</a>"
+
+#: lib/pro/integrations/multilanguage/polylang.php:385
+msgid "Current content will be replaced with the content from the primary language. Are you sure ?"
+msgstr "Le contenu actuel sera remplacé par le contenu de la langue principale. Es-tu sûr ?"
+
+#: lib/pro/integrations/multilanguage/polylang.php:401
+msgid "Copy from primary language"
+msgstr "Copier depuis la langue principale"
+
+#: lib/pro/src/Core/License/ActivationForm.php:32
+msgid "Enter a valid Kubio PRO license key to unlock all the PRO features"
+msgstr "Entrez une clé de licence Kubio PRO valide pour débloquer toutes les fonctionnalités PRO"
+
+#: lib/pro/src/Core/License/ActivationForm.php:67
+msgid "Activate Kubio PRO License"
+msgstr "Activer la licence PRO de Kubio"
+
+#: lib/pro/src/Core/License/ActivationForm.php:68
+msgid "If this is a testing site you can ignore this message. If this is your live site then please insert the license key below."
+msgstr "S'il s'agit d'un site de test, vous pouvez ignorer ce message. Si c'est votre site en direct, veuillez insérer la clé de licence ci-dessous."
+
+#: lib/pro/src/Core/License/ActivationForm.php:81
+msgid "Activate License"
+msgstr "Activer la licence"
+
+#. translators: placeholders are some urls like <a href="#">My Account</a>
+#: lib/pro/src/Core/License/ActivationForm.php:99
+msgid "Your key was sent via email when the purchase was completed. Also you can find the key in the %1$s of your %2$s account"
+msgstr "Votre clé a été envoyée par e-mail lorsque l'achat a été effectué. Vous pouvez également trouver la clé dans le %1$s de votre compte %2$s"
+
+#: lib/pro/src/Core/License/ActivationForm.php:122
+#: build/admin-area/index.js:1
+msgid "License key is empty"
+msgstr "La clé de licence est vide"
+
+#: lib/pro/src/Core/License/ActivationForm.php:189
+msgid "No error"
+msgstr "Aucune erreur"
+
+#: lib/pro/src/Core/License/ActivationForm.php:197
+msgid "AI Features"
+msgstr "Fonctionnalités d’IA"
+
+#: lib/pro/src/Core/License/ActivationForm.php:198
+msgid "More sections and blocks"
+msgstr "Plus de sections et blocs"
+
+#: lib/pro/src/Core/License/ActivationForm.php:199
+msgid "Footer editing"
+msgstr "Édition du pied de page"
+
+#: lib/pro/src/Core/License/ActivationForm.php:200
+msgid "Multiple page headers"
+msgstr "En-têtes multiples"
+
+#: lib/pro/src/Core/License/ActivationForm.php:207
+msgid "Other"
+msgstr "Autres"
+
+#: lib/pro/src/Core/License/ActivationForm.php:224
+msgid "Thank you for choosing Kubio PRO!"
+msgstr "Merci d'avoir choisi Kubio PRO!"
+
+#: lib/pro/src/Core/License/ActivationForm.php:227
+msgid "Could you tell us what inspired your decision to upgrade?"
+msgstr "Pourriez-vous nous dire ce qui vous a inspiré à décider de mettre à niveau?"
+
+#. translators: %1$s - string with server error response
+#: lib/pro/src/Core/License/CheckForm.php:27
+msgid "There was an error calling Kubio License Server: <code>%1$s</code>. Please contact us for support on <a href=\"%2$s\" target=\"_blank\">Kubio</a> website"
+msgstr "Une erreur s'est produite lors de l'appel au Serveur de Licence Kubio : <code>%1$s</code>. Veuillez nous contacter pour obtenir de l'aide sur le site <a href=\"%2$s\" target=\"_blank\">Kubio</a>"
+
+#. translators: %s - string with server error response
+#: lib/pro/src/Core/License/CheckForm.php:36
+msgid "Current license key was removed! Reason: %s"
+msgstr "La clé de licence actuelle a été supprimée ! Raison : %s"
+
+#: lib/src/Core/Activation.php:544
+msgid "Primary menu"
+msgstr "Menu principal"
+
+#: lib/src/Core/Blocks/Query/QueryLoopBase.php:50
+#: build/block-library/index.js:33
+#: build/block-library/index.js:35
+msgid "No {post_title} found!"
+msgstr "Aucun {post_title} trouvé!"
+
+#: lib/src/Core/Blocks/TemplatePartBlockBase.php:26
+msgid "Template Part Not Found"
+msgstr "Partie de modèle non trouvée"
+
+#: lib/src/Core/CustomizerImporter.php:275
+#: build/block-library/index.js:19
+#: build/controls/index.js:19
+#: build/controls/index.js:35
+msgid "Image"
+msgstr "Image"
+
+#: lib/src/Core/EditInKubioCustomizerPanel.php:74
+msgid "After installing the Kubio builder, all page contents editing will be done using the WordPress block editor instead of the Customizer."
+msgstr "Après avoir installé le constructeur Kubio, vous éditerez tout le contenu de la page en utilisant l'éditeur de blocs WordPress au lieu du Personnaliseur."
+
+#: lib/src/Core/EditInKubioCustomizerPanel.php:77
+msgid "After installing the Kubio builder, all site editing will be done using the WordPress block editor instead of the Customizer."
+msgstr "Après avoir installé le constructeur Kubio, toutes les modifications du site seront effectuées à l'aide de l'éditeur de blocs WordPress au lieu du Personnaliseur."
+
+#: lib/src/Core/EditInKubioCustomizerPanel.php:84
+msgid " Please use the button below to open the Kubio editor."
+msgstr "Veuillez utiliser le bouton ci-dessous pour ouvrir l'éditeur Kubio."
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:699
+msgid "Keep the new home page?"
+msgstr "Conserver la nouvelle page d'accueil ?"
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:703
+msgid " We created a new home page for you. If you don't like it you can restore your previous home page."
+msgstr "Nous avons créé une nouvelle page d'accueil pour vous. Si elle ne vous convient pas, vous pouvez restaurer votre page d'accueil précédente."
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:707
+msgid "Yes, keep my new home page"
+msgstr "Oui, gardez ma nouvelle page d'accueil"
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:710
+msgid "Restore my previous home page"
+msgstr "Restaurer ma page d'accueil précédente"
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:737
+#: build/editor/index.js:1
+msgid "Your previous home page was showing the most recent blog posts. Are you sure you want to restore your previous home page?"
+msgstr "Votre page d'accueil précédente affichait les articles de blog les plus récents. Êtes-vous sûr de vouloir restaurer votre page d'accueil précédente ?"
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:739
+#: build/editor/index.js:1
+msgid "Are you sure you want to restore your previous home page?"
+msgstr "Êtes-vous sûr de vouloir restaurer votre page d'accueil précédente?"
+
+#: lib/src/Core/Utils.php:107
+msgid "Shortcode is empty."
+msgstr "Le shortcode est vide."
+
+#: lib/src/Core/Utils.php:108
+msgid "Edit this page to insert a shortcode or delete this block."
+msgstr "Modifiez cette page pour insérer un shortcode ou supprimer ce bloc."
+
+#. translators: %1$s: block name, %2$s: items type
+#: lib/src/Core/Utils.php:122
+msgid "%1$s has no %2$s."
+msgstr "%1$s n'a pas de %2$s."
+
+#. translators: %s: items type
+#: lib/src/Core/Utils.php:124
+msgid "Edit this page to insert %s or delete this block."
+msgstr "Modifiez cette page pour insérer %s ou supprimer ce bloc."
+
+#: lib/src/Core/Utils.php:144
+msgid "Kubio info"
+msgstr "Infos Kubio"
+
+#. translators: %s: URL to Update PHP page.
+#: lib/src/Core/Utils.php:331
+msgid "<a href=\"%s\">Learn more about updating PHP</a>"
+msgstr "<a href=\"%s\">En savoir plus sur la mise à jour de PHP</a>"
+
+#. translators: %s: URL to Update PHP page.
+#: lib/src/Core/Utils.php:337
+msgid "<a href=\"%s\">Update WordPress now!</a>"
+msgstr "<a href=\"%s\">Mettez à jour WordPress maintenant !</a>"
+
+#. translators: 1: Current WordPress version, 2: Current PHP version, 3: Plugin name, 4: Required WordPress version, 5: Required PHP version.
+#: lib/src/Core/Utils.php:346
+msgid "<strong>Error:</strong> Current versions of WordPress (%1$s) and PHP (%2$s) do not meet minimum requirements for %3$s. The plugin requires WordPress %4$s and PHP %5$s."
+msgstr "<strong>Erreur :</strong> Les versions actuelles de WordPress (%1$s) et PHP (%2$s) ne respectent pas les exigences minimales pour %3$s. Le plugin nécessite WordPress %4$s et PHP %5$s."
+
+#. translators: 1: Current PHP version, 2: Plugin name, 3: Required PHP version.
+#: lib/src/Core/Utils.php:359
+msgid "<strong>Error:</strong> Current PHP version (%1$s) does not meet minimum requirements for %2$s. The plugin requires PHP %3$s."
+msgstr "<strong>Erreur :</strong> La version actuelle de PHP (%1$s) ne répond pas aux exigences minimales pour %2$s. Le plugin nécessite PHP %3$s."
+
+#. translators: 1: Current WordPress version, 2: Plugin name, 3: Required WordPress version.
+#: lib/src/Core/Utils.php:370
+msgid "<strong>Error:</strong> Current WordPress version (%1$s) does not meet minimum requirements for %2$s. The plugin requires WordPress %3$s."
+msgstr "<strong>Erreur :</strong> La version actuelle de WordPress (%1$s) ne répond pas aux exigences minimales pour %2$s. Le plugin nécessite WordPress %3$s."
+
+#: lib/src/DemoSites/DemoSites.php:334
+#: lib/src/DemoSites/DemoSites.php:354
+msgid "Slug not found"
+msgstr "Slug non trouvé"
+
+#. translators: %1$s - opening div and paragraph HTML tags, %2$s - closing div and paragraph HTML tags.
+#: lib/src/DemoSites/DemoSitesHelpers.php:24
+msgid "%1$sYour user role isn't high enough. You don't have permission to import demo data.%2$s"
+msgstr "%1$sDésolé, votre rôle d'utilisateur n'est pas assez élevé. Vous n'avez pas la permission d'importer des données de démonstration.%2$s"
+
+#: lib/src/DemoSites/DemoSitesHelpers.php:82
+msgid "Kubio Demo Import - "
+msgstr "Importation de démo Kubio -"
+
+#: lib/src/DemoSites/DemoSitesHelpers.php:101
+msgid "Missing URL for downloading a file!"
+msgstr "URL manquante pour le téléchargement d’un fichier !"
+
+#: lib/src/DemoSites/DemoSitesHelpers.php:111
+msgid "Invalid URL for downloading a file!"
+msgstr "URL invalide pour télécharger un fichier !"
+
+#. translators: %1$s and %3$s - strong HTML tags, %2$s - file URL, %4$s - br HTML tag, %5$s - error code, %6$s - error message.
+#: lib/src/DemoSites/DemoSitesHelpers.php:130
+msgid "An error occurred while fetching file from: %1$s%2$s%3$s!%4$sReason: %5$s - %6$s."
+msgstr "Une erreur s’est produite lors de l’extraction du fichier depuis : %1$s%2$s%3$s!%4$sRaison : %5$s - %6$s."
+
+#. translators: %1$s - br HTML tag, %2$s - file path
+#: lib/src/DemoSites/DemoSitesHelpers.php:229
+#: lib/src/DemoSites/DemoSitesHelpers.php:314
+msgid "An error occurred while writing file to your server! Tried to write a file to: %1$s%2$s."
+msgstr "Une erreur s'est produite lors de l'écriture du fichier sur votre serveur ! Tentative d'écriture d'un fichier vers : %1$s%2$s."
+
+#. translators: %1$s and %2$s - strong HTML tags, %3$s - HTML link to a doc page.
+#: lib/src/DemoSites/DemoSitesHelpers.php:251
+msgid "This WordPress site does not have %1$sdirect%2$s write file access. This plugin needs it in order to save the demo import files to the upload directory of your site. You can change this setting with these instructions: %3$s."
+msgstr "Ce site WordPress ne dispose pas d'accès %1$sdirect%2$s en écriture de fichiers. Ce plugin en a besoin pour enregistrer les fichiers d'importation de démo dans le répertoire de téléchargement de votre site. Vous pouvez modifier ce paramètre avec ces instructions : %3$s."
+
+#: lib/src/DemoSites/DemoSitesImporter.php:199
+msgid "Warn: Unable set memory_limit"
+msgstr "Attention : Impossible de définir memory_limit"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:228
+msgid "No import files specified!"
+msgstr "Aucun fichier d’importation spécifié !"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:247
+#: lib/src/DemoSites/DemoSitesImporter.php:257
+#: lib/src/DemoSites/DemoSitesImporter.php:267
+msgid "Downloaded files"
+msgstr "Fichiers téléchargés"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:255
+msgid "Import file undefined"
+msgstr "Fichier d'importation non défini"
+
+#. translators: %s - the name of the selected import.
+#: lib/src/DemoSites/DemoSitesImporter.php:263
+msgid "The import files for: %s were successfully downloaded!"
+msgstr "Les fichiers d’importation pour : %s ont bien été téléchargés !"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:281
+msgid "Manual kds import!"
+msgstr "Importation manuelle de kds!"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:283
+msgid "Manual import"
+msgstr "Importation manuelle"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:323
+msgid "Importer action not found"
+msgstr "Action d'importation non trouvée"
+
+#. translators: %s - menu item name e.g. "Home", "Contact"
+#: lib/src/DemoSites/DemoSitesImporter.php:445
+msgid "Old %s"
+msgstr "Ancien %s"
+
+#. translators: %s - menu item name e.g. "Home", "Contact"
+#: lib/src/DemoSites/DemoSitesImporter.php:445
+msgid "Old"
+msgstr "Ancienne"
+
+#. translators: %s file url
+#: lib/src/DemoSites/WXRImporter.php:346
+msgid "Unable to import remote file: %s"
+msgstr "Impossible d'importer le fichier distant : %s"
+
+#: lib/src/DemoSites/WXRImporter.php:549
+msgid "New AJAX call!"
+msgstr "Nouvel appel AJAX !"
+
+#: lib/src/DemoSites/WXRImporter.php:585
+msgid "Posts post processing"
+msgstr "Traitement des articles"
+
+#. translators: %1$s = term slug, %2$s = taxonomy
+#: lib/src/DemoSites/WXRImporter.php:596
+msgid "Create term `%1$s` in `%2$s`"
+msgstr "Créer le terme '%1$s' dans '%2$s'"
+
+#. translators: %s - plugin slug
+#: lib/src/PluginsManager.php:69
+msgid "Failed to install plugin: %s"
+msgstr "Échec de l'installation du plugin : %s"
+
+#: build/block-library/blocks/accordion/blocks/accordion/block.json
+msgctxt "block title"
+msgid "Accordion"
+msgstr "Accordéon"
+
+#: build/block-library/blocks/column/block.json
+msgctxt "block title"
+msgid "Column"
+msgstr "Colonne"
+
+#: build/block-library/blocks/footer/block.json
+msgctxt "block title"
+msgid "Footer"
+msgstr "Pied de page"
+
+#: build/block-library/blocks/footer/block.json
+msgctxt "block description"
+msgid "You can replace the default page footer with a custom one using the footer template part. Various footers can be assigned to various pages."
+msgstr "Vous pouvez remplacer le pied de page par défaut par un personnalisé en utilisant la partie de modèle de pied de page. Différents pieds de page peuvent être attribués à différentes pages."
+
+#: build/block-library/blocks/icon-list/blocks/icon-list-item/block.json
+msgctxt "block title"
+msgid "Icon list item"
+msgstr "Icône des éléments de la liste"
+
+#: build/block-library/blocks/icon-list/blocks/icon-list/block.json
+msgctxt "block title"
+msgid "Icon List"
+msgstr "Liste d’icônes"
+
+#: build/block-library/blocks/navigation/blocks/navigation-top-bar/block.json
+msgctxt "block title"
+msgid "Navigation Top Bar"
+msgstr "Barre de navigation en haut"
+
+#: build/block-library/blocks/navigation/blocks/navigation/block.json
+msgctxt "block title"
+msgid "Navigation"
+msgstr "Navigation"
+
+#: build/block-library/blocks/navigation/blocks/navigation/block.json
+msgctxt "block description"
+msgid "If you've accidentally removed your navigation, you can re-add a navigation to your page with this block. The navigation block has 5 available layouts."
+msgstr "Si vous avez supprimé accidentellement votre navigation, vous pouvez réajouter une navigation à votre page avec ce bloc. Le bloc de navigation propose 5 mises en page disponibles."
+
+#: build/block-library/blocks/row/block.json
+msgctxt "block title"
+msgid "Columns"
+msgstr "Colonnes"
+
+#: build/block-library/blocks/section/block.json
+msgctxt "block title"
+msgid "Section"
+msgstr "Section"
+
+#: build/block-library/blocks/sidebar/block.json
+msgctxt "block title"
+msgid "Sidebar"
+msgstr "Colonne latérale"
+
+#: build/block-library/blocks/sidebar/block.json
+msgctxt "block description"
+msgid "You can create separate sidebars for web pages, blog, and articles, in order to create different user journeys."
+msgstr "Vous pouvez créer des barres latérales séparées pour les pages web, les blogs et les articles, afin de créer des parcours utilisateur différents."

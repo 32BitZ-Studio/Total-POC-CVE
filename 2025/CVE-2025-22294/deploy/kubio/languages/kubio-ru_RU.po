@@ -1,0 +1,2108 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Kubio @@buildversion@@\n"
+"Report-Msgid-Bugs-To: support@kubiobuilder.com\n"
+"Last-Translator: Kubio <support@kubiobuilder.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-03-06T17:53:01+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: kubio\n"
+"Plural-Forms: \n"
+
+#. Plugin Name of the plugin
+#: plugin.php
+msgid "@@plugin-name@@"
+msgstr "@@plugin-name@@"
+
+#. Plugin URI of the plugin
+#: plugin.php
+msgid "https://kubiobuilder.com"
+msgstr "https://kubiobuilder.com"
+
+#. Description of the plugin
+#: plugin.php
+msgid "Using the power of AI, Kubio gives you a head start by generating a first draft of your website, which you can further customize to your liking."
+msgstr "Используя силу искусственного интеллекта, Kubio дает вам стартовую точку, создавая первый черновик вашего веб-сайта, который вы можете далее настраивать по своему усмотрению."
+
+#. Author of the plugin
+#: plugin.php
+msgid "ExtendThemes"
+msgstr "ExtendThemes"
+
+#. Author URI of the plugin
+#: plugin.php
+msgid "https://extendthemes.com"
+msgstr "https://extendthemes.com"
+
+#: build/block-library/blocks/menu/menu-items/index.php:145
+msgid "This block has no menu assigned."
+msgstr "У этого блока нет назначенного меню."
+
+#: build/block-library/blocks/menu/menu-items/index.php:146
+msgid "Edit this page to select a menu or delete this block."
+msgstr "Отредактируйте эту страницу, чтобы выбрать меню или удалить этот блок."
+
+#: build/block-library/blocks/menu/offscreen/index.php:56
+msgid "Mobile Menu"
+msgstr "Меню для мобильных"
+
+#. translators: %s - year month or day
+#: build/block-library/blocks/page-title/index.php:16
+msgid "Posts from %s"
+msgstr "Записи от:"
+
+#. translators: %s - search term
+#: build/block-library/blocks/page-title/index.php:21
+msgid "Search results for: %s"
+msgstr "Результаты поиска для: %s"
+
+#. translators: %s - search term
+#: build/block-library/blocks/page-title/index.php:22
+msgid "Sorry! Page Not Found!"
+msgstr "Извините! Страница не найдена!"
+
+#. translators: %s - category
+#: build/block-library/blocks/page-title/index.php:25
+msgid "Posts in %s"
+msgstr "Записи в %s - категория"
+
+#. translators: %s - author
+#: build/block-library/blocks/page-title/index.php:27
+msgid "Posts by %s"
+msgstr "Записи %s"
+
+#. translators: %s - tag
+#: build/block-library/blocks/page-title/index.php:29
+msgid "Posts about %s"
+msgstr "Посты о %s"
+
+#. translators: Yearly archive title. 1: Year
+#: build/block-library/blocks/page-title/index.php:75
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr "Y"
+
+#. translators: Monthly archive title. 1: Month name and year
+#: build/block-library/blocks/page-title/index.php:79
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr "Ежемесячный архив %1$s"
+
+#. translators: Daily archive title. 1: Date
+#: build/block-library/blocks/page-title/index.php:83
+msgctxt "daily archives date format"
+msgid "F j, Y"
+msgstr "j F Y"
+
+#: build/block-library/blocks/page-title/index.php:87
+msgctxt "post format archive title"
+msgid "Asides"
+msgstr "Заметки"
+
+#: build/block-library/blocks/page-title/index.php:89
+msgctxt "post format archive title"
+msgid "Galleries"
+msgstr "Галереи"
+
+#: build/block-library/blocks/page-title/index.php:91
+msgctxt "post format archive title"
+msgid "Images"
+msgstr "Изображения"
+
+#: build/block-library/blocks/page-title/index.php:93
+msgctxt "post format archive title"
+msgid "Videos"
+msgstr "Видео"
+
+#: build/block-library/blocks/page-title/index.php:95
+msgctxt "post format archive title"
+msgid "Quotes"
+msgstr "Цитаты"
+
+#: build/block-library/blocks/page-title/index.php:97
+msgctxt "post format archive title"
+msgid "Links"
+msgstr "Ссылки"
+
+#: build/block-library/blocks/page-title/index.php:99
+msgctxt "post format archive title"
+msgid "Statuses"
+msgstr "Статусы"
+
+#: build/block-library/blocks/page-title/index.php:101
+msgctxt "post format archive title"
+msgid "Audio"
+msgstr "Аудио"
+
+#: build/block-library/blocks/page-title/index.php:103
+msgctxt "post format archive title"
+msgid "Chats"
+msgstr "Chats"
+
+#. translators: Post type archive title. 1: Post type name
+#: build/block-library/blocks/page-title/index.php:107
+msgid "Archives: %s"
+msgstr "Архивы: %s"
+
+#. translators: Taxonomy term archive title. 1: Taxonomy singular name, 2: Current taxonomy term
+#: build/block-library/blocks/page-title/index.php:111
+msgid "%1$s: %2$s"
+msgstr "%1$s: %2$s"
+
+#: build/block-library/blocks/page-title/index.php:113
+msgid "Archives"
+msgstr "Архив"
+
+#: build/block-library/blocks/post-comments-form/index.php:26
+msgid "Comments are closed. This Post Comments Form block is still present here but is not visible on front-end."
+msgstr "Комментарии закрыты. Этот блок формы комментариев к сообщению все еще присутствует здесь, но не виден на переднем плане."
+
+#: build/block-library/blocks/post-comments/index.php:42
+#: build/block-library/index.js:37
+msgid "No responses yet"
+msgstr "Пока без ответов"
+
+#: build/block-library/blocks/post-comments/index.php:43
+#: build/block-library/index.js:37
+msgid "One response"
+msgstr "Один ответ"
+
+#: build/block-library/blocks/post-comments/index.php:44
+#: build/block-library/index.js:37
+msgid "{COMMENTS-COUNT} Responses"
+msgstr "{COMMENTS-COUNT} ответов"
+
+#: build/block-library/blocks/post-comments/index.php:45
+#: build/block-library/index.js:37
+msgid "Comments are closed"
+msgstr "Обсуждение закрыто"
+
+#: build/block-library/blocks/post-excerpt/index.php:52
+#: build/block-library/index.js:37
+msgid "Pages do not support excerpt by default."
+msgstr "Страницы не поддерживают выдержку по умолчанию."
+
+#: build/block-library/blocks/post-excerpt/index.php:53
+msgid "Edit this page and remove the current block or use it in a posts list."
+msgstr "Отредактируйте эту страницу и удалите текущий блок или используйте его в списке публикаций."
+
+#: build/block-library/blocks/post-title/index.php:35
+#: build/block-library/index.js:37
+msgid "(Post Title)"
+msgstr "(Заголовок статьи)"
+
+#. translators: %s: social link value
+#: build/block-library/blocks/social-icons/index.php:44
+msgid "Social link: %s"
+msgstr "Социальная ссылка: %s"
+
+#: build/block-library/blocks/widgets-area/index.php:19
+msgid "Please choose a widget area to be displayed"
+msgstr "Пожалуйста, выберите область виджета для отображения"
+
+#: build/block-library/blocks/widgets-area/index.php:23
+msgid "Widget area not found"
+msgstr "Область виджетов не найдена"
+
+#: lib/add-edit-in-kubio.php:93
+#: lib/add-edit-in-kubio.php:197
+#: lib/add-edit-in-kubio.php:364
+#: lib/filters/default-editor-overlay.php:156
+#: lib/kubio-editor.php:996
+#: build/block-library/index.js:13
+msgid "Edit with Kubio"
+msgstr "Редактировать с Kubio"
+
+#: lib/add-edit-in-kubio.php:145
+#: lib/full-site-editing/template-parts.php:156
+#: lib/full-site-editing/templates.php:276
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: lib/admin-pages/kubio-get-started.php:9
+msgid "Get started with Kubio"
+msgstr "Начните работу с Kubio"
+
+#: lib/admin-pages/kubio-get-started.php:11
+msgid "The supercharged block-based WordPress builder"
+msgstr "Мощный конструктор WordPress на основе блоков"
+
+#: lib/admin-pages/kubio-get-started.php:25
+#: build/editor/index.js:21
+msgid "Starter sites"
+msgstr "Стартовые сайты"
+
+#: lib/admin-pages/kubio-get-started.php:27
+msgid "Beautiful starter sites with 1-click import"
+msgstr "Прекрасные стартовые сайты с импортом в один клик"
+
+#: lib/admin-pages/kubio-get-started.php:44
+#: build/editor/index.js:51
+#: build/pro/index.js:1
+msgid "Upgrade to PRO"
+msgstr "Обновите до Pro"
+
+#: lib/admin-pages/kubio-get-started.php:46
+msgid "The first block-based WordPress builder"
+msgstr "Первый конструктор WordPress на основе блоков"
+
+#: lib/admin-pages/kubio-get-started.php:100
+msgid "Unknown tab partial"
+msgstr "Неизвестная часть вкладки"
+
+#: lib/admin-pages/kubio-get-started.php:115
+msgid "Kubio - Get Started"
+msgstr "Kubio - Начать"
+
+#: lib/admin-pages/kubio-get-started.php:116
+msgid "Get Started"
+msgstr "Начать"
+
+#: lib/admin-pages/kubio-get-started.php:126
+msgid "Kubio - Starter Sites"
+msgstr "Kubio - Стартовые сайты"
+
+#: lib/admin-pages/kubio-get-started.php:127
+msgid "Starter Sites"
+msgstr "Стартовые сайты"
+
+#: lib/admin-pages/main-page/demo-sites.php:13
+#: lib/kubio-editor.php:1245
+msgid "You need a higher level of permission."
+msgstr "Вам требуется более высокий уровень доступа."
+
+#: lib/admin-pages/main-page/demo-sites.php:16
+msgid "Current user is not allowed to import starter sites. This feature is available only for administrators"
+msgstr "У текущего пользователя нет прав на импорт стартовых сайтов. Эта функция доступна только для администраторов"
+
+#: lib/admin-pages/main-page/demo-sites.php:31
+msgid "Retrieving starter sites..."
+msgstr "Получение стартовых сайтов..."
+
+#: lib/admin-pages/main-page/demo-sites.php:50
+#: build/editor/index.js:23
+msgid "Preview"
+msgstr "Просмотреть"
+
+#: lib/admin-pages/main-page/demo-sites.php:59
+#: build/editor/index.js:15
+msgid "Untitled"
+msgstr "Без названия"
+
+#: lib/admin-pages/main-page/demo-sites.php:65
+#: lib/admin-pages/main-page/demo-sites.php:152
+msgid "Import site"
+msgstr "Импорт сайта"
+
+#: lib/admin-pages/main-page/demo-sites.php:72
+msgid "Try Online"
+msgstr "Попробуйте онлайн"
+
+#: lib/admin-pages/main-page/demo-sites.php:95
+#: build/editor/index.js:21
+msgid "You are about to import a demo site"
+msgstr "Вы собираетесь импортировать демонстрационный сайт"
+
+#: lib/admin-pages/main-page/demo-sites.php:98
+#: build/editor/index.js:21
+msgid "Current pages will be moved to trash. You can restore the content back at any time."
+msgstr "Текущие страницы будут перемещены в корзину. Вы можете восстановить содержимое в любое время."
+
+#: lib/admin-pages/main-page/demo-sites.php:101
+#: build/editor/index.js:21
+msgid "Posts, pages, images, widgets, menus and other theme settings will get imported."
+msgstr "Запись, страницы, изображения, виджеты, меню и другие настройки темы будут импортированы."
+
+#: lib/admin-pages/main-page/demo-sites.php:104
+msgid "Your current design will be completely overwritten by the new template. This process is irreversible. If you wish to be able to go back to the current design, please create a backup of your site before proceeding with the import."
+msgstr "Ваш текущий дизайн будет полностью перезаписан новым шаблоном. Этот процесс необратим. Если вы хотите иметь возможность вернуться к текущему дизайну, создайте резервную копию вашего сайта перед продолжением импорта."
+
+#: lib/admin-pages/main-page/demo-sites.php:110
+#: build/editor/index.js:21
+msgid "The following plugins will be installed as they are part of the demo"
+msgstr "Следующие плагины будут установлены, так как они являются частью демонстрации"
+
+#: lib/admin-pages/main-page/demo-sites.php:121
+msgid "Installing required plugins"
+msgstr "Установка необходимых плагинов"
+
+#: lib/admin-pages/main-page/demo-sites.php:124
+msgid "Preparing for demo site import"
+msgstr "Подготовка к импорту демонстрационного сайта"
+
+#: lib/admin-pages/main-page/demo-sites.php:127
+msgid "Importing content"
+msgstr "Импорт содержимого"
+
+#: lib/admin-pages/main-page/demo-sites.php:133
+msgid "Errors"
+msgstr "Ошибки"
+
+#: lib/admin-pages/main-page/demo-sites.php:143
+msgid "Available only with Kubio PRO"
+msgstr "Доступно только с Kubio PRO"
+
+#: lib/admin-pages/main-page/demo-sites.php:149
+#: build/block-editor/index.js:11
+#: build/block-editor/index.js:23
+#: build/block-editor/index.js:96
+#: build/block-library/index.js:19
+#: build/controls/index.js:35
+#: build/editor/index.js:1
+#: build/editor/index.js:7
+#: build/editor/index.js:21
+#: build/editor/index.js:31
+msgid "Cancel"
+msgstr "Отмена"
+
+#: lib/admin-pages/main-page/demo-sites.php:156
+msgid "Check all PRO features"
+msgstr "Проверьте все функции PRO."
+
+#: lib/admin-pages/main-page/demo-sites.php:164
+msgid "Demo site imported sucessfuly"
+msgstr "Демонстрационный сайт успешно импортирован"
+
+#: lib/admin-pages/main-page/demo-sites.php:170
+msgid "View site"
+msgstr "Посмотреть сайт"
+
+#: lib/admin-pages/main-page/demo-sites.php:174
+#: lib/admin-pages/pages.php:64
+msgid "Start editing"
+msgstr "Начать редактирование"
+
+#: lib/admin-pages/main-page/demo-sites.php:205
+#: build/block-library/index.js:27
+#: build/block-library/index.js:29
+#: build/block-library/index.js:33
+#: build/block-library/index.js:37
+#: build/editor/index.js:21
+msgid "Active"
+msgstr "Активирован"
+
+#: lib/admin-pages/main-page/demo-sites.php:206
+#: build/editor/index.js:21
+msgid "Installed"
+msgstr "Установлена"
+
+#: lib/admin-pages/main-page/demo-sites.php:207
+msgid "Not Installed"
+msgstr "Не установлен"
+
+#: lib/admin-pages/main-page/demo-sites.php:209
+msgid "Import stopped"
+msgstr "Импорт остановлен"
+
+#: lib/admin-pages/main-page/get-started.php:7
+msgid "Kubio Website"
+msgstr "Веб-сайт Kubio"
+
+#: lib/admin-pages/main-page/get-started.php:12
+msgid "Kubio Documentation"
+msgstr "Документация Kubio"
+
+#: lib/admin-pages/main-page/get-started.php:17
+msgid "Talk to support"
+msgstr "Обратитесь в службу поддержки"
+
+#: lib/admin-pages/main-page/get-started.php:22
+#: lib/admin-pages/main-page/get-started.php:61
+msgid "Connect with us"
+msgstr "Свяжитесь с нами"
+
+#: lib/admin-pages/main-page/get-started.php:42
+msgid "Check out our 2 min getting started video"
+msgstr "Посмотрите наше 2-минутное видео по началу работы"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:22
+msgid "Thank you for your interest in Kubio!"
+msgstr "Спасибо за ваш интерес к Kubio!"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:23
+msgid "Upgrading to Kubio PRO gives you access to advanced features and tools to create a truly professional website—effortlessly."
+msgstr "При переходе на Kubio PRO у вас появится доступ к расширенным функциям и инструментам для создания действительно профессионального сайта — без усилий."
+
+#: lib/admin-pages/main-page/upgrade-pro.php:26
+msgid "How to Upgrade in 3 Simple Steps"
+msgstr "Как обновить за 3 простых шага"
+
+#. translators: %s: Upgrade to Kubio PRO link.
+#: lib/admin-pages/main-page/upgrade-pro.php:32
+msgid "%s - Select the plan that fits your needs."
+msgstr "%s - Выберите план, который подходит вам."
+
+#. translators: %s: Upgrade to Kubio PRO link.
+#: lib/admin-pages/main-page/upgrade-pro.php:33
+msgid "Purchase a Kubio PRO License"
+msgstr "Приобрести лицензию Kubio PRO"
+
+#. translators: %s: Download the Kubio PRO Plugin link.
+#: lib/admin-pages/main-page/upgrade-pro.php:41
+msgid "%s - A download link will be provided after purchase."
+msgstr "%s - Ссылка для загрузки будет предоставлена после покупки."
+
+#. translators: %s: Download the Kubio PRO Plugin link.
+#: lib/admin-pages/main-page/upgrade-pro.php:42
+msgid "Download the Kubio PRO Plugin"
+msgstr "Скачать плагин Kubio PRO"
+
+#. Translators: %1$s: Install & Activate, %2$s: Add New.
+#: lib/admin-pages/main-page/upgrade-pro.php:50
+msgid "%1$s - Upload the ZIP file via WordPress > Plugins > %2$s, then enter your license key to activate PRO features instantly."
+msgstr "%1$s - Загрузите ZIP-файл через WordPress > Плагины > %2$s, затем введите свой лицензионный ключ, чтобы мгновенно активировать PRO-функции."
+
+#. Translators: %1$s: Install & Activate, %2$s: Add New.
+#: lib/admin-pages/main-page/upgrade-pro.php:51
+msgid "Install & Activate"
+msgstr "Установить и Активировать"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:52
+msgid "Add New"
+msgstr "Добавить"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:62
+msgid "Upgrade to Kubio PRO"
+msgstr "Обновить до Kubio PRO"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:67
+msgid "Why Choose Kubio PRO?"
+msgstr "Почему выбрать Kubio PRO?"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:68
+msgid "Upgrade now and enjoy the full power of Kubio PRO!"
+msgstr "Обновитесь сейчас и наслаждайтесь полной мощью Kubio PRO!"
+
+#: lib/admin-pages/main-page/upgrade-pro.php:70
+msgid "<strong>AI-Powered Website Creation</strong> - Instantly generate pages, images, and text."
+msgstr "<strong>Создание сайтов с искусственным интеллектом</strong> - Мгновенно генерируйте страницы, изображения и текст."
+
+#: lib/admin-pages/main-page/upgrade-pro.php:71
+msgid "<strong>50+ Advanced Blocks</strong> - Add sliders, pricing tables, carousels, and more."
+msgstr "<strong>50+ Продвинутых блоков</strong> - Добавьте слайдеры, таблицы цен, карусели и многое другое."
+
+#: lib/admin-pages/main-page/upgrade-pro.php:72
+msgid "<strong>340+ Pre-Designed Sections</strong> - Choose from professionally crafted layouts for faster design."
+msgstr "<strong>Более 340 предварительно разработанных разделов</strong> - Выберите из профессионально разработанных макетов для более быстрого дизайна."
+
+#: lib/admin-pages/main-page/upgrade-pro.php:73
+msgid "<strong>Multiple Headers & Footers</strong> - Fully customize headers, footers, and templates."
+msgstr "<strong>Несколько заголовков и подвалов</strong> - Полностью настраивайте заголовки, подвалы и шаблоны."
+
+#: lib/admin-pages/main-page/upgrade-pro.php:74
+msgid "<strong>Premium Support & Updates</strong> - We got you covered with priority support and continuous enhancements."
+msgstr "<strong>Премиум поддержка и обновления</strong> - Мы позаботимся о вас с приоритетной поддержкой и постоянными улучшениями."
+
+#: lib/admin-pages/pages.php:59
+#: build/pro/index.js:1
+msgid "Try PRO Online"
+msgstr "Попробуйте PRO онлайн"
+
+#. translators: %s: spinner icon
+#: lib/AI/admin-tab/partials/main.php:17
+msgid "%s Retrieving data..."
+msgstr "%s Получение данных..."
+
+#: lib/AI/admin-tab/tab.php:25
+#: build/editor/index.js:55
+msgid "Kubio AI"
+msgstr "Кубио ИИ"
+
+#: lib/AI/admin-tab/tab.php:27
+msgid "Build smarter & faster with Kubio AI"
+msgstr "Создавайте умнее и быстрее с Kubio AI"
+
+#: lib/AI/admin-tab/tab.php:57
+#: lib/AI/admin-tab/tab.php:58
+msgid "Unauthorized"
+msgstr "Неавторизованный"
+
+#: lib/AI/api.php:700
+#: lib/AI/SDApi/KubioCloudSDApi.php:75
+msgid "No image was generated"
+msgstr "Изображение не было сгенерировано"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:13
+#: build/editor/index.js:53
+msgid "Photographic"
+msgstr "Фотографический"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:14
+#: build/editor/index.js:53
+msgid "3D Model"
+msgstr "3D модель"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:15
+#: build/controls/index.js:35
+msgid "Background image"
+msgstr "Фоновое изображение"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:16
+#: build/editor/index.js:53
+msgid "Digital Art"
+msgstr "Цифровое искусство"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:17
+msgid "Artistic painting"
+msgstr "Художественная живопись"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:24
+#: build/block-editor/index.js:96
+#: build/block-library/index.js:19
+#: build/editor/index.js:55
+msgid "Landscape"
+msgstr "Альбомная"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:25
+msgid "Macro"
+msgstr "Макросьемка"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:26
+#: build/block-editor/index.js:96
+#: build/block-library/index.js:19
+#: build/editor/index.js:55
+msgid "Portrait"
+msgstr "Книжная"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:27
+msgid "Long Exposure"
+msgstr "Длинная экспозиция"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:31
+msgid "Clay"
+msgstr "Глина"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:32
+msgid "Digital"
+msgstr "Цифровая"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:33
+#: build/editor/index.js:53
+msgid "Origami"
+msgstr "Origami"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:34
+msgid "Stone sculpture"
+msgstr "Каменная скульптура"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:35
+msgid "Wood sculpture"
+msgstr "Деревянная скульптура"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:39
+msgid "Floral"
+msgstr "Цветочный"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:40
+#: build/controls/index.js:15
+#: build/controls/index.js:35
+#: build/controls/index.js:37
+#: build/wp-global-styles/index.js:3
+msgid "Gradient"
+msgstr "Градиент"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:41
+msgid "Mosaic"
+msgstr "Мозаика"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:42
+msgid "Neon"
+msgstr "Неон"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:43
+msgid "Bokeh"
+msgstr "Bokeh"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:47
+#: build/editor/index.js:53
+msgid "Anime"
+msgstr "Аниме"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:48
+msgid "Cartoon"
+msgstr "Мультфильмы"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:49
+#: build/editor/index.js:53
+msgid "Cinematic"
+msgstr "Кинематограф"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:50
+#: build/editor/index.js:53
+msgid "Comic Book"
+msgstr "Книги комиксов"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:51
+#: build/editor/index.js:53
+msgid "Fantasy Art"
+msgstr "Искусство фэнтези"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:52
+#: build/editor/index.js:53
+msgid "Isometric"
+msgstr "Изометрический"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:53
+msgid "Vector"
+msgstr "Вектор"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:54
+#: build/editor/index.js:53
+msgid "Pixel Art"
+msgstr "Пиксельное искусство"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:55
+#: build/editor/index.js:53
+msgid "Low Poly"
+msgstr "Низкая полигональность"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:56
+#: build/editor/index.js:53
+msgid "Neon Punk"
+msgstr "Неоновый Панк"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:60
+#: build/controls/index.js:35
+msgid "Doodle"
+msgstr "Каракули"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:61
+#: build/editor/index.js:53
+msgid "Line Art"
+msgstr "Линейное искусство"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:62
+msgid "Oil Painting"
+msgstr "Масляная живопись"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:63
+msgid "Pencil Drawing"
+msgstr "Рисунок карандашом"
+
+#: lib/AI/SDApi/KubioImagePrompts.php:64
+msgid "Watercolor"
+msgstr "Акварель"
+
+#: lib/AI/utils.php:73
+#: build/ai/index.js:1
+msgid "Natural"
+msgstr "Природная"
+
+#: lib/AI/utils.php:74
+#: build/ai/index.js:1
+msgid "Is the default language style. It can adapt to some extent depending on the cues from the user's input."
+msgstr "Это стиль языка по умолчанию. Он может адаптироваться в определенной степени в зависимости от подсказок от ввода пользователя."
+
+#: lib/AI/utils.php:77
+msgid "Formal"
+msgstr "Официальный"
+
+#: lib/AI/utils.php:78
+msgid "Used in official documents, academic papers, and professional communication, characterized by complex sentence structures, precise vocabulary, and avoidance of contractions and slang."
+msgstr "Используется в официальных документах, научных статьях и профессиональном общении, характеризуется сложными структурами предложений, точным словарным запасом и избеганием сокращений и жаргона."
+
+#: lib/AI/utils.php:81
+msgid "Informal"
+msgstr "Неформальный"
+
+#: lib/AI/utils.php:82
+msgid "Casual and relaxed style used in everyday conversations, personal emails, and informal writing. It often includes contractions, colloquialisms, and a more relaxed sentence structure."
+msgstr "Неформальный и расслабленный стиль, используемый в повседневных разговорах, личной переписке и неформальном письме. Часто включает сокращения, разговорные обороты и более расслабленную структуру предложения."
+
+#: lib/AI/utils.php:85
+msgid "Technical"
+msgstr "Технический"
+
+#: lib/AI/utils.php:86
+msgid "Specific to a particular field or industry, this style uses terminology and jargon understood by experts in that field. It aims for clear and precise communication within that domain."
+msgstr "Специфичный для определенной области или отрасли, этот стиль использует терминологию и жаргон, понятные экспертам в этой области. Цель - достичь четкого и точного общения в этой сфере."
+
+#: lib/AI/utils.php:90
+msgid "Persuasive"
+msgstr "Убедительный"
+
+#: lib/AI/utils.php:91
+msgid "Used to convince or influence the reader's opinion, often employing rhetoric, emotional appeals, and strong arguments to present a particular viewpoint."
+msgstr "Используется для убеждения или влияния на мнение читателя, часто используя риторику, эмоциональные аргументы и сильные аргументы для представления определенной точки зрения."
+
+#: lib/AI/utils.php:94
+msgid "Humorous"
+msgstr "Юмористический"
+
+#: lib/AI/utils.php:95
+msgid "Intended to amuse the reader, this style uses wit, sarcasm, irony, and clever wordplay to evoke laughter or amusement."
+msgstr "Предназначенный для развлечения читателя, этот стиль использует остроумие, сарказм, иронию и умелую игру слов для вызова смеха или развлечения."
+
+#: lib/AI/utils.php:104
+#: build/ai/index.js:1
+msgid "Business"
+msgstr "Бизнес"
+
+#: lib/AI/utils.php:106
+#: build/ai/index.js:1
+msgid "Resources and insights for starting, managing, and growing businesses."
+msgstr "Ресурсы и идеи для запуска, управления и развития бизнеса."
+
+#: lib/AI/utils.php:109
+#: build/ai/index.js:3
+msgid "Services"
+msgstr "Услуги"
+
+#: lib/AI/utils.php:111
+msgid "Promoting and detailing services offered by professionals or businesses."
+msgstr "Продвижение и детализация услуг, предлагаемых профессионалами или компаниями."
+
+#: lib/AI/utils.php:114
+msgid "Consulting"
+msgstr "Консультации"
+
+#: lib/AI/utils.php:116
+msgid "Offering expert advice, insights, and solutions in specialized fields."
+msgstr "Предоставление экспертных советов, идей и решений в специализированных областях."
+
+#: lib/AI/utils.php:120
+msgid "Art / Design Portfolio"
+msgstr "Портфолио Искусства / Дизайна"
+
+#: lib/AI/utils.php:122
+msgid "Showcasing artistic and design work, including portfolios, projects, and creative endeavors."
+msgstr "Демонстрация художественных и дизайнерских работ, включая портфолио, проекты и творческие начинания."
+
+#: lib/AI/utils.php:126
+msgid "Community & Non-profit"
+msgstr "Общество и некоммерческая деятельность"
+
+#: lib/AI/utils.php:128
+msgid "Highlighting community initiatives, nonprofit organizations, and philanthropic efforts for social good."
+msgstr "Поддержка инициатив общественности, некоммерческих организаций и филантропических усилий во имя социальной пользы."
+
+#: lib/AI/utils.php:131
+msgid "Personal"
+msgstr "Персональный"
+
+#: lib/AI/utils.php:133
+msgid "A platform for sharing personal experiences, thoughts, and interests."
+msgstr "Платформа для обмена личными впечатлениями, мыслями и интересами."
+
+#: lib/AI/utils.php:136
+msgid "Event"
+msgstr "Мероприятие"
+
+#: lib/AI/utils.php:138
+msgid "Information and details about upcoming events, conferences, or gatherings."
+msgstr "Информация и детали о предстоящих событиях, конференциях или собраниях."
+
+#: lib/AI/utils.php:142
+msgid "Educational"
+msgstr "Образовательная"
+
+#: lib/AI/utils.php:144
+msgid "Online presence for educational institutions, showcasing courses, programs, and achievements."
+msgstr "Онлайн-присутствие образовательных учреждений, демонстрация курсов, программ и достижений."
+
+#: lib/AI/utils.php:148
+msgid "Food & Drink"
+msgstr "Еда и напитки"
+
+#: lib/AI/utils.php:150
+msgid "Exploring culinary delights, recipes, and beverage-related content."
+msgstr "Исследование кулинарных удовольствий, рецептов и контента, связанного с напитками."
+
+#: lib/AI/utils.php:154
+msgid "Health & Fitness"
+msgstr "Здоровье и фитнес"
+
+#: lib/AI/utils.php:156
+msgid "Promoting a healthy lifestyle, fitness routines, and well-being tips."
+msgstr "Поддержка здорового образа жизни, фитнес-тренировок и советов по благополучию."
+
+#: lib/AI/utils.php:160
+msgid "Fashion & Beauty"
+msgstr "Мода и красота"
+
+#: lib/AI/utils.php:162
+msgid "Showcasing the latest fashion trends, beauty tips, and style advice."
+msgstr "Представление последних модных тенденций, советов по красоте и стилю."
+
+#: lib/AI/utils.php:166
+msgid "Technology & Gadgets"
+msgstr "Технологии и Гаджеты"
+
+#: lib/AI/utils.php:168
+msgid "Exploring the world of tech, gadgets, and digital innovations."
+msgstr "Исследование мира технологий, гаджетов и цифровых инноваций."
+
+#: lib/AI/utils.php:172
+msgid "Gaming"
+msgstr "Игры"
+
+#: lib/AI/utils.php:174
+msgid "Exploring the world of gaming, video games, and esports."
+msgstr "Исследование мира игр, видеоигр и киберспорта."
+
+#. translators: %s is the error message
+#: lib/AI/utils.php:410
+msgid "AI Server error: %s"
+msgstr "Ошибка сервера ИИ: %s"
+
+#: lib/AI/utils.php:426
+msgid "AI response is invalid"
+msgstr "Ответ ИИ недействителен"
+
+#: lib/AI/utils.php:484
+msgid "AI response is invalid ( Empty response )"
+msgstr "Ответ ИИ недействителен (пустой ответ)"
+
+#: lib/api/colibri.php:84
+#: lib/api/colibri.php:145
+msgid "Zip Export not supported."
+msgstr "Экспорт Zip не поддерживается."
+
+#: lib/api/colibri.php:98
+msgid "Bad screenshot."
+msgstr "Плохой скриншот."
+
+#: lib/api/colibri.php:103
+#: lib/api/colibri.php:163
+msgid "Bad name."
+msgstr "Плохое название."
+
+#: lib/api/colibri.php:158
+msgid "No id."
+msgstr "Нет идентификатора."
+
+#: lib/api/colibri.php:218
+msgid "Unable to open export file (archive) for writing."
+msgstr "Не удается открыть файл экспорта (архив) для записи."
+
+#: lib/api/get-post-content.php:21
+msgid "Current post content is empty. A placeholder text is displayed in editor"
+msgstr "Текущее содержимое записи пусто. В редакторе отображается заполнительный текст"
+
+#: lib/api/kubio-cloud.php:48
+#: lib/api/kubio-cloud.php:77
+#: lib/api/kubio-cloud.php:92
+msgid "Api key not found"
+msgstr "Ключ API не найден"
+
+#: lib/api/subscribe-form.php:23
+msgid "Untitled form"
+msgstr "Форма без названия"
+
+#: lib/blog/comments.php:44
+msgid "Older Comments"
+msgstr "Предыдущие комментарии"
+
+#: lib/blog/comments.php:60
+msgid "Newer Comments"
+msgstr "Более новые комментарии"
+
+#: lib/blog/comments.php:77
+msgid "Comments are closed."
+msgstr "Обсуждение закрыто."
+
+#. translators: 1: Comment date, 2: Comment time.
+#: lib/blog/walker-comment.php:31
+msgid "%1$s at %2$s"
+msgstr "%1$s в %2$s"
+
+#: lib/blog/walker-comment.php:39
+#: build/editor/index.js:53
+msgid "Edit"
+msgstr "Изменить"
+
+#: lib/blog/walker-comment.php:43
+msgid "Your comment is awaiting moderation."
+msgstr "Ваш комментарий ожидает модерации."
+
+#: lib/blog/walker-comment.php:45
+msgid "Your comment is awaiting moderation. This is a preview; your comment will be visible after it has been approved."
+msgstr "Ваш комментарий ожидает модерации. Это предварительный просмотр; ваш комментарий будет виден после одобрения."
+
+#: lib/filters/default-editor-overlay.php:161
+msgid "Edit with default editor"
+msgstr "Редактировать с помощью стандартного редактора"
+
+#. translators: %1$s is the name of the plugin, %2$s is the name of the other plugin.
+#: lib/filters/gutenerg-plugin-check.php:10
+msgid "The %1$s plugin is active on this site. This might interfere with the proper functioning of the %2$s plugin. It is recommended to deactivate the %1$s plugin"
+msgstr "Плагин %1$s активен на этом сайте. Это может помешать правильной работе плагина %2$s. Рекомендуется отключить плагин %1$s."
+
+#. translators: %s - php version e.g. 7.2
+#: lib/filters/requirements-notices.php:14
+msgid "PHP %1$s"
+msgstr "PHP %1$s"
+
+#. translators: %s - WordPress version e.g. 5.0
+#: lib/filters/requirements-notices.php:17
+msgid "WordPress %1$s"
+msgstr "WordPress %1$s"
+
+#. translators: %1$s and %2$s - PHP and WordPress versions version e.g. 5.0
+#: lib/filters/requirements-notices.php:27
+msgid "%1$s and %2$s"
+msgstr "%1$s и %2$s"
+
+#. translators: the placeholders are urls or a product name
+#: lib/filters/requirements-notices.php:42
+msgid "If you want to rollback to a previous version you can get it here: <a href=\"%1$s\">%2$s</a>. You can follow this steps to manually install a Kubio: <a target=\"_blank\" href=\"%3$s\">Manual plugin update</a>"
+msgstr "Если вы хотите вернуться к предыдущей версии, вы можете скачать её здесь: <a href=\"%1$s\">%2$s</a>. Вы можете следовать этим шагам для ручной установки Kubio: <a target=\"_blank\" href=\"%3$s\">Ручное обновление плагина</a>"
+
+#. translators: %s required message. e.g. WordPress 6.0 and PHP 7.2
+#: lib/filters/requirements-notices.php:105
+msgid "Kubio Page Builder requires %s!"
+msgstr "Для Kubio Page Builder требуется %s!"
+
+#: lib/full-site-editing/block-templates.php:78
+msgid "No theme is defined for this template."
+msgstr "Для этого шаблона не была определена тема."
+
+#: lib/full-site-editing/default-template-types.php:26
+msgctxt "Template name"
+msgid "Index"
+msgstr "Индексная"
+
+#: lib/full-site-editing/default-template-types.php:27
+msgid "The default template used when no other template is available. This is a required template in WordPress."
+msgstr "Шаблон по умолчанию, используемый, когда другой шаблон недоступен. Это обязательный шаблон в WordPress."
+
+#: lib/full-site-editing/default-template-types.php:30
+msgctxt "Template name"
+msgid "Home"
+msgstr "Главная"
+
+#: lib/full-site-editing/default-template-types.php:31
+msgid "Template used for the main page that displays blog posts. This is the front page by default in WordPress. If a static front page is set, this is the template used for the page that contains the latest blog posts."
+msgstr "Шаблон, используемый для главной страницы, на которой отображаются записи блога. По умолчанию это главная страница в WordPress. Если установлена статическая главная страница, то этот шаблон используется для страницы, содержащей последние записи блога."
+
+#: lib/full-site-editing/default-template-types.php:34
+msgctxt "Template name"
+msgid "Front Page"
+msgstr "Главная страница"
+
+#: lib/full-site-editing/default-template-types.php:35
+msgid "Template used to render the front page of the site, whether it displays blog posts or a static page. The front page template takes precedence over the \"Home\" template."
+msgstr "Шаблон, используемый для отображения главной страницы сайта, независимо от того, отображаются ли сообщения блога или статическая страница. Шаблон главной страницы имеет приоритет над шаблоном \"Домой\"."
+
+#: lib/full-site-editing/default-template-types.php:38
+msgctxt "Template name"
+msgid "Singular"
+msgstr "Одиночная"
+
+#: lib/full-site-editing/default-template-types.php:39
+msgid "Template used for displaying single views of the content. This template is a fallback for the Single, Post, and Page templates, which take precedence when they exist."
+msgstr "Шаблон, используемый для отображения отдельных представлений контента. Этот шаблон является резервным для шаблонов Одиночной записи, Публикации и Страницы, которые имеют приоритет, если они существуют."
+
+#: lib/full-site-editing/default-template-types.php:42
+msgctxt "Template name"
+msgid "Single Post"
+msgstr "Отдельная запись"
+
+#: lib/full-site-editing/default-template-types.php:43
+msgid "Template used to display a single blog post."
+msgstr "Шаблон, используемый для отображения одной записи в блоге."
+
+#: lib/full-site-editing/default-template-types.php:46
+msgctxt "Template name"
+msgid "Page"
+msgstr "Страница"
+
+#: lib/full-site-editing/default-template-types.php:47
+msgid "Template used to display individual pages."
+msgstr "Шаблон, используемый для отображения отдельных страниц."
+
+#: lib/full-site-editing/default-template-types.php:50
+msgctxt "Template name"
+msgid "Archive"
+msgstr "Архив"
+
+#: lib/full-site-editing/default-template-types.php:51
+msgid "The archive template displays multiple entries at once. It is used as a fallback for the Category, Author, and Date templates, which take precedence when they are available."
+msgstr "Шаблон архива отображает несколько записей сразу. Он используется как запасной вариант для шаблонов Категории, Автора и Даты, которые имеют приоритет, когда они доступны."
+
+#: lib/full-site-editing/default-template-types.php:54
+msgctxt "Template name"
+msgid "Author"
+msgstr "Автор"
+
+#: lib/full-site-editing/default-template-types.php:55
+msgid "Archive template used to display a list of posts from a single author."
+msgstr "Шаблон архива, используемый для отображения списка публикаций отдельного автора."
+
+#: lib/full-site-editing/default-template-types.php:58
+msgctxt "Template name"
+msgid "Category"
+msgstr "Рубрика"
+
+#: lib/full-site-editing/default-template-types.php:59
+msgid "Archive template used to display a list of posts from the same category."
+msgstr "Шаблон архива, используемый для отображения списка сообщений из той же категории."
+
+#: lib/full-site-editing/default-template-types.php:62
+msgctxt "Template name"
+msgid "Taxonomy"
+msgstr "Таксономия"
+
+#: lib/full-site-editing/default-template-types.php:63
+msgid "Archive template used to display a list of posts from the same taxonomy."
+msgstr "Шаблон архива, используемый для отображения списка публикаций из той же таксономии."
+
+#: lib/full-site-editing/default-template-types.php:66
+msgctxt "Template name"
+msgid "Date"
+msgstr "Дата"
+
+#: lib/full-site-editing/default-template-types.php:67
+msgid "Archive template used to display a list of posts from a specific date."
+msgstr "Шаблон архива, используемый для отображения списка публикаций с определенной даты."
+
+#: lib/full-site-editing/default-template-types.php:70
+msgctxt "Template name"
+msgid "Tag"
+msgstr "Метка"
+
+#: lib/full-site-editing/default-template-types.php:71
+msgid "Archive template used to display a list of posts with a given tag."
+msgstr "Шаблон архива, используемый для отображения списка сообщений с определенным тегом."
+
+#: lib/full-site-editing/default-template-types.php:74
+msgid "Media"
+msgstr "Медиа"
+
+#: lib/full-site-editing/default-template-types.php:75
+msgid "Template used to display individual media items or attachments."
+msgstr "Шаблон, используемый для отображения отдельных медиа-элементов или вложений."
+
+#: lib/full-site-editing/default-template-types.php:78
+msgctxt "Template name"
+msgid "Search"
+msgstr "Поиск"
+
+#: lib/full-site-editing/default-template-types.php:79
+msgid "Template used to display search results."
+msgstr "Шаблон, используемый для отображения результатов поиска."
+
+#: lib/full-site-editing/default-template-types.php:82
+msgid "Privacy Policy"
+msgstr "Политика конфиденциальности"
+
+#: lib/full-site-editing/default-template-types.php:86
+msgctxt "Template name"
+msgid "404"
+msgstr "404"
+
+#: lib/full-site-editing/default-template-types.php:87
+msgid "Template shown when no content is found."
+msgstr "Шаблон, отображаемый, когда контент не найден."
+
+#: lib/full-site-editing/template-parts-area.php:26
+#: build/ai/index.js:3
+#: build/block-library/index.js:37
+#: build/editor/index.js:15
+msgid "General"
+msgstr "Общие"
+
+#: lib/full-site-editing/template-parts-area.php:27
+msgid "General templates often perform a specific role like displaying post content, and are not tied to any particular area."
+msgstr "Общие шаблоны часто выполняют определенную роль, например, отображают содержимое записи, и не привязаны к какой-либо конкретной области."
+
+#: lib/full-site-editing/template-parts-area.php:36
+#: build/block-library/index.js:19
+#: build/core/index.js:3
+#: build/editor/index.js:3
+msgid "Header"
+msgstr "Заголовок"
+
+#: lib/full-site-editing/template-parts-area.php:37
+msgid "The Header template defines a page area that typically contains a title, logo, and main navigation."
+msgstr "Шаблон заголовка определяет область страницы, которая обычно содержит логотип и главное меню сайта."
+
+#: lib/full-site-editing/template-parts-area.php:46
+#: build/block-library/index.js:19
+#: build/core/index.js:3
+#: build/editor/index.js:3
+msgid "Footer"
+msgstr "Подвал"
+
+#: lib/full-site-editing/template-parts-area.php:47
+msgid "The Footer template defines a page area that typically contains site credits, social links, or any other combination of blocks."
+msgstr "Шаблон подвала определяет область страницы, которая обычно содержит информацию об авторских правах, ссылки соцсетей или иную комбинацию блоков."
+
+#: lib/full-site-editing/template-parts-area.php:56
+#: build/block-library/index.js:19
+#: build/core/index.js:3
+#: build/editor/index.js:3
+msgid "Sidebar"
+msgstr "Боковая колонка"
+
+#: lib/full-site-editing/template-parts-area.php:57
+msgid "The Sidebar template defines a page area that typically contains widgets."
+msgstr "Шаблон боковой панели определяет область страницы, которая обычно содержит виджеты."
+
+#. translators: %1$s: Template area type, %2$s: the uncategorized template area value.
+#: lib/full-site-editing/template-parts-area.php:118
+msgid "\"%1$s\" is not a supported wp_template_part area value and has been added as \"%2$s\"."
+msgstr "%1$s: Тип области шаблона, %2$s: незарегистрированное значение области шаблона."
+
+#: lib/full-site-editing/template-parts-area.php:143
+msgid "Template Part Areas"
+msgstr "Области частей шаблона"
+
+#: lib/full-site-editing/template-parts-area.php:144
+msgid "Template Part Area"
+msgstr "Область части шаблона"
+
+#: lib/full-site-editing/template-parts.php:13
+#: lib/kubio-block-library.php:41
+#: build/editor/index.js:33
+msgid "Template Parts"
+msgstr "Части шаблона"
+
+#: lib/full-site-editing/template-parts.php:14
+#: build/block-library/index.js:11
+msgid "Template Part"
+msgstr "Часть шаблона"
+
+#: lib/full-site-editing/template-parts.php:15
+msgctxt "Admin Menu text"
+msgid "Template Parts"
+msgstr "Части шаблона"
+
+#: lib/full-site-editing/template-parts.php:16
+msgctxt "Template Part"
+msgid "Add New"
+msgstr "Добавить"
+
+#: lib/full-site-editing/template-parts.php:17
+msgid "Add New Template Part"
+msgstr "Добавить новую часть шаблона"
+
+#: lib/full-site-editing/template-parts.php:18
+msgid "New Template Part"
+msgstr "Новая часть шаблона"
+
+#: lib/full-site-editing/template-parts.php:19
+msgid "Edit Template Part"
+msgstr "Изменить часть шаблона"
+
+#: lib/full-site-editing/template-parts.php:20
+msgid "View Template Part"
+msgstr "Просмотр части шаблона"
+
+#: lib/full-site-editing/template-parts.php:21
+msgid "All Template Parts"
+msgstr "Все части шаблона"
+
+#: lib/full-site-editing/template-parts.php:22
+msgid "Search Template Parts"
+msgstr "Поиск частей шаблона"
+
+#: lib/full-site-editing/template-parts.php:23
+msgid "Parent Template Part:"
+msgstr "Родительская часть шаблона:"
+
+#: lib/full-site-editing/template-parts.php:24
+msgid "No template parts found."
+msgstr "Частей шаблона не найдено."
+
+#: lib/full-site-editing/template-parts.php:25
+msgid "No template parts found in Trash."
+msgstr "В корзине нет частей шаблона."
+
+#: lib/full-site-editing/template-parts.php:26
+msgid "Template part archives"
+msgstr "Архивы частей шаблона"
+
+#: lib/full-site-editing/template-parts.php:27
+msgid "Insert into template part"
+msgstr "Вставить в часть шаблона"
+
+#: lib/full-site-editing/template-parts.php:28
+msgid "Uploaded to this template part"
+msgstr "Загружено в эту часть шаблона"
+
+#: lib/full-site-editing/template-parts.php:29
+msgid "Filter template parts list"
+msgstr "Фильтр списка частей шаблона"
+
+#: lib/full-site-editing/template-parts.php:30
+msgid "Template parts list navigation"
+msgstr "Навигация по списку частей шаблона"
+
+#: lib/full-site-editing/template-parts.php:31
+msgid "Template parts list"
+msgstr "Список частей шаблона"
+
+#: lib/full-site-editing/template-parts.php:36
+msgid "Template parts to include in your templates."
+msgstr "Части шаблона для включения в ваши шаблоны."
+
+#: lib/full-site-editing/template-parts.php:122
+#: lib/full-site-editing/templates.php:242
+#: build/block-library/index.js:27
+msgid "Slug"
+msgstr "Ярлык"
+
+#: lib/full-site-editing/template-parts.php:136
+msgid "Template part slug"
+msgstr "Идентификатор части шаблона"
+
+#: lib/full-site-editing/template-parts.php:140
+#: lib/full-site-editing/templates.php:21
+#: lib/full-site-editing/templates.php:259
+#: build/wp-global-styles/index.js:3
+msgid "Theme"
+msgstr "Тема"
+
+#: lib/full-site-editing/templates.php:20
+msgid "Themes"
+msgstr "Темы"
+
+#: lib/full-site-editing/templates.php:45
+#: build/editor/index.js:33
+msgid "Templates"
+msgstr "Шаблоны"
+
+#: lib/full-site-editing/templates.php:46
+#: build/editor/index.js:33
+msgid "Template"
+msgstr "Шаблон"
+
+#: lib/full-site-editing/templates.php:47
+msgctxt "Admin Menu text"
+msgid "Templates"
+msgstr "Шаблоны"
+
+#: lib/full-site-editing/templates.php:48
+msgctxt "Template"
+msgid "Add New"
+msgstr "Добавить"
+
+#: lib/full-site-editing/templates.php:49
+msgid "Add New Template"
+msgstr "Добавить новый шаблон"
+
+#: lib/full-site-editing/templates.php:50
+msgid "New Template"
+msgstr "Новый шаблон"
+
+#: lib/full-site-editing/templates.php:51
+msgid "Edit Template"
+msgstr "Изменить шаблон"
+
+#: lib/full-site-editing/templates.php:52
+msgid "View Template"
+msgstr "Просмотреть шаблон"
+
+#: lib/full-site-editing/templates.php:53
+msgid "All Templates"
+msgstr "Все шаблоны"
+
+#: lib/full-site-editing/templates.php:54
+msgid "Search Templates"
+msgstr "Поиск шаблонов"
+
+#: lib/full-site-editing/templates.php:55
+msgid "Parent Template:"
+msgstr "Родительский шаблон:"
+
+#: lib/full-site-editing/templates.php:56
+msgid "No templates found."
+msgstr "Шаблоны не найдены."
+
+#: lib/full-site-editing/templates.php:57
+msgid "No templates found in Trash."
+msgstr "Нет шаблонов в корзине."
+
+#: lib/full-site-editing/templates.php:58
+msgid "Template archives"
+msgstr "Архивы шаблонов"
+
+#: lib/full-site-editing/templates.php:59
+msgid "Insert into template"
+msgstr "Вставить в шаблон"
+
+#: lib/full-site-editing/templates.php:60
+msgid "Uploaded to this template"
+msgstr "Загружено в этот шаблон"
+
+#: lib/full-site-editing/templates.php:61
+msgid "Filter templates list"
+msgstr "Фильтр списка шаблонов"
+
+#: lib/full-site-editing/templates.php:62
+msgid "Templates list navigation"
+msgstr "Навигация по списку шаблонов"
+
+#: lib/full-site-editing/templates.php:63
+msgid "Templates list"
+msgstr "Список шаблонов"
+
+#: lib/full-site-editing/templates.php:68
+msgid "Templates to include in your theme."
+msgstr "Шаблоны для включения в вашу тему."
+
+#: lib/full-site-editing/templates.php:255
+msgid "Template slug"
+msgstr "Шаблон слаг"
+
+#: lib/global-data.php:20
+#: lib/global-data.php:129
+msgid "Kubio Globals"
+msgstr "Глобальные настройки Kubio"
+
+#. translators: %s is the number of the color e.g. Kubio color 1
+#: lib/global-data.php:424
+msgid "Kubio color %s"
+msgstr "Цвет Kubio %s"
+
+#: lib/integrations/third-party-themes/templates-importer.php:285
+#: lib/kubio-editor.php:160
+#: lib/src/Core/Activation.php:424
+#: lib/src/Core/Activation.php:608
+#: lib/src/Core/KubioFrontPageRevertNotice.php:545
+#: build/editor/index.js:21
+msgid "Blog"
+msgstr "Блог"
+
+#: lib/integrations/third-party-themes/templates-importer.php:323
+#: lib/src/Core/Activation.php:491
+#: lib/src/Core/Activation.php:594
+#: lib/src/Core/KubioFrontPageRevertNotice.php:470
+#: lib/src/Core/KubioFrontPageRevertNotice.php:519
+#: lib/src/Core/KubioFrontPageRevertNotice.php:532
+msgid "Home"
+msgstr "Главная"
+
+#: lib/integrations/third-party-themes/templates.php:39
+#: build/controls/index.js:19
+#: build/core/index.js:7
+#: build/editor-data/index.js:1
+#: build/editor/index.js:25
+msgid "Page"
+msgstr "Страница"
+
+#: lib/integrations/third-party-themes/templates.php:43
+msgid "Single"
+msgstr "Одиночная"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:21
+msgid "Cart"
+msgstr "Корзина"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:38
+msgid "Filter by price"
+msgstr "Фильтр по цене"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:45
+msgid "Recently Viewed Products"
+msgstr "Недавно просмотренные товары"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:52
+msgid "Top rated products"
+msgstr "Рейтинговые товары"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:59
+msgid "Active filters"
+msgstr "Активные фильтры"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:116
+msgid "WooCommerce Widgets Area"
+msgstr "Область виджетов WooCommerce"
+
+#: lib/integrations/woocommerce-basic/sidebar.php:118
+msgid "Add widgets here to appear in the WooCommerce sidebar."
+msgstr "Добавьте сюда виджеты, чтобы они появились в боковой панели WooCommerce."
+
+#. translators: %s is the category name
+#: lib/kubio-block-library.php:9
+msgid "Kubio - %s"
+msgstr "Kubio - %s"
+
+#: lib/kubio-block-library.php:19
+msgid "Basic Blocks"
+msgstr "Основные блоки"
+
+#: lib/kubio-block-library.php:23
+msgid "Advanced Blocks"
+msgstr "Расширенные блоки"
+
+#: lib/kubio-block-library.php:27
+msgid "Site Data Blocks"
+msgstr "Блоки данных сайта"
+
+#: lib/kubio-block-library.php:31
+msgid "Blog Blocks"
+msgstr "Блоки блога"
+
+#: lib/kubio-block-library.php:36
+#: build/block-library/index.js:9
+#: build/block-library/index.js:11
+#: build/block-library/index.js:25
+#: build/editor/index.js:5
+#: build/editor/index.js:7
+#: build/wp-global-styles/index.js:1
+#: build/wp-global-styles/index.js:3
+msgid "Layout"
+msgstr "Макет"
+
+#: lib/kubio-block-library.php:138
+msgid "Kubio Error: Blocks manifest file (blocks-manifest.php) does not exists. Please recompile the plugin"
+msgstr "Ошибка Kubio: Файл манифеста блоков (blocks-manifest.php) не существует. Пожалуйста, перекомпилируйте плагин"
+
+#: lib/kubio-editor.php:136
+msgid "Hero accent"
+msgstr "Акцент верхнего раздела"
+
+#: lib/kubio-editor.php:141
+msgid "About"
+msgstr "О нас"
+
+#: lib/kubio-editor.php:146
+#: build/ai/index.js:3
+msgid "Features"
+msgstr "Функции"
+
+#. translators: %d: number of blocks
+#. translators: %d: number of words
+#: lib/kubio-editor.php:151
+#: build/block-editor/index.js:118
+#: build/block-library/index.js:3
+#: build/block-library/index.js:29
+#: build/block-library/index.js:37
+#: build/editor/index.js:3
+#: build/editor/index.js:7
+#: build/editor/index.js:21
+#: build/editor/index.js:23
+#: build/third-party-blocks/index.js:1
+msgid "Content"
+msgstr "Содержимое"
+
+#: lib/kubio-editor.php:156
+msgid "Call to action"
+msgstr "Призыв к действию"
+
+#: lib/kubio-editor.php:165
+msgid "Counters"
+msgstr "Счётчики"
+
+#: lib/kubio-editor.php:170
+#: build/ai/index.js:3
+msgid "Portfolio"
+msgstr "Портфолио"
+
+#: lib/kubio-editor.php:175
+msgid "Photo gallery"
+msgstr "Фотогалерея"
+
+#: lib/kubio-editor.php:180
+msgid "Testimonials"
+msgstr "Отзывы"
+
+#: lib/kubio-editor.php:185
+msgid "Clients"
+msgstr "Клиенты"
+
+#: lib/kubio-editor.php:190
+#: build/ai/index.js:3
+msgid "Team"
+msgstr "Команда"
+
+#: lib/kubio-editor.php:195
+#: build/ai/index.js:3
+msgid "Contact"
+msgstr "Контакты"
+
+#: lib/kubio-editor.php:200
+#: build/ai/index.js:3
+msgid "F.A.Q."
+msgstr "F.A.Q."
+
+#: lib/kubio-editor.php:205
+#: build/ai/index.js:3
+#: build/block-library/index.js:37
+msgid "Pricing"
+msgstr "Стоимость"
+
+#: lib/kubio-editor.php:209
+msgid "Inner Headers"
+msgstr "Внутренние заголовки"
+
+#: lib/kubio-editor.php:214
+#: build/editor/index.js:15
+msgid "Headers"
+msgstr "Заголовки"
+
+#: lib/kubio-editor.php:219
+#: build/editor/index.js:15
+msgid "Footers"
+msgstr "Подвалы сайта"
+
+#: lib/kubio-editor.php:385
+#: build/block-editor/index.js:1
+#: build/block-library/index.js:19
+msgid "Thumbnail"
+msgstr "Миниатюра"
+
+#: lib/kubio-editor.php:386
+#: build/block-editor/index.js:1
+#: build/block-library/index.js:19
+#: build/editor/index.js:55
+msgid "Medium"
+msgstr "Средний"
+
+#: lib/kubio-editor.php:387
+#: build/block-editor/index.js:1
+#: build/block-library/index.js:19
+#: build/editor/index.js:55
+msgid "Large"
+msgstr "Большой"
+
+#: lib/kubio-editor.php:388
+#: build/block-editor/index.js:1
+#: build/block-library/index.js:19
+msgid "Original Size"
+msgstr "Оригинальный размер"
+
+#: lib/kubio-editor.php:980
+#: lib/kubio-editor.php:984
+#: lib/kubio-editor.php:995
+msgid "Kubio"
+msgstr "Kubio"
+
+#: lib/kubio-editor.php:1023
+#: lib/src/Core/EditInKubioCustomizerPanel.php:87
+msgid "Open Kubio Editor"
+msgstr "Открыть редактор Kubio"
+
+#: lib/kubio-editor.php:1101
+msgid "What to show on the front page"
+msgstr "Что показать на главной странице"
+
+#: lib/kubio-editor.php:1114
+msgid "The ID of the page that should be displayed on the front page"
+msgstr "ID страницы, которая должна отображаться на главной странице"
+
+#: lib/kubio-editor.php:1129
+msgid "The ID of the page that displays the posts"
+msgstr "Идентификатор страницы, на которой отображаются записи"
+
+#: lib/kubio-editor.php:1147
+msgid "Site icon."
+msgstr "Значок сайта."
+
+#: lib/kubio-editor.php:1164
+msgctxt "Template name"
+msgid "Full Width"
+msgstr "Во всю ширину"
+
+#: lib/kubio-editor.php:1165
+#: lib/kubio-editor.php:1172
+msgid "Recommended Kubio template to display individual pages. This template works best with the Kubio provided blocks and predesigned sections."
+msgstr "Рекомендуемый шаблон Kubio для отображения отдельных страниц. Этот шаблон лучше всего работает с предоставленными Kubio блоками и предварительно разработанными секциями."
+
+#: lib/kubio-editor.php:1171
+msgctxt "Template name"
+msgid "Kubio Full Width"
+msgstr "Полная ширина Kubio"
+
+#: lib/kubio-editor.php:1246
+msgid "Sorry, you are not allowed to customize this site."
+msgstr "Извините, вам не разрешено настраивать этот сайт."
+
+#: lib/kubio-editor.php:1264
+msgid "Kubio Section"
+msgstr "Раздел Kubio"
+
+#: lib/kubio-editor.php:1306
+msgid "Kubio Favorites"
+msgstr "Избранное Kubio"
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:50
+msgid "An alphanumeric identifier for the menu location."
+msgstr "Буквенно-цифровой идентификатор расположения меню."
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:76
+#: lib/menu/class-wp-rest-menu-locations-controller.php:113
+msgid "Sorry, you are not allowed to view menu locations."
+msgstr "К сожалению, вы не можете просматривать расположение меню."
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:116
+#: lib/menu/class-wp-rest-menu-locations-controller.php:132
+#: lib/menu/class-wp-rest-menus-controller.php:146
+msgid "Invalid menu location."
+msgstr "Неверное расположение меню."
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:194
+msgid "The name of the menu location."
+msgstr "Имя расположения меню."
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:200
+msgid "The description of the menu location."
+msgstr "Описание расположения меню."
+
+#: lib/menu/class-wp-rest-menu-locations-controller.php:206
+msgid "The ID of the assigned menu."
+msgstr "Идентификатор назначенного меню."
+
+#: lib/menu/class-wp-rest-menus-controller.php:38
+msgid "Sorry, you are not allowed to edit terms in this taxonomy."
+msgstr "Извините, вам не разрешено редактировать элементы этой таксономии."
+
+#: lib/menu/class-wp-rest-menus-controller.php:40
+msgid "Sorry, you cannot view these menus, unless you have access to permission edit them. "
+msgstr "Извините, вы не можете просматривать эти меню, если у вас нет разрешения на их редактирование."
+
+#: lib/menu/class-wp-rest-menus-controller.php:58
+msgid "Sorry, you are not allowed to edit this term."
+msgstr "Извините, вам не разрешено редактировать этот элемент."
+
+#: lib/menu/class-wp-rest-menus-controller.php:60
+msgid "Sorry, you cannot view this menu, unless you have access to permission edit it. "
+msgstr "Извините, вы не можете просмотреть это меню, если у вас нет разрешения на его редактирование."
+
+#: lib/menu/class-wp-rest-menus-controller.php:139
+msgid "Sorry, you are not allowed to assign the provided locations."
+msgstr "Извините, у вас нет прав на назначение указанных местоположений."
+
+#: lib/menu/class-wp-rest-menus-controller.php:171
+msgid "Sorry, you are not allowed to set auto add pages."
+msgstr "Извините, у вас нет разрешения на установку автоматического добавления страниц."
+
+#: lib/menu/class-wp-rest-menus-controller.php:264
+#: lib/menu/class-wp-rest-menus-controller.php:373
+msgid "Cannot set parent term, taxonomy is not hierarchical."
+msgstr "Нельзя назначить родительский элемент, так как таксономия не является иерархической."
+
+#: lib/menu/class-wp-rest-menus-controller.php:270
+#: lib/menu/class-wp-rest-menus-controller.php:379
+msgid "Parent term does not exist."
+msgstr "Родительского элемента не существует."
+
+#. translators: %s: force=true
+#: lib/menu/class-wp-rest-menus-controller.php:450
+msgid "Terms do not support trashing. Set '%s' to delete."
+msgstr "Элементы нельзя переместить в корзину. Установите '%s' для удаления."
+
+#: lib/menu/class-wp-rest-menus-controller.php:460
+msgid "The term cannot be deleted."
+msgstr "Элемент не может быть удален."
+
+#: lib/menu/class-wp-rest-menus-controller.php:576
+msgid "Menu location does not exist."
+msgstr "Местоположение меню не существует."
+
+#: lib/menu/class-wp-rest-menus-controller.php:604
+msgid "The locations assigned to the menu."
+msgstr "Места, назначенные меню."
+
+#: lib/menu/class-wp-rest-menus-controller.php:613
+msgid "Whether to automatically add top level pages to this menu."
+msgstr "Следует ли автоматически добавлять страницы верхнего уровня в это меню."
+
+#: lib/menu/locations.php:10
+msgid "Header menu"
+msgstr "Заголовок меню"
+
+#: lib/menu/locations.php:11
+msgid "Kubio header menu"
+msgstr "Меню шапки Kubio"
+
+#: lib/menu/locations.php:14
+msgid "Secondary header menu"
+msgstr "Вторичное меню заголовка"
+
+#: lib/menu/locations.php:15
+msgid "Kubio secondary header menu"
+msgstr "Вторичное меню шапки Kubio"
+
+#: lib/menu/locations.php:18
+msgid "Footer menu"
+msgstr "Меню подвала"
+
+#: lib/menu/locations.php:19
+msgid "Kubio footer menu"
+msgstr "Нижнее меню Kubio"
+
+#: lib/menu/locations.php:22
+msgid "Secondary footer menu"
+msgstr "Меню второго нижнего колонтитула"
+
+#: lib/menu/locations.php:23
+msgid "Kubio secondary footer menu"
+msgstr "Вторичное меню нижнего колонтитула Kubio"
+
+#: lib/menu/menu-rest-controller.php:46
+msgid "Unique identifier for menu."
+msgstr "Уникальный идентификатор для меню."
+
+#: lib/preview/index.php:128
+msgid "Kubio Preview"
+msgstr "Предпросмотр Kubio"
+
+#: lib/preview/index.php:253
+msgid "Current preview state is unavailable"
+msgstr "Текущее состояние предпросмотра недоступно"
+
+#. translators: the placeholder is an url
+#: lib/pro/filters/notices.php:33
+msgid "If you want to rollback to a previous version please open a support ticket: <a target=\"_blank\" href=\"%1$s\">Open support ticket</a>"
+msgstr "Если вы хотите вернуться к предыдущей версии, пожалуйста, откройте обращение в службу поддержки: <a target=\"_blank\" href=\"%1$s\">Открыть обращение в службу поддержки</a>"
+
+#: lib/pro/integrations/multilanguage/polylang.php:385
+msgid "Current content will be replaced with the content from the primary language. Are you sure ?"
+msgstr "Текущее содержимое будет заменено содержимым основного языка. Вы уверены?"
+
+#: lib/pro/integrations/multilanguage/polylang.php:401
+msgid "Copy from primary language"
+msgstr "Скопировать из основного языка"
+
+#: lib/pro/src/Core/License/ActivationForm.php:32
+msgid "Enter a valid Kubio PRO license key to unlock all the PRO features"
+msgstr "Введите действительный лицензионный ключ Kubio PRO, чтобы разблокировать все функции PRO"
+
+#: lib/pro/src/Core/License/ActivationForm.php:67
+msgid "Activate Kubio PRO License"
+msgstr "Активировать лицензию Kubio PRO"
+
+#: lib/pro/src/Core/License/ActivationForm.php:68
+msgid "If this is a testing site you can ignore this message. If this is your live site then please insert the license key below."
+msgstr "Если это тестовый сайт, вы можете проигнорировать это сообщение. Если это ваш рабочий сайт, вставьте ключ лицензии ниже."
+
+#: lib/pro/src/Core/License/ActivationForm.php:81
+msgid "Activate License"
+msgstr "Активировать лицензию"
+
+#. translators: placeholders are some urls like <a href="#">My Account</a>
+#: lib/pro/src/Core/License/ActivationForm.php:99
+msgid "Your key was sent via email when the purchase was completed. Also you can find the key in the %1$s of your %2$s account"
+msgstr "Ваш ключ был отправлен по электронной почте после завершения покупки. Также вы можете найти ключ в %1$s вашей учетной записи %2$s"
+
+#: lib/pro/src/Core/License/ActivationForm.php:122
+#: build/admin-area/index.js:1
+msgid "License key is empty"
+msgstr "Лицензионный ключ пуст"
+
+#: lib/pro/src/Core/License/ActivationForm.php:189
+msgid "No error"
+msgstr "Без ошибок"
+
+#: lib/pro/src/Core/License/ActivationForm.php:197
+msgid "AI Features"
+msgstr "Функции на основе ИИ"
+
+#: lib/pro/src/Core/License/ActivationForm.php:198
+msgid "More sections and blocks"
+msgstr "Больше разделов и блоков"
+
+#: lib/pro/src/Core/License/ActivationForm.php:199
+msgid "Footer editing"
+msgstr "Редактирование нижнего колонтитула"
+
+#: lib/pro/src/Core/License/ActivationForm.php:200
+msgid "Multiple page headers"
+msgstr "Несколько заголовков страниц"
+
+#: lib/pro/src/Core/License/ActivationForm.php:207
+msgid "Other"
+msgstr "Другое"
+
+#: lib/pro/src/Core/License/ActivationForm.php:224
+msgid "Thank you for choosing Kubio PRO!"
+msgstr "Спасибо, что выбрали Kubio PRO!"
+
+#: lib/pro/src/Core/License/ActivationForm.php:227
+msgid "Could you tell us what inspired your decision to upgrade?"
+msgstr "Можете ли вы рассказать, что вас вдохновило на решение обновиться?"
+
+#. translators: %1$s - string with server error response
+#: lib/pro/src/Core/License/CheckForm.php:27
+msgid "There was an error calling Kubio License Server: <code>%1$s</code>. Please contact us for support on <a href=\"%2$s\" target=\"_blank\">Kubio</a> website"
+msgstr "При вызове сервера лицензий Kubio произошла ошибка: <code>%1$s</code>. Пожалуйста, свяжитесь с нами для получения поддержки на сайте <a href=\"%2$s\" target=\"_blank\">Kubio</a>"
+
+#. translators: %s - string with server error response
+#: lib/pro/src/Core/License/CheckForm.php:36
+msgid "Current license key was removed! Reason: %s"
+msgstr "Текущий лицензионный ключ был удален! Причина: %s"
+
+#: lib/src/Core/Activation.php:544
+msgid "Primary menu"
+msgstr "Основное меню"
+
+#: lib/src/Core/Blocks/Query/QueryLoopBase.php:50
+#: build/block-library/index.js:33
+#: build/block-library/index.js:35
+msgid "No {post_title} found!"
+msgstr "Записей с заголовком {post_title} не найдено!"
+
+#: lib/src/Core/Blocks/TemplatePartBlockBase.php:26
+msgid "Template Part Not Found"
+msgstr "Часть шаблона не найдена"
+
+#: lib/src/Core/CustomizerImporter.php:275
+#: build/block-library/index.js:19
+#: build/controls/index.js:19
+#: build/controls/index.js:35
+msgid "Image"
+msgstr "Изображение"
+
+#: lib/src/Core/EditInKubioCustomizerPanel.php:74
+msgid "After installing the Kubio builder, all page contents editing will be done using the WordPress block editor instead of the Customizer."
+msgstr "После установки конструктора Kubio все редактирование содержимого страниц будет выполняться с использованием редактора блоков WordPress вместо настраиваемого."
+
+#: lib/src/Core/EditInKubioCustomizerPanel.php:77
+msgid "After installing the Kubio builder, all site editing will be done using the WordPress block editor instead of the Customizer."
+msgstr "После установки конструктора Kubio вся редакция сайта будет производиться с использованием редактора блоков WordPress вместо Персонализатора."
+
+#: lib/src/Core/EditInKubioCustomizerPanel.php:84
+msgid " Please use the button below to open the Kubio editor."
+msgstr "Пожалуйста, используйте кнопку ниже, чтобы открыть редактор Kubio."
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:699
+msgid "Keep the new home page?"
+msgstr "Сохранить новую домашнюю страницу?"
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:703
+msgid " We created a new home page for you. If you don't like it you can restore your previous home page."
+msgstr "Мы создали новую домашнюю страницу для вас. Если вам не нравится, вы можете восстановить предыдущую домашнюю страницу."
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:707
+msgid "Yes, keep my new home page"
+msgstr "Да, сохранить мою новую домашнюю страницу"
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:710
+msgid "Restore my previous home page"
+msgstr "Восстановить мою предыдущую домашнюю страницу"
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:737
+#: build/editor/index.js:1
+msgid "Your previous home page was showing the most recent blog posts. Are you sure you want to restore your previous home page?"
+msgstr "На вашей предыдущей домашней странице отображались самые последние записи в блоге. Вы уверены, что хотите восстановить предыдущую домашнюю страницу?"
+
+#: lib/src/Core/KubioFrontPageRevertNotice.php:739
+#: build/editor/index.js:1
+msgid "Are you sure you want to restore your previous home page?"
+msgstr "Вы уверены, что хотите восстановить предыдущую домашнюю страницу?"
+
+#: lib/src/Core/Utils.php:107
+msgid "Shortcode is empty."
+msgstr "Шорткод пуст."
+
+#: lib/src/Core/Utils.php:108
+msgid "Edit this page to insert a shortcode or delete this block."
+msgstr "Отредактируйте эту страницу, чтобы вставить шорткод или удалить этот блок."
+
+#. translators: %1$s: block name, %2$s: items type
+#: lib/src/Core/Utils.php:122
+msgid "%1$s has no %2$s."
+msgstr "%1$s не имеет %2$s."
+
+#. translators: %s: items type
+#: lib/src/Core/Utils.php:124
+msgid "Edit this page to insert %s or delete this block."
+msgstr "Отредактируйте эту страницу, чтобы вставить %s или удалить этот блок."
+
+#: lib/src/Core/Utils.php:144
+msgid "Kubio info"
+msgstr "Информация о Kubio"
+
+#. translators: %s: URL to Update PHP page.
+#: lib/src/Core/Utils.php:331
+msgid "<a href=\"%s\">Learn more about updating PHP</a>"
+msgstr "<a href=\"%s\">Узнать больше об обновлении PHP</a>"
+
+#. translators: %s: URL to Update PHP page.
+#: lib/src/Core/Utils.php:337
+msgid "<a href=\"%s\">Update WordPress now!</a>"
+msgstr "<a href=\"%s\">Обновите WordPress сейчас!</a>"
+
+#. translators: 1: Current WordPress version, 2: Current PHP version, 3: Plugin name, 4: Required WordPress version, 5: Required PHP version.
+#: lib/src/Core/Utils.php:346
+msgid "<strong>Error:</strong> Current versions of WordPress (%1$s) and PHP (%2$s) do not meet minimum requirements for %3$s. The plugin requires WordPress %4$s and PHP %5$s."
+msgstr "<strong>Ошибка:</strong> Текущие версии WordPress (%1$s) и PHP (%2$s) не соответствуют минимальным требованиям для %3$s. Для работы плагина требуется WordPress %4$s и PHP %5$s."
+
+#. translators: 1: Current PHP version, 2: Plugin name, 3: Required PHP version.
+#: lib/src/Core/Utils.php:359
+msgid "<strong>Error:</strong> Current PHP version (%1$s) does not meet minimum requirements for %2$s. The plugin requires PHP %3$s."
+msgstr "<strong>Ошибка:</strong> Текущая версия PHP (%1$s) не соответствует минимальным требованиям для %2$s. Для работы плагина требуется PHP %3$s."
+
+#. translators: 1: Current WordPress version, 2: Plugin name, 3: Required WordPress version.
+#: lib/src/Core/Utils.php:370
+msgid "<strong>Error:</strong> Current WordPress version (%1$s) does not meet minimum requirements for %2$s. The plugin requires WordPress %3$s."
+msgstr "<strong>Ошибка:</strong> Текущая версия WordPress (%1$s) не соответствует минимальным требованиям для %2$s. Для работы плагина требуется WordPress %3$s."
+
+#: lib/src/DemoSites/DemoSites.php:334
+#: lib/src/DemoSites/DemoSites.php:354
+msgid "Slug not found"
+msgstr "Слаг не найден"
+
+#. translators: %1$s - opening div and paragraph HTML tags, %2$s - closing div and paragraph HTML tags.
+#: lib/src/DemoSites/DemoSitesHelpers.php:24
+msgid "%1$sYour user role isn't high enough. You don't have permission to import demo data.%2$s"
+msgstr "%1$sВаша роль пользователя недостаточно высока. У вас нет разрешения на импорт демонстрационных данных.%2$s"
+
+#: lib/src/DemoSites/DemoSitesHelpers.php:82
+msgid "Kubio Demo Import - "
+msgstr "Импорт демо-версии Kubio -"
+
+#: lib/src/DemoSites/DemoSitesHelpers.php:101
+msgid "Missing URL for downloading a file!"
+msgstr "Отсутствует URL для загрузки файла!"
+
+#: lib/src/DemoSites/DemoSitesHelpers.php:111
+msgid "Invalid URL for downloading a file!"
+msgstr "Недопустимый URL для загрузки файла!"
+
+#. translators: %1$s and %3$s - strong HTML tags, %2$s - file URL, %4$s - br HTML tag, %5$s - error code, %6$s - error message.
+#: lib/src/DemoSites/DemoSitesHelpers.php:130
+msgid "An error occurred while fetching file from: %1$s%2$s%3$s!%4$sReason: %5$s - %6$s."
+msgstr "Ошибка при загрузке файла из: %1$s%2$s%3$s!%4$sПричина: %5$s - %6$s."
+
+#. translators: %1$s - br HTML tag, %2$s - file path
+#: lib/src/DemoSites/DemoSitesHelpers.php:229
+#: lib/src/DemoSites/DemoSitesHelpers.php:314
+msgid "An error occurred while writing file to your server! Tried to write a file to: %1$s%2$s."
+msgstr "Произошла ошибка при записи файла на ваш сервер! Пытался записать файл в: %1$s%2$s."
+
+#. translators: %1$s and %2$s - strong HTML tags, %3$s - HTML link to a doc page.
+#: lib/src/DemoSites/DemoSitesHelpers.php:251
+msgid "This WordPress site does not have %1$sdirect%2$s write file access. This plugin needs it in order to save the demo import files to the upload directory of your site. You can change this setting with these instructions: %3$s."
+msgstr "На этом сайте WordPress нет %1$sпрямого%2$s доступа к записи файлов. Этот плагин нуждается в этом, чтобы сохранить файлы импорта демонстрации в каталог загрузки вашего сайта. Вы можете изменить этот параметр, следуя этим инструкциям: %3$s."
+
+#: lib/src/DemoSites/DemoSitesImporter.php:199
+msgid "Warn: Unable set memory_limit"
+msgstr "Предупреждение: Невозможно установить memory_limit"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:228
+msgid "No import files specified!"
+msgstr "Файлы для импорта не указаны!"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:247
+#: lib/src/DemoSites/DemoSitesImporter.php:257
+#: lib/src/DemoSites/DemoSitesImporter.php:267
+msgid "Downloaded files"
+msgstr "Загруженные файлы"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:255
+msgid "Import file undefined"
+msgstr "Файл импорта не определен"
+
+#. translators: %s - the name of the selected import.
+#: lib/src/DemoSites/DemoSitesImporter.php:263
+msgid "The import files for: %s were successfully downloaded!"
+msgstr "Файлы импорта для: %s были успешно загружены!"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:281
+msgid "Manual kds import!"
+msgstr "Ручной импорт kds!"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:283
+msgid "Manual import"
+msgstr "Ручной импорт"
+
+#: lib/src/DemoSites/DemoSitesImporter.php:323
+msgid "Importer action not found"
+msgstr "Действие импортера не найдено"
+
+#. translators: %s - menu item name e.g. "Home", "Contact"
+#: lib/src/DemoSites/DemoSitesImporter.php:445
+msgid "Old %s"
+msgstr "Старый %s"
+
+#. translators: %s - menu item name e.g. "Home", "Contact"
+#: lib/src/DemoSites/DemoSitesImporter.php:445
+msgid "Old"
+msgstr "Cтарый"
+
+#. translators: %s file url
+#: lib/src/DemoSites/WXRImporter.php:346
+msgid "Unable to import remote file: %s"
+msgstr "Не удалось импортировать удаленный файл: %s"
+
+#: lib/src/DemoSites/WXRImporter.php:549
+msgid "New AJAX call!"
+msgstr "Новый вызов AJAX!"
+
+#: lib/src/DemoSites/WXRImporter.php:585
+msgid "Posts post processing"
+msgstr "Обработка записей"
+
+#. translators: %1$s = term slug, %2$s = taxonomy
+#: lib/src/DemoSites/WXRImporter.php:596
+msgid "Create term `%1$s` in `%2$s`"
+msgstr "Создать термин '%1$s' в '%2$s'"
+
+#. translators: %s - plugin slug
+#: lib/src/PluginsManager.php:69
+msgid "Failed to install plugin: %s"
+msgstr "Ошибка установки плагина: %s"
+
+#: build/block-library/blocks/accordion/blocks/accordion/block.json
+msgctxt "block title"
+msgid "Accordion"
+msgstr "Аккордеон"
+
+#: build/block-library/blocks/column/block.json
+msgctxt "block title"
+msgid "Column"
+msgstr "Столбец"
+
+#: build/block-library/blocks/footer/block.json
+msgctxt "block title"
+msgid "Footer"
+msgstr "Подвал"
+
+#: build/block-library/blocks/footer/block.json
+msgctxt "block description"
+msgid "You can replace the default page footer with a custom one using the footer template part. Various footers can be assigned to various pages."
+msgstr "Вы можете заменить стандартный нижний колонтитул страницы на пользовательский, используя часть шаблона нижнего колонтитула. Различные нижние колонтитулы могут быть назначены различным страницам."
+
+#: build/block-library/blocks/icon-list/blocks/icon-list-item/block.json
+msgctxt "block title"
+msgid "Icon list item"
+msgstr "Значок элемента списка"
+
+#: build/block-library/blocks/icon-list/blocks/icon-list/block.json
+msgctxt "block title"
+msgid "Icon List"
+msgstr "Список со значками"
+
+#: build/block-library/blocks/navigation/blocks/navigation-top-bar/block.json
+msgctxt "block title"
+msgid "Navigation Top Bar"
+msgstr "Верхняя панель навигации"
+
+#: build/block-library/blocks/navigation/blocks/navigation/block.json
+msgctxt "block title"
+msgid "Navigation"
+msgstr "Навигация"
+
+#: build/block-library/blocks/navigation/blocks/navigation/block.json
+msgctxt "block description"
+msgid "If you've accidentally removed your navigation, you can re-add a navigation to your page with this block. The navigation block has 5 available layouts."
+msgstr "Если вы случайно удалили свою навигацию, вы можете снова добавить навигацию на свою страницу с помощью этого блока. У блока навигации есть 5 доступных макетов."
+
+#: build/block-library/blocks/row/block.json
+msgctxt "block title"
+msgid "Columns"
+msgstr "Столбцы"
+
+#: build/block-library/blocks/section/block.json
+msgctxt "block title"
+msgid "Section"
+msgstr "Раздел"
+
+#: build/block-library/blocks/sidebar/block.json
+msgctxt "block title"
+msgid "Sidebar"
+msgstr "Боковая колонка"
+
+#: build/block-library/blocks/sidebar/block.json
+msgctxt "block description"
+msgid "You can create separate sidebars for web pages, blog, and articles, in order to create different user journeys."
+msgstr "Вы можете создать отдельные боковые панели для веб-страниц, блога и статей, чтобы создать разные пути пользователей."

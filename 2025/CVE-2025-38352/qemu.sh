@@ -1,0 +1,12 @@
+qemu-system-x86_64 \
+    -enable-kvm \
+    -cpu host \
+    -smp 4 \
+    -kernel ./bzImage \
+    -initrd ./initramfs.tgz \
+    -nographic \
+    -append "console=ttyS0 kgdbwait kgdboc=ttyS1,115200 oops=panic panic=0 quiet" \
+    -m 3G \
+    -netdev user,id=mynet0 \
+    -device virtio-net-pci,netdev=mynet0 \
+    -s

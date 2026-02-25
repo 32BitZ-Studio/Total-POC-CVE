@@ -1,0 +1,3 @@
+[submodule "OffWinLib"]
+	path = OffWinLib
+	url = https://github.com/SpacePlant/OffWinLib/

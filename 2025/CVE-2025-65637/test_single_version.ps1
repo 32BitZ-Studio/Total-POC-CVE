@@ -1,0 +1,34 @@
+# Quick test script for a single logrus version
+# Usage: .\test_single_version.ps1 v1.9.3
+
+param(
+    [Parameter(Mandatory=$true)]
+    [string]$Version
+)
+
+Write-Host "Testing logrus version: $Version" -ForegroundColor Cyan
+Write-Host "----------------------------------------" -ForegroundColor Gray
+
+# Clean up
+if (Test-Path "go.mod") {
+    Remove-Item "go.mod" -Force
+}
+if (Test-Path "go.sum") {
+    Remove-Item "go.sum" -Force
+}
+
+# Initialize and get version
+go mod init poclogrus 2>&1 | Out-Null
+go get "github.com/sirupsen/logrus@$Version" 2>&1 | Out-Null
+
+Write-Host "Running PoC..." -ForegroundColor Yellow
+Write-Host ""
+
+# Run PoC
+go run .\poc_logrus_dos_improved.go
+
+Write-Host ""
+Write-Host "----------------------------------------" -ForegroundColor Gray
+Write-Host "If you see 'bufio.Scanner: token too long' error, version is VULNERABLE" -ForegroundColor Red
+Write-Host "If no error and Writer works, version is FIXED" -ForegroundColor Green
+

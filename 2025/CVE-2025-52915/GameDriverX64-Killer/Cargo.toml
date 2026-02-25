@@ -1,0 +1,9 @@
+[package]
+name = "GameDriverX64-Killer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+byovd-lib.workspace = true
+winapi.workspace = true
+clap.workspace = true

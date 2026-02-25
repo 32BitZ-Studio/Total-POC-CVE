@@ -1,0 +1,18 @@
+{
+  "name": "vuetify2-nes-starter",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "vue": "2.6.14",
+    "vuetify": "2.7.2"
+  },
+  "devDependencies": {
+    "vite": "^2.0.0",
+    "vite-plugin-vue2": "latest",
+    "vue-template-compiler": "~2.6.0"
+  }
+}

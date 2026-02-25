@@ -1,0 +1,58 @@
+{
+	"name": "kubio/language-selector",
+	"category": "kubio-site-data",
+	"attributes": {
+		"kubio": {
+			"type": "object"
+		},
+		"show":  {
+			"type": "boolean",
+			"default": true
+		},
+		"displayAs":  {
+			"type": "string",
+			"default": "dropdown"
+		},
+		"showFlags":  {
+			"type": "boolean",
+			"default": true
+		},
+		"showNames":  {
+			"type": "boolean",
+			"default": true
+		},
+		"isEditor": {
+			"type": "boolean",
+			"default": false
+		},
+		"postId": {
+			"type": "number"
+		}
+	},
+	"usesContext": [
+		"postId"
+	],
+	"supports": {
+		"kubio": {
+			"default": {
+				"props": {}
+			},
+			"appearanceEffect": true,
+			"elementsEnum": {
+				"OUTER": "outer"
+			},
+			"elementsByName": {
+				"outer": {
+					"wrapper": true,
+					"default": true
+				}
+			},
+			"template": {
+				"type": "element",
+				"props": {
+					"name": "outer"
+				}
+			}
+		}
+	}
+}
