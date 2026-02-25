@@ -1,0 +1,13 @@
+[mysqld]
+collation_server = utf8mb4_unicode_ci
+innodb_buffer_pool_instances = 64
+innodb_buffer_pool_size = 8000M
+innodb_flush_log_at_timeout = 4
+innodb_io_capacity = 5000
+innodb_io_capacity_max = 10000
+innodb_read_io_threads = 34
+innodb_write_io_threads = 17
+join_buffer_size = 106M
+sort_buffer_size = 1K
+max_heap_table_size = 512M
+tmp_table_size = 512M

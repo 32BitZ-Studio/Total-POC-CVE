@@ -1,0 +1,5 @@
+Title: My virtual feed
+
+----
+
+Intro: This page lists articles from an RSS feed.

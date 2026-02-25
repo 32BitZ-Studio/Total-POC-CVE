@@ -1,0 +1,10 @@
+FROM mysql:8.0.32
+
+COPY ./config/mysql/cacti.cnf /etc/mysql/conf.d/cacti.cnf
+
+# Doesn't work. Added SQL file manually.
+#RUN curl https://raw.githubusercontent.com/Cacti/cacti/release/1.2.24/cacti.sql --output cacti.sql --silent
+#RUN mv cacti.sql /docker-entrypoint-initdb.d
+
+COPY ./config/mysql/cacti.sql /docker-entrypoint-initdb.d/cacti.sql
+COPY ./config/mysql/timezone.sql /docker-entrypoint-initdb.d/timezone.sql

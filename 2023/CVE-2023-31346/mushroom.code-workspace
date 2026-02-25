@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "common"
+		},
+		{
+			"path": "host"
+		},
+		{
+			"path": "tee"
+		}
+	],
+	"settings": {
+		"rust-analyzer.check.allTargets": false,
+	}
+}

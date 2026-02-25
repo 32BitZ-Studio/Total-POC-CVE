@@ -1,0 +1,160 @@
+diff --git a/index.js b/index.js
+new file mode 100644
+index 0000000..732ca8d
+--- /dev/null
++++ b/index.js
+@@ -0,0 +1,25 @@
++async function main() {
++  try {
++    const tough = require("tough-cookie");
++    const jar = new tough.CookieJar(undefined, { rejectPublicSuffixes: false });
++
++    jar.setCookieSync(
++      "Slonser=polluted; Domain=__proto__; Path=/notauth",
++      "https://__proto__/admin"
++    );
++    jar.setCookieSync(
++      "Auth=Lol; Domain=google.com; Path=/notauth",
++      "https://google.com/"
++    );
++    const pollutedObject = {};
++    if (pollutedObject["/notauth"] === undefined) {
++      throw new Error("EXPLOIT FAILED");
++    }
++    console.log("Polluted object:", pollutedObject["/notauth"], "EXPLOITED SUCCESSFULLY");
++
++  } catch (error) {
++    console.error("EXPLOIT FAILED");
++  }
++}
++
++main();
+diff --git a/lib/memstore.js b/lib/memstore.js
+index d2b915c..5d63448 100644
+--- a/lib/memstore.js
++++ b/lib/memstore.js
+@@ -28,6 +28,9 @@
+  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  * POSSIBILITY OF SUCH DAMAGE.
+  */
++
++// Change the objects to be prototype-free, breaking the prototype chain and preventing pollution.
++
+ 'use strict';
+ var Store = require('./store').Store;
+ var permuteDomain = require('./permuteDomain').permuteDomain;
+@@ -36,7 +39,7 @@ var util = require('util');
+
+ function MemoryCookieStore() {
+   Store.call(this);
+-  this.idx = {};
++  this.idx = Object.create(null);
+ }
+ util.inherits(MemoryCookieStore, Store);
+ exports.MemoryCookieStore = MemoryCookieStore;
+@@ -115,10 +118,10 @@ MemoryCookieStore.prototype.findCookies = function(domain, path, cb) {
+
+ MemoryCookieStore.prototype.putCookie = function(cookie, cb) {
+   if (!this.idx[cookie.domain]) {
+-    this.idx[cookie.domain] = {};
++    this.idx[cookie.domain] =  Object.create(null);
+   }
+   if (!this.idx[cookie.domain][cookie.path]) {
+-    this.idx[cookie.domain][cookie.path] = {};
++    this.idx[cookie.domain][cookie.path] =  Object.create(null);
+   }
+   this.idx[cookie.domain][cookie.path][cookie.key] = cookie;
+   cb(null);
+@@ -150,7 +153,7 @@ MemoryCookieStore.prototype.removeCookies = function(domain, path, cb) {
+ };
+
+ MemoryCookieStore.prototype.removeAllCookies = function(cb) {
+-  this.idx = {};
++  this.idx =  Object.create(null);
+   return cb(null);
+ }
+
+diff --git a/package.json b/package.json
+index 8af9909..a2a7269 100644
+--- a/package.json
++++ b/package.json
+@@ -73,6 +73,7 @@
+   },
+   "dependencies": {
+     "psl": "^1.1.28",
+-    "punycode": "^2.1.1"
++    "punycode": "^2.1.1",
++    "tough-cookie": "file:tough-cookie-2.5.0-PATCHED.tgz"
+   }
+ }
+diff --git a/test/ietf_data/parser.json b/test/ietf_data/parser.json
+index c40ad54..9b6aab3 100644
+--- a/test/ietf_data/parser.json
++++ b/test/ietf_data/parser.json
+@@ -11,7 +11,7 @@
+   {
+     "test": "0002",
+     "received": [
+-      "foo=bar; Expires=Fri, 07 Aug 2019 08:04:19 GMT"
++      "foo=bar; Expires=Fri, 07 Aug 2026 08:04:19 GMT"
+     ],
+     "sent": [
+       { "name": "foo", "value": "bar" }
+@@ -707,7 +707,7 @@
+   {
+     "test": "COMMA0006",
+     "received": [
+-      "foo=bar; Expires=Fri, 07 Aug 2019 08:04:19 GMT"
++      "foo=bar; Expires=Fri, 07 Aug 2026 08:04:19 GMT"
+     ],
+     "sent": [
+       { "name": "foo", "value": "bar" }
+@@ -716,7 +716,7 @@
+   {
+     "test": "COMMA0007",
+     "received": [
+-      "foo=bar; Expires=Fri 07 Aug 2019 08:04:19 GMT, baz=qux"
++      "foo=bar; Expires=Fri 07 Aug 2026 08:04:19 GMT, baz=qux"
+     ],
+     "sent": [
+       { "name": "foo", "value": "bar" }
+diff --git a/test/prototype_pollution_test.js b/test/prototype_pollution_test.js
+new file mode 100644
+index 0000000..e1a4abc
+--- /dev/null
++++ b/test/prototype_pollution_test.js
+@@ -0,0 +1,30 @@
++const vows = require('vows');
++const assert = require('assert');
++const tough = require('../lib/cookie'); // use patched tough-cookie;
++const CookieJar = tough.CookieJar;
++
++vows.describe('Prototype pollution test').addBatch({
++      "when setting a cookie with the domain __proto__": {
++        topic: function() {
++          const jar = new CookieJar(undefined, {
++            rejectPublicSuffixes: false
++          });
++          // try to pollute the prototype
++          jar.setCookieSync(
++            "Slonser=polluted; Domain=__proto__; Path=/notauth",
++            "https://__proto__/admin"
++          );
++          jar.setCookieSync(
++            "Auth=Lol; Domain=google.com; Path=/notauth",
++            "https://google.com/"
++          );
++          this.callback();
++        },
++        "results in a cookie that is not affected by the attempted prototype pollution should be undefined": function() {
++          const pollutedObject = {};
++          assert.strictEqual(pollutedObject["/notauth"], undefined);
++        }
++      }
++  })
++  .export(module);
++
+diff --git a/tough-cookie-2.5.0-PATCHED.tgz b/tough-cookie-2.5.0-PATCHED.tgz
+new file mode 100644
+index 0000000..ee7ffc9
+Binary files /dev/null and b/tough-cookie-2.5.0-PATCHED.tgz differ

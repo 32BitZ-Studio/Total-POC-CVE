@@ -1,0 +1,32 @@
+[config]
+default_to_workspace = false
+skip_core_tasks = true
+
+[tasks.cargo]
+command = "cargo"
+cwd = "${CARGO_MAKE_CURRENT_TASK_INITIAL_MAKEFILE_DIRECTORY}"
+
+[tasks.default]
+alias = "build"
+
+[tasks.build-tee]
+extend = "cargo"
+condition = { profiles = ["development", "kasan"] }
+args = [
+    "build",
+    "-p",
+    "kernel",
+    "--target",
+    "kernel/kernel.json",
+    "--profile",
+    "kernel",
+    "-Z",
+    "build-std=core,alloc,compiler_builtins",
+    "-Z",
+    "build-std-features=compiler-builtins-mem",
+]
+env = { RUSTFLAGS = "-Z cf-protection=return" }
+
+[tasks.clean-tee]
+extend = "cargo"
+args = ["clean"]

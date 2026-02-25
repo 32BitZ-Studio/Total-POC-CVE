@@ -1,0 +1,3 @@
+[submodule "netconsd"]
+	path = netconsd
+	url = https://github.com/facebook/netconsd

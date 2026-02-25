@@ -1,0 +1,30 @@
+version: "3"
+services:
+  cacti:
+    container_name: vuln-cacti
+    build:
+      dockerfile: Dockerfile_cacti
+    ports:
+      - 80:80
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # To connect to the host machine.
+    depends_on:
+      - cacti_db
+      - monitored_snmp_device
+    restart: always
+  cacti_db:
+    container_name: vuln-cacti-mysql
+    build:
+      dockerfile: Dockerfile_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_root_password
+      MYSQL_DATABASE: cacti_mysql
+      MYSQL_USER: cacti_mysql_user
+      MYSQL_PASSWORD: cacti_mysql_password
+    restart: always
+  monitored_snmp_device:
+    container_name: vuln-cacti-monitored-snmp-device
+    image: xeemetric/snmp-simulator
+    ports:
+      - 161:161/udp
+    restart: always

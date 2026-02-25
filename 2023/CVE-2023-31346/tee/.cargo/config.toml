@@ -1,0 +1,20 @@
+[target."x86_64-unknown-none"]
+rustflags = [
+    "-C",
+    "relocation-model=static",
+    "-C",
+    "code-model=medium",
+    "--cfg",
+    "polyval_force_soft",
+    "--cfg",
+    "aes_force_soft",
+    "-C",
+    "force-frame-pointers=true",
+]
+
+[target."cfg(kasan)"]
+rustflags = [
+    "-Zsanitizer=kernel-address",
+    "-Cllvm-args=-asan-mapping-offset=0xdfffc00000000000 -asan-constructor-kind=none -asan-destructor-kind=none",
+    "-Clink-args=-mllvm -asan-mapping-offset=0xdfffc00000000000 -mllvm -asan-constructor-kind=none -mllvm -asan-destructor-kind=none",
+]

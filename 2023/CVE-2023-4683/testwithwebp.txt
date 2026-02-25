@@ -1,0 +1,53 @@
+=================================================================
+==6475==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x626000002f28 at pc 0x5653f2bb1d9d bp 0x7ffd4db3b640 sp 0x7ffd4db3b630
+WRITE of size 1 at 0x626000002f28 thread T0
+    #0 0x5653f2bb1d9c in BuildHuffmanTable (/home/ubuntu/webp_test/examples/dwebp+0xa1d9c) (BuildId: b37d952f0f1deb339d415bd7a7ed9a3bf6b02310)
+    #1 0x5653f2bb211f in VP8LBuildHuffmanTable (/home/ubuntu/webp_test/examples/dwebp+0xa211f) (BuildId: b37d952f0f1deb339d415bd7a7ed9a3bf6b02310)
+    #2 0x5653f2b466c7 in ReadHuffmanCode (/home/ubuntu/webp_test/examples/dwebp+0x366c7) (BuildId: b37d952f0f1deb339d415bd7a7ed9a3bf6b02310)
+    #3 0x5653f2b4b310 in DecodeImageStream (/home/ubuntu/webp_test/examples/dwebp+0x3b310) (BuildId: b37d952f0f1deb339d415bd7a7ed9a3bf6b02310)
+    #4 0x5653f2b4ea7e in VP8LDecodeHeader (/home/ubuntu/webp_test/examples/dwebp+0x3ea7e) (BuildId: b37d952f0f1deb339d415bd7a7ed9a3bf6b02310)
+    #5 0x5653f2b50853 in DecodeInto (/home/ubuntu/webp_test/examples/dwebp+0x40853) (BuildId: b37d952f0f1deb339d415bd7a7ed9a3bf6b02310)
+    #6 0x5653f2b534f0 in WebPDecode (/home/ubuntu/webp_test/examples/dwebp+0x434f0) (BuildId: b37d952f0f1deb339d415bd7a7ed9a3bf6b02310)
+    #7 0x5653f2b1eff6 in main (/home/ubuntu/webp_test/examples/dwebp+0xeff6) (BuildId: b37d952f0f1deb339d415bd7a7ed9a3bf6b02310)
+    #8 0x7f999adb0a8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #9 0x7f999adb0b48 in __libc_start_main_impl ../csu/libc-start.c:360
+    #10 0x5653f2b21074 in _start (/home/ubuntu/webp_test/examples/dwebp+0x11074) (BuildId: b37d952f0f1deb339d415bd7a7ed9a3bf6b02310)
+
+0x626000002f28 is located 0 bytes after 11816-byte region [0x626000000100,0x626000002f28)
+allocated by thread T0 here:
+    #0 0x7f999b1afcaf in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0x5653f2b4b148 in DecodeImageStream (/home/ubuntu/webp_test/examples/dwebp+0x3b148) (BuildId: b37d952f0f1deb339d415bd7a7ed9a3bf6b02310)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow (/home/ubuntu/webp_test/examples/dwebp+0xa1d9c) (BuildId: b37d952f0f1deb339d415bd7a7ed9a3bf6b02310) in BuildHuffmanTable
+Shadow bytes around the buggy address:
+  0x626000002c80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x626000002d00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x626000002d80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x626000002e00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x626000002e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x626000002f00: 00 00 00 00 00[fa]fa fa fa fa fa fa fa fa fa fa
+  0x626000002f80: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x626000003000: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x626000003080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x626000003100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x626000003180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==6475==ABORTING

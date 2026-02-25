@@ -1,0 +1,12 @@
+diff --git a/symlink b/newsymlink
+rename from symlink
+rename to newsymlink
+--
+diff --git /dev/null b/newsymlink/spawn
+new file mode 100644
+index 0000000..e47f4ea
+--- /dev/null
++++ b/newsymlink/[FILE_OUTSIDE]
+@@ -0,0 +1 @@
++[WHAT_YOU_WANT_INSIDE_THE_FILE]
+\ No newline at end of file

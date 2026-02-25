@@ -1,0 +1,28 @@
+extend = "../tee/Makefile.toml"
+
+[config]
+default_to_workspace = false
+skip_core_tasks = true
+
+[tasks.default]
+alias = "build"
+
+[tasks.build]
+dependencies = ["build-tee", "build-mushroom"]
+
+[tasks.build-mushroom]
+condition = { profiles = ["development", "kasan"] }
+command = "cargo"
+args = ["build", "-p", "mushroom"]
+
+[tasks.run]
+condition = { profiles = ["development"] }
+dependencies = ["build"]
+script = "target/debug/mushroom $@"
+[tasks.run.env]
+KERNEL = "../tee/target/kernel/kernel/kernel"
+
+[tasks.clean]
+dependencies = ["clean-tee"]
+command = "cargo"
+args = ["clean"]

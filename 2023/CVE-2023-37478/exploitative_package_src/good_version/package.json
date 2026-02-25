@@ -1,0 +1,11 @@
+{
+  "name": "definitely_benign_package",
+  "version": "0.2.0",
+  "description": "prints a happy message to the screen!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"I hope you have a great day!\" && exit 0"
+  },
+  "author": "Trevor",
+  "license": "ISC"
+}

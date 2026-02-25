@@ -1,0 +1,32 @@
+FROM php:7.4.33-apache
+
+RUN apt-get update && \
+    apt-get install -y \
+        nano \
+        cron \
+        iputils-ping \
+        git \
+        rrdtool \
+        mariadb-server \
+        snmp \
+        snmpd \
+        libsnmp-dev \
+        libxml2-dev \
+        libonig-dev \
+        libpng-dev \
+        libgmp-dev \
+        libzip-dev \
+        libldap2-dev
+
+RUN docker-php-ext-install mysqli pdo pdo_mysql sockets xml mbstring json gd gmp zip ldap gettext intl pcntl
+RUN docker-php-ext-enable mysqli pdo pdo_mysql sockets xml mbstring json gd gmp zip ldap gettext intl pcntl
+
+COPY ./config/cacti/php.ini /usr/local/etc/php/conf.d/php.ini
+
+RUN git clone --depth 1 -b release/1.2.24 https://github.com/Cacti/cacti.git
+RUN chown www-data:www-data -R /var/www/html
+
+COPY ./config/cacti/config.php /var/www/html/cacti/include/config.php
+
+RUN echo "*/5 * * * * apache php /var/www/html/cacti/poller.php &>/dev/null" > /etc/cron.d/cacti
+

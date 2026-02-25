@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        source: ..
+        target: /workspaces
+        read_only: false
+        consistency: cached
+      - type: bind
+        source: ~/.ssh
+        target: /home/node/.ssh
+        read_only: false
+        consistency: cached
+      - type: volume
+        source: bash_history
+        target: /commandhistory
+      - type: volume
+        source: node_modules
+        target: /workspace/node_modules
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        read_only: true
+        consistency: consistent
+    command: "sleep infinity"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.rule=Host(`app.localhost`)"
+      - "traefik.http.services.app.loadbalancer.server.port=3000"
+
+  reverse-proxy:
+    image: traefik:v2.10
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        read_only: true
+        consistency: consistent
+
+  whoami:
+    image: traefik/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
+      - "traefik.http.routers.whoami.middlewares=whoami_headers@docker"
+      - "traefik.http.middlewares.whoami_headers.headers.accesscontrolallowmethods=GET,OPTIONS,PUT"
+      - "traefik.http.middlewares.whoami_headers.headers.accesscontrolallowheaders=x-xsrf-token"
+      - "traefik.http.middlewares.whoami_headers.headers.accesscontrolallowcredentials=true"
+      - "traefik.http.middlewares.whoami_headers.headers.accesscontrolalloworiginlist=http://app.localhost"
+      - "traefik.http.middlewares.whoami_headers.headers.accesscontrolmaxage=180"
+      - "traefik.http.middlewares.whoami_headers.headers.addvaryheader=true"
+
+volumes:
+  node_modules: null
+  bash_history: null

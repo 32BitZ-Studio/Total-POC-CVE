@@ -1,0 +1,5 @@
+# compiled server binary
+./ncrx
+
+# gdb
+**/.gdb_history

@@ -1,0 +1,36 @@
+version: '3'
+services:
+  nginx:
+    build: images/nginx/
+    ports:
+      - "80:80"
+    volumes:
+      - ./sources/chitor-cms-XXX:/usr/share/nginx/html
+    links:
+      - php
+      - "mariadb:database"
+    networks:
+      - internal
+  php:
+    build: images/php/
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./sources/chitor-cms-XXX:/usr/share/nginx/html
+    networks:
+      - internal
+  mariadb:
+    build: images/mariadb/
+    environment:
+      MYSQL_USER: chitor
+      MYSQL_PASSWORD: chitor
+      MYSQL_DATABASE: chitor_db
+      MYSQL_ROOT_PASSWORD: chitor
+    ports:
+      - "3306:3306"
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge

