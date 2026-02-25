@@ -1,0 +1,57 @@
+<?php
+/*=========================================================================*\
+|| ####################################################################### ||
+|| # vBulletin Core Configuration                                        # ||
+|| # vBulletin 5.6.0
+|| # ------------------------------------------------------------------- # ||
+|| # Copyright 2000-2020 MH Sub I, LLC dba vBulletin. All Rights Reserved.  # ||
+|| # This file may not be redistributed in whole or significant part.    # ||
+|| # ----------------- VBULLETIN IS NOT FREE SOFTWARE ------------------ # ||
+|| # http://www.vbulletin.com | http://www.vbulletin.com/license.html    # ||
+|| ####################################################################### ||
+\*=========================================================================*/
+
+
+/*----------------------------------------------------------------------*\
+|        ****** NOTE REGARDING THE VARIABLES IN THIS FILE ******         |
++------------------------------------------------------------------------+
+| If you get any errors while attempting to connect to MySQL, you will   |
+| need to email your webhost because we cannot tell you the correct      |
+| values for the variables in this file.                                 |
+|                                                                        |
+| When making changes to the file, the edit should always be to the      |
+| right of the = sign between the single quotes                          |
+| Default: $config['MasterServer']['username'] = 'root';                 |
+| Example: $config['MasterServer']['username'] = 'myuser';  GOOD!        |
+| Example: $config['MasterServer']['myuser'] = 'root';      BAD!         |
+\*----------------------------------------------------------------------*/
+
+
+// CLI Options
+
+$config_cli['cli']['forum_data'] = array(
+	"bbtitle" =>"Forums",
+	"bburl" => "http://localhost",
+	"webmasteremail" => "webmaster@localhost"
+);
+
+$config_cli['cli']['cookie_data'] = array(
+	"cookiepath_value" => "",
+	"cookiedomain_value" => "",
+	"cookiepath" => "/",
+	"cookiedomain" => ""
+);
+
+$config_cli['cli']['user_data'] = array(
+	"username" => "",
+	"password" => "",
+	"confirmpassword" => "",
+	"email" => ""
+);
+
+/*=========================================================================*\
+|| #######################################################################
+|| # NulleD By - vBSupport.org
+|| # CVS: $RCSfile$ - $Revision 67851 $
+|| #######################################################################
+\*=========================================================================*/

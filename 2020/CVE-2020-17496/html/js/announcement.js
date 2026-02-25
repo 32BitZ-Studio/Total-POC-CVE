@@ -1,0 +1,11 @@
+/*=======================================================================*\
+|| ###################################################################### ||
+|| # vBulletin 5.6.0
+|| # ------------------------------------------------------------------ # ||
+|| # Copyright 2000-2020 MH Sub I, LLC dba vBulletin. All Rights Reserved.  # ||
+|| # This file may not be redistributed in whole or significant part.   # ||
+|| # ----------------- VBULLETIN IS NOT FREE SOFTWARE ----------------- # ||
+|| # http://www.vbulletin.com | http://www.vbulletin.com/license.html   # ||
+|| ###################################################################### ||
+\*========================================================================*/
+window.vBulletin=window.vBulletin||{};window.vBulletin.phrase=window.vBulletin.phrase||{};window.vBulletin.phrase.precache=window.vBulletin.phrase.precache||[];window.vBulletin.phrase.precache=$.merge(window.vBulletin.phrase.precache,[]);window.vBulletin.options=window.vBulletin.options||{};window.vBulletin.options.precache=window.vBulletin.options.precache||[];window.vBulletin.options.precache=$.merge(window.vBulletin.options.precache,[]);(function(A){A(function(){if(A(".announcement-tabs").length>0){A(".announcement-tabs").tabs({fx:{opacity:"toggle"},show:function(D,E){var B=A(E.panel).attr("data-id"),C=vBulletin.cookie.fetchBbarrayCookie("announcements_displayed",B);if(!C){vBulletin.cookie.setBbarrayCookie("announcements_displayed",B,1,true)}}}).each(function(){var B=A(this),C=A("> .tab",B).length;A(".tab",B).each(function(){var F=parseInt(A(this).attr("data-index")),E=A(this);A("span.prev",E)[F==0?"hide":"show"]();A("span.next",E)[F==C-1?"hide":"show"]();A("span.prev",E).on("click",function(G){B.tabs("option","active",F-1)});A("span.next",E).on("click",function(G){B.tabs("option","active",F+1)});var D={condensedLength:250,minTrail:20,delim:" ",moreText:A(".condense-text .see-more",B).html(),lessText:A(".condense-text .see-less",B).html(),ellipsis:"...",moreSpeed:"fast",lessSpeed:"fast",easing:"linear"};A(".announcementtext",E).removeClass("h-hide").condense(D)})})}})})(jQuery);

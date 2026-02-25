@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<product productid="nativo" active="0">
+	<title>Nativo</title>
+	<description>Enable Nativo native advertising. See https://www.vbulletin.com/go/nativo for details. Please contact Nativo at http://www.nativo.net/#contact-us or by email at vbulletin@nativo.net to set up an account.</description>
+	<version>5.6.0</version>
+	<url>https://www.vbulletin.com/go/nativo</url>
+	<versioncheckurl />
+	<dependencies>
+		<dependency dependencytype="vbulletin" minversion="5.6.0" maxversion="" />
+	</dependencies>
+	<codes>
+	</codes>
+	<templates>
+		<template name="nativo_fullpost" templatetype="template" date="1461857789" username="kevin" version="1.0"><![CDATA[{vb:set content.nodeid, ''}
+{vb:set content.title, "<!-- @Title -->"}
+{vb:set content.parsedText, "<!-- @Content -->"}
+{vb:set content.approved, 1}
+{vb:set content.nodeid, ''}
+{vb:set content.created, {vb:raw timenow}}
+{vb:set content.authorname, "<!-- @Author -->"}
+
+<style>
+.nativo-content .b-avatar--thread {border: none !important}
+</style>
+	<div class="b-module{vb:var widgetConfig.show_at_breakpoints_css_classes} canvas-widget default-widget conversation-content-widget
+		forum-conversation-content-widget widget-tabs widget-no-border widget-no-header-buttons" id="widget_{vb:raw widgetinstanceid}" data-widget-id="{vb:raw widgetid}" data-widget-instance-id="{vb:raw widgetinstanceid}">
+			<div class="widget-header h-clearfix">
+				<div class="module-title h-left main-header-title">
+					<vb:if condition="empty($widgetConfig['hide_title'])">
+						<h1 class="main-title js-main-title hide-on-editmode">{vb:raw content.title}</h1>
+					</vb:if>
+				</div>
+				<div class="module-buttons">
+					<span class="toggle-button module-button-item collapse" title="{vb:phrase collapse}" data-toggle-title="{vb:phrase expand}"><span class="b-icon b-icon__toggle-collapse">{vb:phrase collapse}</span></span>
+				</div>
+
+					<div class="widget-tabs-nav h-clear">
+						<a id="topic-module-top" class="anchor js-module-top-anchor"></a>
+						<ul class="ui-tabs-nav hide-on-editmode h-left">
+							<li><a href="#thread-view-tab" data-href="">{vb:phrase posts}</a></li>
+						</ul>
+					</div>
+
+			</div>
+			<div class="widget-content tab widget-tabs-panel">
+				<div id="thread-view-tab" class="conversation-view conversation-thread-view">
+					{vb:set showReplyBtn, 0}
+					{vb:template conversation_toolbar, 
+						conversation={vb:raw currentConversation}, 
+						nodeid="", 
+						hasJoined=0, 
+						sgOwner=0, 
+						channelid=0, 
+						widgetConfig={vb:raw widgetConfig}, 
+						view="", 
+						page=1, 
+						position=top, 
+						showReplyBtn=0, 
+						showJoinForReplyBtn=0, 
+						showSearch=0, 
+						showPageNav=1, 
+						showFilter=0, 
+						showTimeFilter=1, 
+						showShowFilter=1, 
+						floating=1, 
+						showInlineMod=0, 
+						modPerms=0, 
+						noLimit=0, 
+						allowHistory=0
+					}
+					<div class="nativo-content conversation-content">
+						<ul class="conversation-list list-container h-clearfix thread-view">
+<!-- start nativo fullpost -->
+{vb:template 
+	display_contenttype_conversationstarter_threadview_Text, 
+	conversation={vb:raw content}, 
+	postIndex=1, 
+	showInlineMod=0, 
+	view="", 
+	currentNodeIsBlog=0, 
+	userCanCommentOnThisBlog=0,
+	currentNodeIsArticle=0,
+	userCanCommentOnThisArticle=0, 
+	hidePostIndex=1, 
+	adlocation="", 
+}
+<!-- end nativo fullpost -->
+						</ul>
+					</div>
+			</div>
+	</div>
+{vb:js js/conversation-rollup.js}]]></template>
+		<template name="nativo_javascript" templatetype="template" date="1462382432" username="kevin" version="1.0"><![CDATA[<vb:if condition="$page['guid'] != 'nativo-page-sponsoredpost-5697fafcd94565.156173ee'">
+<script type="text/javascript">
+
+var _prx = [];
+if(pageData.userid)
+{
+_prx.push(["cfg.SetUserPremium"]); // just in case the user is logged in
+}
+_prx.push(["cfg.RequestUrl", "{vb:var baseurl}{vb:var pageurl}"]);
+</script>
+</vb:if>
+<script type="text/javascript" src=" http://s.ntv.io/serve/load.js "></script>
+
+<style> 
+	.nativo-topic .avatar img{ 
+		width: auto; 
+		height: auto;
+		position: absolute;    
+		top: 0;
+		bottom: 0;
+		left: 0;    
+		right: 0;  
+		margin: auto;
+	} 
+	.nativo-topic .avatar{border: none; position: relative;}
+	.nativo-topic .go-to-last-post{display:none !important;}
+</style>]]></template>
+		<template name="nativo_topic" templatetype="template" date="1462385058" username="kevin" version="1.0"><![CDATA[{vb:set topic.parent, 0}
+{vb:set topic.parentreadtime, 0}
+{vb:set topic.parentreadtime, 0}
+
+{vb:set topic.content.sticky, 0}
+{vb:set topic.content.approved, 1}
+{vb:set topic.content.showpublished, 1}
+{vb:set topic.content.showopen, 1}
+{vb:set topic.content.title, "@Title"}
+{vb:set topic.content.authorname, "@Author"}
+{vb:set topic.content.lastcontentid, 9999999}
+{vb:set topic.content.lastcontentauthor, "@Author (sponsored post)"}
+{vb:set topic.content.topicurl, @Url}
+{vb:set topic.content.lastcontenturl, @Url}
+{vb:set topic.content.avatar.avatarpath, @AuthorLogo}
+{vb:set topic.content.avatar.isfullurl, 1}
+{vb:set topic.content.avatar_last_poster.avatarpath, @AuthorLogo}
+{vb:set topic.content.avatar_last_poster.isfullurl, 1}
+
+
+{vb:template display_Topics_item,
+	topic={vb:raw topic},
+	canmoderate=0,
+	extraClasses="nativo-topic @CustomCssClass"
+}]]></template>
+	</templates>
+	<stylevardfns>
+	</stylevardfns>
+	<stylevars>
+	</stylevars>
+	<hooks>
+		<hook>
+			<hookname>header_head</hookname>
+			<title>Nativo Javascript</title>
+			<active>1</active>
+			<hookorder>10</hookorder>
+			<template>nativo_javascript</template>
+			<arguments><![CDATA[a:1:{s:7:"pageurl";a:1:{s:4:"page";a:1:{s:3:"url";i:1;}}}]]></arguments>
+		</hook>
+	</hooks>
+	<phrases>
+		<phrasetype name="GLOBAL" fieldname="global">
+			<phrase name="nativo_fullpost_widgettitle" date="1524696851" username="jinsoojo" version="5.4.2 Alpha 4"><![CDATA[Nativo Sponsored Post]]></phrase>
+		</phrasetype>
+		<phrasetype name="Style Tools" fieldname="style">
+			<phrase name="group_nativo" date="1514596700" username="kevin" version="5.4.2 Alpha 4"><![CDATA[Nativo]]></phrase>
+		</phrasetype>
+	</phrases>
+	<options>
+	</options>
+	<helptopics>
+	</helptopics>
+	<cronentries>
+	</cronentries>
+	<faqentries>
+	</faqentries>
+	<widgets>
+		<widget guid="nativo-fullpost-4eb423cfd69bf4.53155655">
+			<template>nativo_fullpost</template>
+			<admintemplate>widget_admin_default_hide_remove</admintemplate>
+			<icon>module-icon-channel.png</icon>
+			<isthirdparty>1</isthirdparty>
+			<category>System</category>
+			<cloneable>0</cloneable>
+			<canbemultiple>0</canbemultiple>
+			<product>nativo</product>
+			<definitions>
+				<definition>
+					<name>title</name>
+					<field>Text</field>
+					<labelphrase>title</labelphrase>
+					<defaultvalue>phrase:conversation_detail</defaultvalue>
+					<isusereditable>1</isusereditable>
+					<isrequired>0</isrequired>
+					<displayorder>3</displayorder>
+					<validationtype>force_datatype</validationtype>
+					<product>nativo</product>
+				</definition>
+				<definition>
+					<name>hide_title</name>
+					<field>YesNo</field>
+					<labelphrase>hide_title</labelphrase>
+					<defaultvalue>1</defaultvalue>
+					<isusereditable>1</isusereditable>
+					<isrequired>0</isrequired>
+					<displayorder>5</displayorder>
+					<validationtype>force_datatype</validationtype>
+					<product>nativo</product>
+				</definition>
+			</definitions>
+		</widget>
+	</widgets>
+	<pagetemplates>
+		<pagetemplate guid="nativo-4ec44ac93716c4.69967191">
+			<title>Sponsored Post Page Template</title>
+			<screenlayoutguid>vbulletin-screenlayout-full-ef8c99cab374d2.91030970</screenlayoutguid>
+			<product>nativo</product>
+			<widgets>
+				<widgetinstance>
+					<containerinstanceid>0</containerinstanceid>
+					<displaysection>2</displaysection>
+					<displayorder>0</displayorder>
+					<adminconfig><![CDATA[a:1:{s:19:"show_at_breakpoints";s:57:"a:3:{s:7:"desktop";i:1;s:5:"small";i:1;s:6:"xsmall";i:1;}";}]]></adminconfig>
+					<widgetguid>vbulletin-widget_announcement-4eb423cfd6dea7.34930845</widgetguid>
+				</widgetinstance>
+				<widgetinstance>
+					<containerinstanceid>0</containerinstanceid>
+					<displaysection>0</displaysection>
+					<displayorder>0</displayorder>
+					<adminconfig><![CDATA[a:2:{s:10:"hide_title";s:1:"1";s:5:"title";s:19:"Conversation Detail";}]]></adminconfig>
+					<widgetguid>nativo-fullpost-4eb423cfd69bf4.53155655</widgetguid>
+				</widgetinstance>
+			</widgets>
+		</pagetemplate>
+	</pagetemplates>
+	<pages>
+		<page guid="nativo-page-sponsoredpost-5697fafcd94565.156173ee">
+			<title>Sponsored Post</title>
+			<metadescription>Sponsored Post</metadescription>
+			<moderatorid>0</moderatorid>
+			<displayorder>0</displayorder>
+			<pagetype>default</pagetype>
+			<product>nativo</product>
+			<parentGuid></parentGuid>
+			<pageTemplateGuid>nativo-4ec44ac93716c4.69967191</pageTemplateGuid>
+			<routeGuid>nativo-4ec44ac93716c4.69967191</routeGuid>
+		</page>
+	</pages>
+	<channels>
+	</channels>
+	<routes>
+		<route guid="nativo-4ec44ac93716c4.69967191">
+			<name>nativesponsoredpost</name>
+			<prefix>nativo/sponsoredpost</prefix>
+			<regex>nativo/sponsoredpost</regex>
+			<class>vB5_Route_Page</class>
+			<controller>nativo:page</controller>
+			<action>actionDetail</action>
+			<arguments><![CDATA[a:1:{s:8:"pageGuid";s:49:"nativo-page-sponsoredpost-5697fafcd94565.156173ee";}]]></arguments>
+			<product>nativo</product>
+		</route>
+	</routes>
+</product>

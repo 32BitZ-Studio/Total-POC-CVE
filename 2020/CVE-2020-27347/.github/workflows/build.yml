@@ -1,0 +1,78 @@
+name: Package for CS-412 Fuzzing Lab Submission
+
+on:
+  push:
+    tags:
+      - '*'
+      
+permissions:
+  contents: read
+
+jobs:
+  zip-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Copy Report file
+        run: |
+          mkdir -p submission/part4
+          cp report/report.pdf submission/part4/report.pdf
+
+      - name: List contents of submission directory
+        run: tree submission/
+
+      - name: Remove README file
+        run: |
+          if [ -f submission/README.md ]; then
+            rm submission/README.md
+          fi
+
+      - name: Create ZIP
+        run: |
+          cd submission
+          zip -r ../submission.zip ./*
+          cd ..
+
+      - name: Validate ZIP content
+        run: |
+          REQUIRED=(
+            "part1/report/"
+            "part1/w_corpus/"
+            "part1/w_o_corpus/"
+            "part1/oss-fuzz.diff"
+            "part1/project.diff"
+            "part1/run.w_corpus.sh"
+            "part1/run.w_o_corpus.sh"
+            "part3/coverage_noimprove/"
+            "part3/improve1/"
+            "part3/improve1/coverage_improve1/"
+            "part3/improve1/run.improve1.sh"
+            "part3/improve1/oss-fuzz.diff"
+            "part3/improve1/project.diff"
+            "part3/improve2/"
+            "part3/improve2/coverage_improve2/"
+            "part3/improve2/run.improve2.sh"
+            "part3/improve2/oss-fuzz.diff"
+            "part3/improve2/project.diff"
+            "part4/"
+            "part4/run.poc.sh"
+            "part4/report.pdf"
+          )
+
+          unzip -l submission.zip > zip_contents.txt
+
+          for path in "${REQUIRED[@]}"; do
+            if ! grep -q "$path" zip_contents.txt; then
+              echo "Missing required file or folder: $path"
+              exit 1
+            fi
+          done
+
+      - name: Upload ZIP as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: submission-zip
+          path: submission.zip
+

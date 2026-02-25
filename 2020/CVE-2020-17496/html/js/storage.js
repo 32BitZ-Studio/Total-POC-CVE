@@ -1,0 +1,11 @@
+/*=======================================================================*\
+|| ###################################################################### ||
+|| # vBulletin 5.6.0
+|| # ------------------------------------------------------------------ # ||
+|| # Copyright 2000-2020 MH Sub I, LLC dba vBulletin. All Rights Reserved.  # ||
+|| # This file may not be redistributed in whole or significant part.   # ||
+|| # ----------------- VBULLETIN IS NOT FREE SOFTWARE ----------------- # ||
+|| # http://www.vbulletin.com | http://www.vbulletin.com/license.html   # ||
+|| ###################################################################### ||
+\*========================================================================*/
+vBulletin=vBulletin||{};vBulletin.createStorageTools=function(E){try{localStorage.removeItem("vbcache-")}catch(F){}function D(H){if(!H.loaded){H.loaded=true;try{var G=localStorage.getItem(E+H.name);if(G){G=JSON.parse(G);if(H.istimed){H.cache.values=G.values||H.cache.values;H.cache.times=G.times||H.cache.times;C(H)}else{H.cache.values=G}}}catch(I){}}}function A(I){try{var H=E+I.name,G=I.cache;if(!I.istimed){G=G.values}localStorage.removeItem(H);localStorage.setItem(H,JSON.stringify(G))}catch(J){}}function C(J){var G=false,H=J.cache.values,K=J.cache.times;for(var I in H){if(K[I]<J.latest){delete H[I];delete K[I];G=true}}if(G){A(J)}}function B(H,J,G,I){this.loaded=false;this.name=H;this.cache={values:{},times:{},};this.istimed=!!J;if(this.istimed){this.latest=G;this.current=I}}B.prototype={get:function(H){D(this);var G=this.cache.values;return(G.hasOwnProperty(H)?G[H]:null)},getAll:function(){D(this);return this.cache.values},isSet:function(G){D(this);return this.cache.values.hasOwnProperty(G)},set:function(H,I){D(this);var G=H;if(!$.isPlainObject(H)){G={};G[H]=I}for(_key in G){this.cache.values[_key]=G[_key];if(this.istimed){this.cache.times[_key]=this.current}}A(this)},unset:function(G){D(this);delete this.cache.values[G];delete this.cache.times[G];A(this)},};return{create:function(G){return new B(G)},createTimed:function(H,G,I){return new B(H,true,G,I)}}};

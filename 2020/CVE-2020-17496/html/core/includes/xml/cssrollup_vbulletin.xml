@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<css product="vbulletin">
+	<rollup name="main-cssnormalization.css">
+		<template>css_reset.css</template>
+		<template>css_unreset.css</template>
+		<template>css_utilities.css</template>
+	</rollup>
+	<rollup name="main.css">
+		<template>css_imgareaselect-animated.css</template>
+		<template>css_jquery-ui-1_11_4_custom.css</template>
+		<template>css_jquery_qtip_min.css</template>
+		<template>css_jquery_selectBox.css</template>
+		<template>css_global.css</template>
+		<template>css_fonts.css</template>
+		<template>css_b_link.css</template>
+		<template>css_b_layout.css</template>
+		<template>css_b_button.css</template>
+		<template>css_b_button_group.css</template>
+		<template>css_b_icon.css</template>
+		<template>css_b_tabbed_pane.css</template>
+		<template>css_b_form_control.css</template>
+		<template>css_b_form_input.css</template>
+		<template>css_b_form_select.css</template>
+		<template>css_b_form_textarea.css</template>
+		<template>css_b_media.css</template>
+		<template>css_b_divider.css</template>
+		<template>css_b_avatar.css</template>
+		<template>css_b_ajax_loading_indicator.css</template>
+		<template>css_b_topicpreview.css</template>
+		<template>css_responsive.css</template>
+		<template>css_b_vbscroller.css</template>
+		<template>css_b_theme_selector.css</template>
+		<template>css_b_top_background.css</template>
+		<template>css_b_module.css</template>
+		<template>css_b_comp_menu_horizontal.css</template>
+		<template>css_b_comp_menu_dropdown.css</template>
+		<template>css_b_comp_menu_vert.css</template>
+		<template>css_b_top_menu.css</template>
+	</rollup>
+	<rollup name="sitebuilder-before.css">
+		<template>css_jquery_thumbnail-radio-checkbox.css</template>
+		<template>css_jquery_datatables.css</template>
+	</rollup>
+	<rollup name="sitebuilder-after.css">
+		<template>css_sitebuilder.css</template>
+		<template>css_b_config_site.css</template>
+		<template>color_style.css</template>
+	</rollup>
+	<rollup name="content-entry.css">
+		<template>css_b_content_entry.css</template>
+		<template>css_b_toolbar.css</template>
+		<template>css_b_content_entry_panel.css</template>
+		<template>css_b_editor.css</template>
+		<template>css_b_smilie.css</template>
+		<template>css_b_file_chooser.css</template>
+		<template>css_b_attach_item.css</template>
+		<template>css_b_link_input.css</template>
+		<template>css_b_link_content.css</template>
+		<template>css_b_table.css</template>
+		<template>css_b_poll_fieldset.css</template>
+		<template>css_b_datepicker.css</template>
+		<template>css_flatpickr_min.css</template>
+		<template>css_flatpickr_theme_airbnb.css</template>
+		<template>css_flatpickr_extra.css</template>
+		<template>css_b_bbcode_user.css</template>
+		<template>css_b_toggle_slider.css</template>
+	</rollup>
+	<rollup name="postbit.css">
+		<template>css_b_post.css</template>
+		<template>css_b_post_control.css</template>
+		<template>css_b_post_attachments.css</template>
+		<template>css_b_post_notice.css</template>
+		<template>css_b_post_sm.css</template>
+		<template>css_b_comments.css</template>
+		<template>css_b_comment.css</template>
+		<template>css_b_comment_entry.css</template>
+		<template>css_b_userinfo.css</template>
+		<template>css_b_meter.css</template>
+		<template>css_b_inlinemod.css</template>
+		<template>css_b_bbcode_user.css</template>
+		<template>css_b_event.css</template>
+		<template>css_b_link_thumbnail_list.css</template>
+		<template>css_b_thumbnail_nav.css</template>
+	</rollup>
+	<rollup name="gallery.css">
+		<template>css_b_gallery_thumbnail_list.css</template>
+		<template>css_b_photo_count.css</template>
+	</rollup>
+	<rollup name="help.css">
+		<template>css_help.css</template>
+		<template>css_b_help_table.css</template>
+	</rollup>
+	<rollup name="memberlist.css">
+		<template>css_memberlist.css</template>
+		<template>css_b_memberlist.css</template>
+	</rollup>
+	<rollup name="articles.css">
+		<template>css_b_post_column.css</template>
+		<template>css_b_channel_nav.css</template>
+		<template>css_b_article_content_pagenav.css</template>
+	</rollup>
+	<rollup name="blogs-groups.css">
+		<template>css_blogs_groups.css</template>
+		<template>css_b_sidebar_field.css</template>
+		<template>css_b_flexgrid.css</template>
+		<template>css_b_groupgrid.css</template>
+	</rollup>
+	<rollup name="editor.css">
+		<template>css_fonts.css</template>
+	</rollup>
+</css>

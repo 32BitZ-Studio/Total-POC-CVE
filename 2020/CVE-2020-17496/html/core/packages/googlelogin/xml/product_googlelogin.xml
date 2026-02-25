@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<product productid="googlelogin" active="1">
+	<title>Third Party Login - Google</title>
+	<description>Allows forum users to link a Google account with their vB account and login to the forum via Google Sign-in.</description>
+	<version>5.6.0</version>
+	<url />
+	<versioncheckurl />
+	<dependencies>
+		<dependency dependencytype="vbulletin" minversion="5.6.0" maxversion="" />
+	</dependencies>
+	<codes>
+		<code version="*">
+			<installcode><![CDATA[
+				/*
+					//This doesn't work as part of the install code, because we cannot
+					//instantiate the library class before the product is enabled.
+
+				$library = vB_Library::instance('GoogleLogin:ExternalLogin');
+				$libid = $library->installLibrary();
+				 */
+				$library = vB_Library::instance('ExternalLogin');
+				$library->createLoginLibraryId('googlelogin', 'GoogleLogin:ExternalLogin');
+				]]></installcode>
+			<uninstallcode><![CDATA[
+				/*
+					Remove product-specific additions. Specifically, records from the following table:
+						`userauth`
+						`sessionauth`
+						`loginlibrary`
+					Note that loginlibrary record will come back (with a different autoincremented loginlibraryid)
+					while the product.php specifies $AutoInstall = true due to the product code immediately
+					reinstalling autoinstall products.
+				*/
+				$productid = "googlelogin";
+				$assertor = vB::getDBAssertor();
+				// get libraryid if it exists. Avoid using the library because product status is
+				// uncertain at this point (might be disabled, meaning it can't be instanced normally)
+				$record = $assertor->getRow('vBForum:loginlibrary', array('productid' => $productid));
+				if (!empty($record['loginlibraryid']))
+				{
+					$libid = $record['loginlibraryid'];
+
+					// Remove userauth & sessionauth records.
+					$conditions = array('loginlibraryid' => $libid);
+					$check1 = $assertor->delete('vBForum:userauth', $conditions);
+					$check2 = $assertor->delete('vBForum:sessionauth', $conditions);
+					// Remove libraryid
+					$assertor->delete('vBForum:loginlibrary', $conditions);
+
+					// Options ETC should be removed by the regular product uninstall process.
+				}
+				]]></uninstallcode>
+		</code>
+	</codes>
+	<templates>
+		<template name="googlelogin_javascript" templatetype="template" date="1465340830" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[<vb:comment>
+				We can't really help revealing the client ID in source, and it's required for using their JS API.
+				Needless to say, keep the client Secret secret, however.
+			</vb:comment>
+			{vb:data clientid, GoogleLogin:ExternalLogin, getClientId}
+			<vb:if condition="!empty($clientid['client_id'])">
+				{vb:set clientid, {vb:raw clientid.client_id}}
+				<script type="text/javascript">
+					// normal namespacing (e.g. googlelogin={}; googlelogin.initClient = func...) doesn't work for
+					// the onload= param of the platform.js load tag, for some reason.
+					var googlelogin = {};
+					//googlelogin.initClient = function() {
+					googlelogin_initClient = function() {
+						// https://developers.google.com/identity/sign-in/web/reference#gapiauth2clientconfig
+
+						// fetch extra user profile details
+						var initParams = {
+							'client_id': "{vb:var clientid}",
+						};
+
+						/*
+						// fetch ID only
+						var initParams = {
+							'client_id': "{vb:var clientid}",
+							'fetch_basic_profile': false,
+							'scope': 'profile',
+						};
+						 */
+						console.log({
+							func: "googlelogin_initClient()",
+							initParams: initParams,
+						});
+						gapi.load('auth2', function() {
+							googlelogin.auth2 = gapi.auth2.init(initParams);
+						});
+					};
+				</script>
+				<vb:comment>Google Platform Library:</vb:comment>
+				<script src="https://apis.google.com/js/platform.js?onload=googlelogin_initClient" async defer></script>
+
+
+
+				<script type="text/javascript">
+				// package scope
+				(function() {
+					var auth2;
+
+					var onJQueryAndGoogle = function($)
+					{
+						console.log({
+							msg: "jQuery & Google API ready. Initializing googlelogin templates and js...",
+							//gapi: gapi,
+							//'googlelogin.auth2': googlelogin.auth2
+							//auth2: auth2,
+						});
+
+						if ($(document.body).data('googlelogin-initialized'))
+						{
+							console.log("Googlelogin already initialized.");
+						}
+						$(document.body).data('googlelogin-initialized', true);
+
+						// init vars
+						auth2 = googlelogin.auth2;
+						var $showOnGoogleReady = $(".js-googlelogin-onready-show"),
+							$showOnUnlink = $(".js-googlelogin-show-on-unlink"),
+							$hideOnUnlink = $(".js-googlelogin-hide-on-unlink"),
+							handleAuthSuccess = {},
+							handleAuthFail = {},
+							handleAjaxSuccess = {};
+
+
+						// Handle google authentication success
+						handleAuthSuccess.link = function(action, googleUser) {
+							// getAuthResponse(true) to not delete access_token from result.
+							// The ID token you need to pass to your backend:
+							var authResponse = googleUser.getAuthResponse(true),
+								id_token = authResponse.id_token,
+								access_token = authResponse.access_token;
+
+							// ajax post
+							postToController(action, {id_token:id_token, access_token: access_token});
+							return;
+						};
+						handleAuthSuccess.unlink = function(action, googleUser) {
+							auth2.disconnect();
+
+							// ajax post
+							postToController(action, {});
+							return;
+						};
+						handleAuthSuccess.login = handleAuthSuccess.link;
+						handleAuthSuccess.register = function(action, googleUser) {
+							// getAuthResponse(true) to not delete access_token from result.
+							// The ID token you need to pass to your backend:
+							var authResponse = googleUser.getAuthResponse(true),
+								id_token = authResponse.id_token,
+								access_token = authResponse.access_token;
+
+							// ajax post
+							postToController(action, {id_token:id_token, access_token: access_token});
+							return;
+						};
+
+						// Handle google authentication failure
+						handleAuthFail.link = function(action, error) {
+							if (error && error.hasOwnProperty("error"))
+							{
+								if (error["error"] == "popup_closed_by_user")
+								{
+									console.log("googlelogin auth closed by user.");
+									return;
+								}
+							}
+							// e.g. sign in failed, user closed the popup or popup didn't render...
+							openAlertDialog({
+								'title':vBulletin.phrase.get('googlelogin_connect_to_google'),
+								'message': vBulletin.phrase.get('googlelogin_error_check_auth_popup'),
+								'iconType':'error',
+							});
+							return;
+						};
+						handleAuthFail.unlink = function(action, error) {
+							if (error && error.hasOwnProperty("error"))
+							{
+								if (error["error"] == "popup_closed_by_user")
+								{
+									console.log("googlelogin auth closed by user.");
+									return;
+								}
+							}
+							// Failed to sign google user in, so we can't automatically revoke access.
+							// Unlink from our end and tell user to revoke app access from their account.
+							window.vBulletin.loadingIndicator.show();
+							vBulletin.AJAX(
+							{
+								call: '/googlelogin/json/unlink',
+								data: {
+									url: window.location.href,
+									respond_in_json_please: true,
+								},
+								success: function(result)
+								{
+									console.log({
+										msg: "googlelogin.externallogin/json/unlink result:",
+										result: result,
+									});
+									handleAjaxSuccess.unlink(result);
+									// Let user know to manually revoke access
+									openAlertDialog({
+										'title':vBulletin.phrase.get('googlelogin_disconnect_from_google'),
+										'message': vBulletin.phrase.get('googlelogin_disconnect_complete_revoke_access'),
+										'iconType':'none',
+									});
+								},
+								complete: function(jqXHR, textStatus)
+								{
+									window.vBulletin.loadingIndicator.hide();
+								},
+							}); // end vBulletin.AJAX()
+						};
+						handleAuthFail.login = handleAuthFail.link;
+						handleAuthFail.register = handleAuthFail.link;
+
+						// Handle post-google-sign-in ajax to vbulletin response
+						handleAjaxSuccess.link	= function(result) {
+							// If not successful, we expect the controller/api to return an error that the
+							// default vBulletin ajax handler displays in the error popup.
+							if (result.success)
+							{
+								$showOnUnlink.addClass("h-hide");
+								$hideOnUnlink.removeClass("h-hide");
+							}
+						};
+						handleAjaxSuccess.unlink = function(result) {
+							if (result.success)
+							{
+								$showOnUnlink.removeClass("h-hide");
+								$hideOnUnlink.addClass("h-hide");
+							}
+						};
+						handleAjaxSuccess.login = function(result) {
+							if (result.success)
+							{
+								// redirect / reload
+								location.reload();
+							}
+						};
+						handleAjaxSuccess.register = function(result) {
+							if (result.success)
+							{
+								if (result.url)
+								{
+									window.location = result.url;
+								}
+								else
+								{
+									// redirect / reload
+									location.reload();
+								}
+							}
+						};
+
+
+						function postToController(action, data)
+						{
+							if (!data)
+							{
+								data = {};
+							}
+							data.url = window.location.href;
+							data.respond_in_json_please = true;
+
+							window.vBulletin.loadingIndicator.show();
+							vBulletin.AJAX(
+							{
+								// for packages in controller names, : in templates, . in JS.
+								// e.g. for package_api_class_suffix , package:class_suffix ,  package.class_suffix respectively
+								call: '/googlelogin/json/' + action,
+								data: data,
+								success: function(result)
+								{
+									console.log({
+										msg: "googlelogin.externallogin/json/" + action + " result:",
+										result: result,
+									});
+									if (handleAjaxSuccess.hasOwnProperty(action) &&
+										typeof handleAjaxSuccess[action] === "function"
+									)
+									{
+										handleAjaxSuccess[action](result);
+									}
+								},
+								complete: function(jqXHR, textStatus)
+								{
+									window.vBulletin.loadingIndicator.hide();
+								},
+							}); // end vBulletin.AJAX()
+						}
+
+
+						// https://developers.google.com/identity/sign-in/web/build-button
+						// Attach google's signing handling to login button(s)
+						$(".js-googlelogin-signinbutton").click(function(evt) {
+							// remove anchor actions.
+							evt.preventDefault();
+						});
+						$(".js-googlelogin-signinbutton").each(function(index, element) {
+							var action = $(element).data('action');
+							auth2.attachClickHandler(
+								element,
+								{},
+								function(googleUser) {
+									console.log({
+										msg: "on google signin success",
+										googleUser: googleUser,
+									});
+
+									if (handleAuthSuccess.hasOwnProperty(action) &&
+										typeof handleAuthSuccess[action] === "function"
+									)
+									{
+										handleAuthSuccess[action](action, googleUser);
+									}
+
+								},
+								function(error) {
+									if (handleAuthFail.hasOwnProperty(action) &&
+										typeof handleAuthFail[action] === "function"
+									)
+									{
+										handleAuthFail[action](action, error);
+									}
+									else
+									{
+										console.log({
+											msg: "Google Authentication failed.",
+											error: error,
+										});
+									}
+								}
+							);
+						});
+
+
+						// Clear preloaded google account data from registration form.
+						$(".js-googlelogin-register-remove").off('click').on('click', function(evt) {
+							evt.preventDefault();
+
+							// remove sessionauth & reload the page
+							window.vBulletin.loadingIndicator.show();
+							vBulletin.AJAX(
+							{
+								call: '/ajax/api/GoogleLogin.ExternalLogin/forgetRegistrationData',
+								data: {
+									url: window.location.href,
+								},
+								success: function(result)
+								{
+									if (result.url)
+									{
+										window.location.href = result.url;
+									}
+									else
+									{
+										location.reload();
+									}
+								},
+								complete: function(jqXHR, textStatus)
+								{
+									window.vBulletin.loadingIndicator.hide();
+								},
+							}); // end vBulletin.AJAX()
+						});
+
+						// Registration autofill
+						// Wait a few milliseconds to avoid the weird input-wiping initialization that we saw
+						// with twitterlogin
+						setTimeout(function(){
+							var $registerAutoFillData = $(".js-googlelogin-register-data");
+							if ($registerAutoFillData.length > 0 && !$registerAutoFillData.data('register-init'))
+							{
+								var username = $registerAutoFillData.data('username'),
+									email = $registerAutoFillData.data('email'),
+									$username = $("#regDataUsername"),
+									$email = $("#regDataEmail"),
+									$confEmail = $("#regDataEmailConfirm");
+								if (username && $username.length && $username.val() == '')
+								{
+									$username.val(username);
+								}
+
+								if (email)
+								{
+									if ($email.length && $confEmail.length && $email.val() == '' && $confEmail.val() == '')
+									{
+										$email.val(email);
+										$confEmail.val(email);
+									}
+								}
+
+								$registerAutoFillData.data('register-init', true);
+							}
+						}, 412);
+
+
+						// Ready.
+						$showOnGoogleReady.removeClass("h-hide");
+
+					};
+
+
+
+					/*
+						---- WAIT FOR DEPENDENCIES ----
+						JQuery, vBulletin, GAPI
+					 */
+					function validateRetryConditions(retryConditions)
+					{
+						// We may not have jquery available yet, so we can't just use $.extends(defaults, retryConditions)
+						if (!retryConditions.hasOwnProperty('tries') || retryConditions.tries < 0)
+						{
+							retryConditions.tries = 0;
+						}
+						if (!retryConditions.hasOwnProperty('max_tries') || retryConditions.max_tries < 1)
+						{
+							retryConditions.max_tries = 20;
+						}
+						if (!retryConditions.hasOwnProperty('waittime') || retryConditions.waittime < 1)
+						{
+							// ms
+							retryConditions.waittime = 100;
+						}
+
+						return retryConditions;
+					}
+
+
+					var getWaitFunc = function (readyFunc, conditionFunc, retryConditions, tag)
+					{
+						// default retry values
+						retryConditions = validateRetryConditions(retryConditions);
+						tag = tag || "undefined";
+
+						function callMeAgain()
+						{
+							if (conditionFunc())
+							{
+								/*
+								console.log({
+									msg: "Condition " + tag + " is ready. Executing function",
+								});
+								*/
+								readyFunc();
+							}
+							else if (retryConditions.tries < retryConditions.max_tries)
+							{
+								console.log({
+									msg: "Condition " + tag + " is not ready. Waiting... (" +
+										retryConditions.tries + " of " + retryConditions.max_tries + " tries)",
+								});
+
+								retryConditions.tries++;
+								setTimeout(function(){
+									callMeAgain(readyFunc, conditionFunc, retryConditions, tag);
+								}, retryConditions.waittime * retryConditions.tries);
+							}
+							else
+							{
+								// tries timed out...
+								console.log({
+									msg: "Condition " + tag + " is not ready. Timed out after " + retryConditions.tries + " tries.",
+								});
+							}
+						};
+
+						return callMeAgain;
+					};
+
+					var waitForGoogle = getWaitFunc(
+							function() {
+								onJQueryAndGoogle(window.jQuery);
+							},
+							function() {
+								if (window.gapi && window.googlelogin && googlelogin.hasOwnProperty('auth2')) {
+									return true;
+								}
+								return false
+							},
+							{max_tries: 20, tries: 0, waittime: 200},
+							'GAPI And GAPI.Auth2 init'
+						),
+
+						waitForJquery = getWaitFunc(
+							waitForGoogle,
+							function() {
+								if (window.jQuery) {
+									return true;
+								}
+								return false
+							},
+							{max_tries: 20, tries: 0, waittime: 200},
+							'JQuery'
+						),
+						waitForVBulletin = getWaitFunc(
+							waitForJquery,
+							function() {
+								if (window.vBulletin) {
+									return true;
+								}
+								return false
+							},
+							{max_tries: 10, tries: 0, waittime: 300},
+							'vBulletin'
+						);
+					waitForVBulletin();
+
+
+
+				})();
+				</script>
+			<vb:else />
+				<!-- googlelogin client ID not set. Skipping googlelogin JS -->
+			</vb:if>]]></template>
+		<template name="googlelogin_linkaccount" templatetype="template" date="1465340830" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[{vb:data state, GoogleLogin:ExternalLogin, getState}
+			<vb:if condition="!empty($state['enabled'])">
+				{vb:template googlelogin_javascript}
+				{vb:cssExtra googlelogin_style.css}
+				<div id="googlelogin_linkaccount" class="h-inline-block h-align-top h-hide js-googlelogin-onready-show">
+					<div class="js-googlelogin-hide-on-unlink {vb:if "empty($state['external_userid'])", "h-hide"}">
+						<a href="#"
+							class="googlelogin-linkbutton js-googlelogin-signinbutton"
+							data-action="unlink"
+						>
+							<span class="b-icon googlelogin-icon"></span>
+							<span>{vb:phrase googlelogin_disconnect_from_google}</span>
+						</a>
+					</div>
+					<div class="js-googlelogin-show-on-unlink {vb:if "!empty($state['external_userid'])", "h-hide"}">
+						<a href="#"
+							class="googlelogin-linkbutton js-googlelogin-signinbutton"
+							data-action="link"
+						>
+							<span class="b-icon googlelogin-icon"></span>
+							<span>{vb:phrase googlelogin_connect_to_google}</span>
+						</a>
+					</div>
+				</div>
+			</vb:if>]]></template>
+		<template name="googlelogin_loginbutton" templatetype="template" date="1465340830" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[{vb:data state, GoogleLogin:ExternalLogin, getState}
+			<vb:if condition="!empty($state['enabled'])">
+				{vb:template googlelogin_javascript}
+				{vb:cssExtra googlelogin_style.css}
+				<span class="h-left h-margin-left-m js-external-login-provider h-hide js-googlelogin-onready-show">
+					<a href="#"
+						class="js-googlelogin-signinbutton"
+						data-action="login"
+					>
+						<span class="googlelogin-loginbutton h-block">{vb:phrase googlelogin_signin_with_google}</span>
+					</a>
+				</span>
+			</vb:if>]]></template>
+		<template name="googlelogin_registeruserbutton" templatetype="template" date="1465340830" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[{vb:data state, GoogleLogin:ExternalLogin, getState}
+			<vb:if condition="!empty($state['enabled']) AND !empty($state['register_enabled']) AND empty($state['external_userid'])">
+				{vb:template googlelogin_javascript}
+				{vb:cssExtra googlelogin_style.css}
+				<vb:if condition="!empty($_GET['googlelogin_saved'])">
+					{vb:data registerData, GoogleLogin:ExternalLogin, getRegistrationData, {vb:raw _GET.googlelogin_saved}}
+				</vb:if>
+				<div class="googlelogin-register{vb:if "empty($registerData['found'])", " h-inline-block"} h-align-top h-hide js-googlelogin-onready-show">
+					<vb:if condition="!empty($registerData) AND !empty($registerData['found'])">
+						<div class="h-hide js-googlelogin-register-data"
+							data-username="{vb:if "!empty($registerData['username'])", {vb:var registerData.username}}"
+							data-email="{vb:if "!empty($registerData['email'])", {vb:var registerData.email}}"
+						>
+							<input type="hidden" name="googlelogin[external_userid]" value="{vb:var registerData.external_userid}"/>
+							<input type="hidden" name="googlelogin[googlelogin_saved]" value="{vb:var _GET.googlelogin_saved}"/>
+						</div>
+						<div class="googlelogin-register-welcome">
+							<img src="{vb:var registerData.picture}" title="{vb:var registerData.username}">
+							<vb:if condition="!empty($registerData['url'])">
+								{vb:rawphrase welcome_x_link_y, {vb:var registerData.username}, {vb:raw registerData.url}}
+							<vb:else />
+								{vb:rawphrase welcome_x, {vb:var registerData.username}}
+							</vb:if>
+							<a
+								href="#"
+								class="googlelogin-linkbutton js-googlelogin-register-remove"
+								>
+								<span class="b-icon googlelogin-icon"></span>
+								<span>{vb:phrase googlelogin_disconnect_from_google}</span>
+							</a>
+						</div>
+					<vb:else />
+						<div class="h-inline-block">
+							<a
+								href="#"
+								class="googlelogin-linkbutton js-googlelogin-signinbutton"
+								data-action="register"
+								>
+								<span class="b-icon googlelogin-icon"></span>
+								<span>{vb:phrase googlelogin_connect_to_google}</span>
+							</a>
+						</div>
+					</vb:if>
+				</div>
+			</vb:if>]]></template>
+		<template name="googlelogin_style.css" templatetype="template" date="1551284111" username="David Grove" version="5.5.2 Alpha 1"><![CDATA[<vb:comment>/*
+				https://developers.google.com/identity/branding-guidelines#matching
+				"
+				The color for an unpressed light button is #FFFFFF (white).
+				The color for an unpressed dark (blue) button is #4285F4.
+				You can change the color of the button if you need to match
+				a specific style of your app, but the button must always
+				include the standard color Google "G" on a white tile
+				"
+			*/</vb:comment>
+			<vb:if condition="!empty($vboptions['googlelogin_images_directory'])">
+				{vb:set imagepath, {vb:raw vboptions.googlelogin_images_directory}}
+			<vb:else />
+				{vb:set imagepath, 'core/packages/googlelogin/images'}
+			</vb:if>
+			.googlelogin-linkbutton,
+			.googlelogin-linkbutton:hover,
+			.googlelogin-linkbutton:focus,
+			.googlelogin-linkbutton:link,
+			.googlelogin-linkbutton:visited {
+				/* from b-button */
+				vertical-align: middle;
+
+				border-radius: 4px;
+				border: {vb:stylevar button_secondary_border};
+
+				text-align: center;
+				font: {vb:stylevar button_font};
+				<vb:comment>/*
+					The height of the button is dictated by the logo's height + margins,
+					and we're currently targetting 2rem.
+				 */</vb:comment>
+				line-height: 3.2rem;
+				/*padding: 0.25rem 0.75rem;*/
+
+				<vb:comment> /* ignored:
+					background: {vb:stylevar button_secondary_background};
+					color: {vb:stylevar button_secondary_text_color};
+				*/</vb:comment>
+
+				/* end b-button */
+
+				display: inline-block;
+
+				background-color: #4285F4;
+				color: #FFFFFF;
+
+				cursor: pointer;
+			}
+			.googlelogin-linkbutton .googlelogin-icon {
+				<vb:comment>/*
+					White logo + text on blue background. This was the asset included for web, not iOS, not sure
+					why those SVGs were suffixed with ios however.
+				*/</vb:comment>
+				background-image: url("{vb:concat {vb:raw imagepath}, '/btn_google_dark_normal_ios.svg'}");
+				<vb:comment>/*
+					"Connect with Facebook" button is 1.2rem (height) + 0.4rem (top margin) + 0.4rem (bot margin)
+					= 2.0rem
+					Since the "padding" explicit in the *images* are different, the logo size has to be different
+					to make them similar in size.
+					To make the button heights the same, whatever we end up with in terms of height + margin etc
+					should be 2rem
+				*/</vb:comment>
+				width: 2.6rem;
+				height: 2.6rem;
+				margin: 0.3rem;
+				background-size: contain;
+				vertical-align: middle;
+			}
+			.googlelogin-linkbutton span:not(.googlelogin-icon) {
+				<vb:comment>
+					/*
+					Match updated "Connect with Facebook" button styling.
+					Keep in sync with .b-link__facebook-connect span in css_b_link
+					*/
+				</vb:comment>
+				vertical-align: middle;
+				font-weight:normal;
+				font-size:1.4rem;
+				margin-{vb:stylevar right}:10px;
+			}
+			.googlelogin-loginbutton {
+				display: inline-block;
+
+				border-radius: 2px;
+				border: 0px solid #4285F4;
+
+				<vb:comment>/*
+					the dark version with the blue background doesn't look great at this size after I removed some
+					margins from the SVGs (the blue background border is too thin for this size).
+				*/</vb:comment>
+				background: #FFFFFF url("{vb:concat {vb:raw imagepath}, '/btn_google_light_normal_ios.svg'}") no-repeat scroll 0 0;
+				background-size: cover;
+
+				<vb:comment>from b-icon & b-icon__twitter-24 rules</vb:comment>
+				overflow: hidden;
+				text-indent: -99999px;
+				width: 24px;
+				height: 24px;
+			}
+			.googlelogin-register {
+				margin: 20px 0;
+			}
+			.googlelogin-register-welcome img {
+				vertical-align: middle;
+			}]]></template>
+	</templates>
+	<stylevardfns>
+	</stylevardfns>
+	<stylevars>
+	</stylevars>
+	<hooks>
+		<hook>
+			<hookname>header_topusermenu_external_login</hookname>
+			<title>Login Button</title>
+			<active>1</active>
+			<hookorder>20</hookorder>
+			<template>googlelogin_loginbutton</template>
+			<arguments />
+		</hook>
+		<hook>
+			<hookname>register_with_thirdparty</hookname>
+			<title>Registration Button</title>
+			<active>1</active>
+			<hookorder>20</hookorder>
+			<template>googlelogin_registeruserbutton</template>
+			<arguments />
+		</hook>
+		<hook>
+			<hookname>settings_account_externallogin_link</hookname>
+			<title>User Panel</title>
+			<active>1</active>
+			<hookorder>20</hookorder>
+			<template>googlelogin_linkaccount</template>
+			<arguments><![CDATA[a:1:{s:8:"userInfo";a:1:{s:8:"userInfo";i:1;}}]]></arguments>
+		</hook>
+	</hooks>
+	<phrases>
+		<phrasetype name="Control Panel Help Text" fieldname="cphelptext">
+			<phrase name="options_options_googlelogin_client_id_text" date="1524176154" username="jinsoojo" version="5.4.3 Alpha 3"><![CDATA[OAuth Client ID & Secret are required to access the user's google account information and verify that the user owns the google account they claim.<br />
+You can generate or view your Google Project's OAuth Client ID & Secret in the API Credentials page at https://console.cloud.google.com/apis/credentials?project={projectid} where {projectid} is the unique ID (not the name) automatically assigned to your project.
+If you do not have a Google API Console Project, see the readme.txt in the core/package/googlelogin directory for instructions on how to create one.]]></phrase>
+			<phrase name="options_options_googlelogin_client_id_title" date="1524176154" username="jinsoojo" version="5.4.2 Alpha 4"><![CDATA[Google OAuth Client ID]]></phrase>
+			<phrase name="options_options_googlelogin_client_secret_text" date="1524176154" username="jinsoojo" version="5.4.3 Alpha 3"><![CDATA[OAuth Client ID & Secret are required to access the user's google account information and verify that the user owns the google account they claim.<br />
+You can generate or view your Google Project's OAuth Client ID & Secret in the API Credentials page at https://console.cloud.google.com/apis/credentials?project={projectid} where {projectid} is the unique ID (not the name) automatically assigned to your project.
+If you do not have a Google API Console Project, see the readme.txt in the core/package/googlelogin directory for instructions on how to create one.]]></phrase>
+			<phrase name="options_options_googlelogin_client_secret_title" date="1524176154" username="jinsoojo" version="5.4.2 Alpha 4"><![CDATA[Google OAuth Client Secret]]></phrase>
+			<phrase name="options_options_googlelogin_enabled_text" date="1524176154" username="jinsoojo" version="5.4.2 Alpha 4"><![CDATA[Enabling this option and adding your Google Project's OAuth Client ID & Secret will allow users to link their forum account with their google account. <br />
+Once enabled and associated with a valid ID & secret, a "Connect to Google" button and a Google sign-in icon will appear in the user's account settings page and the login form, respectively. <br />
+When a user clicks on the "Connect to Google" button, it will trigger an authentication popup where they can log into their Google account and authorize your forum's Google project to access their information which will be stored in the forum's database. <br />
+When a guest clicks on the sign-in icon on the login form, it will trigger an authentication popup where they can log into their Google account. If they previously linked their Google account with their vBulletin account, they will be automatically logged into the forum.]]></phrase>
+			<phrase name="options_options_googlelogin_enabled_title" date="1524176154" username="jinsoojo" version="5.4.2 Alpha 4"><![CDATA[Enable Sign-in with Google]]></phrase>
+			<phrase name="options_options_googlelogin_images_directory_text" date="1524176154" username="jinsoojo" version="5.4.2 Alpha 4"><![CDATA[Only change this option if you had to move the images directory out of the googlelogin packages directory for any reason. The value will be appended to the forum's base URL or the CDN URL (if enabled) to fetch the images.]]></phrase>
+			<phrase name="options_options_googlelogin_images_directory_title" date="1524176154" username="jinsoojo" version="5.4.2 Alpha 4"><![CDATA[GoogleLogin Package Images Path]]></phrase>
+			<phrase name="options_options_googlelogin_register_enabled_text" date="1524176154" username="jinsoojo" version="5.4.2 Alpha 4"><![CDATA[Enabling this option will add a "Connect to Google" button on the registration form. <br />
+When a guest clicks on this button, it will trigger an authentication popup where they can log into their Google account and authorize your forums's Google project to access their information which will be stored in the forum's database. <br />
+The registration form will then be pre-filled with their name & email address (optional), and when they complete registration, the newly created vBulletin account will be automatically linked to the Google account. <br />
+The new user can immediately begin using their Google account for signing into the forums.<br />
+Note that this option requires the "Enable Sign-in with Google" option to be enabled, and valid OAuth ID & Secret to be stored.]]></phrase>
+			<phrase name="options_options_googlelogin_register_enabled_title" date="1524176154" username="jinsoojo" version="5.4.2 Alpha 4"><![CDATA[Enable Registration with Google]]></phrase>
+		</phrasetype>
+		<phrasetype name="GLOBAL" fieldname="global">
+			<phrase name="googlelogin_connect_to_google" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Connect to Google]]></phrase>
+			<phrase name="googlelogin_disconnect_complete_revoke_access" date="1521592816" username="jinsoojo" version="5.4.2 Alpha 2"><![CDATA[Your Google account information has been removed from the forum, but we were unable to revoke app access from your google account. <br />
+Please go to your <a href="https://myaccount.google.com/permissions">Google account settings</a>, click on the forum app and click "Remove Access". <br />
+Once removed, the app will require you to allow permissions again the next time you try to link your account.]]></phrase>
+			<phrase name="googlelogin_disconnect_from_google" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Disconnect from Google]]></phrase>
+			<phrase name="googlelogin_error_check_auth_popup" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Authorization failed. Please double check your Google account credentials. If you did not see a Google log-in popup, please check your browser's blocked popups.]]></phrase>
+			<phrase name="googlelogin_error_not_loggedin" date="1524162299" username="jinsoojo" version="5.4.2 Alpha 4"><![CDATA[You must be logged into your vBulletin account to perform that action.]]></phrase>
+			<phrase name="googlelogin_external_userid" date="1529454370" username="jinsoojo" version="5.4.3 Alpha 4"><![CDATA[Google ID]]></phrase>
+			<phrase name="googlelogin_google" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Google]]></phrase>
+			<phrase name="googlelogin_no_oauth_user_found" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 4"><![CDATA[Failed to find account. Please verify your credentials and ensure that you already have linked the Google account with your vBulletin user.]]></phrase>
+			<phrase name="googlelogin_no_oauth_user_found_register_x" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Failed to find account. Please verify your credentials and ensure that you already have linked the Google account with your vBulletin user. <br /><a href="{1}">Click here</a> to register a new account with your Google account.]]></phrase>
+			<phrase name="googlelogin_signin_with_google" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Sign-in with Google]]></phrase>
+		</phrasetype>
+		<phrasetype name="Style Tools" fieldname="style">
+			<phrase name="group_googlelogin" date="1521237521" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Google Login]]></phrase>
+		</phrasetype>
+		<phrasetype name="vBulletin Settings" fieldname="vbsettings">
+			<phrase name="setting_googlelogin_client_id_desc" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Enter your Google API Console Project's OAuth Client ID here. <br />
+You can generate or view your Google Project's OAuth Client ID & Secret in the API Credentials page at https://console.cloud.google.com/apis/credentials?project={projectid} where {projectid} is the unique ID (not the name) automatically assigned to your project.]]></phrase>
+			<phrase name="setting_googlelogin_client_id_title" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Google OAuth Client ID]]></phrase>
+			<phrase name="setting_googlelogin_client_secret_desc" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Enter your Google API Console Project's OAuth Client Secret here. <br />
+See the note above for "Google OAuth Client ID" on how to generate or view the ID & Secret.]]></phrase>
+			<phrase name="setting_googlelogin_client_secret_title" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Google OAuth Client Secret]]></phrase>
+			<phrase name="setting_googlelogin_enabled_desc" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Enabling this option will allow users to connect their vBulletin account with their Google account, and use their Google credentials to log-in to the forum.]]></phrase>
+			<phrase name="setting_googlelogin_enabled_title" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Enable Sign-in with Google]]></phrase>
+			<phrase name="setting_googlelogin_images_directory_desc" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[This must be relative to the forum's base (or CDN) URL. Only change this value if the images directory inside the package has been moved from the default location.]]></phrase>
+			<phrase name="setting_googlelogin_images_directory_title" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[GoogleLogin Package Images Path]]></phrase>
+			<phrase name="setting_googlelogin_register_enabled_desc" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Enabling this option will allow users to connect their Google account while creating their vB user account. It will also automatically fill the username & email fields with those fetched from their Google account, if available.]]></phrase>
+			<phrase name="setting_googlelogin_register_enabled_title" date="1465340711" username="jinsoojo" version="5.4.2 Alpha 3"><![CDATA[Enable Registration with Google]]></phrase>
+		</phrasetype>
+	</phrases>
+	<options>
+		<settinggroup name="externallogin" displayorder="35">
+			<setting varname="googlelogin_enabled" displayorder="300">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="googlelogin_register_enabled" displayorder="310">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="googlelogin_client_id" displayorder="320">
+				<datatype>free</datatype>
+				<optioncode>input:60</optioncode>
+			</setting>
+			<setting varname="googlelogin_client_secret" displayorder="330">
+				<datatype>free</datatype>
+				<optioncode>input:60</optioncode>
+			</setting>
+			<setting varname="googlelogin_images_directory" displayorder="340">
+				<datatype>free</datatype>
+				<optioncode>input:60</optioncode>
+				<defaultvalue>core/packages/googlelogin/images</defaultvalue>
+			</setting>
+		</settinggroup>
+	</options>
+	<helptopics>
+		<helpscript name="options">
+			<helptopic disp="1" act="options" opt="googlelogin_client_id" />
+			<helptopic disp="1" act="options" opt="googlelogin_client_secret" />
+			<helptopic disp="1" act="options" opt="googlelogin_enabled" />
+			<helptopic disp="1" act="options" opt="googlelogin_images_directory" />
+			<helptopic disp="1" act="options" opt="googlelogin_register_enabled" />
+		</helpscript>
+	</helptopics>
+	<cronentries>
+	</cronentries>
+	<faqentries>
+	</faqentries>
+	<widgets>
+	</widgets>
+	<pagetemplates>
+	</pagetemplates>
+	<pages>
+	</pages>
+	<channels>
+	</channels>
+	<routes>
+		<route guid="googlelogin-route-5acbe09fd24963.15764996">
+			<name>googlelogin</name>
+			<prefix>googlelogin/json</prefix>
+			<regex><![CDATA[googlelogin/json(/(?P<subaction>.*))?]]></regex>
+			<controller>googlelogin:page</controller>
+			<action>json</action>
+			<arguments><![CDATA[a:1:{s:9:"subaction";s:10:"$subaction";}]]></arguments>
+			<product>googlelogin</product>
+		</route>
+	</routes>
+</product>

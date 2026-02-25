@@ -1,0 +1,30 @@
+// import express.js
+const express = require('express')
+// import file-upload middleware
+const fileUpload = require('express-fileupload')
+
+// create express app
+const app = express()
+// set render engine
+// here use ejs
+app.set('views', __dirname)
+
+// use third-party middleware
+// app.use matches all kind of request
+// GET, POST, ...
+
+// parseNested is required to reproduce the bug
+app.use(fileUpload({ parseNested: true }))
+
+// create user-defined middleware
+app.use('/', (req, res) => {
+  const message = 'CVE-2020-7699'
+  res.render('./index.ejs', { message })
+})
+
+// listen on port 8080
+const PORT = 8080
+app.listen(PORT, () => {
+  // launched
+  console.log(`App is listening on port ${PORT}, open via http://localhost:${PORT}`)
+})

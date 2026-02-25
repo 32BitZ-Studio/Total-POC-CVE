@@ -1,0 +1,23 @@
+web:
+   build: .
+   environment:
+     - ALLOW_OVERRIDE=true
+     - PUID=1000
+     - PGID=1000
+   ports:
+     - "80:80"
+   links:
+     - db
+   volumes:
+     - ./app:/var/www/html/
+
+db:
+  image: mariadb
+  restart: always
+  volumes:
+    - ./mysql:/var/lib/mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: admin
+    MYSQL_PASSWORD: test
+    MYSQL_DATABASE: database
