@@ -1,0 +1,14 @@
+{
+  "name": "next-16.2.4-image-redirect-allowlist-bypass-poc",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0 -p 3000",
+    "build": "next build",
+    "start": "node support/server.js"
+  },
+  "dependencies": {
+    "next": "^16.2.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

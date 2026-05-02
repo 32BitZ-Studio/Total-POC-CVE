@@ -1,0 +1,9 @@
+node_modules/
+.next/
+server.log
+*.log
+npm-debug.log*
+.DS_Store
+dist/
+coverage/
+.tmp-upstream-next/

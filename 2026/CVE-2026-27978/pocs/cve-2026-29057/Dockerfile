@@ -1,0 +1,18 @@
+FROM node:22-bookworm-slim
+
+WORKDIR /app
+
+ARG NEXT_VERSION
+ARG REACT_VERSION=19.0.0
+
+COPY package.json ./
+RUN npm install next@${NEXT_VERSION} react@${REACT_VERSION} react-dom@${REACT_VERSION}
+
+COPY app ./app
+COPY support ./support
+COPY next.config.js ./next.config.js
+
+RUN npm run build
+
+EXPOSE 3000
+CMD ["npm", "run", "start"]
