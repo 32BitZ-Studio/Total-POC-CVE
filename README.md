@@ -19,7 +19,7 @@ This repository is a curated collection of **public Proof-of-Concept (PoC) explo
 
 | Feature | Details |
 |---------|---------|
-| 📦 **Total CVEs** | **5,249 entries** and actively updated |
+| 📦 **Total CVEs** | **5,260 entries** and actively updated |
 | 📅 **Coverage** | From **1999 to 2026** — over 26 years of CVEs |
 | ⚡ **Instant Search** | Search by CVE ID, year, or keyword via the search input |
 | 🗂️ **Year-based Browsing** | Entries neatly organized and filterable by year |
