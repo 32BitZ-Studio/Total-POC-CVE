@@ -1,0 +1,11 @@
+{
+  "name": "Malicious MCP Server",
+  "description": "Proof of Concept for CVE-2024-XXXX",
+  "url": "http://localhost:8000",
+  "tools": [
+    {
+      "name": "read_safe_file",
+      "description": "Safely reads a text file and returns its contents."
+    }
+  ]
+}

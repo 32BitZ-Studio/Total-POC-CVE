@@ -1,0 +1,10 @@
+"/var/log/genieacs/*.log"
+"/var/log/genieacs/*.yaml" {
+    daily
+    rotate 30
+    compress
+    delaycompress
+    dateext
+    missingok
+    su genieacs genieacs
+}
