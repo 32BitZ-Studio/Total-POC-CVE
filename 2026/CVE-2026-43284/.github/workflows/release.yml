@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g. v0.1.0)"
+        required: true
+      release_notes:
+        description: "Release summary (shown at the top of the release page)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate tag format
+        run: |
+          if [[ ! "${{ inputs.tag }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+.*$ ]]; then
+            echo "::error::Tag must match vX.Y.Z format"
+            exit 1
+          fi
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create and push tag
+        run: |
+          git tag "${{ inputs.tag }}"
+          git push origin "${{ inputs.tag }}"
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            gcc-x86-64-linux-gnu \
+            vim-common
+
+      - name: Build EKS binary
+        run: |
+          make build-eks CC=x86_64-linux-gnu-gcc
+          mv build/dirtyfrag build/dirtyfrag-eks-linux-amd64
+
+      - name: Compose release notes
+        env:
+          SUMMARY: ${{ inputs.release_notes }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PREV_TAG=$(git tag --sort=-v:refname | sed -n '2p')
+
+          echo "$SUMMARY" > notes.md
+          echo "" >> notes.md
+          echo "---" >> notes.md
+          echo "" >> notes.md
+
+          if [ -n "$PREV_TAG" ]; then
+            gh api repos/${{ github.repository }}/releases/generate-notes \
+              -f tag_name="${{ inputs.tag }}" \
+              -f previous_tag_name="$PREV_TAG" \
+              --jq '.body' >> notes.md
+          else
+            gh api repos/${{ github.repository }}/releases/generate-notes \
+              -f tag_name="${{ inputs.tag }}" \
+              --jq '.body' >> notes.md
+          fi
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ inputs.tag }}" \
+            --title "${{ inputs.tag }}" \
+            --notes-file notes.md \
+            build/dirtyfrag-eks-linux-amd64

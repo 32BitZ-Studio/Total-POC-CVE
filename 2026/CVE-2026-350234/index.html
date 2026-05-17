@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>临时获取B站大会员</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:linear-gradient(135deg,#00a1d6 0%,#fb7299 100%);padding:20px;}
+.container{background-color:rgba(255,255,255,0.95);border-radius:20px;padding:40px;box-shadow:0 10px 30px rgba(0,0,0,0.2);text-align:center;max-width:500px;width:100%;opacity:1;transform:translateY(0);}
+.logo{width:80px;height:80px;margin:0 auto 20px;background:linear-gradient(45deg,#fb7299,#00a1d6);border-radius:20px;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;font-weight:bold;}
+h1{color:#333;margin-bottom:10px;font-size:24px;}
+.description{color:#666;margin-bottom:30px;line-height:1.6;}
+.btn{background:linear-gradient(135deg,#fb7299 0%,#00a1d6 100%);color:white;border:none;padding:16px 40px;font-size:18px;border-radius:50px;cursor:pointer;transition:all 0.3s ease;font-weight:bold;width:100%;margin-bottom:20px;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(251,114,153,0.3);}
+.btn:active{transform:translateY(0);}
+.status{padding:15px;border-radius:10px;margin-top:20px;display:none;}
+.status.success{background-color:#e8f5e9;color:#2e7d32;border:1px solid #c8e6c9;display:block;}
+.status.error{background-color:#ffebee;color:#c62828;border:1px solid #ffcdd2;display:block;}
+.info{background-color:#f5f5f5;padding:15px;border-radius:10px;margin-top:20px;font-size:14px;color:#666;text-align:left;}
+.info h3{color:#333;margin-bottom:8px;}
+.info ul{padding-left:20px;}
+.info li{margin-bottom:5px;}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="logo">BV</div>
+    <h1>临时获取B站大会员</h1>
+    <p class="description">点击下方按钮，将自动获取临时B站大会员<br>并跳转到B站应用</p>
+    <button id="actionBtn" class="btn">立即获取并跳转</button>
+    <div id="statusMsg" class="status"></div>
+    <div class="info">
+        <h3>功能说明：</h3>
+        <ul>
+            <li>点击按钮后复制 BV 信息到剪贴板</li>
+            <li>尝试打开 B站 App (tv.danmaku.bili)</li>
+            <li>若未自动跳转，将跳转到网页或应用商店</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const actionBtn = document.getElementById('actionBtn');
+    const statusMsg = document.getElementById('statusMsg');
+
+    async function copyToClipboard(text){
+        try {await navigator.clipboard.writeText(text); return true;}
+        catch(e){
+            try{
+                const ta=document.createElement('textarea');
+                ta.value=text; ta.style.position='fixed'; ta.style.left='-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                const result=document.execCommand('copy');
+                document.body.removeChild(ta);
+                return result;
+            }catch(e2){return false;}
+        }
+    }
+
+    function jumpToBilibiliApp(){
+        const schemeUrl = 'bilibili://';
+        const fallbackWeb = 'https://app.bilibili.com/';
+        const androidIntent = 'intent://#Intent;package=tv.danmaku.bili;scheme=bilibili;end';
+        const iosAppStore = 'https://apps.apple.com/cn/app/bilibili/id598160960';
+
+        const ua = navigator.userAgent || '';
+        const now = Date.now();
+        let clicked = false;
+
+        // 尝试 scheme
+        const iframe = document.createElement('iframe');
+        iframe.style.display='none';
+        iframe.src = schemeUrl;
+        document.body.appendChild(iframe);
+
+        setTimeout(()=>{
+            const elapsed = Date.now() - now;
+            if(elapsed < 1500){
+                // 超时未跳转
+                if(/iPhone|iPad|iPod/i.test(ua)){
+                    window.location.href = iosAppStore;
+                } else if(/Android/i.test(ua)){
+                    window.location.href = androidIntent;
+                    // 如果 intent 失败，跳 Google Play 或网页
+                    setTimeout(()=>{ window.location.href=fallbackWeb; }, 1500);
+                } else {
+                    // 桌面浏览器
+                    window.location.href = fallbackWeb;
+                }
+            }
+        }, 1200);
+    }
+
+    actionBtn.addEventListener('click', async function(){
+        actionBtn.disabled=true;
+        actionBtn.textContent='处理中...';
+        statusMsg.className='status';
+
+        const copySuccess = await copyToClipboard('BV1taCbBKE9X');
+        if(copySuccess){
+            statusMsg.textContent='✓ 已成功复制信息到剪贴板';
+            statusMsg.className='status success';
+        }else{
+            statusMsg.textContent='⚠ 剪贴板访问失败，但将继续跳转';
+            statusMsg.className='status error';
+        }
+
+        setTimeout(()=>{ jumpToBilibiliApp(); }, 500);
+        setTimeout(()=>{
+            actionBtn.disabled=false;
+            actionBtn.textContent='立即获取并跳转';
+        }, 4000);
+    });
+});
+</script>
+</body>
+</html>
