@@ -1,0 +1,23 @@
+# Nginx ve Laboratuvar Logları
+target_logs/
+*.log
+asan.*
+*.crash
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# IDE ve OS Dosyaları
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Nginx Kaynak Kodları (Eğer lokale inerse)
+*.tar.gz
+nginx-*/
