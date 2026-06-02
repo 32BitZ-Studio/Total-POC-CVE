@@ -1,0 +1,30 @@
+# Environment / Ortam
+.env
+*.env.local
+
+# Dependencies / Bağımlılıklar
+node_modules/
+__pycache__/
+*.pyc
+target/
+venv/
+.venv/
+
+# Build outputs / Derleme çıktıları
+dist/
+build/
+*.exe
+*.out
+*.o
+
+# Reports (large) / Raporlar (büyük)
+reports/*.pcap
+reports/*.cap
+
+# IDE / Editör
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
