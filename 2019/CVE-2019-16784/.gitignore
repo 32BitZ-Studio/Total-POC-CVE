@@ -1,0 +1,5 @@
+pyinstaller_env/
+DLLProxyProject/
+exploit/dlls/*
+exploit/poc.exe
+__pycache__

