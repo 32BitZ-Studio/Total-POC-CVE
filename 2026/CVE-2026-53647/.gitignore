@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+MANIFEST
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# Testing & coverage
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache/
+.pytest_cache/
+htmlcov/
+*.cover
+coverage.xml
+nosetests.xml
+test-results/
+
+# Type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Tool output — never commit real results
+*.json
+!requirements*.txt
+results/
+output/
+loot/
+
+# Secrets — belt-and-suspenders safety
+.env
+.env.*
+secrets.txt
+credentials.txt
+*.key
+*.pem
+*.p12
+*.pfx
+config.local.*

